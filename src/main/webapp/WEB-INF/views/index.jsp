@@ -49,7 +49,7 @@
                     <span class="one">러너<br /> Launer</span>
                 </h1>
                 <h2 id="sub-title">
-                    비대면 세탁서비스
+                    비대면 세탁서비스 테스트테스트
                 </h2>
                 <div class="img-box one">
                     <img src="${pageContext.request.contextPath}/images/washer.jpg" alt="basin" />
