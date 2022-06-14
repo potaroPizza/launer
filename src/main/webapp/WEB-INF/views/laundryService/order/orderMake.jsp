@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<<<<<<< HEAD
 <%@ include file="../../inc/top.jsp" %>
+=======
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+>>>>>>> branch 'main' of https://github.com/potaroPizza/launer.git
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
@@ -12,10 +16,15 @@
 
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/laundryService/order/orderMake.css" type="text/css" />
-  
+
+<div id="margin-top-fixed"></div>
 	<div id="orderWrapper">
+<<<<<<< HEAD
     
         <p><span>한서현 님</span> 수거요청</p>
+=======
+        <p><span>한서현 님</span> 수거 수정 요청</p>
+>>>>>>> branch 'main' of https://github.com/potaroPizza/launer.git
         <div class="orderInfo">
     
             <div class="orderInfo-address">

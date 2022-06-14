@@ -121,84 +121,84 @@ function scrollList() {
         var fourList = $("#main-list-bar .part-four");
         if(!fourList.hasClass("on")) {
             $("#main-list-bar .part").removeClass("on");
-            $("#main-list-bar .part .sub").hide(500);
+            $("#main-list-bar .part .sub").stop().hide(500);
 
             fourList.addClass("on");
-            $("#main-list-bar .part").animate({
+            $("#main-list-bar .part").stop().animate({
                 color: "#000"
             }, 500);
-            $("#main-list-bar .part .main-list-bar-on").animate({
+            $("#main-list-bar .part .main-list-bar-on").stop().animate({
                 top: "-100%"
             }, 500);
-            fourList.animate({
+            fourList.stop().animate({
                 color: "#fff"
             }, 500);
-            fourList.find(".main-list-bar-on").animate({
+            fourList.find(".main-list-bar-on").stop().animate({
                 top: 0
             }, 500);
-            fourList.find(".sub").show(500);
+            fourList.find(".sub").stop().show(500);
         }
     }else if(windowScrollTop >= sectionPartThree) {
         var threeList = $("#main-list-bar .part-three");
         if(!threeList.hasClass("on")) {
             $("#main-list-bar .part").removeClass("on");
-            $("#main-list-bar .part .sub").hide(500);
+            $("#main-list-bar .part .sub").stop().hide(500);
 
             threeList.addClass("on");
-            $("#main-list-bar .part").animate({
+            $("#main-list-bar .part").stop().animate({
                 color: "#000"
             }, 500);
-            $("#main-list-bar .part .main-list-bar-on").animate({
+            $("#main-list-bar .part .main-list-bar-on").stop().animate({
                 top: "-100%"
             }, 500);
-            threeList.animate({
+            threeList.stop().animate({
                 color: "#fff"
             }, 500);
-            threeList.find(".main-list-bar-on").animate({
+            threeList.find(".main-list-bar-on").stop().animate({
                 top: 0
             }, 500);
-            threeList.find(".sub").show(500);
+            threeList.find(".sub").stop().show(500);
         }
     }else if(windowScrollTop >= sectionPartTwo) {
         var twoList = $("#main-list-bar .part-two");
         if(!twoList.hasClass("on")) {
             $("#main-list-bar .part").removeClass("on");
-            $("#main-list-bar .part .sub").hide(500);
+            $("#main-list-bar .part .sub").stop().hide(500);
 
             twoList.addClass("on");
-            $("#main-list-bar .part").animate({
+            $("#main-list-bar .part").stop().animate({
                 color: "#000"
             }, 500);
-            $("#main-list-bar .part .main-list-bar-on").animate({
+            $("#main-list-bar .part .main-list-bar-on").stop().animate({
                 top: "-100%"
             }, 500);
-            twoList.animate({
+            twoList.stop().animate({
                 color: "#fff"
             }, 500);
-            twoList.find(".main-list-bar-on").animate({
+            twoList.find(".main-list-bar-on").stop().animate({
                 top: 0
             }, 500);
-            twoList.find(".sub").show(500);
+            twoList.find(".sub").stop().show(500);
         }
     }else if(windowScrollTop == 0) {
         var oneList = $("#main-list-bar .part-one");
         if(!oneList.hasClass("on")) {
             $("#main-list-bar .part").removeClass("on");
-            $("#main-list-bar .part .sub").hide(500);
-            $("#main-list-bar .part").animate({
+            $("#main-list-bar .part .sub").stop().hide(500);
+            $("#main-list-bar .part").stop().animate({
                 color: "#000"
             }, 500);
-            $("#main-list-bar .part .main-list-bar-on").animate({
+            $("#main-list-bar .part .main-list-bar-on").stop().animate({
                 top: "-100%"
             }, 500);
             oneList.addClass("on");
-            oneList.animate({
+            oneList.stop().animate({
                 color: "#fff"
             }, 500);
-            oneList.find(".main-list-bar-on").animate({
+            oneList.find(".main-list-bar-on").stop().animate({
                 top: 0
             }, 500);
-            oneList.find(".sub").show(500);
+            oneList.find(".sub").stop().show(500);
         }
     }
 }
@@ -209,26 +209,26 @@ function listClick() {
     $("#main-list-bar .part-one").click(function(){
         if(!$(this).hasClass("on")) {
             $("#main-list-bar .part").removeClass("on");
-            $("#main-list-bar .part .sub").hide(500);
-            $("#main-list-bar .part").animate({
+            $("#main-list-bar .part .sub").stop().hide(500);
+            $("#main-list-bar .part").stop().animate({
                 color: "#000"
             }, 500);
-            $("#main-list-bar .part .main-list-bar-on").animate({
+            $("#main-list-bar .part .main-list-bar-on").stop().animate({
                 top: "-100%"
             }, 500);
             $(this).addClass("on");
-            $(this).animate({
+            $(this).stop().animate({
                 color: "#fff"
             }, 500);
-            $(this).find(".main-list-bar-on").animate({
+            $(this).find(".main-list-bar-on").stop().animate({
                 top: 0
             }, 500);
-            $(this).find(".sub").show(500);
+            $(this).find(".sub").stop().show(500);
         }
 
         
 
-        $('html, body').animate({
+        $('html, body').stop().animate({
             scrollTop : 0
         }, 500);
     });
@@ -237,22 +237,22 @@ function listClick() {
     $("#main-list-bar .part-two").click(function(){
         if(!$(this).hasClass("on")) {
             $("#main-list-bar .part").removeClass("on");
-            $("#main-list-bar .part .sub").hide(500);
+            $("#main-list-bar .part .sub").stop().hide(500);
 
             $(this).addClass("on");
-            $("#main-list-bar .part").animate({
+            $("#main-list-bar .part").stop().animate({
                 color: "#000"
             }, 500);
-            $("#main-list-bar .part .main-list-bar-on").animate({
+            $("#main-list-bar .part .main-list-bar-on").stop().animate({
                 top: "-100%"
             }, 500);
-            $(this).animate({
+            $(this).stop().animate({
                 color: "#fff"
             }, 500);
-            $(this).find(".main-list-bar-on").animate({
+            $(this).find(".main-list-bar-on").stop().animate({
                 top: 0
             }, 500);
-            $(this).find(".sub").show(500);
+            $(this).find(".sub").stop().show(500);
         }
 
         var windowHeight = $(window).height() / 4;
@@ -265,26 +265,26 @@ function listClick() {
     $("#main-list-bar .part-three").click(function(){
         if(!$(this).hasClass("on")) {
             $("#main-list-bar .part").removeClass("on");
-            $("#main-list-bar .part .sub").hide(500);
+            $("#main-list-bar .part .sub").stop().hide(500);
 
             $(this).addClass("on");
-            $("#main-list-bar .part").animate({
+            $("#main-list-bar .part").stop().animate({
                 color: "#000"
             }, 500);
-            $("#main-list-bar .part .main-list-bar-on").animate({
+            $("#main-list-bar .part .main-list-bar-on").stop().animate({
                 top: "-100%"
             }, 500);
-            $(this).animate({
+            $(this).stop().animate({
                 color: "#fff"
             }, 500);
-            $(this).find(".main-list-bar-on").animate({
+            $(this).find(".main-list-bar-on").stop().animate({
                 top: 0
             }, 500);
-            $(this).find(".sub").show(500);
+            $(this).find(".sub").stop().show(500);
         }
 
         var headerHeight = $("#header-wrap").height();
-        $('html, body').animate({
+        $('html, body').stop().animate({
             scrollTop : $("section.part-three").offset().top - headerHeight
         }, 500);
     });
@@ -293,26 +293,26 @@ function listClick() {
     $("#main-list-bar .part-four").click(function(){
         if(!$(this).hasClass("on")) {
             $("#main-list-bar .part").removeClass("on");
-            $("#main-list-bar .part .sub").hide(500);
+            $("#main-list-bar .part .sub").stop().hide(500);
 
             $(this).addClass("on");
-            $("#main-list-bar .part").animate({
+            $("#main-list-bar .part").stop().animate({
                 color: "#000"
             }, 500);
-            $("#main-list-bar .part .main-list-bar-on").animate({
+            $("#main-list-bar .part .main-list-bar-on").stop().animate({
                 top: "-100%"
             }, 500);
-            $(this).animate({
+            $(this).stop().animate({
                 color: "#fff"
             }, 500);
-            $(this).find(".main-list-bar-on").animate({
+            $(this).find(".main-list-bar-on").stop().animate({
                 top: 0
             }, 500);
-            $(this).find(".sub").show(500);
+            $(this).find(".sub").stop().show(500);
         }
 
 
-        $('html, body').animate({
+        $('html, body').stop().animate({
             scrollTop : $("section.part-four").offset().top
         }, 500);
     });

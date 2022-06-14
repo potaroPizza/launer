@@ -70,7 +70,19 @@ div#orderWrapper {
     width: 750px;
     border: 1px solid black;
     padding: 30px;
+<<<<<<< HEAD
     margin: 10px;
+=======
+    /*margin: 10px;*/
+    margin: 0 auto;
+    box-shadow:  37px 37px 73px #d9d9d9,
+        -37px -37px 73px #ffffff;
+    border-radius: 30px;
+}
+#margin-top-fixed{
+    width: 100%;
+    height: 70px;
+>>>>>>> branch 'main' of https://github.com/potaroPizza/launer.git
 }
 
 .orderInfo-order > div:first-child {

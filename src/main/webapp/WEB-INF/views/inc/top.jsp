@@ -33,7 +33,7 @@
                 <nav>
                     <ul>
                         <li class="sub-title on">
-                            <a href="#" onclick="event.preventDefault();">소개</a>
+                            <a href="<c:url value="/"/>">소개</a>
                             <ul class="sub-nav">
                                 <li><a href="#">사이트 소개</a></li>
                                 <li><a href="#">가격표</a></li>
@@ -67,7 +67,9 @@
             <div class="header-slide-down"></div>
             <div id="header" class="clearfix">
                 <h1 id="logo">
-                    <a href="#"><img src="${pageContext.request.contextPath}/images/logo_3.svg" alt="logo"></a>
+                    <a href="<c:url value="/"/>">
+                        <img src="${pageContext.request.contextPath}/images/logo_3.svg" alt="logo">
+                    </a>
                 </h1>
                 <div id="header-right">
                     <a href="#">
