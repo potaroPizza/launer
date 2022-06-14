@@ -76,6 +76,7 @@ div#orderWrapper {
     margin: 0 auto;
     box-shadow:  37px 37px 73px #d9d9d9,
         -37px -37px 73px #ffffff;
+    border-radius: 30px;
 }
 #margin-top-fixed{
     width: 100%;
