@@ -13,8 +13,6 @@
 
 a { text-decoration: none; color: black; }    a:visited { text-decoration: none; }    a:hover { text-decoration: none; }    a:focus { text-decoration: none; }    a:hover, a:active { text-decoration: none; }
 
-.clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
-.clearfix::after {clear: both;}
 
 .orderWrapper{
     border: 1px solid black;
@@ -70,16 +68,9 @@ span#orderInfo-address-edit a {
 
 div#orderWrapper {
     width: 750px;
-    /*border: 1px solid black;*/
+    border: 1px solid black;
     padding: 30px;
-    /*margin: 10px;*/
-    margin: 0 auto;
-    box-shadow:  37px 37px 73px #d9d9d9,
-        -37px -37px 73px #ffffff;
-}
-#margin-top-fixed{
-    width: 100%;
-    height: 70px;
+    margin: 10px;
 }
 
 .orderInfo-order > div:first-child {
