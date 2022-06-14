@@ -22,7 +22,7 @@ button{
     border-radius:0;
     padding:0;
     overflow:visible;
-    cursor:pointer
+    cursor:pointer;
 }
 .title-font{font-size: 38px; font-weight: 500;}
 .sub-title-font{font-size: 32px; font-weight: 500;}
@@ -47,8 +47,8 @@ button{
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
-    box-shadow:  0px 0px 60px #d9d9d9,
-        0px 0px 60px #ffffff;
+    box-shadow:  0 0 50px rgba(0, 0, 0, 0.2),
+        -34px 34px 50px rgba(0, 0, 0, 0.03);
 }
 #header-wrap .menu-btn{
     width: 24px;
@@ -92,7 +92,7 @@ button{
 #list-box {
     width: 100%;
     padding: 23px;
-    cursor: pointer;
+    cursor: grab;
 }
 #list-box > .line{
     width: 55%;
@@ -100,6 +100,7 @@ button{
     background: #f2f2f2;
     margin: 0 auto;
 }
+
 
 #order-tab-box{
     display: flex;
@@ -121,6 +122,56 @@ button{
 #order-tab-box > div:hover{
     background: rgba(0, 0, 0, 0.05);
 }
+
+#orders-list{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 2%;
+}
+#orders-list .order-box{
+    line-height: 180%;
+    font-size: 20px;
+    border-radius: 20px;
+    background: #f2f2f2;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    margin-top: 15px;
+}
+#orders-list .order-box:nth-child(1){margin-top: 0;}
+
+#orders-list h3{
+    font-size: 22px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#orders-list .order-text-list p{
+    color: #888888;
+    display: inline-block;
+    margin-left: 20px;
+}
+#orders-list .order-text-list p:nth-child(1){margin-left: 0;}
+#orders-list p strong{
+    color: #000;
+}
+
+#orders-list .order-text-box {
+    display: flex;
+    justify-content: space-between;
+}
+#orders-list .order-text-box button{
+    padding: 0 16px;
+    height: 100%;
+    background: #E68B27;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+}
+#orders-list .order-text-box button:active{
+    background: #d2832e;
+}
+
+
 
 
 /*#list-part .line{*/

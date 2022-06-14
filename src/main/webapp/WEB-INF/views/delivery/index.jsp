@@ -53,8 +53,54 @@
             <div id="orders-list">
                 <div class="order-box">
                     <h3>상품명</h3>
-                    <p>신청자 : <strong>홍길동</strong></p>
-                    <p>위치 : <strong>지역주소</strong></p>
+                    <div class="order-text-box">
+                        <div class="left">
+                            <div class="order-text-list">
+                                <p>신청자 <strong>홍길동</strong></p>
+                                <p>위치 <strong>지역주소</strong></p>
+                            </div>
+                            <div class="order-text-list">
+                                <p>위치 <strong>서울시 금천구 시흥대로213길 123</strong></p>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <button>수거하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-box">
+                    <h3>상품명</h3>
+                    <div class="order-text-box">
+                        <div class="left">
+                            <div class="order-text-list">
+                                <p>신청자 <strong>홍길동</strong></p>
+                                <p>위치 <strong>지역주소</strong></p>
+                            </div>
+                            <div class="order-text-list">
+                                <p>위치 <strong>서울시 금천구 시흥대로213길 123</strong></p>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <button>수거하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-box">
+                    <h3>상품명</h3>
+                    <div class="order-text-box">
+                        <div class="left">
+                            <div class="order-text-list">
+                                <p>신청자 <strong>홍길동</strong></p>
+                                <p>위치 <strong>지역주소</strong></p>
+                            </div>
+                            <div class="order-text-list">
+                                <p>위치 <strong>서울시 금천구 시흥대로213길 123</strong></p>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <button>수거하기</button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
