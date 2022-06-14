@@ -41,7 +41,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/laundryService/order/orderMake">세탁서비스</a>
+                            <a href="#">세탁서비스</a>
                         </li>
                         <li>
                             <a href="#">라이프</a>
@@ -73,7 +73,7 @@
                     <a href="#">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </a>
-                    <a href="/launer/mypage/mypage">
+                    <a href="#">
                         <i class="fa-solid fa-circle-user"></i>
                     </a>
                 </div>
