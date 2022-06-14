@@ -55,7 +55,6 @@
                     <h3>상품명</h3>
                     <p>신청자 : <strong>홍길동</strong></p>
                     <p>위치 : <strong>지역주소</strong></p>
-
                 </div>
 
             </div>
