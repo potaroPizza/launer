@@ -134,7 +134,7 @@ li {
 	<div class="wrap">
 	<div class="mypage_top"></div>
 		<div class="mypage_introduce">
-			김러너님, &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
+			김러너님,&nbsp; &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
 			<span>시작</span><span>하세요!</span>
 		</div>
 		<div id="mypage_container">
