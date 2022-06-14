@@ -81,7 +81,19 @@ button{
     background: #fff;
     position: fixed;
     bottom:0;
-    left:0;
+    left:50%;
+    transform: translateX(-50%);
     z-index: 10;
     border-radius: 40px 40px 0 0;
+    box-shadow:  0 -34px 50px rgba(0, 0, 0, 0.2),
+    -34px 34px 50px #ffffff;
+}
+
+#list-box .line{
+    width: 50%;
+    height: 1px;
+    background: #ddd;
+    margin:0 auto;
+    padding: 20px 0;
+    cursor: pointer;
 }

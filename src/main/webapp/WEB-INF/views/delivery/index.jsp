@@ -44,8 +44,10 @@
     </header>
     <div id="wrap" class="main-width">
         <div id="map"></div>
-        <div id="list-box">
-            asdfad
+        <div id="list-box" class="main-width">
+            <div class="line-box">
+                <div class="line"></div>
+            </div>
         </div>
     </div>
 </body>
