@@ -15,7 +15,7 @@
   
 	<div id="orderWrapper">
     
-        <p><span>한서현 님</span> 수거요청</p>
+        <p><span>한서현 님</span> 수거 수정 요청</p>
         <div class="orderInfo">
     
             <div class="orderInfo-address">
