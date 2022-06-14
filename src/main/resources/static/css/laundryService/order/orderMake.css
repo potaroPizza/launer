@@ -1,0 +1,198 @@
+@import url(reset.css);
+/* 기본 */
+.sp1 {width: 30px;
+    display: inline;}
+
+.sp2 {
+    width: 50px;
+}
+
+.sp3 {
+    width: 70px;
+}
+
+a { text-decoration: none; color: black; }    a:visited { text-decoration: none; }    a:hover { text-decoration: none; }    a:focus { text-decoration: none; }    a:hover, a:active { text-decoration: none; }
+
+.clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
+.clearfix::after {clear: both;}
+
+.orderWrapper{
+    border: 1px solid black;
+
+}
+#orderWrapper > p:first-child >span {
+    font-weight: bold;
+}
+
+.orderInfo-address p {
+    font-weight: bold;
+}
+
+.orderInfo-address-myaddress {
+    border: 1px solid #b5b5b5;
+    height: 100px;
+    width: 500px;
+    border-radius: 8px;
+    margin-top: 14px;
+    padding: 10px;
+}
+
+span.orderInfo-address-myaddress-enter {
+    font-size: 0.7em;
+    color: #b4b1b1;
+}
+
+span#orderInfo-address-edit a {
+    font-size: 0.8em;
+    color: #0d62e2;
+    font-weight: bold;
+    text-decoration: none
+}
+
+.orderInfo-address > div > div:first-child {
+    width: 121px;
+    display: inline;
+}
+
+.orderInfo-guide {
+    margin: 10px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+.orderInfo-order {
+    margin: 10px;
+    padding: 10px;
+}
+
+.orderInfo-order> div:first-child {
+    font-weight: bold;
+}
+
+div#orderWrapper {
+    width: 750px;
+    border: 1px solid black;
+    padding: 30px;
+    margin: 10px;
+}
+
+.orderInfo-order > div:first-child {
+    font-size: 23px;
+    margin-top: 20px;
+    margin-bottom: 52px;
+}
+
+.orderInfo-order-daily {
+    margin-bottom: 36px;
+}
+
+.orderInfo-order-indivisual {
+    margin-bottom: 36px;
+}
+
+.orderInfo-order select {
+    height: 28px;
+    width: 103px;
+}
+
+.orderInfo-request {
+    margin-bottom: 53px;
+}
+
+span#orderAgree {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #19b919;
+}
+
+span#orderDisagree {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: red;
+}
+
+.orderInfo-request > div {
+    margin-bottom: 10px;
+}
+
+.orderInfo-request textarea {
+    resize: none;
+}
+
+.orderInfo-guide a{
+    margin-top: 13px;
+    width: 160px;
+    height: 50px;
+    line-height: 50px;
+    border: 2px solid #000;
+    border-radius: 50px;
+    font-size: 16px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none
+}
+.orderInfo-guide a>.hover-btn{
+    width:0;
+    height: 100%;
+    background-color: #000;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.orderInfo-guide a>p {
+    z-index: 11;
+    position: relative;
+    margin: auto;
+}
+
+.orderInfo-goOrder{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .orderBtn {
+    width: 140px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    }
+  
+  .orderBtn:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+  .orderInfo-address {
+    margin-top: 43px;
+}
+
+#orderWrapper>p>span {
+    font-size: 1.3em;
+}
+
+
+.justify-content-center {
+    justify-content: left;
+}
+
+
+ 
+
+
+
