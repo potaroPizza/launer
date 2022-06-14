@@ -44,9 +44,19 @@
     </header>
     <div id="wrap" class="main-width">
         <div id="map"></div>
-        <div id="list-box" class="main-width">
-            <div class="line-box">
-                <div class="line"></div>
+        <div id="list-part" class="main-width">
+            <div id="list-box"><div class="line"></div></div>
+            <div id="order-tab-box">
+                <div class="pickup-tab on">수거</div>
+                <div class="delivery-tab">배송</div>
+            </div>
+            <div id="orders-list">
+                <div class="order-box">
+                    <h3>상품명</h3>
+                    <p>신청자 : <strong>홍길동</strong></p>
+                    <p>위치 : <strong>지역주소</strong></p>
+                </div>
+
             </div>
         </div>
     </div>
