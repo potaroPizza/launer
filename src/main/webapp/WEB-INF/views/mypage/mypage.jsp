@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ include file="../inc/top.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <style>
@@ -123,6 +125,7 @@ li {
 	font-weight: bold;
 }
 </style>
+
 <body>
 	<div class="wrap">
 		<div class="mypage_introduce">
@@ -132,13 +135,13 @@ li {
 		<div id="mypage_container">
 			<ul class="mypage_container_list">
 				<li><img src="../images/point.jpg"> <a
-					href="/herb/member/mypoint">
+					href="/launer/mypage/mypoint">
 						<div class="mypage_caption">
 							<p>포인트</p>
 						</div>
 				</a></li>
 				<li><img src="../images/paymentdetails.jpg"> <a
-					href="/herb/member/paymentDetails">
+					href="/launer/mypage/paymentDetails">
 						<div class="mypage_caption">
 							<p>결제내역</p>
 						</div>
@@ -152,15 +155,20 @@ li {
 		</div>
 		<!-- As a link -->
 		<div class="mypage_nav">
-			<nav class="navbar bg-light">
-				<div class="container-fluid">
-					<a class="navbar-brand" href="#">공지사항 ></a>
-				</div>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  				<div class="container-md">
+    			<a class="navbar-brand" href="#">공지사항</a>
+ 				 </div>
 			</nav>
-			<nav class="navbar bg-light">
-				<div class="container-fluid">
-					<a class="navbar-brand" href="#">고객센터 ></a>
-				</div>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  				<div class="container-md">
+    			<a class="navbar-brand" href="#">설정</a>
+ 				 </div>
+			</nav>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  				<div class="container-md">
+    			<a class="navbar-brand" href="#">고객센터</a>
+ 				 </div>
 			</nav>
 		</div>
 		<!-- Button trigger modal -->
@@ -180,8 +188,8 @@ li {
 					</div>
 					<div class="modal-body">로그아웃 하시겠습니까?</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">로그아웃</button>
-						<button type="button" class="btn btn-secondary"
+						<button type="button" class="btn btn-dark">로그아웃</button>
+						<button type="button" class="btn btn-dark"
 							data-bs-dismiss="modal">취소</button>
 					</div>
 				</div>

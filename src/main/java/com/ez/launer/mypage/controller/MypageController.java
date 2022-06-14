@@ -35,4 +35,8 @@ public class MypageController {
 	public void mypoint() {
 		logger.info("마이페이지 포인트 화면");
 	}
+	@GetMapping("/detailedPaymentHistory")
+	public void detailedPaymentHistory() {
+		logger.info("마이페이지 결제내역 상세 화면");
+	}
 }
