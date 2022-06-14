@@ -38,7 +38,7 @@
         <div class="part-four part">
             <div class="main-list-bar-on"></div>
             <p class="num">4</p>
-            <div class="sub">소<br />개</div>
+            <div class="sub">테<br/>스<br/>트</div>
         </div>
     </aside>
     <div class="con-wrap">
@@ -49,7 +49,7 @@
                     <span class="one">러너<br /> Launer</span>
                 </h1>
                 <h2 id="sub-title">
-                    비대면 세탁서비스
+                    비대면 세탁서비스 스스스스스
                 </h2>
                 <div class="img-box one">
                     <img src="${pageContext.request.contextPath}/images/washer.jpg" alt="basin" />
