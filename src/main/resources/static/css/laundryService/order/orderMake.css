@@ -13,6 +13,8 @@
 
 a { text-decoration: none; color: black; }    a:visited { text-decoration: none; }    a:hover { text-decoration: none; }    a:focus { text-decoration: none; }    a:hover, a:active { text-decoration: none; }
 
+.clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
+.clearfix::after {clear: both;}
 
 .orderWrapper{
     border: 1px solid black;
