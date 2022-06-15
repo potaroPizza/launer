@@ -12,8 +12,10 @@
     <title>Launer Delivery</title>
     <link href="<c:url value="/delivery/css/main.css"/>" rel="stylesheet" type="text/css"/>
     <script src="<c:url value="/js/jquery-3.6.0.min.js"/>"></script>
+    <script src="<c:url value="/js/jquery-ui.min.js"/>"></script>
     <script src="https://kit.fontawesome.com/d4af3bb512.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2105ed82df9c00048785f53fbd42044d"></script>
+    <script src="<c:url value="/delivery/js/main.js"/>"></script>
     <script>
         window.onload = function() {
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -25,9 +27,6 @@
             // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption);
         }
-        $(function() {
-
-        });
     </script>
 </head>
 <body>
