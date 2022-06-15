@@ -4,9 +4,13 @@
 .detailedPaymentHistory_wrap{
 	margin: 0 auto;
 	width:1200px;
-	margin-top: 120px;
 	
 }
+.detailedPaymentHistory_top{
+		height:80px;	
+		width:100%;
+	}
+
 .detailedPaymentHistory_title{
 	font-size: 35px;
 	font-weight: bold;
@@ -57,6 +61,7 @@
 
 <body>
 	<div class="detailedPaymentHistory_wrap" >
+	<div class="detailedPaymentHistory_top"></div>
 		<div class="detailedPaymentHistory_title">
 			<P>상세 주문내역</P>
 		</div>

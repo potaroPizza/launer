@@ -39,4 +39,12 @@ public class MypageController {
 	public void detailedPaymentHistory() {
 		logger.info("마이페이지 결제내역 상세 화면");
 	}
+	@GetMapping("/myinfo")
+	public void myinfo() {
+		logger.info("마이페이지 내정보 화면");
+	}
+	@GetMapping("/signOut")
+	public void singOut() {
+		logger.info("탈퇴 완료 페이지 화면");
+	}
 }

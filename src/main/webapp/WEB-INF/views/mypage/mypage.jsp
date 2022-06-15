@@ -7,9 +7,13 @@
 <style>
  @keyframes anime_textup { 0% { top: 0; } 20% { top: -0.4rem; } 40% { top: 0 } 60% { top: 0 } 80% { top: 0 } 100% { top: 0 } }
 
-.wrap {
+.mypage_wrap {
 	width: 1200px;
 	margin: 0 auto;
+}
+.mypage_top{
+	width:100%;
+	height:100px;
 }
 
 .mypage_container {
@@ -76,7 +80,6 @@ li {
 
 .mypage_introduce {
 	margin-bottom: 150px;
-	margin-top: 100px;
 	font-weight: bold;
 	font-size: 40px;
 }
@@ -116,7 +119,7 @@ li {
 	animation-delay: .7s;
 }
 
-.logout_btn {
+.mypage_logout_btn {
 	text-align: center;
 }
 
@@ -127,7 +130,8 @@ li {
 </style>
 
 <body>
-	<div class="wrap">
+	<div class="mypage_wrap">
+		<div class="mypage_top"></div>
 		<div class="mypage_introduce">
 			김러너님, &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
 			<span>시작</span><span>하세요!</span>
@@ -147,7 +151,7 @@ li {
 						</div>
 				</a></li>
 				<li><img src="../images/myinformation.jpg"> <a
-					href="#">
+					href="/launer/mypage/myinfo">
 					<div class="mypage_caption">
 						<p>내정보</p>
 					</div></a></li>
@@ -172,7 +176,7 @@ li {
 			</nav>
 		</div>
 		<!-- Button trigger modal -->
-		<div class="logout_btn">
+		<div class="mypage_logout_btn">
 			<button type="button" class="btn btn-dark" data-bs-toggle="modal"
 				data-bs-target="#exampleModal">로그아웃</button>
 		</div>
@@ -186,9 +190,9 @@ li {
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<div class="modal-body">로그아웃 하시겠습니까?</div>
+					<div class="modal-body ">로그아웃 하시겠습니까?</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-dark">로그아웃</button>
+						<button type="button" class="btn btn-dark" onclick="location.href='/launer'">로그아웃</button>
 						<button type="button" class="btn btn-dark"
 							data-bs-dismiss="modal">취소</button>
 					</div>
