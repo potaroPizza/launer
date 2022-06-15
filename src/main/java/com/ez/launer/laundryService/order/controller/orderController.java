@@ -18,11 +18,18 @@ public class orderController {
 	
 	
 	@GetMapping("/orderMake")
-	public String order_get() {
+	public String orderMake_get() {
 		logger.info("수거요청화면");
 		
 		return "/laundryService/order/orderMake";
 		
+	}
+	
+	@GetMapping("/orderConfirm")
+	public String orderConfirm_get() {
+		logger.info("결제 전 최종확인 화면");
+		
+		return "/laundryService/order/orderConfirm";
 	}
 	
 	

@@ -62,7 +62,7 @@ $("select[id='order-indivisual']").change(function () {
 	
 	$('#submit').click(function(){
 		if(!$('#flexCheckDefault').is(':checked')){
-			alert('회원가입을 위해 약관에 동의해주세요.');
+			alert('약관에 동의해주세요.');
 			event.preventDefault();
 			$('#staticBackdrop').modal("show");
 		}

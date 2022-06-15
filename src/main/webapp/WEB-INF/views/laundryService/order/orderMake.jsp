@@ -38,7 +38,7 @@
     
             <div class ="orderInfo-guide">
                 <div><i class="fa-solid fa-bell"></i>&nbsp;처음이신가요 ? </div>
-                <a href="#"><div class = "hover-btn" style ="width: 0px;"></div>
+                <a href="<c:url value="/laundryService/order/orderConfirm"/>"><div class = "hover-btn" style ="width: 0px;"></div>
                 <p style="color: rgb(0, 0, 0);">첫고객 가이드</p>
                 </a>
 
