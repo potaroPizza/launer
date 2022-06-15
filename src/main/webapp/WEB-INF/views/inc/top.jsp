@@ -75,7 +75,7 @@
                     <a href="#">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </a>
-                    <a href="/launer/mypage/mypage">
+                    <a href="#">
                         <i class="fa-solid fa-circle-user"></i>
                     </a>
                 </div>

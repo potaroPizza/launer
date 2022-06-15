@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../../inc/top.jsp" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
@@ -8,14 +10,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+	
 
-<%@ include file="../../inc/top.jsp" %>
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/laundryService/order/orderMake.css" type="text/css" />
 
 <div id="margin-top-fixed"></div>
 	<div id="orderWrapper">
-        <p><span>한서현 님</span> 수거 수정 요청</p>
+    
+        <p><span>한서현 님</span> 수거요청</p>
         <div class="orderInfo">
     
             <div class="orderInfo-address">
@@ -104,7 +107,21 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam metus justo, molestie quis tincidunt in, dignissim eu orci. Nullam malesuada nunc ut accumsan posuere. Suspendisse efficitur sapien nulla, non consequat tellus dapibus et. Sed porta rutrum elit, eget imperdiet orci sollicitudin at. Morbi at imperdiet velit. Duis tincidunt luctus dui, commodo vehicula ipsum cursus sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi vestibulum fermentum lacus et pellentesque. In feugiat ligula mollis rhoncus lacinia. Vivamus pulvinar orci ac auctor tristique. In eget massa enim. Donec vitae orci in tellus bibendum tempus. Aenean vehicula enim quis metus aliquet, at consectetur quam sagittis. Aenean nulla dui, varius et nisi id, fringilla vestibulum purus.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Etiam metus justo, molestie quis tincidunt in, dignissim 
+                                eu orci. Nullam malesuada nunc ut accumsan posuere. Susp
+                                endisse efficitur sapien nulla, non consequat tellus 
+                                dapibus et. Sed porta rutrum elit, eget imperdiet orci 
+                                sollicitudin at. Morbi at imperdiet velit. Duis tincidunt
+                                 luctus dui, commodo vehicula ipsum cursus sit amet. 
+                                 Class aptent taciti sociosqu ad litora torquent per 
+                                 conubia nostra, per inceptos himenaeos. Morbi vestibulum
+                                  fermentum lacus et pellentesque. In feugiat ligula 
+                                  mollis rhoncus lacinia. Vivamus pulvinar orci ac auctor 
+                                  tristique. In eget massa enim. Donec vitae orci in 
+                                  tellus bibendum tempus. Aenean vehicula enim quis metus 
+                                  aliquet, at consectetur quam sagittis. Aenean nulla dui,
+                                   varius et nisi id, fringilla vestibulum purus.
                             </div>
                             <div class="modal-footer">
                                 <div class="form-check">
