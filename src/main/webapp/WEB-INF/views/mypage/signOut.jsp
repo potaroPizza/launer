@@ -41,7 +41,7 @@
 		</div>
 	<div class="signOut_explain">
 		<p>지금까지 저희 러너 서비스를 이용해주셔서 감사합니다.</p>
-		<p>더욱 더 노력하고 발전하는 LAUNER가 되겠습니다</p>
+		<p>더욱 더 노력하고 발전하는 LAUNER가 되겠습니다.</p>
 		
 	</div>
 	<div class="signOut_main">
