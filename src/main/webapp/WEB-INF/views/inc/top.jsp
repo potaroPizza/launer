@@ -16,8 +16,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_fixed_wrap.css" type="text/css" />
+    <link rel="stylesheet" href="<c:url value="/css/jquery-ui.min.css"/>" />
+    <link rel="stylesheet" href="<c:url value="/css/main_fixed_wrap.css"/>" type="text/css" />
     <script src="<c:url value="/js/jquery-3.6.0.min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/jquery-ui.min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/jquery.animate-shadow-min.js"/>" type="text/javascript" text="javascript"></script>

@@ -3,17 +3,17 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
  
-    <!-- select -->
+<!-- select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 	
 
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/laundryService/order/orderMake.css" type="text/css" />
+<link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderMake.css"/>" type="text/css" />
 
 <div id="margin-top-fixed"></div>
 	<div id="orderWrapper">
