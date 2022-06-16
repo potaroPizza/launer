@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/admin")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class AdminController {
 	
 	private static final Logger logger
@@ -45,4 +45,34 @@ public class AdminController {
 		return "/admin/orders";
 	}
 	
+
+	@RequestMapping("/orderDetail")
+	public String orderDetail() {
+		logger.info("주문상세 페이지");
+		
+		return "/admin/orderDetail";
+	}
+	
+	@RequestMapping("/charts")
+	public String charts() {
+		logger.info("통계 페이지");
+		
+		return "/admin/charts";
+	}
+	
+
+	@RequestMapping("/stores")
+	public String stores() {
+		logger.info("지점관리 페이지");
+		
+		return "/admin/manage/stores";
+	}
+	
+	@RequestMapping("/users")
+	public String users() {
+		logger.info("회원관리 페이지");
+		
+		return "/admin/manage/users";
+	}
+
 }
