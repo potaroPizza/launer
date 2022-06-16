@@ -17,6 +17,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${pageContext.request.contextPath}/admin/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="<c:url value="/js/jquery-3.6.0.min.js"/>" type="text/javascript" text="javascript"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -84,7 +85,7 @@
                                
                             </a>
                             
-                            <a class="nav-link" href="charts.html">
+                            <a class="nav-link" href="<c:url value='/admin/charts'/>">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-line"></i></div>
                                 서비스통계
                             </a>

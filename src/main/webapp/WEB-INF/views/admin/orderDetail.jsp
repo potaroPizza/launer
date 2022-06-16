@@ -45,9 +45,9 @@
 <div id="layoutSidenav_content">
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">주문관리</h1>
+			<h1 class="mt-4">주문상세</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item active">원하시는 검색 조건을 입력하세요</li>
+				<li class="breadcrumb-item active"></li>
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
@@ -56,9 +56,9 @@
 						action="<c:url value='/shop/order/orderList'/>">
 						<!-- 조회기간 include -->
 						조회기간 
-						<input type="button" value="오늘"> <input
-							type="button" value="1주일"> <input type="button"
-							value="1개월"> <input type="text" name="startDay"
+						<input type="button" value="1주일"> <input
+							type="button" value="1개월"> <input type="button"
+							value="3개월"> <input type="text" name="startDay"
 							id="startDay" value="${dateSearchVO.startDay}"> ~ <input
 							type="text" name="endDay" id="endDay"
 							value="${dateSearchVO.endDay}"> 
