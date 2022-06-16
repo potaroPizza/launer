@@ -124,6 +124,7 @@ section.part-one {
 }
 #title .one{
     font-size: 15em;
+    position: relative;
 }
 #title .two {
     font-size: 10vw;

@@ -330,8 +330,13 @@ function listClick() {
         let x = e.clientX - $secPartOne.offset().left;
         let y = e.clientY - $secPartOne.offset().top;
 
-        let curX = x / 60;
-        let curY = y / 30;
+        let curX = x / 30;
+        let curY = y / 10;
+
+        $("#title .one").animate({
+            left: curX,
+            top: curY
+        },1)
 
         console.log(curX, curY);
     });

@@ -35,8 +35,8 @@
         </div>
         <div id="logo">
             <a href="#">
-<%--                <img src="<c:url value="/images/logo_3.svg"/>"/>--%>
-                Launer
+                <img src="<c:url value="/images/logo_4.svg"/>"/>
+<%--                Launer--%>
             </a>
         </div>
     </header>
