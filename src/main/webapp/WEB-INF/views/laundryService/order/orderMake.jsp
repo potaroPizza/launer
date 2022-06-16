@@ -8,7 +8,7 @@
  
 <!-- select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<%--<script src="<c:url value="/js/jquery-3.6.0.min.js"/>"></script>--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 	
 
@@ -38,7 +38,7 @@
     
             <div class ="orderInfo-guide">
                 <div><i class="fa-solid fa-bell"></i>&nbsp;처음이신가요 ? </div>
-                <a href="#"><div class = "hover-btn" style ="width: 0px;"></div>
+                <a href="<c:url value="/laundryService/order/orderConfirm"/>"><div class = "hover-btn" style ="width: 0px;"></div>
                 <p style="color: rgb(0, 0, 0);">첫고객 가이드</p>
                 </a>
 
