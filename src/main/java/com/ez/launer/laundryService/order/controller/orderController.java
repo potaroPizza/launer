@@ -27,7 +27,7 @@ public class orderController {
 	
 	@GetMapping("/orderConfirm")
 	public String orderConfirm_get() {
-		logger.info("결제 전 최종확인 화면");
+		logger.info("결제전 최종확인 화면");
 		
 		return "/laundryService/order/orderConfirm";
 	}
