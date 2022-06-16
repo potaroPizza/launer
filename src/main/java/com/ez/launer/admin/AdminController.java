@@ -45,4 +45,18 @@ public class AdminController {
 		return "/admin/orders";
 	}
 	
+	@RequestMapping("/orderDetail")
+	public String orderDetail() {
+		logger.info("주문상세 페이지");
+		
+		return "/admin/orderDetail";
+	}
+	
+	@RequestMapping("/charts")
+	public String charts() {
+		logger.info("통계 페이지");
+		
+		return "/admin/charts";
+	}
+	
 }
