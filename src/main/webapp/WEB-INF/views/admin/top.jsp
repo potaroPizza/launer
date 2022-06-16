@@ -68,7 +68,7 @@
                                 러너보드
                             </a>
                             
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed" href="<c:url value='/admin/stores'/>">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-store"></i></div>
                                 지점관리
                                 
@@ -78,7 +78,7 @@
                                  주문관리
                             </a>
                             
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <a class="nav-link collapsed" href="<c:url value='/admin/users'/>">
                                 <div class="sb-nav-link-icon"><i class="fa-regular fa-user"></i></div>
                                 사용자관리
                                
