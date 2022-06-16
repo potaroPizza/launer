@@ -316,4 +316,23 @@ function listClick() {
             scrollTop : $("section.part-four").offset().top
         }, 500);
     });
+
+
+
+
+
+    const $secPartOne = $("section.part-one");
+    let $topHeaderHeight = $("#header-wrap").height();
+
+    let $secPartOneW = $secPartOne.width();
+    let $secPartOneH = $secPartOne.height();
+    $secPartOne.mousemove(e => {
+        let x = e.clientX - $secPartOne.offset().left;
+        let y = e.clientY - $secPartOne.offset().top;
+
+        let curX = x / 60;
+        let curY = y / 30;
+
+        console.log(curX, curY);
+    });
 }

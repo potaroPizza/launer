@@ -25,6 +25,7 @@ button{
 .title-font{font-size: 38px; font-weight: 500;}
 .sub-title-font{font-size: 32px; font-weight: 500;} */
 *::after, *::before{box-sizing: border-box;}
+*{-webkit-user-drag: none;}
 #modal-background{
     width: 100%;
     height: 100%;
@@ -36,7 +37,7 @@ button{
 
 #header-wrap {
     width: 100%;
-    height: 60px;
+    height: 80px;
     position: fixed;
     z-index: 60;
     /* -webkit-transition-duration:0.4s;
@@ -65,19 +66,46 @@ button{
 
 #logo{
     width: 200px;
-    height: 48px;
+    height: 54px;
     line-height: 20px;
-    margin-top: 6px;
+    margin-top: 16px;
     float: left;
 }
 #logo img{height: 100%;}
 #header-right{
-    font-size: 18pt;
-    height: 26px;
-    line-height: 26px;
-    margin-top: 17px;
+    font-size: 26px;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 15px;
     float: right;
 }
+#header-right a:nth-child(2) {margin-left: 30px}
+
+#header-right a{
+    display: block;
+    position: relative;
+    float: left;
+    overflow: hidden;
+}
+
+
+#header-right .line{
+    width: 20%;
+    position: absolute;
+    left:-20%;
+    top: 50%;
+    height:1px;
+    background: #000;
+    transition: 0.3s;
+}#header-right .line.on{left:0;}
+#header-right .hover-text{
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    right: -66px;
+    transform: translateY(-50%);
+    transition: 0.3s;
+}#header-right .hover-text.on{right:0;}
 
 
 

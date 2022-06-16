@@ -26,8 +26,23 @@ public class AdminController {
 	
 	@RequestMapping("/")
 	public String index() {
-		logger.info("index 페이지");
+		logger.info("메인 페이지");
 		
 		return "/admin/index";
 	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		logger.info("test 페이지");
+		
+		return "/admin/test";
+	}
+	
+	@RequestMapping("/orders")
+	public String orders() {
+		logger.info("주문관리 페이지");
+		
+		return "/admin/orders";
+	}
+	
 }
