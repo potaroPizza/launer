@@ -119,4 +119,16 @@ $(function() {
         }
         // $header.toggleClass('down', scrolled);
     });
+
+
+
+    $("#header-right a").hover(function() {
+        $(this).find(".line").addClass('on');
+        $(this).find(".hover-text").addClass('on');
+        $(this).find("span").stop().animate({opacity: 0}, 100, "swing");
+    },function() {
+        $(this).find(".line").removeClass('on');
+        $(this).find(".hover-text").removeClass('on');
+        $(this).find("span").stop().animate({opacity: 1}, 300, "swing");
+    });
 });
