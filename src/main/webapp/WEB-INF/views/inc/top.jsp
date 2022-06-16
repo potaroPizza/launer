@@ -68,15 +68,21 @@
             <div id="header" class="clearfix">
                 <h1 id="logo">
                     <a href="<c:url value="/"/>">
-                        <img src="${pageContext.request.contextPath}/images/logo_3.svg" alt="logo">
+                        <img src="${pageContext.request.contextPath}/images/logo_4.svg" alt="logo">
                     </a>
                 </h1>
                 <div id="header-right">
                     <a href="#">
-                        <i class="fa-solid fa-right-from-bracket"></i>
+<%--                        <i class="fa-solid fa-right-from-bracket"></i>--%>
+                        <div class="line"></div>
+                        <span>LOG OUT</span>
+                        <div class="hover-text">로그아웃</div>
                     </a>
                     <a href="#">
-                        <i class="fa-solid fa-circle-user"></i>
+<%--                        <i class="fa-solid fa-circle-user"></i>--%>
+                        <div class="line"></div>
+                        <span>MY PAGE</span>
+                        <div class="hover-text">내 정보</div>
                     </a>
                 </div>
             </div>
