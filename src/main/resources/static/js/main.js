@@ -96,7 +96,7 @@ function scrollNone(num) {
     if(num == 1) {
         $("#wrap").on('scroll touchmove mousewheel', function(e){
             e.preventDefault();
-            e.stopPropagation(); 
+            e.stopPropagation();
             return false;
         });
     }else {
