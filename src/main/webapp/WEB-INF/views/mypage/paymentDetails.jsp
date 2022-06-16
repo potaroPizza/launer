@@ -14,9 +14,10 @@
 	margin: 0 auto;
 	width: 1200px;
 }
-.paymentDetails_top{
-	width:100%;
-	height:100px;
+
+.paymentDetails_top {
+	width: 100%;
+	height: 100px;
 }
 
 .paymentDetails_title {
@@ -72,9 +73,23 @@
 			<p>결제 내역</p>
 		</div>
 		<div class="paymentDetails_date">
-			<a href="#">3개월</a> | <a href="#">6개월</a> | <a href="#"> 9개월</a>
+			<div>
+				<form name="frm1" method="post" action="<c:url value=''/>">
+					<input type="button" value="3개월" class="btn btn-outline-dark">
+					<input type="button" value="6개월" class="btn btn-outline-dark">
+					<input type="button" value="9개월" class="btn btn-outline-dark">
+				</form>
+			</div>
 		</div>
 		<table class="table">
+			<colgroup>
+				<col style="width: 10%">
+				<col style="width: 20%">
+				<col style="width: 35%">
+				<col style="width: 20%">
+				<col style="width: 10%">
+
+			</colgroup>
 			<thead>
 				<tr>
 					<th scope="col">주문코드</th>
@@ -92,6 +107,20 @@
 					<td>22/01/01</td>
 					<td>배송중</td>
 				</tr>
+				<tr>
+					<th scope="row">00002</th>
+					<td>셔츠</td>
+					<td>1000</td>
+					<td>22/01/01</td>
+					<td>배송중</td>
+				</tr>
+				<tr>
+					<th scope="row">00002</th>
+					<td>바지</td>
+					<td>1000</td>
+					<td>22/01/01</td>
+					<td>배송중</td>
+				</tr>
 			</tbody>
 		</table>
 
@@ -101,7 +130,8 @@
 			</p>
 		</div>
 		<div class="paymentDetails_back">
-			<button type="button" class="btn btn-dark" onclick="location.href='/launer/mypage/mypage'">이전</button>
+			<button type="button" class="btn btn-dark"
+				onclick="location.href='/launer/mypage/mypage'">이전</button>
 		</div>
 	</div>
 </body>

@@ -74,7 +74,7 @@
 		<div class="detailedPaymentHistory_list">
 		<div class="detailedPaymentHistory_img">
 		</div>
-		<div class="detailedPaymentHistory_detail">
+		<div class="detailedPayme	ntHistory_detail">
 		<p>상품명  &nbsp;&nbsp;&nbsp;&nbsp;<span>생활빨래</span> </p> 
 		<p>상품금액 &nbsp;&nbsp;&nbsp;&nbsp;<span>1500원</span></p> 
 		<p>배송상태 &nbsp;&nbsp;&nbsp;&nbsp;<span>배송중</span></p> 
