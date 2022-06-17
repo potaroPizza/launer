@@ -28,28 +28,36 @@
 }
 
 .paymentDetails_date {
-	width: 1000px;
+	width: 1200px;
 	margin: 0 auto;
 	margin-bottom: 30px;
 	font-size: 20px;
 }
 
-.table {
-	width: 1000px;
+.paymentDetails_table {
+	width: 1200px;
 	margin: 0 auto;
 	margin-bottom: 20px;
-	font-size: 20px;
+	font-size: 15px;
+	
+}
+.paymentDetails_table th{
+	font-weight: bold;
+}
+.paymentDetails_table th, td{
+	text-align: center;
+	
 }
 
 .paymentDetails_amountPayment {
 	text-align: right;
-	margin-right: 100px;
 	font-size: 20px;
 }
-
-.paymentDetails_amountPayment span {
-	text-decoration: underline;
+.paymentDetails_amountPayment span{
+	font-weight: bold;
 }
+
+
 
 .paymentDetails_back {
 	text-align: center;
@@ -81,57 +89,79 @@
 				</form>
 			</div>
 		</div>
-		<table class="table">
-			<colgroup>
-				<col style="width: 10%">
-				<col style="width: 20%">
-				<col style="width: 35%">
-				<col style="width: 20%">
-				<col style="width: 10%">
+		<div class="paymentDetails_table ">
+			<div class="card-body">
+				<table class="table table-striped">
+					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 45%">
+						<col style="width: 20%">
+						<col style="width: 10%">
+						<col style="width: 10%">
 
-			</colgroup>
-			<thead>
-				<tr>
-					<th scope="col">주문코드</th>
-					<th scope="col">상품명</th>
-					<th scope="col">가격</th>
-					<th scope="col">주문일</th>
-					<th scope="col">상태</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">00001</th>
-					<td>티셔츠</td>
-					<td>1000</td>
-					<td>22/01/01</td>
-					<td>배송중</td>
-				</tr>
-				<tr>
-					<th scope="row">00002</th>
-					<td>셔츠</td>
-					<td>1000</td>
-					<td>22/01/01</td>
-					<td>배송중</td>
-				</tr>
-				<tr>
-					<th scope="row">00002</th>
-					<td>바지</td>
-					<td>1000</td>
-					<td>22/01/01</td>
-					<td>배송중</td>
-				</tr>
-			</tbody>
-		</table>
+					</colgroup>
+					<thead>
+						<tr>
+							<th>주문코드</th>
+							<th>상품명</th>
+							<th>가격</th>
+							<th>주문일</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>00001</td>
+							<td>티셔츠외 5건</td>
+							<td>5000원</td>
+							<td>2022-04-18</td>
+							<td>배송중</td>
+						</tr>
+						<tr>
+							<td>00001</td>
+							<td>티셔츠외 5건</td>
+							<td>5000원</td>
+							<td>2022-04-18</td>
+							<td>배송중</td>
+						</tr>
+						<tr>
+							<td>00002</td>
+							<td>티셔츠외 5건</td>
+							<td>55000원</td>
+							<td>2022-04-18</td>
+							<td>입금확인중</td>
+						</tr>
+						<tr>
+							<td>00003</td>
+							<td>양말외 3건</td>
+							<td>5000원</td>
+							<td>2022-04-18</td>
+							<td>환불중</td>
+						</tr>
+						<tr>
+							<td>00004</td>
+							<td>바지외 5건</td>
+							<td>15000원</td>
+							<td>2022-04-18</td>
+							<td>배송완료</td>
+						</tr>
+						
+					</tbody>
 
-		<div class="paymentDetails_amountPayment">
-			<p>
-				총 결제 금액 <span>1500</span>원
-			</p>
+				</table>
+				<div class="paymentDetails_amountPayment">
+					<p>
+						총 결제 금액 <span>1500</span>원
+					</p>
+				</div>
+			</div>
 		</div>
+
+
 		<div class="paymentDetails_back">
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='/launer/mypage/mypage'">이전</button>
 		</div>
 	</div>
+	
 </body>

@@ -32,7 +32,7 @@
 	height:100px;
 }
 
-.mypage_container {
+/* .mypage_container {
 	width: 1200px;
 	margin: 0 auto;
 }
@@ -92,7 +92,7 @@ li {
 	color: #fff;
 	text-align: center;
 	font-size: 30px;
-}
+} */
 
 .mypage_introduce {
 	margin-bottom: 80px;
@@ -225,19 +225,19 @@ li {
 		</div>
 		<div id="mypage-main-wrap" class="clearfix">
 			<div class="part">
-				<a href="#">
+				<a href="/launer/mypage/mypoint">
 					<i class="fa-solid fa-coins"></i>
 					<div class="hover-wrap"></div>
 				</a>
 			</div>
 			<div class="part">
-				<a href="#">
+				<a href="/launer/mypage/paymentDetails">
 					<i class="fa-solid fa-file-invoice"></i>
 					<div class="hover-wrap"></div>
 				</a>
 			</div>
 			<div class="part">
-				<a href="#">
+				<a href="/launer/mypage/myinfo">
 					<i class="fa-solid fa-address-card"></i>
 					<div class="hover-wrap"></div>
 				</a>
