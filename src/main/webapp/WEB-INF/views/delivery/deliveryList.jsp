@@ -8,7 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../inc/delivery-top.jsp"%>
     <div id="wrap">
-        hello
+        <c:forEach var="map" items="${list }">
+            ${map['NO']} / ${map['GROUPNAME']}
+        </c:forEach>
     </div>
 </body>
 </html>
