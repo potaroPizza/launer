@@ -28,28 +28,36 @@
 }
 
 .paymentDetails_date {
-	width: 1000px;
+	width: 1200px;
 	margin: 0 auto;
 	margin-bottom: 30px;
 	font-size: 20px;
 }
 
-.table {
-	width: 1000px;
+.paymentDetails_table {
+	width: 1200px;
 	margin: 0 auto;
 	margin-bottom: 20px;
-	font-size: 20px;
+	font-size: 15px;
+	
+}
+.paymentDetails_table th{
+	font-weight: bold;
+}
+.paymentDetails_table th, td{
+	text-align: center;
+	
 }
 
 .paymentDetails_amountPayment {
 	text-align: right;
-	margin-right: 100px;
 	font-size: 20px;
 }
-
-.paymentDetails_amountPayment span {
-	text-decoration: underline;
+.paymentDetails_amountPayment span{
+	font-weight: bold;
 }
+
+
 
 .paymentDetails_back {
 	text-align: center;
@@ -81,16 +89,15 @@
 				</form>
 			</div>
 		</div>
-		<div class="card ">
-			<div class="card-header">이용자 현황</div>
+		<div class="paymentDetails_table ">
 			<div class="card-body">
 				<table class="table table-striped">
 					<colgroup>
+						<col style="width: 15%">
+						<col style="width: 45%">
+						<col style="width: 20%">
 						<col style="width: 10%">
 						<col style="width: 10%">
-						<col style="width: 35%">
-						<col style="width: 20%">
-						<col style="width: 20%">
 
 					</colgroup>
 					<thead>
@@ -104,40 +111,41 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>5</td>
-							<td>한길동</td>
-							<td>han@gmail.com</td>
-							<td>영등포관리자</td>
-							<td>일반사용자</td>
+							<td>00001</td>
+							<td>티셔츠외 5건</td>
+							<td>5000원</td>
+							<td>2022-04-18</td>
+							<td>배송중</td>
 						</tr>
 						<tr>
-							<td>4</td>
-							<td>이길동</td>
-							<td>lee@gmail.com</td>
-							<td>강남관리자</td>
-							<td>일반사용자</td>
+							<td>00001</td>
+							<td>티셔츠외 5건</td>
+							<td>5000원</td>
+							<td>2022-04-18</td>
+							<td>배송중</td>
 						</tr>
 						<tr>
-							<td>3</td>
-							<td>박길동</td>
-							<td>park@gmail.com</td>
-							<td>중구관리자</td>
-							<td>일반사용자</td>
+							<td>00002</td>
+							<td>티셔츠외 5건</td>
+							<td>55000원</td>
+							<td>2022-04-18</td>
+							<td>입금확인중</td>
 						</tr>
 						<tr>
-							<td>2</td>
-							<td>김길동</td>
-							<td>kim@gmail.com</td>
-							<td>마포구관리자</td>
-							<td>일반사용자</td>
+							<td>00003</td>
+							<td>양말외 3건</td>
+							<td>5000원</td>
+							<td>2022-04-18</td>
+							<td>환불중</td>
 						</tr>
 						<tr>
-							<td>1</td>
-							<td>홍길동</td>
-							<td>hong@gmail.com</td>
-							<td>서대문구관리자</td>
-							<td>일반사용자</td>
+							<td>00004</td>
+							<td>바지외 5건</td>
+							<td>15000원</td>
+							<td>2022-04-18</td>
+							<td>배송완료</td>
 						</tr>
+						
 					</tbody>
 
 				</table>
@@ -155,4 +163,5 @@
 				onclick="location.href='/launer/mypage/mypage'">이전</button>
 		</div>
 	</div>
+	
 </body>
