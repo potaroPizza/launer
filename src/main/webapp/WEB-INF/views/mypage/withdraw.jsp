@@ -99,18 +99,22 @@
 				return false;
 			}
 		});*/
-		var myModal = document.getElementById('exampleModal');
-		var myInput = document.getElementById('myInput');
+		$("#withdraw-btn").click(function() {
+			if($('#pwd').val().length<1){
+				alert('비밀번호를 입력해주세요');
+				return false;
+			}
+			if($('#chk:checked').length<1){
+				alert('탈퇴 유의사항을 확인하고 동의해 주세요.');
+				return false;
+			}
 
-		$("#modal_on").click(function() {
-			myModal.on('shown.bs.modal', function (e) {
-				myModal.show();
-			});
+			$('#exampleModal').modal('show');
 		});
 
-		$("#modal_on").on('shown.bs.modal', function (e) {
-			myModal.show();
-		})
+		$("#withDrawResult-btn").click(function() {
+			$("form[name=withdrawFrm]").submit();
+		});
 	});
 	
 	
@@ -135,8 +139,7 @@
 				<li><p>회원정보, 배송정보 기록이 모두 삭제되며, <span>삭제된 데이터는 복구되지 않습니다.</span></p></li>
 		</ul>
 	</div>
-	<form name="withdrawFrm" 
-		method="post" action="<c:url value='/'/>">
+	<form name="withdrawFrm" method="post" action="<c:url value='/mypage/signOut'/>">
 		<p>본인확인을 위해 비밀번호를 입력해 주세요.</p>
 		<div class="inputBx">
 		<div class="group-input">
@@ -157,7 +160,7 @@
 		</div>
 		<!-- Button trigger modal -->
 		<div class="mypage_withdraw_btn">
-			<button id="modal_on" type="button" class="btn btn-dark">탈퇴하기</button>
+			<button id="withdraw-btn" type="button" class="btn btn-dark">탈퇴하기</button>
 		</div>
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -171,13 +174,13 @@
 					</div>
 					<div class="modal-body ">정말 러너를 탈퇴 하시겠습니까?</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-dark" onclick="location.href='/launer/mypage/signOut'">탈퇴하기</button>
+						<button type="button" id="withDrawResult-btn" class="btn btn-dark">탈퇴하기</button>
 						<button type="button" class="btn btn-dark"
 							data-bs-dismiss="modal">취소</button>
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</form>
 </div>
 
