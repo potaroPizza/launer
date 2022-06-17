@@ -1,4 +1,12 @@
 $(function() {
+    let vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
+    window.addEventListener('resize', () => {
+        let vh = window.innerHeight * 0.01
+        document.documentElement.style.setProperty('--vh', `${vh}px`)
+    });
+
+
     let listPartHeight = 0;
     $(window).mousemove(function(event){
         listPartHeight = $(window).height() - event.clientY;
@@ -10,13 +18,39 @@ $(function() {
     console.log(listPart);
 
 
-    listBox.addEventListener('mouseup', function() {
+    var filter = "win16|win32|win64|mac|macintel";
+    if ( navigator.platform ) {
+        if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
+            //mobile
+            $("#list-part").on("touchmove", function (e) {
+                isPressed = true;
+                mouseActionY();
+            });
+            $("#list-part").on("touchend", function (e) {
+                isPressed = false;
+            });
+        } else {
+            //pc
+            listBox.addEventListener('mouseup', function() {
+                isPressed = false;
+            })
+            listBox.addEventListener('mousedown', function() {
+                isPressed = true;
+                mouseActionY();
+            });
+        }
+    }
+
+    /*listBox.addEventListener('mouseup', function() {
         isPressed = false;
     })
     listBox.addEventListener('mousedown', function() {
         isPressed = true;
         mouseActionY();
-    });
+    });*/
+
+
+
 
     function mouseActionY() {
         if(isPressed) listPart.style.height = listPartHeight;

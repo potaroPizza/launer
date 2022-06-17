@@ -1,14 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%-- <%@ include file="../inc/top.jsp" %> --%>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<%@ include file="../inc/top.jsp"%>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 <style>
 .mypoint_wrap {
 	margin: 0 auto;
 	width: 1200px;
-	margin-top: 200px;
 }
-
+.mypoint_top{
+	width:100%;
+	height:100px;
+}
 .mypoint_title {
 	font-size: 25px;
 	font-weight: bold;
@@ -18,6 +27,7 @@
 .mypoint_details {
 	font-size: 25px;
 	font-weight: bold;
+	margin-bottom: 50px;
 }
 
 .mypoint_point {
@@ -31,7 +41,7 @@
 	font-weight: bold;
 }
 
-.table {
+.mypoint_table {
 	width: 1000px;
 	margin: 0 auto;
 	margin-bottom: 50px;
@@ -40,7 +50,9 @@
 
 .mypoint_notification {
 	margin-bottom: 50px;
-	
+}
+.mypoint_notification li{
+	color: gray;
 }
 
 .mypoint_back {
@@ -50,6 +62,7 @@
 <body>
 
 	<div class="mypoint_wrap">
+		<div class="mypoint_top"></div>
 		<div class="mypoint_title">
 			<p>포인트</p>
 		</div>
@@ -61,7 +74,7 @@
 		<div class="mypoint_details">
 			<p>포인트 이용내역</p>
 		</div>
-		<table class="table">
+		<table class="mypoint_table">
 			<thead>
 				<tr>
 					<th scope="col">구분</th>
@@ -73,7 +86,7 @@
 				<tr>
 					<th scope="row">가입기념 지급</th>
 					<td>22/01/01</td>
-					<td>+4000p</td>
+					<td>+999000p</td>
 				</tr>
 				<tr>
 					<th scope="row">세탁서비스 이용</th>
@@ -91,7 +104,7 @@
 			</ul>
 		</div>
 		<div class="mypoint_back">
-			<a href="/launer/mypage/mypage">이전</a>
+		<button type="button" class="btn btn-dark" onclick="location.href='/launer/mypage/mypage'">이전</button>
 		</div>
 	</div>
 </body>

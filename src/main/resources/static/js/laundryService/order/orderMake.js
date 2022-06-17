@@ -112,7 +112,7 @@ $("select[id='order-indivisual']").change(function () {
      });*/
 
 $(document).ready(function(){
-    $(".mul-select").select2({
+    $(".mul-select").select({
             placeholder: "상품선택", //placeholder
             tags: true,
             tokenSeparators: ['/',',',';'," "] 

@@ -11,9 +11,9 @@ body {
     -webkit-user-select: none;
     user-select: none;
 }
-a {color: #000; text-decoration: none;}
 .clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
 .clearfix::after {clear: both;}
+a {color: #000; text-decoration: none;}
 
 button{
     background: inherit ; 

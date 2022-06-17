@@ -1,4 +1,11 @@
-@import url(../../reset.css);
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
 /* 기본 */
 .sp1 {width: 30px;
     display: inline;}
@@ -11,8 +18,13 @@
     width: 70px;
 }
 
-a { text-decoration: none; color: black; }    a:visited { text-decoration: none; }    a:hover { text-decoration: none; }    a:focus { text-decoration: none; }    a:hover, a:active { text-decoration: none; }
+a { text-decoration: none; color: black; } a:visited { text-decoration: none; } a:hover { text-decoration: none; } a:focus { text-decoration: none; } a:hover, a:active { text-decoration: none; }
 
+.orderInfo-order-select-wrapper .title-select{
+	font-size: 24px;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
 
 .orderWrapper{
     border: 1px solid black;
@@ -197,7 +209,49 @@ span#orderDisagree {
     justify-content: left;
 }
 
+div#order-formDiv {
+    height: 10px
+}
 
+div#order-formDiv {
+}
+
+form[name-order-item-form] input[name=categoryNo] {}
+
+#order-formDiv input {
+    border: none;
+    font-size: 20px;
+    width: 142px;
+}
+
+div#order-divDiv {
+    border: 1px solid black;
+    height: 200px;
+    width: 400px;
+    overflow-y: scroll;
+}
+
+
+i.fa-solid.fa-circle-xmark {
+    color: #ac1e1e;
+    margin-left: 30px;
+}
+
+.order-div-wrapper {
+    width: 300px;
+}
+
+.order-divDiv-selItem {
+    display: inline-block;
+    width: 140px;
+    font-size: 21px;
+    margin-right: 10px;
+}
+
+.order-divDiv-num {
+    display: inline-block;
+    font-size: 19px;
+}
  
 
 

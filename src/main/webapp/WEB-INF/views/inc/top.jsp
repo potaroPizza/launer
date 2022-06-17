@@ -23,7 +23,7 @@
     <script src="<c:url value="/js/jquery.animate-shadow-min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/main-fixed-wrap.js"/>"></script>
     <script src="https://kit.fontawesome.com/d4af3bb512.js" crossorigin="anonymous"></script>
-    <title>MAIN</title>
+    <title>Launer</title>
 </head>
 
 <body>
@@ -78,7 +78,7 @@
                         <span>LOG OUT</span>
                         <div class="hover-text">로그아웃</div>
                     </a>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/mypage/mypage">
 <%--                        <i class="fa-solid fa-circle-user"></i>--%>
                         <div class="line"></div>
                         <span>MY PAGE</span>
