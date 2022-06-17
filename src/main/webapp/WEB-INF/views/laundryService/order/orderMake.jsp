@@ -13,94 +13,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
-/* $(function(){
-	
-	$('#addClickDailyBtn').click{
-		var selItem = $("#order-daily").val();
-		var num = $("#order-daily-num").val();
-	
-		
-		for (var i = 0; i < num; i++) {
-			console.log(i);
 
-			var inputTagAdd = "<input onclick='removeInput(this)' name='categoryNo' value =" + selItem + " ><br>";
-			$(inputTagAdd).prependTo("form[name=order-item-form]");
-		}
-		
-	}
-
-	
-}); */
-
-	/* function addClick(){
-		var selItem = $("#order-daily").val();
-		var num = $("#order-daily-num").val();
-	
-		
-		for (var i = 0; i < num; i++) {
-			console.log(i);
-
-			var inputTagAdd
-			= "<input onclick='removeInput(this)' name='categoryNo' value =" + selItem + " ><br>";
-			$(inputTagAdd).prependTo("form[name=order-item-form]");
-	
-	}
-} */
-	
-	$(function(){
-		$('.addBtn').click(function(){
-			var itemId =$(this).attr("id");
-			var itemCnt =$(this).attr("id");
-			console.log("상품:"+itemId);
-			console.log("개수:"+itemCnt);
-			
-			let orderDaily = "orderDaily";
-			let orderIndivisual = "orderIndivisual";
-			
-			 function addClick() {
-                 let num;
-                 let selItem;
-
-                 if (itemId == orderDaily) {
-                     selItem = $("#orderDaily-item").val();
-                     num = $("#orderDaily-num").val();
-                 } else if (itemId == orderIndivisual) {
-                     selItem = $("#orderIndivisual-item").val();
-                     num = $("#orderIndivisual-num").val();
-                 }
-
-                 if (selItem == null || num == 0 || num == null) {
-                     alert("상품과 수량을 입력해주세요");
-                     event.preventDefault();
-
-                 }
-
-                 for (var i = 0; i < num; i++) {
-                     console.log(i);
-
-                     var inputTagAdd = "<input name='categoryNo' value =" + selItem + "><br>";
-                     $(inputTagAdd).prependTo("form[name=order-item-form]");
-                 }
-
-                 let inputDivAdd = "<div class = 'order-div-wrapper'>" +
-                     "<div class = 'order-divDiv-selItem'>" + selItem + "</div>" +
-                     "<div class = 'order-divDiv-num'>" + num +
-                     "<button onclick='removeInput(this)'><i class='fa-solid fa-circle-xmark'></i></button>" +
-                     "</div>" +
-                     "</div><br>";
-                 $(inputDivAdd).prependTo("#order-divDiv");
-
-                 $item = $("#removeInput");
-
-             }
-			 addClick();	//함수실행
-		});
-	});
-	
-	function removeInput(element) {
-        let $elementMother = $(element);
-        $elementMother.parent().parent().remove();
-    }
 
 	
 </script>
@@ -146,71 +59,31 @@
 		</div>
 		<hr>
 
-
-
-		<div class="orderInfo-order-select-wrapper">
+ 	<!-- 상품선택 -->
+	<div class="orderInfo-order-select-wrapper">
 			<div class="title-select">세탁물 선택</div>
-
-			<div class="orderInfo-order-daily">
-				<p>생활빨래</p>
-				<div class="order-select-wrap">
-					<select class="mulit-select" name="orderDaily-item" id="orderDaily-item">
-						<option value="" ></option>
-						<option value="속옷">속옷</option>
-						<option value="양말">양말</option>
-						<option value="이불">이불</option>
-						<option value="커튼">커튼</option>
-					</select> 
-					<select class="mulit-select" name="orderDaily-num" id="orderDaily-num">
-						<option value="" ></option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
-					<button class="addBtn" id="orderDaily">추가</button>
-				</div>
-			</div>
-
-
-			<div class="orderInfo-order-indivisual">
-				<p>개별클리닝</p>
-				<div class="order-select-wrap">
-					<select class="mulit-select" name="orderIndivisual-item" id="orderIndivisual-item">
-						<option value="" ></option>
-						<option value="가죽바지">가죽바지</option>
-						<option value="모피목도리">모피목도리</option>
-						<option value="정장자켓">정장자켓</option>
-						<option value="학생마이">학생마이</option>
-					</select> 
-					<select class="mulit-select" name="orderIndivisual-num" id="orderIndivisual-num">
-						<option value="" ></option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-					</select>
-					<button class="addBtn" id="orderIndivisual">추가</button>
-
-				</div>
-			</div>
 			
-			<div id = "order-divDiv">
-
-			</div>
+			<p>생활빨래</p>
+			<c:import url ="/laundryService/order/orderMakeSelect">
+				<c:param name="categoryGroup" value="1"></c:param>
+			</c:import>
 			
-			<div id="order-formDiv">
-				<form name="order-item-form"
-					action="<c:url value="/laundryService/order/paramPost"/>"
-					method="get">
-			</div>
-
-			<div class="margin-top-fixed"></div>
+			
+			<p>개별클리닝</p>
+			<c:import url ="/laundryService/order/orderMakeSelect">
+				<c:param name="categoryGroup" value="2"></c:param>
+			</c:import>
+			
+			
+			<form name="order-item-form" action="<c:url value="/laundryService/order/paramPost"/>" method="get">
+		
+		
+		
 			<input type="submit" value="확인" />
 			</form>
-		</div>
-
-
+			
+			
+	</div>
 
 		<div class="orderInfo-request">
 			<div>세탁요청사항</div>

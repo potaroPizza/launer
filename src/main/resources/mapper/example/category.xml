@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.category.model.CategoryDAO">
-    <select id="selectAllCategoryGroup" resultType="map">
+        <select id="selectAllCategoryGroup" resultType="map">
         select * from CATEGORY_GROUP
+    </select>
+    <select id="selectAllCategory" resultType="categoryVo">
+    	select * from clothing_category where category_group=#{categoryGroup}
     </select>
 </mapper>
