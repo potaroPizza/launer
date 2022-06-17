@@ -40,8 +40,8 @@
 }
 
 .detailedPaymentHistory_list {
-	border-top: 3px solid black;
-	border-bottom: 3px solid black;
+	border-top: 3px solid gray;
+	border-bottom: 3px solid gray;
 	width: 1200px;
 	height: 200px;
 	margin-bottom: 30px;
@@ -129,7 +129,6 @@
 				<p>
 					상품금액 &nbsp;&nbsp;&nbsp;&nbsp;<span>1500원</span>
 				</p>
-
 			</div>
 			<div class="detailedPaymentHistory_detail2">
 				<p>

@@ -78,7 +78,7 @@
                         <span>LOG OUT</span>
                         <div class="hover-text">로그아웃</div>
                     </a>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/mypage/mypage">
 <%--                        <i class="fa-solid fa-circle-user"></i>--%>
                         <div class="line"></div>
                         <span>MY PAGE</span>
