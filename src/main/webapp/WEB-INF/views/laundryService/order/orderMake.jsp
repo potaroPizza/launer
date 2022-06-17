@@ -51,8 +51,8 @@
 		$('.addBtn').click(function(){
 			var itemId =$(this).attr("id");
 			var itemCnt =$(this).attr("id");
-			console.log(itemId);
-			console.log(itemCnt);
+			console.log("상품:"+itemId);
+			console.log("개수:"+itemCnt);
 			
 			let orderDaily = "orderDaily";
 			let orderIndivisual = "orderIndivisual";
@@ -86,7 +86,8 @@
 					}
 					
 					var inputDivAdd = "<div class = 'order-div-wrapper'><div class = 'order-divDiv-selItem'>"+selItem+"</div>"
-										+"<div class = 'order-divDiv-num'>"+num+"<a href='#' onclick='removeInput'><i class='fa-solid fa-circle-xmark'></i></a></div></div><br>";
+										+"<div class = 'order-divDiv-num'>"+num
+										+"<a href='#' id='removeInput'><i class='fa-solid fa-circle-xmark'></i></a></div></div><br>";
 					$(inputDivAdd).prependTo("#order-divDiv");
 
 				} 
@@ -95,10 +96,21 @@
 			 
 			 
 		});	
+		
+		$('#removeInput').on('click',function(){
+			
+			$(this).parent('.order-div-wrapper').remove();
+			
+		});
+		
+		
+		
+		
 	});
-	function removeInput(element) {
-		element.remove();
-	}
+	
+	
+
+	
 </script>
 
 
