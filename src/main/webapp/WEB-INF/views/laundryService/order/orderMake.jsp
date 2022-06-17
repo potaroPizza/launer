@@ -69,12 +69,25 @@
 					 num = $("#orderIndivisual-num").val();
 					 
 				 }
+				 
+				 if(selItem==null || num ==0 || num==null){
+					 alert("상품과 수량을 입력해주세요");
+					  event.preventDefault();
+					 
+				 }
+				 
+				 
+				 
 					for (var i = 0; i < num; i++) {
 						console.log(i);
 
-						var inputTagAdd = "<input onclick='removeInput(this)' name='categoryNo' value =" + selItem + "><br>";
+						var inputTagAdd = "<input name='categoryNo' value =" + selItem + "><br>";
 						$(inputTagAdd).prependTo("form[name=order-item-form]");
 					}
+					
+					var inputDivAdd = "<div class = 'order-div-wrapper'><div class = 'order-divDiv-selItem'>"+selItem+"</div>"
+										+"<div class = 'order-divDiv-num'>"+num+"<a href='#' onclick='removeInput'><i class='fa-solid fa-circle-xmark'></i></a></div></div><br>";
+					$(inputDivAdd).prependTo("#order-divDiv");
 
 				} 
 			 
@@ -179,6 +192,14 @@
 
 				</div>
 			</div>
+			
+			<div id = "order-divDiv">
+			
+			
+			
+			
+			</div>
+			
 			<div id="order-formDiv">
 				<form name="order-item-form"
 					action="<c:url value="/laundryService/order/paramPost"/>"
