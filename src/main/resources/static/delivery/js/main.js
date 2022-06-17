@@ -18,13 +18,39 @@ $(function() {
     console.log(listPart);
 
 
-    listBox.addEventListener('mouseup', function() {
+    var filter = "win16|win32|win64|mac|macintel";
+    if ( navigator.platform ) {
+        if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) {
+            //mobile
+            $("#list-part").on("touchmove", function (e) {
+                isPressed = true;
+                mouseActionY();
+            });
+            $("#list-part").on("touchend", function (e) {
+                isPressed = false;
+            });
+        } else {
+            //pc
+            listBox.addEventListener('mouseup', function() {
+                isPressed = false;
+            })
+            listBox.addEventListener('mousedown', function() {
+                isPressed = true;
+                mouseActionY();
+            });
+        }
+    }
+
+    /*listBox.addEventListener('mouseup', function() {
         isPressed = false;
     })
     listBox.addEventListener('mousedown', function() {
         isPressed = true;
         mouseActionY();
-    });
+    });*/
+
+
+
 
     function mouseActionY() {
         if(isPressed) listPart.style.height = listPartHeight;
