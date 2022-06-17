@@ -89,7 +89,7 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		$('form[name=withdrawFrm]').submit(function(){
+		/*$('form[name=withdrawFrm]').submit(function(){
 			if($('#pwd').val().length<1){
 				alert('비밀번호를 입력해주세요');
 				return false;
@@ -98,7 +98,19 @@
 				alert('탈퇴 유의사항을 확인하고 동의해 주세요.');
 				return false;
 			}
+		});*/
+		var myModal = document.getElementById('exampleModal');
+		var myInput = document.getElementById('myInput');
+
+		$("#modal_on").click(function() {
+			myModal.on('shown.bs.modal', function (e) {
+				myModal.show();
+			});
 		});
+
+		$("#modal_on").on('shown.bs.modal', function (e) {
+			myModal.show();
+		})
 	});
 	
 	
@@ -145,8 +157,7 @@
 		</div>
 		<!-- Button trigger modal -->
 		<div class="mypage_withdraw_btn">
-			<button type="submit" class="btn btn-dark" data-bs-toggle="modal"
-				data-bs-target="#exampleModal">탈퇴하기</button>
+			<button id="modal_on" type="button" class="btn btn-dark">탈퇴하기</button>
 		</div>
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1"
