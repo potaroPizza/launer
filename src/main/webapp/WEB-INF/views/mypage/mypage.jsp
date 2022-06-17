@@ -2,14 +2,35 @@
 <%@ include file="../inc/top.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="<c:url value="/css/reset.css"/>" rel="stylesheet" type="text/css"/>
+<<<<<<< HEAD
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<style>
- @keyframes anime_textup { 0% { top: 0; } 20% { top: -0.4rem; } 40% { top: 0 } 60% { top: 0 } 80% { top: 0 } 100% { top: 0 } }
+<script src="https://kit.fontawesome.com/d4af3bb512.js" crossorigin="anonymous"></script>
 
-.wrap {
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700&display=swap');
+ @keyframes anime_textup { 0% { top: 0; } 20% { top: -0.4rem; } 40% { top: 0 } 60% { top: 0 } 80% { top: 0 } 100% { top: 0 } }
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+		-ms-user-select: none;
+		-moz-user-select: -moz-none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+ .clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
+ .clearfix::after {clear: both;}
+ a{color:#000; text-decoration: none;}
+ a:hover{color:#000}
+.mypage_wrap {
 	width: 1200px;
 	margin: 0 auto;
+}
+.mypage_top{
+	width:100%;
+	height:100px;
 }
 
 .mypage_container {
@@ -75,8 +96,7 @@ li {
 }
 
 .mypage_introduce {
-	margin-bottom: 150px;
-	margin-top: 100px;
+	margin-bottom: 80px;
 	font-weight: bold;
 	font-size: 40px;
 }
@@ -116,7 +136,7 @@ li {
 	animation-delay: .7s;
 }
 
-.logout_btn {
+.mypage_logout_btn {
 	text-align: center;
 }
 
@@ -124,15 +144,118 @@ li {
 	margin-bottom: 40px;
 	font-weight: bold;
 }
-</style>
+#mypage-main-wrap {
+	width: 100%;
+	height: 350px;
+}
+ #mypage-text-wrap .part{
+	 float: left;
+	 width: 350px;
+	 margin-left: 75px;
+	 text-align: center;
+	 line-height: 40px;
+	 font-size: 30px;
+	 margin-top: 40px;
+	 position: relative;
+	 margin-bottom: 30px;
+	 z-index: 30;
+ }#mypage-text-wrap .part:nth-child(1){margin-left: 0}
+ #mypage-main-wrap .part{
+	 width: 350px;
+	 height: 100%;
+	 float: left;
+	 margin-left: 75px;
+	 border-radius: 56px;
+	 background: #ffffff;
+	 box-shadow:  17px 17px 51px #d9d9d9,
+	 -17px -17px 51px #ffffff;
+	 line-height: 350px;
+	 text-align: center;
+	 font-size: 58pt;
+	 position: relative;
+	 overflow: hidden;
+ }
+ #mypage-main-wrap .part a{
+	 display: block;
+	 position: relative;
+	 z-index: 10;
+ }
+ #mypage-main-wrap .part:nth-child(1){margin-left: 0}
 
+ #mypage-main-wrap .hover-wrap{
+	 width: 0;
+	 height: 0;
+	 position: absolute;
+	 background: #466391;
+	 bottom: -100%;
+	 right: -100%;
+	 border-radius: 100%;
+	 z-index: -1;
+ }
+</style>
+<script type="text/javascript">
+	$(function() {
+		$("#mypage-main-wrap .part").hover(function() {
+			$(this).stop().animate({
+				top: "-3%"
+			}, 400);
+			$(this).find(".hover-wrap").stop().animate({
+				width: "400%",
+				height: "400%"
+			}, 600);
+
+			$(this).find("a").stop().animate({color: "#fff"}, 600);
+		},function() {
+			$(this).stop().animate({
+				top: "0"
+			}, 400);
+			$(this).find(".hover-wrap").stop().animate({
+				width: 0,
+				height: 0
+			}, 600);
+			$(this).find("a").stop().animate({color: "#000"}, 600);
+		});
+	})
+</script>
 <body>
-	<div class="wrap">
+	<div class="mypage_wrap">
+		<div class="mypage_top"></div>
 		<div class="mypage_introduce">
 			김러너님, &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
 			<span>시작</span><span>하세요!</span>
 		</div>
-		<div id="mypage_container">
+		<div id="mypage-main-wrap" class="clearfix">
+			<div class="part">
+				<a href="#">
+					<i class="fa-solid fa-coins"></i>
+					<div class="hover-wrap"></div>
+				</a>
+			</div>
+			<div class="part">
+				<a href="#">
+					<i class="fa-solid fa-file-invoice"></i>
+					<div class="hover-wrap"></div>
+				</a>
+			</div>
+			<div class="part">
+				<a href="#">
+					<i class="fa-solid fa-address-card"></i>
+					<div class="hover-wrap"></div>
+				</a>
+			</div>
+		</div>
+		<div id="mypage-text-wrap" class="clearfix">
+			<div class="part">
+				<span>1,000 Point</span>
+			</div>
+			<div class="part">
+				<span>결제내역</span>
+			</div>
+			<div class="part">
+				<span>내 정보</span>
+			</div>
+		</div>
+		<%--<div id="mypage_container">
 			<ul class="mypage_container_list">
 				<li><img src="../images/point.jpg"> <a
 					href="/launer/mypage/mypoint">
@@ -147,12 +270,12 @@ li {
 						</div>
 				</a></li>
 				<li><img src="../images/myinformation.jpg"> <a
-					href="#">
+					href="/launer/mypage/myinfo">
 					<div class="mypage_caption">
 						<p>내정보</p>
 					</div></a></li>
 			</ul>
-		</div>
+		</div>--%>
 		<!-- As a link -->
 		<div class="mypage_nav">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -172,10 +295,10 @@ li {
 			</nav>
 		</div>
 		<!-- Button trigger modal -->
-		<div class="logout_btn">
+		<%--<div class="mypage_logout_btn">
 			<button type="button" class="btn btn-dark" data-bs-toggle="modal"
 				data-bs-target="#exampleModal">로그아웃</button>
-		</div>
+		</div>--%>
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -186,9 +309,9 @@ li {
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<div class="modal-body">로그아웃 하시겠습니까?</div>
+					<div class="modal-body ">로그아웃 하시겠습니까?</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-dark">로그아웃</button>
+						<button type="button" class="btn btn-dark" onclick="location.href='/launer'">로그아웃</button>
 						<button type="button" class="btn btn-dark"
 							data-bs-dismiss="modal">취소</button>
 					</div>
