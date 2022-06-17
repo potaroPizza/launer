@@ -11,6 +11,26 @@
 #orders th, #orders td {
 	text-align: center;
 }
+
+        #detail {}
+        /* #detail h2 span.name {font-weight: bold; color: #000;} */
+        #detail table {margin: 10px 0 30px 0;}
+        #detail table tr td {height: 20px; padding: 5px; border-bottom: 1px solid #e6e6e6; font-size: 15px;}
+        /* #detail .h2_2 {font-size: 14px; font-weight: bold; color:#85b8cf; text-indent: 10px;} */
+        #detail table.view_2 {border-top: 3px solid #85b8cf; border-bottom: 3px solid #e6e6e6; width: 80%; margin: auto;}
+        #detail table.view_2 td.title {background: #f3fcff; text-align: center; font-weight: bold; font-size: 20px;}
+        #detail span.close {display: block; background: #eaeaea; text-align: center; font-weight: bold; cursor: pointer; padding: 5px;}
+
+#pickUp {
+	margin-top: 10px;
+	float: right;
+}
+div.pickUp{
+	margin: auto;
+	height: 45px;
+	width: 80%;
+}
+
 </style>
 
 <!--
@@ -26,195 +46,86 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 <script type="text/javascript">
-	$(function(){
-		$("#startDay").datepicker({
-			dateFormat:'yy-mm-dd',
-			changeYear:true,
-			dayNamesMin:['일','월','화','수','목','금','토'],
-			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-		});
-		$("#endDay").datepicker({
-			dateFormat:'yy-mm-dd',
-			changeYear:true,
-			dayNamesMin:['일','월','화','수','목','금','토'],
-			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-		});
-	});
+	
 </script>
 
 <div id="layoutSidenav_content">
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">주문상세</h1>
-			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item active"></li>
-			</ol>
-			<div class="card mb-4">
-				<div class="card-body">
-					<div>
-						<form name="frm1" method="post"
-						action="<c:url value='/shop/order/orderList'/>">
-						<!-- 조회기간 include -->
-						조회기간 
-						<input type="button" value="1주일"> <input
-							type="button" value="1개월"> <input type="button"
-							value="3개월"> <input type="text" name="startDay"
-							id="startDay" value="${dateSearchVO.startDay}"> ~ <input
-							type="text" name="endDay" id="endDay"
-							value="${dateSearchVO.endDay}"> 
-							
-							&nbsp; 지점선택
-							<select>
-							  <option selected>전체</option>
-							  <option value="1">영등포점</option>
-							  <option value="2">마포점</option>
-							  <option value="3">구로점</option>
-							</select>
-							
-
-
-
-
- 
-							&nbsp; 주문상태 선택
-							<select>
-							  <option selected>전체</option>
-							  <option value="1">수거전</option>
-							  <option value="2">수거완료</option>
-							  <option value="3">세탁중</option>
-							  <option value="3">픽업대기</option>
-							  <option value="3">배송중</option>
-							  <option value="3">배송완료</option>
-							</select>
-							
-							<input type="submit"
-							id="od_submit" value="조회">
-						</form>
-					</div>
-					
-				</div>
-			</div>
-			<br>
+		
+			<div style="width: 100%; height: 30px;'"></div>
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table me-1"></i> 주문 현황
+					<i class="fas fa-table me-1"></i> 주문 상세 내역표
 					
 				</div>
 				<div class="card-body">
-					<table class="table table-striped" id="orders">
-						<colgroup>
-							<col style="width: 5%">
-							<col style="width: 14%">
-							<col style="width: 20%">
-							<col style="width: 14%">
-							<col style="width: 14%">
-							<col style="width: 20%">
-							<col style="width: 13%">
-						</colgroup>
-						<thead>
-							<tr>
-								<th><input type="checkbox" name="chkAll" id="chkAll"></th>
-								<th>주문번호</th>
-								<th>주문자</th>
-								<th>담당지점</th>
-								<th>주문상태</th>
-								<th>날짜</th>
-								<th>상세보기</th>
+				<div id="detail">	
+				        <table class="view_2">
+				        	<colgroup>
+								<col style="width: 17%">
+								<col style="width: 25%">
+								<col style="width: 18%">
+								<col style="width: 50%">
 
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>세탁중</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>세탁중</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>세탁중</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>픽업대기</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>픽업대기</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
+							</colgroup>
+				            <tr>	<!-- 총 4열 -->
+				                <td class="title">주문번호</td>
+				                <td>103</td>
+				                <td class="title">주문자 아이디</td>
+				                <td>jihuo1004@gmail.com</td>
+				            </tr>
+				            <tr>
+				                <td class="title">주문상태</td>
+				                <td>세탁중</td>
+				                <td class="title">주문자 주소</td>
+				                <td>서울특별시 영등포구 여의도동 여의대로21길 15 한강아파트 101동 101호</td>
 
-						</tbody>
-					</table>
-					<input type="button" value="픽업대기 처리">
-					&nbsp; 
-							<select>
-							<option value="1">5개씩 보기</option>
-							  <option selected>10개씩 보기</option>
-							  <option value="1">20개씩 보기</option>
+				            </tr>
+				            <tr>
+				                <td class="title">담당지점</td>
+				                <td>영등포점</td>
+				                <td class="title">신청시간</td>
+				                <td>2022-06-17 16:17</td>
+				            </tr>
+				            <tr>
+				                <td class="title">수거자</td>
+				                <td>jihuo1004@gmail.com</td>
+				                <td class="title">배송자</td>
+				                <td>jihuo1004@gmail.com</td>
+				            </tr>
+				            <tr>
+				                <td class="title">주문상세</td>
+				                <td colspan="3">블라우스 &nbsp; 2개 &nbsp; 8,000(건 당)</td>
+				            </tr>
+				            <tr>
+				                <td class="title">총 합계</td>
+				                <td colspan="3">16,000</td>
+				            </tr>
+				            <tr>
+				                <td class="title">결제번호</td>
+				                <td>57777777</td>
+				                <td class="title">결제시간</td>
+				                <td>2022-06-17 16:18</td>
+				            </tr>
+				            <tr>
+				                <td class="title">총 과세금액</td>
+				                <td colspan="3">16,000</td>
+				            </tr>
 
-							</select>
+				        </table>
+					<div class="pickUp">
+						<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp">
+					</div>
+				</div>
+							
 				</div>
 				
 				
 				
 			</div>
-			<nav aria-label="...">
-					 <ul class="pagination">
-					 <li class="page-item disabled">
-					 	<span class="page-link">Previous</span>
-					 </li>
-					 <li class="page-item"><a class="page-link" href="#">1</a></li>
-					 <li class="page-item active" aria-current="page">
-					 	<span class="page-link">2</span>
-					 </li>
-					 <li class="page-item"><a class="page-link" href="#">3</a></li>
-					 <li class="page-item">
-					 	<a class="page-link" href="#">Next</a>
-					 </li>
-					 </ul>
-				</nav>
+			
 		</div>
 	</main>
 
