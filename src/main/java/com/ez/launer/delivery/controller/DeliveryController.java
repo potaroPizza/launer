@@ -18,8 +18,6 @@ import java.util.Map;
 public class DeliveryController {
     private static final Logger logger = LoggerFactory.getLogger(DeliveryController.class);
 
-    private final CategoryService categoryService;
-
     @GetMapping("/")
     public String deliveryMain() {
         logger.info("배송기사 메인 페이지");
@@ -29,10 +27,6 @@ public class DeliveryController {
     @GetMapping("/pickup")
     public String pickupList(Model model) {
         logger.info("내 수거목록 리스트");
-
-        List<Map<String, Object>> list = categoryService.selectAllCategoryGroup();
-
-        model.addAttribute("list", list);
 
         return "/delivery/deliveryList";
     }
