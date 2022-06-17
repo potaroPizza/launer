@@ -16,14 +16,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main_fixed_wrap.css" type="text/css" />
+    <link rel="stylesheet" href="<c:url value="/css/jquery-ui.min.css"/>" />
+    <link rel="stylesheet" href="<c:url value="/css/main_fixed_wrap.css"/>" type="text/css" />
     <script src="<c:url value="/js/jquery-3.6.0.min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/jquery-ui.min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/jquery.animate-shadow-min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/main-fixed-wrap.js"/>"></script>
     <script src="https://kit.fontawesome.com/d4af3bb512.js" crossorigin="anonymous"></script>
-    <title>MAIN</title>
+    <title>Launer</title>
 </head>
 
 <body>
@@ -33,7 +33,7 @@
                 <nav>
                     <ul>
                         <li class="sub-title on">
-                            <a href="#" onclick="event.preventDefault();">소개</a>
+                            <a href="<c:url value="/"/>">소개</a>
                             <ul class="sub-nav">
                                 <li><a href="#">사이트 소개</a></li>
                                 <li><a href="#">가격표</a></li>
@@ -41,7 +41,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#">세탁서비스</a>
+                            <a href="${pageContext.request.contextPath}/laundryService/order/orderMake">세탁서비스</a>
                         </li>
                         <li>
                             <a href="#">라이프</a>
@@ -67,14 +67,22 @@
             <div class="header-slide-down"></div>
             <div id="header" class="clearfix">
                 <h1 id="logo">
-                    <a href="#"><img src="${pageContext.request.contextPath}/images/logo_3.svg" alt="logo"></a>
+                    <a href="<c:url value="/"/>">
+                        <img src="${pageContext.request.contextPath}/images/logo_4.svg" alt="logo">
+                    </a>
                 </h1>
                 <div id="header-right">
                     <a href="#">
-                        <i class="fa-solid fa-right-from-bracket"></i>
+<%--                        <i class="fa-solid fa-right-from-bracket"></i>--%>
+                        <div class="line"></div>
+                        <span>LOG OUT</span>
+                        <div class="hover-text">로그아웃</div>
                     </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle-user"></i>
+                    <a href="${pageContext.request.contextPath}/mypage/mypage">
+<%--                        <i class="fa-solid fa-circle-user"></i>--%>
+                        <div class="line"></div>
+                        <span>MY PAGE</span>
+                        <div class="hover-text">내 정보</div>
                     </a>
                 </div>
             </div>
