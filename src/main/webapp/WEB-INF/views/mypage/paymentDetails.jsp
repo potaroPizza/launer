@@ -81,54 +81,75 @@
 				</form>
 			</div>
 		</div>
-		<table class="table">
-			<colgroup>
-				<col style="width: 10%">
-				<col style="width: 20%">
-				<col style="width: 35%">
-				<col style="width: 20%">
-				<col style="width: 10%">
+		<div class="card ">
+			<div class="card-header">이용자 현황</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<colgroup>
+						<col style="width: 10%">
+						<col style="width: 10%">
+						<col style="width: 35%">
+						<col style="width: 20%">
+						<col style="width: 20%">
 
-			</colgroup>
-			<thead>
-				<tr>
-					<th scope="col">주문코드</th>
-					<th scope="col">상품명</th>
-					<th scope="col">가격</th>
-					<th scope="col">주문일</th>
-					<th scope="col">상태</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">00001</th>
-					<td>티셔츠</td>
-					<td>1000</td>
-					<td>22/01/01</td>
-					<td>배송중</td>
-				</tr>
-				<tr>
-					<th scope="row">00002</th>
-					<td>셔츠</td>
-					<td>1000</td>
-					<td>22/01/01</td>
-					<td>배송중</td>
-				</tr>
-				<tr>
-					<th scope="row">00002</th>
-					<td>바지</td>
-					<td>1000</td>
-					<td>22/01/01</td>
-					<td>배송중</td>
-				</tr>
-			</tbody>
-		</table>
+					</colgroup>
+					<thead>
+						<tr>
+							<th>주문코드</th>
+							<th>상품명</th>
+							<th>가격</th>
+							<th>주문일</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>5</td>
+							<td>한길동</td>
+							<td>han@gmail.com</td>
+							<td>영등포관리자</td>
+							<td>일반사용자</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>이길동</td>
+							<td>lee@gmail.com</td>
+							<td>강남관리자</td>
+							<td>일반사용자</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>박길동</td>
+							<td>park@gmail.com</td>
+							<td>중구관리자</td>
+							<td>일반사용자</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>김길동</td>
+							<td>kim@gmail.com</td>
+							<td>마포구관리자</td>
+							<td>일반사용자</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>홍길동</td>
+							<td>hong@gmail.com</td>
+							<td>서대문구관리자</td>
+							<td>일반사용자</td>
+						</tr>
+					</tbody>
 
-		<div class="paymentDetails_amountPayment">
-			<p>
-				총 결제 금액 <span>1500</span>원
-			</p>
+				</table>
+				<div class="paymentDetails_amountPayment">
+					<p>
+						총 결제 금액 <span>1500</span>원
+					</p>
+				</div>
+			</div>
 		</div>
+
+
 		<div class="paymentDetails_back">
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='/launer/mypage/mypage'">이전</button>

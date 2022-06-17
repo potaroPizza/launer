@@ -4,7 +4,6 @@
 
 <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link href="<c:url value="/css/reset.css"/>" rel="stylesheet" type="text/css"/>
-<<<<<<< HEAD
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/d4af3bb512.js" crossorigin="anonymous"></script>
@@ -33,7 +32,7 @@
 	height:100px;
 }
 
-.mypage_container {
+/* .mypage_container {
 	width: 1200px;
 	margin: 0 auto;
 }
@@ -93,7 +92,7 @@ li {
 	color: #fff;
 	text-align: center;
 	font-size: 30px;
-}
+} */
 
 .mypage_introduce {
 	margin-bottom: 80px;
@@ -226,19 +225,19 @@ li {
 		</div>
 		<div id="mypage-main-wrap" class="clearfix">
 			<div class="part">
-				<a href="#">
+				<a href="/launer/mypage/mypoint">
 					<i class="fa-solid fa-coins"></i>
 					<div class="hover-wrap"></div>
 				</a>
 			</div>
 			<div class="part">
-				<a href="#">
+				<a href="/launer/mypage/paymentDetails">
 					<i class="fa-solid fa-file-invoice"></i>
 					<div class="hover-wrap"></div>
 				</a>
 			</div>
 			<div class="part">
-				<a href="#">
+				<a href="/launer/mypage/myinfo">
 					<i class="fa-solid fa-address-card"></i>
 					<div class="hover-wrap"></div>
 				</a>
