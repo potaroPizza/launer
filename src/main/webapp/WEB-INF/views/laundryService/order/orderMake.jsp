@@ -58,57 +58,49 @@
 			let orderIndivisual = "orderIndivisual";
 			
 			 function addClick() {
-				 var num;
-				 var selItem;
-				 
-				 if(itemId==orderDaily){
-					 selItem = $("#orderDaily-item").val();
-					 num = $("#orderDaily-num").val();
-				 }else if(itemId ==orderIndivisual){
-					 selItem = $("#orderIndivisual-item").val();
-					 num = $("#orderIndivisual-num").val();
-					 
-				 }
-				 
-				 if(selItem==null || num ==0 || num==null){
-					 alert("상품과 수량을 입력해주세요");
-					  event.preventDefault();
-					 
-				 }
-				 
-				 
-				 
-					for (var i = 0; i < num; i++) {
-						console.log(i);
+                 let num;
+                 let selItem;
 
-						var inputTagAdd = "<input name='categoryNo' value =" + selItem + "><br>";
-						$(inputTagAdd).prependTo("form[name=order-item-form]");
-					}
-					
-					var inputDivAdd = "<div class = 'order-div-wrapper'><div class = 'order-divDiv-selItem'>"+selItem+"</div>"
-										+"<div class = 'order-divDiv-num'>"+num
-										+"<a href='#' id='removeInput'><i class='fa-solid fa-circle-xmark'></i></a></div></div><br>";
-					$(inputDivAdd).prependTo("#order-divDiv");
+                 if (itemId == orderDaily) {
+                     selItem = $("#orderDaily-item").val();
+                     num = $("#orderDaily-num").val();
+                 } else if (itemId == orderIndivisual) {
+                     selItem = $("#orderIndivisual-item").val();
+                     num = $("#orderIndivisual-num").val();
+                 }
 
-				} 
-			 
+                 if (selItem == null || num == 0 || num == null) {
+                     alert("상품과 수량을 입력해주세요");
+                     event.preventDefault();
+
+                 }
+
+                 for (var i = 0; i < num; i++) {
+                     console.log(i);
+
+                     var inputTagAdd = "<input name='categoryNo' value =" + selItem + "><br>";
+                     $(inputTagAdd).prependTo("form[name=order-item-form]");
+                 }
+
+                 let inputDivAdd = "<div class = 'order-div-wrapper'>" +
+                     "<div class = 'order-divDiv-selItem'>" + selItem + "</div>" +
+                     "<div class = 'order-divDiv-num'>" + num +
+                     "<button onclick='removeInput(this)'><i class='fa-solid fa-circle-xmark'></i></button>" +
+                     "</div>" +
+                     "</div><br>";
+                 $(inputDivAdd).prependTo("#order-divDiv");
+
+                 $item = $("#removeInput");
+
+             }
 			 addClick();	//함수실행
-			 
-			 
-		});	
-		
-		$('#removeInput').on('click',function(){
-			
-			$(this).parent('.order-div-wrapper').remove();
-			
 		});
-		
-		
-		
-		
 	});
 	
-	
+	function removeInput(element) {
+        let $elementMother = $(element);
+        $elementMother.parent().parent().remove();
+    }
 
 	
 </script>
@@ -120,7 +112,7 @@
 	href="<c:url value="/css/laundryService/order/orderMake.css"/>"
 	type="text/css" />
 
-<div id="margin-top-fixed"></div>
+<div class="margin-top-fixed"></div>
 <div id="orderWrapper">
 
 	<p>
@@ -183,8 +175,6 @@
 
 			<div class="orderInfo-order-indivisual">
 				<p>개별클리닝</p>
-
-
 				<div class="order-select-wrap">
 					<select class="mulit-select" name="orderIndivisual-item" id="orderIndivisual-item">
 						<option value="" ></option>
@@ -206,10 +196,7 @@
 			</div>
 			
 			<div id = "order-divDiv">
-			
-			
-			
-			
+
 			</div>
 			
 			<div id="order-formDiv">
@@ -217,7 +204,8 @@
 					action="<c:url value="/laundryService/order/paramPost"/>"
 					method="get">
 			</div>
-			<div id="margin-top-fixed"></div>
+
+			<div class="margin-top-fixed"></div>
 			<input type="submit" value="확인" />
 			</form>
 		</div>
