@@ -14,11 +14,12 @@ $(function() {
 
 
    $("#aside-wrap .sub-btn").click(function() {
-      if($(this).hasClass("on")) {
-         $(this).removeClass("on");
+      let $subBtn = $(this).parent();
+      if($subBtn.hasClass("on")) {
+         $subBtn.removeClass("on");
       }else{
-         $(this).addClass("on");
+         $subBtn.addClass("on");
       }
-      $(this).find(".sub-nav").stop().slideToggle();
+      $subBtn.find(".sub-nav").stop().slideToggle();
    })
 });

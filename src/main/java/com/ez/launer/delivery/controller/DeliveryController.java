@@ -16,4 +16,10 @@ public class DeliveryController {
         logger.info("배송기사 메인 페이지");
         return "/delivery/index";
     }
+
+    @GetMapping("/pickup")
+    public String pickupList() {
+        logger.info("내 수거목록 리스트");
+        return "/delivery/deliveryList";
+    }
 }

@@ -1,19 +1,3 @@
-#wrap {
-    width: 100%;
-    height: 100vh;
-    position: relative;
-}
-
-#logo {
-    height: 100%;
-    line-height: 40px;
-    position: absolute;
-    top: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-#logo img{height: 50px;}
-
 #map{
     width: 100%;
     height: 100%;
@@ -41,6 +25,7 @@
     cursor: grab;
     box-sizing: border-box;
 }
+#list-box:active{cursor: grabbing;}
 #list-box > .line{
     width: 55%;
     height: 2px;
@@ -79,9 +64,9 @@
 }#orders-list::-webkit-scrollbar-track{background: rgba(33, 122, 244, .1);}
 #orders-list .order-box{
     line-height: 180%;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 20px;
-    background: #f2f2f2;
+    background: #f6f6f6;
     box-sizing: border-box;
     padding: 10px 20px;
     margin-top: 15px;
@@ -92,6 +77,7 @@
     font-size: 22px;
     margin-bottom: 10px;
     width: 100%;
+    font-weight: 500;
 }
 
 #orders-list .order-text-list p{
@@ -102,6 +88,8 @@
 #orders-list .order-text-list p:nth-child(1){margin-left: 0;}
 #orders-list p strong{
     color: #000;
+    font-weight: 400;
+    margin-left: 5px;
 }
 
 #orders-list .order-text-box {
