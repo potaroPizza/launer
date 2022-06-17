@@ -48,14 +48,14 @@
         <nav>
             <ul class="nav-part">
                 <li><a href="#">요청 리스트</a></li>
-                <li>내 할일
+                <li class="sub-btn">내 할일
                     <ul class="sub-nav">
                         <li><a href="#">내 수거목록</a></li>
                         <li><a href="#">내 배송목록</a></li>
                     </ul>
                 </li>
                 <li><a href="#">공지사항</a></li>
-                <li>마이페이지
+                <li class="sub-btn">마이페이지
                     <ul class="sub-nav">
                         <li><a href="#">내 정보</a></li>
                         <li><a href="#">내 수입</a></li>
