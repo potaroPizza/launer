@@ -1,9 +1,15 @@
-  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-  <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
-  
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
+<% pageContext.setAttribute("newLine", "\r\n"); %>
+
 <t:head>
 </t:head>
 <t:wrapper>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <style type="text/css">
 .sb-sidenav-footer {
 	position: absolute;
@@ -59,7 +65,6 @@
                         <div class="card-body" style="height: 130px">
                             <span>
                                 -${vo.title}-<br>
-                                <% pageContext.setAttribute("newLine", "\r\n"); %>
 								${fn:replace(vo.content, newLine, "<br>")}
 							</span>
                     	</div>
@@ -102,8 +107,6 @@
                     </div>
 				</div>
 			</div>
-			
-			
 		</div>
 	</main>
 
