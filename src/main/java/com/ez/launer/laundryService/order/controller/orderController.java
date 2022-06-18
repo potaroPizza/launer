@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.category.model.CategoryService;
-import com.ez.launer.category.model.CategoryVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,10 +39,10 @@ public class orderController {
 	public String cgSelect(@RequestParam int categoryGroup, Model model) {
 		logger.info("카테고리그룹 별 조회 파라미터 groupName={}",categoryGroup);
 		
-		List<CategoryVO> list = categoryService.selectAllCategory(categoryGroup);
+		/*List<CategoryVO> list = categoryService.selectAllCategory(categoryGroup);
 		logger.info("그룹 별 카테고리 조회 결과 list.size={}",list.size());
 		
-		model.addAttribute("list", list);
+		model.addAttribute("list", list);*/
 		
 		return "/laundryService/order/orderMakeSelect";
 	}

@@ -16,8 +16,8 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryDao.selectAllCategoryGroup();
     }
 
-	@Override
+	/*@Override
 	public List<CategoryVO> selectAllCategory(int categoryGroup) {
 		return categoryDao.selectAllCategory(categoryGroup);
-	}
+	}*/
 }
