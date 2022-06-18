@@ -204,7 +204,7 @@ h3 {
                 <div>
                     <h3 class="userEdit_title"><label for="name">이름</label></h3>
                     <span class="box int_name">
-                        <input type="text" id="name" class="int" maxlength="20">
+                        <input type="text" id="name" class="int" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
