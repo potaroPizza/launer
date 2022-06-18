@@ -86,6 +86,10 @@
 					<input type="button" value="3개월" class="btn btn-outline-dark">
 					<input type="button" value="6개월" class="btn btn-outline-dark">
 					<input type="button" value="9개월" class="btn btn-outline-dark">
+					
+					<input type="text" name="startDay" id="startDay" 
+						value="${dateSearchVO.startDay }" > ~
+					<input type="text" name="endDay" id="endDay” value="${dateSearchVO.endDay }">
 				</form>
 			</div>
 		</div>

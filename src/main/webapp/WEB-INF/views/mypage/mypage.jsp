@@ -12,7 +12,6 @@
 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700&display=swap');
  @keyframes anime_textup { 0% { top: 0; } 20% { top: -0.4rem; } 40% { top: 0 } 60% { top: 0 } 80% { top: 0 } 100% { top: 0 } }
 	body {
-		font-family: 'Noto Sans KR', sans-serif;
 		-ms-user-select: none;
 		-moz-user-select: -moz-none;
 		-khtml-user-select: none;
