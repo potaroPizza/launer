@@ -253,6 +253,17 @@ i.fa-solid.fa-circle-xmark {
     font-size: 19px;
 }
  
+ 
+ /* 0618 */
+ 
+ form[name=order-item-form] {
+    height: 300px;
+    border: 1px solid;
+}
 
+#inputtest{
+	 overflow-y: scroll;
+	
+}
 
 

@@ -6,4 +6,6 @@ import java.util.Map;
 
 public interface CategoryService {
     List<Map<String, Object>> selectAllCategoryGroup();
+    List<CategoryVO> selectAllCategory(int categoryGroup);
+    CategoryVO selectByNo(int no);
 }

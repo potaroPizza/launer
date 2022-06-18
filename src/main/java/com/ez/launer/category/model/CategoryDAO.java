@@ -8,4 +8,6 @@ import java.util.Map;
 @Mapper
 public interface CategoryDAO {
     List<Map<String, Object>> selectAllCategoryGroup();
+    List<CategoryVO> selectAllCategory(int categoryGroup);
+    CategoryVO selectByNo(int no);
 }

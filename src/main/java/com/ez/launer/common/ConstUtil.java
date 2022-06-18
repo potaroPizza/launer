@@ -1,6 +1,7 @@
 package com.ez.launer.common;
 
 public interface ConstUtil {
+
 	// 인터페이스는 기본적으로, 멤버변수는 상수, 메소드는 추상메소드 이므로, 앞에 쓰는거 생략함
 	//게시판 페이징 관련 상수
 	public static final int RECORD_COUNT = 5;
@@ -26,4 +27,9 @@ public interface ConstUtil {
 	//구매금액이 3만원 미만이면 배송비 3000원
 	int DELIVERY = 3000;		// 배송비
 	int BUYING_PRICE = 30000;	// 기준 구매금액
+
+	//카테고리 그룹 상수
+	public static final int ORDER_DAILY=1;
+	public static final int ORDER_INDIVISUAL=2;
+
 }
