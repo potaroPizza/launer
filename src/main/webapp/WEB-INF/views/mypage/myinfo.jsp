@@ -76,7 +76,7 @@
 				<p>기본 정보</p>
 			</div>
 			<div class="myinfo_editbtn">
-			<a href="/launer/mypage/userEdit">
+			<a href="/launer/mypage/useredit">
 				<button type="button" class="btn btn-dark">정보 수정</button>
 			</a>
 			</div>

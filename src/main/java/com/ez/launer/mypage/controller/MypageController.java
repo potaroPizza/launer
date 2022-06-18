@@ -23,7 +23,7 @@ public class MypageController {
 	public void mypage() {
 		logger.info("마이페이지 화면");
 	}
-	@GetMapping("/userEdit")
+	@GetMapping("/useredit")
 	public void userEdit() {
 		logger.info("회원정보 수정 화면");
 	}
@@ -43,7 +43,7 @@ public class MypageController {
 	public void myinfo() {
 		logger.info("마이페이지 내정보 화면");
 	}
-	@GetMapping("/signOut")
+	@GetMapping("/signout")
 	public void singOut() {
 		logger.info("탈퇴 완료 페이지 화면");
 	}

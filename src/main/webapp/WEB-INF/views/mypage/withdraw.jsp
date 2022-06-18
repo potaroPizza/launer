@@ -139,7 +139,7 @@
 				<li><p>회원정보, 배송정보 기록이 모두 삭제되며, <span>삭제된 데이터는 복구되지 않습니다.</span></p></li>
 		</ul>
 	</div>
-	<form name="withdrawFrm" method="post" action="<c:url value='/mypage/signOut'/>">
+	<form name="withdrawFrm" method="post" action="<c:url value='/mypage/signout'/>">
 		<p>본인확인을 위해 비밀번호를 입력해 주세요.</p>
 		<div class="inputBx">
 		<div class="group-input">
