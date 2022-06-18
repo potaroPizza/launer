@@ -8,4 +8,10 @@
     <select id="selectAllCategory" resultType="categoryVo">
     	select * from clothing_category where category_group=#{categoryGroup}
     </select>
+    <select id="selectByNo" parameterType="int" resultType ="categoryVO">
+    	select * from clothing_category where no =#{no}
+    
+    </select>
+    
+    
 </mapper>

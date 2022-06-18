@@ -5,7 +5,10 @@
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
 <link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderConfirm.css"/>" type="text/css"/>
+<script type="text/javascript">
 
+	
+</script>
 
 <div class="margin-top-fixed"></div>
 <div class="orderConfirm-wrapper-wrapper">

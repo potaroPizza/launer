@@ -93,38 +93,6 @@ $("select[id='order-indivisual']").change(function () {
 		
 	});*/
 }); //jquery
-    
-    
-    
-  /*  var selected = [];
-    $("select[id='order-daily']").change(function() {
-    	selected[$(this).val()] = $(this).val(); 
-    	
-    	console.log(selected);   	
-});*/
-
-     /*var selected = [];
-     $("select[id='order-daily']").change(function(){
-         $('#order-daily :selected').each(function(){
-             selected[$(this).val()]=$(this).text();
-             });
-         console.log(selected);
-     });*/
-
-$(document).ready(function(){
-    $(".mul-select").select({
-            placeholder: "상품선택", //placeholder
-            tags: true,
-            tokenSeparators: ['/',',',';'," "] 
-
-	});
-	
-	$('#orderAgree').hide();
-	$('#orderDisagree').hide();
-	
-
-	
-})
 
 
 
