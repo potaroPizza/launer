@@ -1,0 +1,12 @@
+.main-section{
+    position: relative;
+    width: 100%;
+    padding-left: 225px;
+    min-height: calc(100% - 56px);
+    overflow: hidden;
+    padding-bottom: 86px;
+    
+    @include mobile {
+        padding-left: 0;
+    }
+}
