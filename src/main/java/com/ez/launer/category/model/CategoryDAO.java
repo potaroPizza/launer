@@ -9,4 +9,5 @@ import java.util.Map;
 public interface CategoryDAO {
     List<Map<String, Object>> selectAllCategoryGroup();
     List<CategoryVO> selectAllCategory(int categoryGroup);
+    CategoryVO selectByNo(int no);
 }

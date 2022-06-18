@@ -13,7 +13,38 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
+$(function(){
+	
+	$('#orderAddBtn').click(function(){
+		var itemNo = $('#order-item').val();
+		
+		var itemInfo ={"no":itemNo};
 
+	 	$.ajax({
+			url:'/launer/laundryService/order/testchk',
+			type: 'GET',
+			data : itemInfo,
+			
+			success:function(vo){
+				var tagAdd ="<div name = 'itemName' class ='tagAddDiv'>" + vo.categoryName +"</div>"
+							+"<div name = 'itemPrice' class ='tagAddDiv'>" + vo.price +"</div>";
+				$(tagAdd).prependTo("#inputtest");
+			},
+			error: function(){
+				alert("err");
+				
+			}
+		}); 
+		
+		
+	});
+});
+
+
+function setVO(){
+	var div 
+	
+}
 
 	
 </script>
@@ -30,7 +61,10 @@
 
 	<p>
 		<span>한서현 님</span> 수거요청
+		
 	</p>
+	
+	<button id="testBtn" value ="test">test</button>
 	<div class="orderInfo">
 
 		<div class="orderInfo-address">
@@ -69,19 +103,21 @@
 			</c:import>
 			
 			
-			<p>개별클리닝</p>
+		<%-- 	<p>개별클리닝</p>
 			<c:import url ="/laundryService/order/orderMakeSelect">
 				<c:param name="categoryGroup" value="2"></c:param>
-			</c:import>
+			</c:import> --%>
+			
+			<div id ="inputtest" style = "height:200px">
 			
 			
-			<form name="order-item-form" action="<c:url value="/laundryService/order/paramPost"/>" method="get">
+			</div>
+			 <form name="order-item-form" action="<c:url value="/laundryService/order/paramPost"/>" method="get">
 		
 		
 		
-			<input type="submit" value="확인" />
+			<input type="submit" value="확인"/>
 			</form>
-			
 			
 	</div>
 
