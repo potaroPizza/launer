@@ -1,7 +1,11 @@
 
 if(document.querySelector('.admin-page #btn-open-side-bar')) {
     document.querySelector('.admin-page #btn-open-side-bar').addEventListener('click', function(event){
-        document.querySelector('.admin-page #side-bar-warper').className = 'side-bar-warper active';
+        if(document.querySelector('.admin-page #side-bar-warper').className == 'side-bar-warper active'){
+            document.querySelector('.admin-page #side-bar-warper').className = 'side-bar-warper disable';
+        }else{
+            document.querySelector('.admin-page #side-bar-warper').className = 'side-bar-warper active';
+        }
     });
 }
 if(document.querySelector('.admin-page #side-bar-warper')) {
