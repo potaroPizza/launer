@@ -1,0 +1,54 @@
+/*
+기존 CSS 파일을 scss로 바꾸고 여기서 하나의 파일로 묶어버림
+
+기존 css는 .a 안에 .b가 있을 경우
+.a .b {}로 써야하지만,
+
+sass는 .a { .b{} }가능 함
+
+.admin-page {
+    @import '.admin-dashboard.scss';
+    @import '.admin-user.scss';
+}
+admin에서 만사용하는 css 분리 가능
+*/
+
+//그냥 css파일 쓰는 것을 partials 폴더 안에 scss 파일로 쓰고 import만 추가하면 app.css로 자동으로 묶임
+
+@import './partials/variable.scss';
+@import './partials/mixin.scss';
+@import './partials/animation.scss';
+@import './partials/bootstrap.scss';
+@import './partials/global.scss';
+@import './partials/jquery-ui.scss';
+@import './partials/reset.scss';
+.web-page {
+  @import './partials/main_fixed_wrap.scss';
+  @import './partials/main.scss';
+}
+
+.delivery-section {
+  @import "./partials/delivery/main.scss";
+  @import "./partials/delivery/delivery-fixed.scss";
+}
+//위에처럼 쓰면 그냥 일반 CSS처럼 쓰는것
+
+//아래처럼 쓰면 좀더 구조화해서 중복 방지 및 자식 css를 활용하기 편함 + 공부해야함
+/*
+.admin-page {
+    @import './partials/admin/dashboard.scss';
+}
+
+.web-page {
+    .order-section {
+        
+    }
+    @import './partials/user/order.scss';
+}
+
+.title-font {
+    color: #F00;
+    @include mobile {
+        color: blue;
+    }
+}*/

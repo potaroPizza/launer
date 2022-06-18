@@ -1,0 +1,1 @@
+require('./delivery-page/Delivery')
