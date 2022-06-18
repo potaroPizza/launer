@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="top.jsp"%>
+  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
+  
+<t:head>
+</t:head>
+<t:wrapper>
 <style type="text/css">
 .sb-sidenav-footer {
 	position: absolute;
@@ -17,7 +20,6 @@
 	resize: none;
 }
 </style>
-<div id="layoutSidenav_content">
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">러너보드</h1>
@@ -105,4 +107,4 @@
 		</div>
 	</main>
 
-	<%@ include file="bottom.jsp"%>
+</t:wrapper>
