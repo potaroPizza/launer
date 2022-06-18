@@ -20,4 +20,9 @@ public class CategoryServiceImpl implements CategoryService{
 	public List<CategoryVO> selectAllCategory(int categoryGroup) {
 		return categoryDao.selectAllCategory(categoryGroup);
 	}
+
+	@Override
+	public CategoryVO selectByNo(int no) {
+		return categoryDao.selectByNo(no);
+	}
 }

@@ -31,6 +31,12 @@ admin에서 만사용하는 css 분리 가능
   @import "./partials/delivery/main.scss";
   @import "./partials/delivery/delivery-fixed.scss";
 }
+
+.admin-page {
+    @import "./partials/admin/header.scss";
+    @import "./partials/admin/side-bar.scss";
+    @import "./partials/admin/footer.scss";
+}
 //위에처럼 쓰면 그냥 일반 CSS처럼 쓰는것
 
 //아래처럼 쓰면 좀더 구조화해서 중복 방지 및 자식 css를 활용하기 편함 + 공부해야함
