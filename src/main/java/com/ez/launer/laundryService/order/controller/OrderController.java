@@ -33,10 +33,10 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/laundryService/order")
 @RequiredArgsConstructor
-public class orderController {
+public class OrderController {
 	
 	private static final Logger logger
-		 = LoggerFactory.getLogger(orderController.class);
+		 = LoggerFactory.getLogger(OrderController.class);
 	
 	private final CategoryService categoryService;
 	
