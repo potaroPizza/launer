@@ -108,12 +108,24 @@ const PickUpPanel = (props) => {
 
 const DeliverySlide = (props) => {
     const [viewMode, setViewMode] = useState('수거');
+    const [isView, setIsView] = useState(null);
 
     function view수거(event) {
         setViewMode('수거');
     }
     return (
-        <div id="list-part" className="main-width">
+        <div id={"list-part"} className={"main-width " +(isView == null?'':(isView==false?'non-active':'active'))}>
+            <div className={'on-off-section'} onClick={(event) => {
+                if(isView == null) {
+                    setIsView(true);
+                    return;
+                }
+                setIsView(!isView);
+            }}>
+                {
+                    (isView == null || isView == false)?'▲':'▼'
+                }
+            </div>
             <div id="list-box"><div className="line"></div></div>
             <div id="order-tab-box">
                 <div className={"pickup-tab "+(viewMode=='수거'?' on':'')} onClick={view수거}>수거</div>
