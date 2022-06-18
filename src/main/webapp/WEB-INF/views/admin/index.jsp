@@ -34,6 +34,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="row">
 				<div class="col-xl-9"></div>
 				<div class="col-xl-1">
@@ -43,25 +44,29 @@
 				</div>
 			</div>
 			<br>
-				
+			
+			<!-- 러너보드 반복 시작 -->	
+			<c:forEach var="vo" items="${list}">
 			<div class="row">
 				<div class="col-xl-2"></div>
 				<div class="col-xl-8" style="height: 200px;">
 					<label for="exampleFormControlTextarea1" class="form-label">
-						2022-06-15 09:44</label>
+						<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm"/> </label>
 					<button type="button" class="btn-close" aria-label="Close" style="float: right"></button>
 					<div class="card mb-4" >
                         <div class="card-body" style="height: 130px">
                             <span>
-                                -오늘의 공지-<br>
-								코로나바이러스 감염증 예방 행동규칙 준수해주세요.<br>
-								어제 영등포점에서 세탁물에 먼지가있다는 컴플레인이 들어왔습니다.<br>
-								영등포점 뿐만 아니라 다른 지점들도 청결 유지해주시기바랍니다.
+                                -${vo.title}-<br>
+                                <% pageContext.setAttribute("newLine", "\r\n"); %>
+								${fn:replace(vo.content, newLine, "<br>")}
 							</span>
                     	</div>
                     </div>
 				</div>
 			</div>
+			</c:forEach>
+			<!-- 러너보드 반복 끝 -->
+			
 			<div class="row">
 				<div class="col-xl-2"></div>
 				<div class="col-xl-8" style="height: 200px;">
