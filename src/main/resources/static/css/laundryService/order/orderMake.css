@@ -261,5 +261,9 @@ i.fa-solid.fa-circle-xmark {
     border: 1px solid;
 }
 
+#inputtest{
+	 overflow-y: scroll;
+	
+}
 
 

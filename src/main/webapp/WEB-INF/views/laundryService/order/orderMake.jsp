@@ -26,9 +26,30 @@ $(function(){
 			data : itemInfo,
 			
 			success:function(vo){
-				var tagAdd ="<div name = 'itemName' class ='tagAddDiv'>" + vo.categoryName +"</div>"
+				
+				var list = new Array();
+				
+				   $("input[name=no]").each(function(index, item){
+					  list.push($(item).val());
+					   if(list.includes($(item).val())){
+						   alert("이미존재");
+						   return false;
+						   
+					   }else{
+					  	 list.push($(item).val());
+					   }
+				   });
+				   
+				var tagAdd ="<input type = 'text' name = 'no' class ='tagInputAdd' value=" + vo.no +">"
+							+"<div name = 'itemName' class ='tagAddDiv'>" + vo.categoryName +"</div>"
 							+"<div name = 'itemPrice' class ='tagAddDiv'>" + vo.price +"</div>";
 				$(tagAdd).prependTo("#inputtest");
+				
+				/* className 으로 개수 가져오기 */
+				var inputCnt = document.getElementsByClassName('tagInputAdd').length;
+				
+				
+				
 			},
 			error: function(){
 				alert("err");
@@ -38,13 +59,8 @@ $(function(){
 		
 		
 	});
-});
-
-
-function setVO(){
-	var div 
 	
-}
+});
 
 	
 </script>
