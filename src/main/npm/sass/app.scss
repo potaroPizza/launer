@@ -1,0 +1,12 @@
+/*
+기존 CSS 파일을 scss로 바꾸고 여기서 하나의 파일로 묶어버림
+
+*/
+
+@import './partials/bootstrap.scss';
+@import './partials/global.scss';
+@import './partials/jquery-ui.scss';
+@import './partials/main_fixed_wrap.scss';
+@import './partials/main.scss';
+@import './partials/main_fixed_wrap.scss';
+@import './partials/reset.scss';
