@@ -4,5 +4,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <header>
-    aaa
+    <div class="logo">
+        Launer
+    </div>
+
+    <div id="btn-open-side-bar">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 </header>

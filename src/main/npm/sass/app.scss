@@ -33,9 +33,11 @@ admin에서 만사용하는 css 분리 가능
 }
 
 .admin-page {
+    @import "./partials/admin/global.scss";
     @import "./partials/admin/header.scss";
     @import "./partials/admin/side-bar.scss";
     @import "./partials/admin/footer.scss";
+    @import "./partials/admin/styles.scss";
 }
 //위에처럼 쓰면 그냥 일반 CSS처럼 쓰는것
 
