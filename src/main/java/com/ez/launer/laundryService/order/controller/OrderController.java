@@ -42,9 +42,9 @@ public class OrderController {
 	
 	
 	
-	@RequestMapping("/testchk")
+	@RequestMapping("/optionInfo")
 	@ResponseBody
-	public CategoryVO testChk(@RequestParam (value="no")int itemNo , Model model, CategoryVO vo){
+	public CategoryVO optionInfo(@RequestParam (value="no")int itemNo , Model model, CategoryVO vo){
 		logger.info("파라미터 itemNo ={}",itemNo);
 	
 		vo = categoryService.selectByNo(itemNo);

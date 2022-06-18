@@ -1,4 +1,3 @@
-
 $(function() {
     $(".orderInfo-guide a").hover(function(){
         $(this).find(".hover-btn").stop().animate({
@@ -12,8 +11,25 @@ $(function() {
         $(this).find("p").stop().animate({color: "#000"}, 400);
     });
     
+    
+    $("#plusI").hide();
+    $(".addBtnWrap").hover(function(){
+	    $(this).css("background", "#D7E6FF");
+    $("#plusI").show();
+	    
+    },function(){
+        $(this).css("background", "#FFF");
+    $("#plusI").hide();
+    });
+
+    
+    
+    
+    
     /*$("select[id='order-daily']").change(function(){
   		console.log($("select[id='order-daily'] option:selected").text()); //text값 가져오기
+	
+	
 	
   		
 });*/
@@ -45,6 +61,9 @@ $("select[id='order-indivisual']").change(function () {
 	
 	});
 	
+
+
+			$('#orderAgree').hide();
 		
 	$('#flexCheckDefault').change(function(){
 		if($(this).is(":checked")){
