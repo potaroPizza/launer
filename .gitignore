@@ -35,3 +35,4 @@ build/
 /src/main/webapp/css/app.js
 /src/main/webapp/js/app.js
 /.node_modules/
+node_modules/
