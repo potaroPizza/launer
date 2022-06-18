@@ -13,7 +13,6 @@ const ShippingPanel = (props) => {
 const PickUpPanel = (props) => {
     const [items, setItems] = useState(null);
     const loadItems = () => { //서버에서 데이터 받아오기
-
         $.ajax({
             url: "/launer/api/delivery/pickup/items", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
             method: "GET",   // HTTP 요청 메소드(GET, POST 등)

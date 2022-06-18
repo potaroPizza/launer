@@ -22,6 +22,7 @@ admin에서 만사용하는 css 분리 가능
 @import './partials/global.scss';
 @import './partials/jquery-ui.scss';
 @import './partials/reset.scss';
+
 .web-page {
   @import './partials/main_fixed_wrap.scss';
   @import './partials/main.scss';

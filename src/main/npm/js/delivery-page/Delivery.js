@@ -4,7 +4,6 @@ import DeliverySlide from './components/DeliverySlide';
 
 const { kakao } = window;
 function DeliveryPage () {
-
     function viewMap(lat=33.450701, lng=126.570667) {
         let container = document.getElementById("map");
         let options = {
