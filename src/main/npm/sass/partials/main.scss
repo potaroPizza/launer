@@ -28,8 +28,7 @@ button{
 
 .main-width {
     width: 1200px;
-    margin: 0 auto;
-    margin-top: 70px;
+    margin: 70px auto 0;
 }
 
 #wrap {width:100%; background: rgb(244, 244, 244);}
@@ -299,7 +298,7 @@ section.part-four {
     margin-top: 60px;
 }
 section.part-four .sub-part{
-    width: 1200px; 
+    width: 1200px;
     margin:0 auto;
 }
 section.part-four .sub-part .title-font{
@@ -354,6 +353,37 @@ section.part-four .sub-part .part .text-box a p {
     position: relative;
 }
 
+
+/*section {
+    &.part-four {
+        .sub-part {
+            .part {
+                width: 100%;
+                .img-box {
+                    width: 60%;
+                    display: inline-block;
+                    @include mobile(){
+                        width: 100%;
+                    }
+                }
+                .text-box {
+                    display: inline-block;
+                    width: 40%;
+                    @include mobile(){
+                        margin-top: 20px;
+                        width: 100%;
+                    }
+                    &.l {
+                        padding-right: 20px;
+                    }
+                    &.r {
+                        padding-left: 20px;
+                    }
+                }
+            }
+        }
+    }
+}*/
 
 
 section.part-five {

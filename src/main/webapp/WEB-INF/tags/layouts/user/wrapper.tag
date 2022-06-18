@@ -1,4 +1,5 @@
 <%@tag description="Simple Wrapper Tag" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <html>
 <head>
     <title>${empty htmlTitle?"런드리고":htmlTitle}</title>
@@ -13,11 +14,20 @@
     jsp 문서가 가지는 reque
     --%>
     <link rel="stylesheet" href="${path}/launer/css/app.css">
+    <jsp:include page="/WEB-INF/tags/layouts/user/head.tag" flush="true"/>
+
+    <%-- jquery, bootstrap 등 공통으로 쓸 것 --%>
+    <script src="<c:url value="/js/jquery-3.6.0.min.js"/>" type="text/javascript" text="javascript"></script>
+    <script src="<c:url value="/js/jquery-ui.min.js"/>" type="text/javascript" text="javascript"></script>
+    <script src="<c:url value="/js/jquery.animate-shadow-min.js"/>" type="text/javascript" text="javascript"></script>
+    <script src="<c:url value="/js/main-fixed-wrap.js"/>"></script>
+
 </head>
-<body>
+<body class="web-page">
 
 <jsp:include page="/WEB-INF/tags/partials/user/header.jsp" flush="true"/>
 <jsp:doBody/>
+<%-- 개별로 필요한 js 파일은 자신의 view(jsp) 하단에 넣으세요. --%>
 <jsp:include page="/WEB-INF/tags/partials/user/footer.jsp" flush="true"/>
 <script src="${path}/launer/js/app.js"></script>
 </body>
