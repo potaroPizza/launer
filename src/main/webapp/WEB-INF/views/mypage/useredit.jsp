@@ -221,7 +221,7 @@ h3 {
                 <div>
                     <h3 class="useredit_title"><label for="zipcode">우편번호</label></h3>
                     <span class="box int_zipcode">
-                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()" readonly="readonly">
+                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()" placeholder="우편번호 수정하기" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
