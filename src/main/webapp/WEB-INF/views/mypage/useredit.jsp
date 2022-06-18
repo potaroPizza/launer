@@ -30,23 +30,23 @@ body {
     background: #f5f6f7;
 }
 
-#userEdit_top{
+#useredit_top{
 	width: 100%;
 	height: 120px;
 }
 
-#userEdit_wrapper {
+#useredit_wrapper {
     width:1200px;
     margin: 0 auto;
 }
 
-#userEdit_content {
+#useredit_content {
     position: absolute;
     left: 50%;
     transform: translate(-50%);
     width: 460px;
 }
-#userEdit_sub{
+#useredit_sub{
 	font-weight: bold;
 	font-size: 30px;
 	margin-left: 50px;
@@ -134,11 +134,11 @@ h3 {
 
 /* 버튼 */
 
-.userEdit_btn_area {
+.useredit_btn_area {
     margin: 30px 0 91px;
 }
 
-#btnuserEdit {
+#btnuseredit {
     width: 100%;
     padding: 21px 0 17px;
     border: 0;
@@ -157,20 +157,20 @@ h3 {
 <body>
 
         <!-- wrapper -->
-        <div id="userEdit_wrapper">
+        <div id="useredit_wrapper">
         	
-        <div id="userEdit_top"></div>
-			<div id="userEdit_sub">
+        <div id="useredit_top"></div>
+			<div id="useredit_sub">
 				<p>내 정보 수정</p>
 			</div>	
             <!-- content-->
             <form method="post"
 				action="<c:url value=''/>">
-            <div id="userEdit_content">
+            <div id="useredit_content">
 
                 <!-- ID -->
                 <div>
-                    <h3 class="userEdit_title">
+                    <h3 class="useredit_title">
                         <label for="id">아이디(이메일)</label>
                     </h3>
                     <span class="box int_id">
@@ -181,7 +181,7 @@ h3 {
 
                 <!-- PW1 -->
                 <div>
-                    <h3 class="userEdit_title"><label for="pswd1">비밀번호</label></h3>
+                    <h3 class="useredit_title"><label for="pswd1">비밀번호</label></h3>
                     <span class="box int_pass">
                         <input type="text" id="pswd1" class="int" maxlength="20">
                         <span id="alertTxt">사용불가</span>
@@ -192,7 +192,7 @@ h3 {
 
                 <!-- PW2 -->
                 <div>
-                    <h3 class="userEdit_title"><label for="pswd2">비밀번호 재확인</label></h3>
+                    <h3 class="useredit_title"><label for="pswd2">비밀번호 재확인</label></h3>
                     <span class="box int_pass_check">
                         <input type="text" id="pswd2" class="int" maxlength="20">
                         <img src="../images/m_icon_check_disable.png" id="pswd2_img1" class="pswdImg">
@@ -202,7 +202,7 @@ h3 {
 
                 <!-- NAME -->
                 <div>
-                    <h3 class="userEdit_title"><label for="name">이름</label></h3>
+                    <h3 class="useredit_title"><label for="name">이름</label></h3>
                     <span class="box int_name">
                         <input type="text" id="name" class="int" readonly="readonly">
                     </span>
@@ -211,7 +211,7 @@ h3 {
                 
                 <!-- MOBILE -->
                 <div>
-                    <h3 class="userEdit_title"><label for="phoneNo">휴대전화</label></h3>
+                    <h3 class="useredit_title"><label for="phoneNo">휴대전화</label></h3>
                     <span class="box int_mobile">
                         <input type="tel" id="mobile" class="int" maxlength="11" placeholder=" ' - ' 없이 전화번호 입력해주세요">
                     </span>
@@ -219,23 +219,23 @@ h3 {
                 </div>
 
                 <div>
-                    <h3 class="userEdit_title"><label for="zipcode">우편번호</label></h3>
+                    <h3 class="useredit_title"><label for="zipcode">우편번호</label></h3>
                     <span class="box int_zipcode">
-                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()">
+                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
                 
                 <div>
-                    <h3 class="userEdit_title"><label for="address">주소</label></h3>
+                    <h3 class="useredit_title"><label for="address">주소</label></h3>
                     <span class="box int_address">
-                        <input type="text" id="address" class="int" maxlength="20">
+                        <input type="text" id="address" class="int" maxlength="20" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
                 
                 <div>
-                    <h3 class="userEdit_title"><label for="detailAddress">상세주소</label></h3>
+                    <h3 class="useredit_title"><label for="detailAddress">상세주소</label></h3>
                     <span class="box int_detailAddress">
                         <input type="text" id="detailAddress" class="int" maxlength="30" placeholder="상세주소 입력">
                     </span>
@@ -243,16 +243,16 @@ h3 {
                 </div>
 
                 <div>
-                    <h3 class="userEdit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
+                    <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_detailAddress">
                         <input type="text" id="enterMethod" class="int" maxlength="30" placeholder="공동현관 출입방법 입력">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
 
-                <!-- userEdit BTN-->
-                <div class="userEdit_btn_area">
-                    <button type="submit" id="btnuserEdit">
+                <!-- useredit BTN-->
+                <div class="useredit_btn_area">
+                    <button type="submit" id="btnuseredit">
                         <span>수정하기</span>
                     </button>
                 </div>
@@ -264,5 +264,5 @@ h3 {
     
 </body>
 <script type="text/javascript"
-	src="<c:url value='/js/userEdit.js'/>"></script>
+	src="<c:url value='/js/useredit.js'/>"></script>
 

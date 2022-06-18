@@ -1,8 +1,4 @@
-
-
 /*변수 선언*/
-
-
 
 var pw1 = document.querySelector('#pswd1');
 var pwMsg = document.querySelector('#alertTxt');
@@ -12,20 +8,15 @@ var pw2 = document.querySelector('#pswd2');
 var pwImg2 = document.querySelector('#pswd2_img1');
 var pwMsgArea = document.querySelector('.int_pass');
 
-var userName = document.querySelector('#name');
-
-
 var mobile = document.querySelector('#mobile');
 
 var error = document.querySelectorAll('.error_next_box');
-
 
 
 /*이벤트 핸들러 연결*/
 
 pw1.addEventListener("focusout", checkPw);
 pw2.addEventListener("focusout", comparePw);
-userName.addEventListener("focusout", checkName);
 mobile.addEventListener("focusout", checkPhoneNum);
 
 
@@ -66,21 +57,6 @@ function comparePw() {
         error[2].style.display = "block";
     }
 }
-
-function checkName() {
-    var namePattern = /[a-zA-Z가-힣]/;
-    if(userName.value === "") {
-        error[3].innerHTML = "필수 정보입니다.";
-        error[3].style.display = "block";
-    } else if(!namePattern.test(userName.value) || userName.value.indexOf(" ") > -1) {
-        error[3].innerHTML = "한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)";
-        error[3].style.display = "block";
-    } else {
-        error[3].style.display = "none";
-    }
-}
-
-
 
 
 function checkPhoneNum() {
