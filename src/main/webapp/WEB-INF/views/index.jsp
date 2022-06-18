@@ -8,16 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 
-<%--<t:head>
+<t:head>
     <meta name="apple-mobile-web-app-title" content="TEST-TEST-TEst">
-    &lt;%&ndash; 부트스트랩 &ndash;%&gt;
-</t:head>--%>
+    <%-- 부트스트랩 --%>
+</t:head>
 <t:wrapper>
     <%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="<c:url value="/js/main.js"/>" type="text/javascript"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <div id="test-comp"></div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <div id="wrap">
         <aside id="main-list-bar">
             <div class="line"></div>

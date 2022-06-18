@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom/client';
 
 function TestComp () {
+
     return (
         <div>
             REACT가 아래 ID를 찾아서 return 안에 있는 것을 그려준다.
