@@ -28,7 +28,7 @@
     left: 0;
     right: 0;
     height: 400px;
-    transform: translate(0, 90%);
+    transform: translate(0, 70%);
     z-index: 200;
     border-radius: 40px 40px 0 0;
     box-shadow:  0 -34px 50px rgba(0, 0, 0, 0.2),
@@ -38,7 +38,6 @@
         line-height: 30px;
         font-size: 20px;
     }
-
     &.active {
         animation: 0.5s ease-in 0s 1 normal forwards running delivery-slide-active;
     }
@@ -50,7 +49,7 @@
 
 @-webkit-keyframes delivery-slide-active {
     0% {
-        transform: translate(0, 350px);
+        transform: translate(0, 70%);
     }
     100% {
         transform: translate(0, 0);
@@ -61,17 +60,18 @@
         transform: translate(0, 0);
     }
     100% {
-        transform: translate(0, 350px);
+        transform: translate(0, 70%);
     }
 }
 
 #list-box {
     width: 100%;
     padding: 23px;
-    cursor: grab;
+    //cursor: grab;
+    cursor: pointer;
     box-sizing: border-box;
 }
-#list-box:active{cursor: grabbing;}
+//#list-box:active{cursor: grabbing;}
 #list-box > .line{
     width: 55%;
     height: 2px;
@@ -107,7 +107,7 @@
     box-sizing: border-box;
     padding: 20px 2%;
     overflow-y: scroll;
-}#orders-list::-webkit-scrollbar-track{background: rgba(33, 122, 244, .1);}
+}#orders-list::-webkit-scrollbar-track{background: rgba(33, 122, 244, 0);}
 #orders-list .order-box{
     line-height: 180%;
     font-size: 18px;

@@ -72,8 +72,6 @@ $(function() {
     });
 
 
-
-
     //스크롤 시 오른쪽 리스트 헤더와 함께 밀리게
     var header = $('#header-wrap'); 
     $(window).scroll(function(){  //스크롤시
@@ -84,7 +82,6 @@ $(function() {
         }else{
             $("#main-list-bar").removeClass('down');
         }
-
         scrollList();
     });
 
@@ -92,7 +89,7 @@ $(function() {
     listClick();
 });
 
-function scrollNone(num) {
+/*function scrollNone(num) {
     if(num == 1) {
         $("#wrap").on('scroll touchmove mousewheel', function(e){
             e.preventDefault();
@@ -102,7 +99,7 @@ function scrollNone(num) {
     }else {
         $("#wrap").off('scroll touchmove mousewheel');
     }
-}
+}*/
 
 
 function scrollList() {
@@ -113,9 +110,9 @@ function scrollList() {
     var sectionPartTwo = $("section.part-two").offset().top - windowHeight;
     var sectionPartThree = $("section.part-three").offset().top - headerHeight - 2;
     var sectionPartFour = $("section.part-four").offset().top;
-    console.log(sectionPartTwo);
+    /*console.log(sectionPartTwo);
     console.log(sectionPartThree);
-    console.log("windowScrollTop : " + windowScrollTop);
+    console.log("windowScrollTop : " + windowScrollTop);*/
 
     if(windowScrollTop >= sectionPartFour) {
         var fourList = $("#main-list-bar .part-four");
@@ -321,7 +318,7 @@ function listClick() {
 
 
 
-    const $secPartOne = $("section.part-one");
+    const $secPartOne = $(".web-page section.part-one");
     let $topHeaderHeight = $("#header-wrap").height();
 
     let $secPartOneW = $secPartOne.width();
@@ -336,8 +333,6 @@ function listClick() {
         $("#title .one").animate({
             left: curX,
             top: curY
-        },1)
-
-        console.log(curX, curY);
+        },1);
     });
 }

@@ -1,11 +1,11 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <header id="header-wrap" class="main-width">
     <div class="menu-btn">
         <a href="#"><i class="fa-solid fa-circle-arrow-right"></i></a>
     </div>
     <div id="logo">
-        <a href="#">
+        <a href="<c:url value="/delivery/"/>">
             <img src="<c:url value="/images/logo_4.svg"/>"/>
         </a>
     </div>
@@ -17,7 +17,7 @@
             <li><span class="sub-btn">내 할일</span>
                 <ul class="sub-nav">
                     <li><a href="<c:url value="/delivery/pickup"/>">내 수거목록</a></li>
-                    <li><a href="<c:url value="/delivery/"/>">내 배송목록</a></li>
+                    <li><a href="<c:url value="/delivery/return"/>">내 배송목록</a></li>
                 </ul>
             </li>
             <li><a href="#">공지사항</a></li>

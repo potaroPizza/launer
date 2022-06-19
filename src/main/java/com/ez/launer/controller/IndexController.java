@@ -16,8 +16,8 @@ public class IndexController {
     public String index(Model model, HttpSession session) {
         logger.info("메인화면");
 
-        session.setAttribute("name", "나는나");
-        model.addAttribute("htmlTitle", "런드리고 index");
+//        session.setAttribute("name", "나는나");
+//        model.addAttribute("htmlTitle", "런드리고 index");
 
         return "/index";
     }
