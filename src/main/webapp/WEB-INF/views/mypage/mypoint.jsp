@@ -170,17 +170,17 @@
 				<li class="mypoint_table-row">
 					<div class="mypoint_col-1" data-label="날짜">2022-06-19</div>
 					<div class="mypoint_col-2" data-label="내역">러너 가입기념 이벤트 지급</div>
-					<div class="mypoint_col-3" data-label="포인트">+3050</div>
+					<div class="mypoint_col-3" data-label="포인트">+3050p</div>
 				</li>
 				<li class="mypoint_table-row">
 					<div class="mypoint_col-1" data-label="날짜">2022-06-20</div>
 					<div class="mypoint_col-2" data-label="내역">포인트 사용</div>
-					<div class="mypoint_col-3" data-label="포인트">-350</div>
+					<div class="mypoint_col-3" data-label="포인트">-350p</div>
 				</li>
 				<li class="mypoint_table-row">
 					<div class="mypoint_col-1" data-label="날짜">2022-06-21</div>
 					<div class="mypoint_col-2" data-label="내역">포인트 적립</div>
-					<div class="mypoint_col-3" data-label="포인트">+1350</div>
+					<div class="mypoint_col-3" data-label="포인트">+1350p</div>
 				</li>
 			</ul>
 		</div>
