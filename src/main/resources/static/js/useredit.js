@@ -8,7 +8,6 @@ var pw2 = document.querySelector('#pswd2');
 var pwImg2 = document.querySelector('#pswd2_img1');
 var pwMsgArea = document.querySelector('.int_pass');
 
-
 var mobile = document.querySelector('#mobile');
 
 var error = document.querySelectorAll('.error_next_box');
@@ -58,7 +57,6 @@ function comparePw() {
         error[2].style.display = "block";
     }
 }
-
 
 
 function checkPhoneNum() {

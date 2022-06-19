@@ -19,7 +19,7 @@
 					</select> 
 					
 					
-					<button class="addBtn" id="orderAddBtn">추가</button>
+					<div class="addBtnWrap"><button class="addBtn" id="orderAddBtn">추가</button>&nbsp;<i class="fa-solid fa-circle-plus" id="plusI"></i></div>
 				</div>
 			</div>
 			

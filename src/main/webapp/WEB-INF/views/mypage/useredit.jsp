@@ -204,7 +204,7 @@ h3 {
                 <div>
                     <h3 class="useredit_title"><label for="name">이름</label></h3>
                     <span class="box int_name">
-                        <input type="text" id="name" class="int" maxlength="20" readonly="readonly">
+                        <input type="text" id="name" class="int" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -213,7 +213,7 @@ h3 {
                 <div>
                     <h3 class="useredit_title"><label for="phoneNo">휴대전화</label></h3>
                     <span class="box int_mobile">
-                        <input type="tel" id="mobile" class="int" maxlength="11" placeholder=" ' - ' 없이 전화번호 입력해주세요">
+                        <input type="tel" id="mobile" class="int" maxlength="11" placeholder=" ' - ' 없이 전화번호를 입력해주세요">
                     </span>
                     <span class="error_next_box"></span>    
                 </div>
@@ -221,7 +221,7 @@ h3 {
                 <div>
                     <h3 class="useredit_title"><label for="zipcode">우편번호</label></h3>
                     <span class="box int_zipcode">
-                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()" readonly="readonly" placeholder=" 우편 번호 수정">
+                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()" placeholder="우편번호 수정하기" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
