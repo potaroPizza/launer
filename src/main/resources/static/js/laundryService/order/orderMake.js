@@ -1,4 +1,3 @@
-
 $(function() {
     $(".orderInfo-guide a").hover(function(){
         $(this).find(".hover-btn").stop().animate({
@@ -12,11 +11,30 @@ $(function() {
         $(this).find("p").stop().animate({color: "#000"}, 400);
     });
     
-    /*$("select[id='order-daily']").change(function(){
-  		console.log($("select[id='order-daily'] option:selected").text()); //text값 가져오기
-	
-  		
-});*/
+    
+    $("#plusI").hide();
+    $(".addBtnWrap").hover(function(){
+	    $(this).css("background", "#D7E6FF");
+    $("#plusI").show();
+	    
+    },function(){
+        $(this).css("background", "#FFF");
+    $("#plusI").hide();
+    });
+    
+   /* $($("#XDel")).hide();
+    $(this).hover(function(){
+	    $(this).css("background", "#D7E6FF");
+    $(this).show();
+	    
+    },function(){
+        $(this).css("background", "#FFF");
+    $(this).hide();
+    });
+*/
+    
+
+
 
 $("select[id='order-daily']").change(function () {
     var selectedOptionsDaily = [];
@@ -45,6 +63,9 @@ $("select[id='order-indivisual']").change(function () {
 	
 	});
 	
+
+
+			$('#orderAgree').hide();
 		
 	$('#flexCheckDefault').change(function(){
 		if($(this).is(":checked")){
@@ -69,30 +90,9 @@ $("select[id='order-indivisual']").change(function () {
 		
 		
 	});
-	
-		
-		
-		
-	
-	
-	//"flexCheckDefault"
-	/*var agreed = false;
-	if ($('#flexCheckDefault').is(':checked')){
-		span.show();
-		console.log("동의");
-	}else{
-		span.hide();
-	}
-	
-	$('#submit').click(function(){
-		if(!$(#flexCheckDefault).is(':checked')){
-			alert('약관에 동의해야 회원가입을 진행할 수 있습니다.');
-			event.preventDefault();
-			$('#staticBackdrop').modal('show');
-		}
-		
-	});*/
+
 }); //jquery
+
 
 
 

@@ -2,28 +2,9 @@
 <%@ include file="../inc/top.jsp" %>
 <script type="text/javascript"
 	src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
-
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    function execZipcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = '';
 
-                if (data.userSelectedType === 'R') { // 도로명 주소
-                    addr = data.roadAddress;
-                } else { // 지번주소
-                    addr = data.jibunAddress;
-                }
-
-                document.getElementById('zipcode').value = data.zonecode;
-                document.getElementById("address").value = addr;
-                document.getElementById("detailAddress").focus();
-            }
-        }).open();
-    }
-</script>
 
 <style>
 body {
@@ -150,9 +131,6 @@ h3 {
     border-radius: 7px;
 }
 </style>
-<script>
-	
-</script>
 
 <body>
 
@@ -164,7 +142,7 @@ h3 {
 				<p>내 정보 수정</p>
 			</div>	
             <!-- content-->
-            <form method="post"
+            <form method="post" name="usereditfrm"
 				action="<c:url value=''/>">
             <div id="useredit_content">
 
@@ -181,21 +159,21 @@ h3 {
 
                 <!-- PW1 -->
                 <div>
-                    <h3 class="useredit_title"><label for="pswd1">비밀번호</label></h3>
+                    <h3 class="useredit_title"><label for="pwd1">비밀번호</label></h3>
                     <span class="box int_pass">
-                        <input type="text" id="pswd1" class="int" maxlength="20">
+                        <input type="password" id="pwd1" class="int" maxlength="20">
                         <span id="alertTxt">사용불가</span>
-                        <img src="../images/m_icon_pass.png" id="pswd1_img1" class="pswdImg">
+                        <img src="../images/m_icon_pass.png" id="pwd1_img1" class="pswdImg">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
 
                 <!-- PW2 -->
                 <div>
-                    <h3 class="useredit_title"><label for="pswd2">비밀번호 재확인</label></h3>
+                    <h3 class="useredit_title"><label for="pwd2">비밀번호 재확인</label></h3>
                     <span class="box int_pass_check">
-                        <input type="text" id="pswd2" class="int" maxlength="20">
-                        <img src="../images/m_icon_check_disable.png" id="pswd2_img1" class="pswdImg">
+                        <input type="password" id="pwd2" class="int" maxlength="20">
+                        <img src="../images/m_icon_check_disable.png" id="pwd2_img1" class="pswdImg">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -204,7 +182,7 @@ h3 {
                 <div>
                     <h3 class="useredit_title"><label for="name">이름</label></h3>
                     <span class="box int_name">
-                        <input type="text" id="name" class="int" maxlength="20" readonly="readonly">
+                        <input type="text" id="name" class="int" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -213,7 +191,7 @@ h3 {
                 <div>
                     <h3 class="useredit_title"><label for="phoneNo">휴대전화</label></h3>
                     <span class="box int_mobile">
-                        <input type="tel" id="mobile" class="int" maxlength="11" placeholder=" ' - ' 없이 전화번호 입력해주세요">
+                        <input type="tel" id="mobile" class="int" maxlength="11" placeholder=" ' - ' 없이 전화번호를 입력해주세요">
                     </span>
                     <span class="error_next_box"></span>    
                 </div>
@@ -221,7 +199,7 @@ h3 {
                 <div>
                     <h3 class="useredit_title"><label for="zipcode">우편번호</label></h3>
                     <span class="box int_zipcode">
-                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()" readonly="readonly" placeholder=" 우편 번호 수정">
+                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()" placeholder="우편번호 수정하기" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -265,4 +243,3 @@ h3 {
 </body>
 <script type="text/javascript"
 	src="<c:url value='/js/useredit.js'/>"></script>
-

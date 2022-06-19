@@ -10,7 +10,7 @@
 		height:80px;	
 		width:100%;
 	}
-	.explain{
+	.withdraw-explain{
 		height:auto;
 		padding:25px 20px;
 		font-size:10px;
@@ -25,16 +25,16 @@
 		color:#ff3b3b;
 	}
 	
-	.explain li > p{
+	.withdraw-explain li > p{
 		font-size:14px;
 		margin: 8px 0px 8px 0px; 
 		line-height: 120%;
 	}
 	
-	.explain ul{
+	.withdraw-explain ul{
 		padding-left:20px;
 	}
-	.explain> p{
+	.withdraw-explain> p{
 		font-weight:bold;
 		color:#4C4747;
 		font-size:16px !important;
@@ -125,7 +125,7 @@
 	<div class="withdraw-title">
 		<h2>회원 탈퇴</h2>
 		</div>
-	<div class="explain">
+	<div class="withdraw-explain">
 		<p><span style="font-size: 25px; color: black;">러너님</span> 탈퇴하시겠습니까?</p> 
 		<p>지금까지 저희 러너 서비스를 이용해주셔서 감사합니다.</p>
 		<p><span>탈퇴하기 전 아래 유의사항을 반드시 확인해주세요.</span></p>
