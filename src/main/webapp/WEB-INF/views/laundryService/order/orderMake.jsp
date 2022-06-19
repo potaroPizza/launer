@@ -16,6 +16,31 @@
 
 $(function(){
 	
+	//동적으로 추가된 카테고리 삭제
+	$(document).on('click', 'form[name=order-item-form] div[name=testForm] #delBtn', function(){
+	    var idx = $('form[name=order-item-form] div[name=testForm] #delBtn').index(this);
+	    alert(idx);
+	    $('form[name=order-item-form] div[name=testForm]').eq(idx).remove();
+	});
+	
+	
+	$(document).on('mouseover','form[name=order-item-form] div[name=testForm] #delBtn',function(){
+		$(this).css("background",'red');
+		
+	});
+	
+	$(document).on('change','form[name=order-item-form] div[name=testForm] #order-num',function(){
+		var qty = $(this).val();
+		var price = $(this).siblings('input[name=itemPrice]').val();
+		//var priceByQty = $(this).val()*$('input[name=itemPrice]').val();
+		var priceByQty = qty * price;
+		$(this).next('.priceByQty').text(priceByQty);
+		
+	});
+
+
+	
+	
 	//추가 버튼을 누르면 option value 에 저장된 no 컨트롤러로 던져서 clothing_category 테이블의 VO 가져옴 => div 에 input 으로 정보를 뿌려줌
 	$('#orderAddBtn').click(function(){
 		var itemNo = $('#order-item').val();
@@ -50,15 +75,14 @@ $(function(){
 							+"<input type = 'text' name = 'itemPrice' class ='tagAddDiv' value=" + vo.price +">"
 							+"<select class='mulit-select' name='order-num' id='order-num'>"
 							+"<c:forEach var ='cnt' begin ='1' end='10' step='1'>"
-							+"<option value='cnt'>${cnt}</option>"
+							+"<option >${cnt}</option>"
 							+"</c:forEach>"
 							+"</select>"
-							+"<div class = 'priceByQty'></div>"
+							+"<div class = 'priceByQty'>"+vo.price+"</div>"
+							+"<a href=# id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a>"
 							+"</div>";
 				$(tagAdd).prependTo("form[name=order-item-form]");
-				
-				/* className 으로 개수 가져오기 */
-				var inputCnt = document.getElementsByClassName('tagInputAdd').length;
+
 				
 				
 				
