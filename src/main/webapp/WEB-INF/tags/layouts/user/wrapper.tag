@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <html>
 <head>
-    <title>${empty htmlTitle?"런드리고":htmlTitle}</title>
+    <title>${empty htmlTitle?"Launer":htmlTitle}</title>
     <meta name="description" content="${empty htmlDescription?"런드리고 설명":htmlDescription}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,7 +13,7 @@
     doBody의 내용은 Controller에 의해서 리턴되는 Jsp문서 taglib의 의해 해당 .tag 파일이 호출된다
     jsp 문서가 가지는 reque
     --%>
-    <link rel="stylesheet" href="${path}/launer/css/app.css">
+    <link rel="stylesheet" href="${path}/launer/css/app.css"/>
     <jsp:include page="/WEB-INF/tags/layouts/user/head.tag" flush="true"/>
 
     <%-- jquery, bootstrap 등 공통으로 쓸 것 --%>
@@ -21,7 +21,6 @@
     <script src="<c:url value="/js/jquery-ui.min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/jquery.animate-shadow-min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/main-fixed-wrap.js"/>"></script>
-
 </head>
 <body class="web-page">
 
