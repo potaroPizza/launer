@@ -214,7 +214,7 @@
 		</section>
 		<div class="detailedPaymentHistory_back">
 			<button type="button" class="btn btn-dark"
-				onclick="location.href='/launer/mypage/paymentDetails'">이전</button>
+				onclick="location.href='/launer/mypage/paymentdetails'">이전</button>
 		</div>
 
 	</div>

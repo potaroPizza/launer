@@ -230,7 +230,7 @@ li {
 				</a>
 			</div>
 			<div class="part">
-				<a href="/launer/mypage/paymentDetails">
+				<a href="/launer/mypage/paymentdetails">
 					<i class="fa-solid fa-file-invoice"></i>
 					<div class="hover-wrap"></div>
 				</a>
