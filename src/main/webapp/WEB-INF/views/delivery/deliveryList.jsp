@@ -36,7 +36,7 @@
     <div id="deliveryList">
         <div class="title-part">
             <h1 id="title">
-                <strong>${deliveryInfo['name'] }</strong>님의 현재fffff ${deliveryInfo['title'] }
+                <strong>${deliveryInfo['name'] }</strong>님의 현재 ${deliveryInfo['title'] }
             </h1>
             <p>총 8건</p>
         </div>
