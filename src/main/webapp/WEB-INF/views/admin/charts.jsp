@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="top.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
+
+<t:head>
+</t:head>
+<t:wrapper>
 
 <!--
 총 방문자수 : 바?
@@ -280,7 +283,6 @@ juqery가 hicharts보다 위에 선언되어야함
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<div id="layoutSidenav_content">
 	<main>
 		<div class="container-fluid px-4">
 	        <h1 class="mt-4">서비스통계</h1>
@@ -335,4 +337,4 @@ juqery가 hicharts보다 위에 선언되어야함
 	        </div>
 	</main>
 
-	<%@ include file="bottom.jsp"%>
+</t:wrapper>
