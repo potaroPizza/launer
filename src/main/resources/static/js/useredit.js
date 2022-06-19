@@ -8,7 +8,6 @@ var pw2 = document.querySelector('#pwd2');
 var pwImg2 = document.querySelector('#pwd2_img1');
 var pwMsgArea = document.querySelector('.int_pass');
 
-
 var mobile = document.querySelector('#mobile');
 
 var error = document.querySelectorAll('.error_next_box');
@@ -66,7 +65,6 @@ function validate_mobile(mobile){
 	var pattern = new RegExp(/([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})/);
 	return pattern.test(mobile);
 }
-
 
 function checkPhoneNum() {
     var isPhoneNum = /([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})/;

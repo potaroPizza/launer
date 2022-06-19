@@ -13,40 +13,76 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
+
 $(function(){
 	
+	//동적으로 추가된 카테고리 삭제
+	$(document).on('click', 'form[name=order-item-form] div[name=testForm] #delBtn', function(){
+	    var idx = $('form[name=order-item-form] div[name=testForm] #delBtn').index(this);
+	    alert(idx);
+	    $('form[name=order-item-form] div[name=testForm]').eq(idx).remove();
+	});
+	
+	
+	$(document).on('mouseover','form[name=order-item-form] div[name=testForm] #delBtn',function(){
+		$(this).css("background",'red');
+		
+	});
+	
+	$(document).on('change','form[name=order-item-form] div[name=testForm] #order-num',function(){
+		var qty = $(this).val();
+		var price = $(this).siblings('input[name=itemPrice]').val();
+		//var priceByQty = $(this).val()*$('input[name=itemPrice]').val();
+		var priceByQty = qty * price;
+		$(this).next('.priceByQty').text(priceByQty);
+		
+	});
+
+
+	
+	
+	//추가 버튼을 누르면 option value 에 저장된 no 컨트롤러로 던져서 clothing_category 테이블의 VO 가져옴 => div 에 input 으로 정보를 뿌려줌
 	$('#orderAddBtn').click(function(){
 		var itemNo = $('#order-item').val();
 		
 		var itemInfo ={"no":itemNo};
-
+		
 	 	$.ajax({
-			url:'/launer/laundryService/order/testchk',
+			url:'/launer/laundryService/order/optionInfo',
 			type: 'GET',
 			data : itemInfo,
 			
 			success:function(vo){
 				
-				var list = new Array();
-				
+				//모든 input 태그의 value를 배열에 저장
+				//이미 배열에 값이 있다면 return false
+				//없다면 새로운 input 태그 생성
+				 const list = new Array();
 				   $("input[name=no]").each(function(index, item){
-					  list.push($(item).val());
-					   if(list.includes($(item).val())){
-						   alert("이미존재");
-						   return false;
-						   
-					   }else{
-					  	 list.push($(item).val());
-					   }
-				   });
+					   list.push($(item).val());
+				   }); 
 				   
-				var tagAdd ="<input type = 'text' name = 'no' class ='tagInputAdd' value=" + vo.no +">"
-							+"<div name = 'itemName' class ='tagAddDiv'>" + vo.categoryName +"</div>"
-							+"<div name = 'itemPrice' class ='tagAddDiv'>" + vo.price +"</div>";
-				$(tagAdd).prependTo("#inputtest");
-				
-				/* className 으로 개수 가져오기 */
-				var inputCnt = document.getElementsByClassName('tagInputAdd').length;
+				   var cNo = (vo.no).toString();
+				   const isInArray = list.includes(cNo);
+				   
+				   if(isInArray){
+					   alert("이미 선택된 상품입니다");
+					   return false;
+				   }
+
+				var tagAdd ="<div name ='testForm'><input type = 'hidden' name = 'no' class ='tagInputAdd' value=" + vo.no +">"
+							+"<input type ='text' name = 'itemName' class ='tagAddDiv' value=" + vo.categoryName +">"
+							+"<input type = 'text' name = 'itemPrice' class ='tagAddDiv' value=" + vo.price +">"
+							+"<select class='mulit-select' name='order-num' id='order-num'>"
+							+"<c:forEach var ='cnt' begin ='1' end='10' step='1'>"
+							+"<option >${cnt}</option>"
+							+"</c:forEach>"
+							+"</select>"
+							+"<div class = 'priceByQty'>"+vo.price+"</div>"
+							+"<a href=# id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a>"
+							+"</div>";
+				$(tagAdd).prependTo("form[name=order-item-form]");
+
 				
 				
 				
@@ -80,9 +116,9 @@ $(function(){
 		
 	</p>
 	
-	<button id="testBtn" value ="test">test</button>
-	<div class="orderInfo">
 
+	
+	<div class="orderInfo">
 		<div class="orderInfo-address">
 			<div>
 				<div>수거/배송 주소</div>
@@ -113,7 +149,6 @@ $(function(){
 	<div class="orderInfo-order-select-wrapper">
 			<div class="title-select">세탁물 선택</div>
 			
-			<p>생활빨래</p>
 			<c:import url ="/laundryService/order/orderMakeSelect">
 				<c:param name="categoryGroup" value="1"></c:param>
 			</c:import>
@@ -124,19 +159,20 @@ $(function(){
 				<c:param name="categoryGroup" value="2"></c:param>
 			</c:import> --%>
 			
-			<div id ="inputtest" style = "height:200px">
+			<div id="order-item-form-div">
+			<form name="order-item-form" action="<c:url value="#"/>" method="get">
 			
 			
+			
+		
 			</div>
-			 <form name="order-item-form" action="<c:url value="/laundryService/order/paramPost"/>" method="get">
-		
-		
-		
+			
+			
 			<input type="submit" value="확인"/>
 			</form>
 			
 	</div>
-
+	<div class="margin-top-fixed"></div>
 		<div class="orderInfo-request">
 			<div>세탁요청사항</div>
 			<textarea name="" id="" cols="50" rows="10"></textarea>
@@ -205,6 +241,7 @@ $(function(){
 
 
 </div>
+<div class="margin-top-fixed"></div>
 
 
 
