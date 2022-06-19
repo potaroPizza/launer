@@ -110,7 +110,7 @@ div.pickUp{
 				                <td>2022-06-17 16:18</td>
 				            </tr>
 				            <tr>
-				                <td class="title">총 과세금액</td>
+				                <td class="title">최종금액(합계 + 과제금액)</td>
 				                <td colspan="3">16,000</td>
 				            </tr>
 
