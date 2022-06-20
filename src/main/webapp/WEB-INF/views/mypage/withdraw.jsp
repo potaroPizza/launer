@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ include file="../inc/top.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+
+<t:wrapper>
 <script type="text/javascript" 
 	src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -183,6 +185,7 @@
 		</div>
 	</form>
 </div>
+</t:wrapper>
 
 
 
