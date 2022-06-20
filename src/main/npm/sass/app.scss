@@ -87,7 +87,7 @@ a {color: #000; text-decoration: none;}
 }
 */
 .title-font {
-    color: #F00;
+    //color: #F00;
     @include mobile {
         color: blue;
     }
