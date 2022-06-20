@@ -156,17 +156,17 @@ li {
 	 background: #ffffff;
 	 box-shadow:  17px 17px 51px #d9d9d9,
 	 -17px -17px 51px #ffffff;
-	 line-height: 350px;
 	 text-align: center;
 	 font-size: 58pt;
 	 position: relative;
 	 overflow: hidden;
- }
- #mypage-main-wrap .part a{
-	 display: block;
-	 position: relative;
-	 z-index: 10;
-	 line-height: 350px;
+
+	 a{
+		 display: block;
+		 position: relative;
+		 z-index: 10;
+		 i{line-height: 350px;}
+	 }
  }
  #mypage-main-wrap .part:nth-child(1){margin-left: 0}
 
