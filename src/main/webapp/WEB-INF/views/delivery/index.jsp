@@ -22,6 +22,9 @@
             var map = new kakao.maps.Map(mapContainer, mapOption);
         }
     </script>
+    <div class="zone-box">
+        <h3></h3>
+    </div>
     <div id="list-part" class="main-width">
         <div id="list-box"><div class="line"></div></div>
         <div id="order-tab-box">
