@@ -16,31 +16,76 @@
 
 $(function(){
 	
-	//동적으로 추가된 카테고리 삭제
-	$(document).on('click', 'form[name=order-item-form] div[name=testForm] #delBtn', function(){
-	    var idx = $('form[name=order-item-form] div[name=testForm] #delBtn').index(this);
-	    alert(idx);
-	    $('form[name=order-item-form] div[name=testForm]').eq(idx).remove();
+	$('form[name=order-item-form]').submit(function(){
+		
+		if($("input[name=itemName]").length < 1){
+			alert("상품을 선택해주세요");
+			event.preventDefault();
+		}
+
+	 	$.ajax({
+			url:'<c:url value="/laundryService/order/ajaxTest"/>',
+			type:'post',
+			data:$('form[name=order-item-form]').serializeArray(),
+			dataType:'json',
+			success:function(res){
+				
+				
+			},
+			error:function(xhr,status,error){
+				alert('error:'+error);
+				
+			}
+		});  
+	});
+	
+	//동적으로 추가된 카테고리 관련
+	$(document).on('click', '.order-item-Div div[name=testForm] #delBtn', function(){
+	    var idx = $('.order-item-Div div[name=testForm] #delBtn').index(this);
+	    $('.order-item-Div div[name=testForm]').eq(idx).remove();
+	    
+	    const totalPrice = new Array();
+		 let sum=0;
+		   $(".priceByQty").each(function(index, item){
+			   totalPrice.push($(item).val());
+		   }); 
+			   
+			   for (let i = 0; i < totalPrice.length; i++) {
+				   const intTotalPrice = Number(totalPrice[i]);
+				    sum += intTotalPrice;
+				}
+			   
+			   $("#totalPrice").attr("value",sum);	
 	});
 	
 	
-	$(document).on('mouseover','form[name=order-item-form] div[name=testForm] #delBtn',function(){
+	$(document).on('mouseover','.order-item-Div div[name=testForm] #delBtn',function(){
 		$(this).css("background",'red');
 		
 	});
 	
-	$(document).on('change','form[name=order-item-form] div[name=testForm] #order-num',function(){
+	$(document).on('change','.order-item-Div div[name=testForm] #order-num',function(){
 		var qty = $(this).val();
 		var price = $(this).siblings('input[name=itemPrice]').val();
 		//var priceByQty = $(this).val()*$('input[name=itemPrice]').val();
 		var priceByQty = qty * price;
-		$(this).next('.priceByQty').text(priceByQty);
+		$(this).next('.priceByQty').attr("value",priceByQty);
 		
+		 const totalPrice = new Array();
+		 let sum=0;
+		   $(".priceByQty").each(function(index, item){
+			   totalPrice.push($(item).val());
+		   }); 
+			   
+			   for (let i = 0; i < totalPrice.length; i++) {
+				   const intTotalPrice = Number(totalPrice[i]);
+				    sum += intTotalPrice;
+				}
+			   
+			   $("#totalPrice").attr("value",sum);	
 	});
-
-
 	
-	
+	var totalpriceInput =0;
 	//추가 버튼을 누르면 option value 에 저장된 no 컨트롤러로 던져서 clothing_category 테이블의 VO 가져옴 => div 에 input 으로 정보를 뿌려줌
 	$('#orderAddBtn').click(function(){
 		var itemNo = $('#order-item').val();
@@ -78,24 +123,27 @@ $(function(){
 							+"<option >${cnt}</option>"
 							+"</c:forEach>"
 							+"</select>"
-							+"<div class = 'priceByQty'>"+vo.price+"</div>"
+							+"<input type ='text' name='priceByQty' class = 'priceByQty' value="+vo.price+">"
 							+"<a href=# id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a>"
 							+"</div>";
-				$(tagAdd).prependTo("form[name=order-item-form]");
-
+				$(tagAdd).appendTo(".order-item-Div");
 				
-				
-				
+				 const totalPrice = new Array();
+				 let sum=0;
+				   $(".priceByQty").each(function(index, item){
+					   totalPrice.push($(item).val());
+				   });  
+					   for (let i = 0; i < totalPrice.length; i++) {
+						   const intTotalPrice = Number(totalPrice[i]);
+						    sum += intTotalPrice;
+						}
+					   $("#totalPrice").attr("value",sum);	
 			},
 			error: function(){
-				alert("err");
-				
+				alert("err");	
 			}
 		}); 
-		
-		
 	});
-	
 });
 
 	
@@ -113,11 +161,11 @@ $(function(){
 
 	<p>
 		<span>한서현 님</span> 수거요청
-		
-	</p>
-	
 
-	
+	</p>
+
+
+
 	<div class="orderInfo">
 		<div class="orderInfo-address">
 			<div>
@@ -144,38 +192,34 @@ $(function(){
 
 		</div>
 		<hr>
-
- 	<!-- 상품선택 -->
-	<div class="orderInfo-order-select-wrapper">
+		
+		<!-- 상품선택 -->
+		<div class="orderInfo-order-select-wrapper">
 			<div class="title-select">세탁물 선택</div>
-			
-			<c:import url ="/laundryService/order/orderMakeSelect">
+
+			<c:import url="/laundryService/order/orderMakeSelect">
 				<c:param name="categoryGroup" value="1"></c:param>
 			</c:import>
-			
-			
-		<%-- 	<p>개별클리닝</p>
+
+
+			<%-- 	<p>개별클리닝</p>
 			<c:import url ="/laundryService/order/orderMakeSelect">
 				<c:param name="categoryGroup" value="2"></c:param>
 			</c:import> --%>
 			
 			<div id="order-item-form-div">
-			<form name="order-item-form" action="<c:url value="#"/>" method="get">
-			
-			
-			
-		
+			<form name="order-item-form"/>
+			<div class = "order-item-Div">
 			</div>
+			</div>
+				총:<input type="text" name="totalPrice" id="totalPrice" value=""></input>원
 			
-			
-			<input type="submit" value="확인"/>
-			</form>
-			
-	</div>
-	<div class="margin-top-fixed"></div>
+		</div>
+		<div class="margin-top-fixed"></div>
 		<div class="orderInfo-request">
 			<div>세탁요청사항</div>
-			<textarea name="" id="" cols="50" rows="10"></textarea>
+			<input type ="text" name="orderRequest" id="orderRequest">
+		</div>
 		</div>
 		<hr>
 		<div class="orderInfo-tac">
@@ -235,7 +279,10 @@ $(function(){
 		</div>
 
 		<div class="orderInfo-goOrder">
-			<input type="button" class="orderBtn" value="수거신청" id="submit">
+		
+		
+			<input type="submit" class="orderBtn" value="수거신청" id="submit">
+			</form>
 		</div>
 	</div>
 
