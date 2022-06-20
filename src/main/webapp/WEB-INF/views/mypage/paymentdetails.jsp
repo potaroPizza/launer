@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <t:wrapper>
 <script type="text/javascript">
@@ -56,115 +57,9 @@
 	});
 </script>
 <style>
-.paymentdetails_wrap {
-	margin: 0 auto;
-	width: 1200px;
-}
 
-.paymentdetails_top {
-	width: 100%;
-	height: 150px;
-}
-
-.paymentdetails_title {
-	width: 1000px;
-	font-size: 30px;
-	font-weight: bold;
-	margin-bottom: 80px;
-}
-
-.paymentdetails_date {
-	width: 1200px;
-	margin: 0 auto;
-	margin-bottom: 30px;
-	margin-left: 45px;
-}
-
-
-
-.paymentdetails_amountPayment {
-	text-align: right;
-	font-size: 20px;
-}
-
-.paymentdetails_amountPayment span {
-	font-weight: bold;
-}
-
-.paymentdetails_back {
-	text-align: center;
-}
-
-.paymentdetails_date a:visited {
-	color: black;
-	text-decoration: none;
-}
-
-.paymentdetails_date a:link {
-	color: black;
-	text-decoration: none;
-}
-
-.paymentdetails_container {
-	max-width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 70px;
-}
-
-.paymentdetails_table li {
-	border-radius: 3px;
-	padding: 5px 30px;
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
-}
-
-.paymentdetails_table-header {
-	background-color: #045FB4;
-	font-size: 17px;
-	font-weight: bold;
-	text-transform: uppercase;
-	letter-spacing: 0.03em;
-	color: white;
-	text-align: center;
-}
-
-.paymentdetails_table-row {
-	background-color: #ffffff;
-	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
-	font-size: 15px;
-	font-weight: bold;
-	text-align: center;
-}
-
-.paymentdetails_col-1 {
-	flex-basis: 15%;
-}
-
-.paymentdetails_col-2 {
-	flex-basis: 40%;
-}
-
-.paymentdetails_col-3 {
-	flex-basis: 10%;
-}
-
-.paymentdetails_col-4 {
-	flex-basis: 15%;
-}
-
-.paymentdetails_col-5 {
-	flex-basis: 10%;
-}
-
-a {
-	display: block;
-}
 </style>
-	<div class="paymentdetails_wrap">
+	<div id="paymentdetails_wrap">
 		<div class="paymentdetails_top"></div>
 		<div class="paymentdetails_title">
 			<p>결제 내역</p>

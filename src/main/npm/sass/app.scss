@@ -52,7 +52,26 @@ a {color: #000; text-decoration: none;}
     margin: 0 auto;
 
     @import './partials/user/useredit.scss';
-  }
+  	}
+  #mypoint_wrap{
+	@import "./partials/user/mypoint.scss";
+	}
+  #paymentdetails_wrap{
+	@import "./partials/user/paymentdetails.scss";	
+	}	
+  #detailedPaymentHistory_wrap{
+	@import "./partials/user/detailedPaymentHistory.scss";	
+	}	
+  #detailedPaymentHistory_wrap{
+	@import "./partials/user/detailedPaymentHistory.scss";	
+	}	
+  #signOut-wrap{
+	@import "./partials/user/signout.scss";	
+	}	
+  #mypage_wrap{
+	@import "./partials/user/mypage.scss";	
+	}	
+
 }
 
 .delivery-section {
