@@ -14,18 +14,20 @@
 	margin: 0 auto;
 	width: 1200px;
 }
-.mypoint_top{
-	width:100%;
-	height:100px;
+
+.mypoint_top {
+	width: 100%;
+	height: 150px;
 }
+
 .mypoint_title {
-	font-size: 25px;
+	font-size: 23px;
 	font-weight: bold;
 	margin-bottom: 30px;
 }
 
 .mypoint_details {
-	font-size: 25px;
+	font-size: 23px;
 	font-weight: bold;
 	margin-bottom: 50px;
 }
@@ -42,21 +44,101 @@
 }
 
 .mypoint_table {
-	width: 1000px;
+	width: 1200px;
 	margin: 0 auto;
 	margin-bottom: 50px;
 	font-size: 20px;
 }
 
 .mypoint_notification {
-	margin-bottom: 50px;
+	margin-bottom: 70px;
 }
-.mypoint_notification li{
+
+.mypoint_notification p {
+	font-weight: bold;
+}
+
+.mypoint_notification li {
 	color: gray;
 }
 
 .mypoint_back {
 	text-align: center;
+}
+
+.mypoint_container1 {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 70px;
+}
+.mypoint_table1 li {
+	border-radius: 3px;
+	padding: 25px 30px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 25px;
+}
+.mypoint_table1-row {
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+	font-size: 18px;
+	font-weight: bold;
+}
+.mypoint_col1-1 {
+	flex-basis: 50%;
+	margin-left: 130px;
+}
+
+.mypoint_col1-2 {
+	flex-basis: 50%;
+}
+
+.mypoint_container {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 70px;
+}
+
+.mypoint_table li {
+	border-radius: 3px;
+	padding: 25px 30px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 25px;
+}
+
+.mypoint_table-header {
+	background-color: #045FB4;
+	font-size: 17px;
+	font-weight:bold;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	color: white;
+}
+
+.mypoint_table-row {
+	background-color: #ffffff;
+	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.mypoint_col-1 {
+	flex-basis: 30%;
+}
+
+.mypoint_col-2 {
+	flex-basis: 55%;
+}
+
+.mypoint_col-3 {
+	flex-basis: 15%;
 }
 </style>
 <body>
@@ -66,35 +148,42 @@
 		<div class="mypoint_title">
 			<p>포인트</p>
 		</div>
-		<div class="mypoint_point">
-			<p>
-				잔여 러너 포인트 <span>5000p</span>
-			</p>
+		<div class="mypoint_container1">
+			<ul class="mypoint_table1">
+				<li class="mypoint_table1-row">
+					<div class="mypoint_col1-1">잔여 러너 포인트</div>
+					<div class="mypoint_col1-2">5000p</div>
+				</li>
+			</ul>
 		</div>
+
 		<div class="mypoint_details">
 			<p>포인트 이용내역</p>
 		</div>
-		<table class="mypoint_table">
-			<thead>
-				<tr>
-					<th scope="col">구분</th>
-					<th scope="col">일자</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">가입기념 지급</th>
-					<td>22/01/01</td>
-					<td>+999000p</td>
-				</tr>
-				<tr>
-					<th scope="row">세탁서비스 이용</th>
-					<td>22/01/03</td>
-					<td>-2000p</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="mypoint_container">
+			<ul class="mypoint_table">
+				<li class="mypoint_table-header">
+					<div class="mypoint_col-1">날짜</div>
+					<div class="mypoint_col-2">내역</div>
+					<div class="mypoint_col-3">포인트</div>
+				</li>
+				<li class="mypoint_table-row">
+					<div class="mypoint_col-1" data-label="날짜">2022-06-19</div>
+					<div class="mypoint_col-2" data-label="내역">러너 가입기념 이벤트 지급</div>
+					<div class="mypoint_col-3" data-label="포인트">+3050p</div>
+				</li>
+				<li class="mypoint_table-row">
+					<div class="mypoint_col-1" data-label="날짜">2022-06-20</div>
+					<div class="mypoint_col-2" data-label="내역">포인트 사용</div>
+					<div class="mypoint_col-3" data-label="포인트">-350p</div>
+				</li>
+				<li class="mypoint_table-row">
+					<div class="mypoint_col-1" data-label="날짜">2022-06-21</div>
+					<div class="mypoint_col-2" data-label="내역">포인트 적립</div>
+					<div class="mypoint_col-3" data-label="포인트">+1350p</div>
+				</li>
+			</ul>
+		</div>
 
 		<div class="mypoint_notification">
 			<p>포인트 이용 유의사항</p>
@@ -104,8 +193,9 @@
 			</ul>
 		</div>
 		<div class="mypoint_back">
-		<button type="button" class="btn btn-dark" onclick="location.href='/launer/mypage/mypage'">이전</button>
+			<button type="button" class="btn btn-dark"
+				onclick="location.href='/launer/mypage/mypage'">이전</button>
 		</div>
 	</div>
+
 </body>
-</html>

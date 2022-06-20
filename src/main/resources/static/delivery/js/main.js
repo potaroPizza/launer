@@ -1,5 +1,17 @@
 $(function() {
-    let vh = window.innerHeight * 0.01
+    const $listPart = $("#list-part");
+
+    $("#list-box").click(() => {
+        if($listPart.hasClass("active")) {
+            $listPart.removeClass("active");
+            $listPart.addClass("non-active");
+        }else{
+            $listPart.removeClass("non-active");
+            $listPart.addClass("active");
+        }
+    });
+
+    /*let vh = window.innerHeight * 0.01
     document.documentElement.style.setProperty('--vh', `${vh}px`)
     window.addEventListener('resize', () => {
         let vh = window.innerHeight * 0.01
@@ -41,13 +53,13 @@ $(function() {
         }
     }
 
-    /*listBox.addEventListener('mouseup', function() {
+    /!*listBox.addEventListener('mouseup', function() {
         isPressed = false;
     })
     listBox.addEventListener('mousedown', function() {
         isPressed = true;
         mouseActionY();
-    });*/
+    });*!/
 
 
 
@@ -58,7 +70,7 @@ $(function() {
         setTimeout(function() {
             mouseActionY();
         }, 5);
-    }
+    }*/
 
 
 

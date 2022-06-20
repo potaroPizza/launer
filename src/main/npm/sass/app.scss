@@ -22,14 +22,43 @@ admin에서 만사용하는 css 분리 가능
 @import './partials/global.scss';
 @import './partials/jquery-ui.scss';
 @import './partials/reset.scss';
+
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+a {color: #000; text-decoration: none;}
+.clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
+.clearfix::after {clear: both;}
+.fixed-margin-top{width: 100%; height: 60px;}
+
 .web-page {
   @import './partials/main_fixed_wrap.scss';
   @import './partials/main.scss';
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .delivery-section {
-  @import "./partials/delivery/main.scss";
   @import "./partials/delivery/delivery-fixed.scss";
+
+  #delivery-main{
+    @import "./partials/delivery/main.scss";
+    overflow-y: hidden;
+  }
+  #deliveryList{
+    padding: 20px;
+    @import "./partials/delivery/deliveryList.scss";
+  }
 }
 
 .admin-page {
@@ -38,6 +67,9 @@ admin에서 만사용하는 css 분리 가능
     @import "./partials/admin/side-bar.scss";
     @import "./partials/admin/footer.scss";
     @import "./partials/admin/styles.scss";
+    .admin-index{
+		@import "./partials/admin/index.scss";
+	}
 }
 //위에처럼 쓰면 그냥 일반 CSS처럼 쓰는것
 
@@ -53,10 +85,10 @@ admin에서 만사용하는 css 분리 가능
     }
     @import './partials/user/order.scss';
 }
-
+*/
 .title-font {
     color: #F00;
     @include mobile {
         color: blue;
     }
-}*/
+}

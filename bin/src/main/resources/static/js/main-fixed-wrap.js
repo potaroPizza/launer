@@ -1,3 +1,16 @@
+function scrollNone(num) {
+    if(num == 1) {
+        $("#wrap").on('scroll touchmove mousewheel', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+    }else {
+        $("#wrap").off('scroll touchmove mousewheel');
+    }
+}
+
+
 $(function() {
     $("#side-btn").hover(function() {
         $(this).find("div").stop().animate({

@@ -27,8 +27,8 @@ public class MypageController {
 	public void userEdit() {
 		logger.info("회원정보 수정 화면");
 	}
-	@GetMapping("/paymentDetails")
-	public void paymentDetails() {
+	@GetMapping("/paymentdetails")
+	public void paymentdetails() {
 		logger.info("마이페이지 결제내역 화면");
 	}
 	@GetMapping("/mypoint")

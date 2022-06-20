@@ -50,7 +50,7 @@ button{
     position: fixed;
     transition-duration:0.4s;
     -webkit-transition-duration:0.4s;
-}#main-list-bar.down{top: 60px;}
+}#main-list-bar.down{top: 90px;}
 #main-list-bar .line{
     width: 88%;
     height: 1px;
