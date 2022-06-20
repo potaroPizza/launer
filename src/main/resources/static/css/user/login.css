@@ -1,0 +1,296 @@
+@charset "UTF-8";
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, img {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    font-weight: 400;
+    -webkit-font-smoothing: auto;
+    font-size: 12px;
+    color: #666;
+}
+div {
+    display: block;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+input, select, textarea {
+    font-size: 100%;
+    color: #353535;
+    vertical-align: middle;
+}
+
+	#loginWrap{
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: rgb(244, 244, 244);
+	    overflow-y: scroll;
+	    z-index: 9999;
+	    -ms-overflow-style: none;
+	    scrollbar-width: none;
+	}
+	#loginWrap .syncWrap {
+	    margin: 0 auto;
+	    width: 600px;
+	}
+	
+	#loginWrap #header .siteName {
+	    width: 100%;
+	    height: 55px;
+	    line-height: 55px;
+	    border-bottom: 1px solid #efefef;
+	    text-align: center;
+	}
+	#loginWrap #header .siteName a {
+	    color: none;
+	    cursor: pointer;
+	    text-decoration: none;
+	    font-size: 30px;
+	    color: #222;
+	    font-weight: bold;
+	}
+	
+	#loginWrap #header .backBtn {
+		display: inline-block;
+	    margin: 10px;
+	    padding-left: 10px;
+	    width: 61px;
+	    height: 21px;
+	    text-align: center;
+	    line-height: 21px;
+	    background: url(../../images/login_backbtn.png) no-repeat 6px;
+	    background-size: auto 8px;
+	    border: 1px solid #efefef;
+    	border-radius: 30px;
+	    font-size: 11px;
+	    color: #222;
+	    box-sizing: border-box;
+    	cursor: pointer;
+	}
+	
+	#loginWrap #loginBody{
+		padding: 0 30px;
+		margin-top: 25px;
+	}
+	#loginWrap #loginBody .contents {
+		position: relative;
+    	width: 100%;
+    	padding: 24px 0;
+    	border-top: 1px solid #f5f5f5;
+	}
+	
+	#loginWrap #loginBody .title {
+	    margin: 0 0 20px;
+	    font-size: 24px;
+	    line-height: normal;
+	    color: #222;
+	}
+	#loginWrap #loginBody .loginIntro {
+	    margin-bottom: 24px;
+	    font-size: 16px;
+	    font-weight: lighter;
+	    line-height: normal;
+	    color: #222;
+	}
+	
+	#loginWrap #loginBody .inputIdPwd {
+	    border: 1px solid #e1e1e1;
+	    border-radius: 5px;
+	    overflow: hidden;
+	    margin-bottom: 10px;
+	}
+	#loginWrap #loginBody .inputIdPwd #member_id {
+		border-bottom: 1px solid #e1e1e1;
+	}
+	#loginBody .inputIdPwd input {
+	    padding: 0 15px;
+	    width: 100%;
+	    height: 50px;
+	    line-height: 50px;
+	    border: none;
+	    font-size: 14px;
+	    color: #000;
+	    box-sizing: border-box;
+	    vertical-align: middle;
+	}
+	#loginBody .loginCheckBox #saveEmail {
+        position: relative;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        outline: none;
+        margin-bottom: 10px;
+	}
+	#loginBody .loginBtn{
+		padding: 0;
+	    display: inline-block;
+	    width: 100%;
+	    height: 45px;
+	    line-height: 45px;
+	    text-align: center;
+	    border: 1px;
+	    border-radius: 5px;
+	    box-sizing: border-box;
+	    background: #31363d;
+	    font-weight: 700;
+    	font-size: 15px;
+    	color: #fff;
+	    cursor: pointer;
+	}
+	
+	#loginBody .findMenu{
+		float: inherit;
+    	margin: 24px 0 0;
+    	width: 100%;
+    	font-size: 0;
+    	border: none;
+	}
+	#loginBody .findMenu a{
+		display: inline-block;
+    	margin-left: 12px;
+    	padding-left: 12px;
+    	border-left: 1px solid #e1e1e1;
+    	font-size: 12px;
+    	font-weight: lighter;
+    	color: #222;
+    	text-decoration: none;
+	}
+	#loginBody .findMenu a:first-child{
+		margin-left: 0;
+    	padding-left: 0;
+    	border-left: none;
+	}
+	#loginBody .findMenu a.right {
+		float: right;
+    	border-left: none;
+	}
+	
+	#loginBody #snsLogin .snsLoginBox {
+		margin: 0 -3px;
+    	font-size: 0;
+	}
+	
+	#loginBody #snsLogin .snsLoginBox li {
+	    display: inline-block;
+ 		padding: 3px;
+    	width: 50%;
+    	cursor: pointer;
+   		box-sizing: border-box;
+	}
+	#loginBody #snsLogin .snsLoginBox li a {
+		display: inline-block;
+		padding: 0 15px 0 30px;
+	    width: 100%;
+	    height: 100%;
+	    line-height: 42px;
+	    box-sizing: border-box;
+	    border: 1px solid #e1e1e1;
+	    border-radius: 3px;
+	    font-size: 14px;
+	    text-align: center;
+	    color: #777;
+	}
+	#loginBody #snsLogin .snsLoginBox li.btn_naver a {
+    	background: url(../../images/loginNaver.svg) no-repeat 15px;
+    	background-size: 20px;
+	}
+	#loginBody #snsLogin .snsLoginBox li.btn_kakao a {
+		background: url(../../images/loginKakao.png) no-repeat 15px;
+		background-size: 20px;
+	}
+	
+	.login_Or {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 12px;
+        margin: 8px 0px;
+    }
+    .login_Or::before, .login_Or::after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(0, 0, 0, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px;
+    }
+    
+    /*로그인 탭관련 css*/
+	.loginTab {
+		width:100%;
+	}
+	.loginTabnav {
+		font-size:0; 
+		width:100%; 
+		border:1px solid #ddd;
+	}
+	.loginTabnav li {
+		width:299px;
+		display: inline-block;  
+		height:46px; 
+		text-align:center; 
+		border-right:1px solid #ddd;
+	}
+	.loginTabnav li a:before {
+		content:""; 
+		position:absolute; 
+		left:0; top:0px; 
+		width:100%; 
+		height:3px; 
+	}
+	.loginTabnav li a.active:before {
+		background:#7ea21e;
+	}
+	.loginTabnav li a.active {
+		border-bottom:1px solid #fff;
+	}
+	.loginTabnav li a { 
+		position:relative; 
+		display:block; 
+		background: #f8f8f8; 
+		color: #000; 
+		line-height:46px; 
+		text-decoration:none; 
+		font-size:16px;
+	}
+	.loginTabnav li a:hover, .loginTabnav li a.active {
+		background:#fff; 
+		color:#7ea21e; 
+	}
+	.loginTabcontent {
+		padding: 20px;  
+		border-top:none;
+	}
+	
+	.loginTabcontent #loginGeneralMember{
+		display: none;
+	}
+	.loginTabcontent #loginGeneralMember.on{
+		display: block;
+	}
+	
+	.loginTabcontent #loginDriver{
+		display: none;
+	}
+	.loginTabcontent #loginDriver.on{
+		display: block;
+	}
+	
+	.loginTab .loginTabnav li a.on{
+		background:#fff;
+		color:#7ea21e;
+	}
+	
+	
+	
+	
+	
+	
+	
