@@ -21,7 +21,7 @@ public class DeliveryController {
 
     @GetMapping("/")
     public String deliveryMain() {
-        logger.info("배송기사 메인 페이지");
+        logger.info("배송기사 메인 페이지ddd");
         return "/delivery/index";
     }
 
