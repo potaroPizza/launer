@@ -18,7 +18,7 @@
     <script src="<c:url value="/js/raindrops.js"/>" type="text/javascript" text="javascript"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="<c:url value="/js/main.js"/>"></script>
-    <div id="wrap">
+    <div id="main-wrap">
         <aside id="main-list-bar">
             <div class="line"></div>
             <div class="part-one part on">

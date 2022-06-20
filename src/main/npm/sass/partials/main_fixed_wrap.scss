@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 body {
     font-family: 'Noto Sans KR', sans-serif;
     -ms-user-select: none; 
@@ -23,7 +24,7 @@ ol, ul {
 .clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
 .clearfix::after {clear: both;}
 
-button{
+/*button{
     background: inherit ; 
     border:none; 
     box-shadow:none; 
@@ -31,7 +32,7 @@ button{
     padding:0; 
     overflow:visible; 
     cursor:pointer
-} 
+} */
 .title-font{font-size: 38px; font-weight: 500;}
 .sub-title-font{font-size: 32px; font-weight: 500;}
 #menu-part::after, #menu-part::before{box-sizing: border-box;}

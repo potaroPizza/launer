@@ -1,77 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ include file="../inc/top.jsp"%>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
-<style>
-.myinfo_wrap {
-	margin: 0 auto;
-	width: 1200px;
-}
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 
-.myinfo_top {
-	width: 100%;
-	height: 150px;
-}
+<t:wrapper>
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>"/>
+<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
+	<style>
 
-.myinfo_title_wrap {
-	font-size: 25px;
-	font-weight: bold;
-	margin-bottom: 70px;
-}
-
-.myinfo_title {
-	display: inline-block;
-}
-
-.myinfo_details {
-	font-size: 25px;
-	font-weight: bold;
-	margin-bottom: 50px;
-}
-
-.myinfo_detail {
-	margin-bottom: 80px;
-	font-size: 20px;
-	font-weight: bold;
-}
-
-.myinfo_detail span {
-	font-size: 20px;
-	color: gray;
-}
-
-.myinfo_delivery {
-	margin-bottom: 50px;
-	font-size: 25px;
-	font-weight: bold;
-}
-
-.myinfo_editbtn {
-	margin-left: 100px;
-	display: inline-block;
-}
-
-.myinfo_space {
-	width: 100%;
-	height: 15px;
-	background-color: #FAFAFA;
-	margin-bottom: 50px;
-}
-
-.myinfo_withdrawbtn {
-	text-align: center;
-}
 </style>
-<body>
-
-	<div class="myinfo_wrap">
+	<div id="myinfo_wrap">
 		<div class="myinfo_top"></div>
 		<div class="myinfo_title_wrap">
 			<div class="myinfo_title">
@@ -115,5 +52,4 @@
 				onclick="location.href='/launer/mypage/withdraw'">회원 탈퇴</button>
 		</div>
 	</div>
-</body>
-</html>
+</t:wrapper>
