@@ -44,22 +44,42 @@ public class MypageController {
 		return "/mypage/mypage";
 
 	}
+	@GetMapping("/mypoint")
+	public String mypoint(HttpSession session, 
+			Model model) {
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		logger.info("마이페이지 포인트 화면, 파라미터 userid={}", no);
+
+		UserVO vo= userService.selectById(no);
+		logger.info("회원 정보 조회 결과, vo={}",vo);
+
+		model.addAttribute("vo",vo);
+		
+		return "/mypage/mypoint";
+	}
+	@GetMapping("/myinfo")
+	public String myinfo(HttpSession session, 
+			Model model) {
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		logger.info("마이페이지 내정보 화면, 파라미터 userid={}", no);
+
+		UserVO vo= userService.selectById(no);
+		logger.info("회원 정보 조회 결과, vo={}",vo);
+
+		model.addAttribute("vo",vo);
+		
+		return "/mypage/myinfo";
+	}
 	
 	@GetMapping("/paymentdetails")
 	public void paymentdetails() {
 		logger.info("마이페이지 결제내역 화면");
 	}
-	@GetMapping("/mypoint")
-	public void mypoint() {
-		logger.info("마이페이지 포인트 화면");
-	}
 	@GetMapping("/detailedPaymentHistory")
 	public void detailedPaymentHistory() {
 		logger.info("마이페이지 결제내역 상세 화면");
-	}
-	@GetMapping("/myinfo")
-	public void myinfo() {
-		logger.info("마이페이지 내정보 화면");
 	}
 	@GetMapping("/signout")
 	public void singOut() {

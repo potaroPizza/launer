@@ -22,13 +22,13 @@
 		</div>
 		<div class="myinfo_detail">
 			<p>
-				이메일 &nbsp;&nbsp;&nbsp;&nbsp;<span>launer@naver.com</span>
+				이메일 &nbsp;&nbsp;&nbsp;&nbsp;<span>${vo.email}</span>
 			</p>
 			<p>
-				이름 &nbsp;&nbsp;&nbsp;&nbsp;<span>김러너</span>
+				이름 &nbsp;&nbsp;&nbsp;&nbsp;<span>${vo.name}</span>
 			</p>
 			<p>
-				전화번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>010-1234-5678</span>
+				전화번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>${vo.hp}</span>
 			</p>
 		</div>
 		<div class="myinfo_space"></div>
