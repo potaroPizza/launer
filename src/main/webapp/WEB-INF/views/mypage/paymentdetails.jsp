@@ -28,6 +28,43 @@
 			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
 		});
 	});
+	$(function(){
+		$('#btMonth1').click(function(){
+        	$.setDate(1, 'M');	
+        });
+        
+        $('#btMonth3').click(function(){
+        	$.setDate(3, 'M');
+        });
+        
+        $('#btMonth6').click(function(){
+        	$.setDate(6, 'M');
+        });
+        $.setDate = function(term, type){
+    		
+    		var str=$('#endDay').val().split('-');
+    		var d = new Date(str[0], str[1]-1, str[2]);
+    		if(type=="D"){
+    			d.setDate(d.getDate()-term);	
+    		}else if(type=='M'){
+    			d.setMonth(d.getMonth()-term);
+    		}
+    		
+    		$('#startDay').val($.findDate(d));
+    	}	
+    	
+    	$.findDate = function(date){
+    	     return date.getFullYear()+"-" + $.formatDate(date.getMonth()+1) +"-"
+             	+ $.formatDate(date.getDate());
+       	}
+       
+    	$.formatDate = function(d){
+    		if(d<10) 
+    			d="0" + d;
+    		
+    		return d;
+    	}
+	});
 </script>
 <style>
 .paymentdetails_wrap {
@@ -147,9 +184,9 @@ a {
 		</div>
 		<div class="paymentdetails_date">
 			<form name="frm1" method="post" action="<c:url value=''/>">
-				<input type="button" value="3개월" class="btn btn-outline-dark">
-				<input type="button" value="6개월" class="btn btn-outline-dark">
-				<input type="button" value="9개월" class="btn btn-outline-dark">
+				<input type="button" value="1개월" class="btn btn-outline-dark" id="btMonth1">
+				<input type="button" value="3개월" class="btn btn-outline-dark" id="btMonth3">
+				<input type="button" value="6개월" class="btn btn-outline-dark" id="btMonth6">
 				<br> <br> <input type="text" name="startDay" id="startDay"
 					value="${dateSearchVO.startDay }"> ~ <input type="text"
 					name="endDay" id="endDay" value="${dateSearchVO.endDay }">
