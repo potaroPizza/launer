@@ -62,14 +62,17 @@ a {color: #000; text-decoration: none;}
   #detailedPaymentHistory_wrap{
 	@import "./partials/user/detailedPaymentHistory.scss";	
 	}	
-  #detailedPaymentHistory_wrap{
-	@import "./partials/user/detailedPaymentHistory.scss";	
-	}	
   #signOut-wrap{
 	@import "./partials/user/signout.scss";	
 	}	
   #mypage_wrap{
 	@import "./partials/user/mypage.scss";	
+	}	
+  #withdraw-wrap{
+	@import "./partials/user/withdraw.scss";	
+	}	
+  #myinfo_wrap{
+	@import "./partials/user/myinfo.scss";	
 	}	
 
 }
