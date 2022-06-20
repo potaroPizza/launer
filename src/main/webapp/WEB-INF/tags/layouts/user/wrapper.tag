@@ -27,7 +27,7 @@
 <jsp:include page="/WEB-INF/tags/partials/user/header.jsp" flush="true"/>
 <jsp:doBody/>
 <%-- 개별로 필요한 js 파일은 자신의 view(jsp) 하단에 넣으세요. --%>
-<jsp:include page="/WEB-INF/tags/partials/user/footer.jsp" flush="true"/>
+<%--<jsp:include page="/WEB-INF/tags/partials/user/footer.jsp" flush="true"/>--%>
 <script src="${path}/launer/js/app.js"></script>
 </body>
 </html>

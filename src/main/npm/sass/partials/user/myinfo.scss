@@ -1,0 +1,58 @@
+&{
+	margin: 0 auto;
+	width: 1200px;
+}
+
+.myinfo_top {
+	width: 100%;
+	height: 150px;
+}
+
+.myinfo_title_wrap {
+	font-size: 25px;
+	font-weight: bold;
+	margin-bottom: 70px;
+}
+
+.myinfo_title {
+	display: inline-block;
+}
+
+.myinfo_details {
+	font-size: 25px;
+	font-weight: bold;
+	margin-bottom: 50px;
+}
+
+.myinfo_detail {
+	margin-bottom: 80px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.myinfo_detail span {
+	font-size: 20px;
+	color: gray;
+}
+
+.myinfo_delivery {
+	margin-bottom: 50px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.myinfo_editbtn {
+	margin-left: 100px;
+	display: inline-block;
+}
+
+.myinfo_space {
+	width: 100%;
+	height: 15px;
+	background-color: #FAFAFA;
+	margin-bottom: 50px;
+}
+
+.myinfo_withdrawbtn {
+	text-align: center;
+}

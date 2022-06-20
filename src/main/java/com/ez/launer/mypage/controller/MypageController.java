@@ -23,10 +23,7 @@ public class MypageController {
 	public void mypage() {
 		logger.info("마이페이지 화면");
 	}
-	@GetMapping("/useredit")
-	public void userEdit() {
-		logger.info("회원정보 수정 화면");
-	}
+	
 	@GetMapping("/paymentdetails")
 	public void paymentdetails() {
 		logger.info("마이페이지 결제내역 화면");
