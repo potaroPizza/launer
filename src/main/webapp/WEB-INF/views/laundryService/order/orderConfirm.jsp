@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderConfirm.css"/>" type="text/css"/>
 <script type="text/javascript">
 
+
+
 	
 </script>
 
