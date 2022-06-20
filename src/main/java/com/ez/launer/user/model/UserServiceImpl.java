@@ -6,11 +6,14 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
+	
 	private final UserDAO userDao;
 
 	@Override
-	public UserVO selectByUserid(String userid) {
-		return userDao.selectByUserid(userid);
+	public UserVO selectById(int no) {
+		return userDao.selectById(no);
 	}
+	
 }
+	

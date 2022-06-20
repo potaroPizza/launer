@@ -6,7 +6,17 @@
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
 <link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderConfirm.css"/>" type="text/css"/>
 <script type="text/javascript">
+$(function(){
+	
+	
+	const today = new Date()
+	today.setHours(today.getHours() + 12)
+	$('#take-date').val(today);
+});
 
+  
+  
+  
 
 
 	
@@ -25,22 +35,22 @@
                 <div class="orderConfirm-user">
                     <div class="user-date">
                         <label for="take-date">수거일 : </label>
-                        <input type="text" name="take-date" id="take-date" class="orderConfirm-input" value="5월 30일"
+                        <input type="text" name="take-date" id="take-date" class="orderConfirm-input" value=""
                                readonly>
                     </div>
                     <div class="user-name">
                         <label for="orderUserName">이름 : </label>
-                        <input type="text" name="name" id="name" class="orderConfirm-input" value="한서현" readonly>
+                        <input type="text" name="name" id="name" class="orderConfirm-input" value="${userVo.name }" readonly>
                     </div>
                     <div class="user-hp">
                         <label for="take-date">전화번호 : </label>
-                        <input type="text" name="hp" id="hp" class="orderConfirm-input" value="5월 30일" readonly>
+                        <input type="text" name="hp" id="hp" class="orderConfirm-input" value="${userVo.hp }" readonly>
                     </div>
 
                     <div class="user-address">
                         <label for="address">주소 : </label>
                         <input type="text" name="address" id="address" class="orderConfirm-input"
-                               value="서울특별시 대흥동 고산 1길 1-1 101 호" readonly>
+                               value="주소" readonly>
                     </div>
                     <div class="user-address-method">
                         <label for="entherMethod">현관출입방법 : </label>

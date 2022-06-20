@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.user.model.UserDAO">
-	<select id="selectByUserid" parameterType="String">
-		select * from users where email=#{email}	
+
+	<select id="selectById" parameterType="int" resultType="userVo">
+		select * from users where no = #{no}
 	</select>
-	<select id="selectPwd" parameterType="String" resultType="String">
-		select pwd from users where email=#{email} and out_date is null;
-	</select>
-	
-	
+
+
+
 </mapper>
