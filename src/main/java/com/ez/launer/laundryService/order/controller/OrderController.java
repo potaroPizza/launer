@@ -11,6 +11,7 @@ import java.util.Locale.Category;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.category.model.CategoryVO;
 import com.ez.launer.laundryService.order.model.OrderConfirmVO;
+import com.ez.launer.user.model.UserService;
+import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,6 +45,7 @@ public class OrderController {
 		 = LoggerFactory.getLogger(OrderController.class);
 	
 	private final CategoryService categoryService;
+	private final UserService userService;
 	
 	
 	
@@ -80,9 +84,16 @@ public class OrderController {
 	}
 	
 	@GetMapping("/orderConfirm")
-	public String orderConfirm_get() {
-		logger.info("결제전 최종확인 화면");
+	public String orderConfirm_get(HttpSession session, Model model) {
+		int no = 1000;
+				//(String) session.getAttribute("userid");
+		logger.info("결제전 최종확인 화면, 파라미터 userid ={}", no);
 		
+		UserVO vo = userService.selectById(no);
+		
+		logger.info("회원정보조회 vo={}",vo);
+		model.addAttribute("userVo",vo);
+
 		return "/laundryService/order/orderConfirm";
 	}
 	

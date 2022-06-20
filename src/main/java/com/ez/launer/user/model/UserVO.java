@@ -19,4 +19,6 @@ public class UserVO {
 	private Timestamp outDate;
 	private int point;
 	
+	
+	
 }
