@@ -26,6 +26,8 @@ button{
     padding:0; 
     overflow:visible; 
     cursor:pointer
+    
+    
 } 
 .title-font{font-size: 38px; font-weight: 500;}
 .sub-title-font{font-size: 32px; font-weight: 500;}
@@ -35,7 +37,8 @@ button{
     margin: 70px auto 0;
 }
 
-#wrap {width:100%; background: rgb(244, 244, 244);}
+//#wrap {width:100%; background: rgb(244, 244, 244);}
+& {width:100%; background: rgb(244, 244, 244);}
 
 
 
