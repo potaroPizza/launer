@@ -20,30 +20,25 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(UserController.class);
-	
+
 	private final UserService userService;
 
-	@GetMapping("/useredit")
-	public void edit_get() {
-		logger.info("회원정보 수정 화면");
+
+	@GetMapping("/useredit") 
+	public String edit_get(HttpSession session, 
+			Model model) { 
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		logger.info("회원정보 수정 화면, 파라미터 userid={}", no);
+
+		UserVO vo= userService.selectById(no);
+		logger.info("회원 정보 조회 결과, vo={}",vo);
+
+		model.addAttribute("vo",vo);
+
+		return "/user/useredit";
+
 	}
-
-
-	/*
-	  @GetMapping("/useredit") public String edit_get(HttpSession session, Model
-	  model) { String userid=(String)session.getAttribute("userid");
-	  logger.info("회원정보 수정 화면, 파라미터 userid={}", userid);
-	  
-	  UserVO vo= userService.selectByUserid(userid);
-	  logger.info("회원 정보 조회 결과, vo={}",vo);
-	  
-	  model.addAttribute("vo",vo);
-	  
-	  return "/user/useredit";
-	  
-	  }
-	 */
-
 
 
 }

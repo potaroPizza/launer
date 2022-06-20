@@ -40,7 +40,7 @@
 	<div id="mypage_wrap">
 		<div class="mypage_top"></div>
 		<div class="mypage_introduce">
-			김러너님, &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
+			${vo.name }님, &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
 			<span>시작</span><span>하세요!</span>
 		</div>
 		<div id="mypage-main-wrap" class="clearfix">
@@ -65,7 +65,7 @@
 		</div>
 		<div id="mypage-text-wrap" class="clearfix">
 			<div class="part">
-				<span>1,000 Point</span>
+				<span>${vo.point } Point</span>
 			</div>
 			<div class="part">
 				<span>결제내역</span>
