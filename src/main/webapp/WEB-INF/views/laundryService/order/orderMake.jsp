@@ -15,21 +15,24 @@
 <script type="text/javascript">
 
     $(function () {
-        $('#submit').click(function () {
+        $('#orderBtn').click(function () {
         	
         	if(!$('#flexCheckDefault').is(':checked')){
     			alert('약관에 동의해주세요.');
     			event.preventDefault();
     			$('#staticBackdrop').modal("show");
+    			event.preventDefault();
+    			return false;
     		}
-        	event.preventDefault();
+
     		
         	
             if ($("input[name=itemName]").length < 1) {
                 alert("상품을 선택해주세요");
                 event.preventDefault();
+                return false;
             }
-			event.preventDefault();
+
 
 			let dataArr = [];
 			
@@ -59,9 +62,9 @@
 			
 			$('#param').val(param_string);
 			
+			$('form[name=frm]').attr('action',"<c:url value='/laundryService/order/orderConfirm'/>");
 			$('form[name=frm]').attr('method','post');
-			$('form[name=frm]').prop('action',"<c:url value='/laundryService/order/orderConfirm'/>");
-			$('#frm').submit();
+			$('form[name=frm]').submit();
 
         });
 	
@@ -304,13 +307,12 @@
 
     <div class="orderInfo-goOrder">
 
-
-        <input type="button" class="orderBtn" value="수거신청" id="submit">
-
-    </div>
-    <form id= "frm" method="POST">
-    	<input type ="hidden" value="" id="param">
+ 	<form id= "frm">
+    	<input type ="hidden" value="" id="param" name="param">
+        <input type="submit" class="orderBtn" value="수거신청" id="orderBtn">
     </form>
+    </div>
+   
 </div>
 
 
