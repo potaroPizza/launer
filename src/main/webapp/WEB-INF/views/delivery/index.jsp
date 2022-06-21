@@ -31,9 +31,12 @@
                 map = new kakao.maps.Map(mapContainer, mapOption);
 
 
-                /*var polygonPath = [
+                var polygonPath = [
+                    <c:set var = "c" value="0"/>
                     <c:forEach var="i" items="${polygon}">
-                        new kakao.maps.LatLng(${i[0]}, ${i[1]}),
+                        <c:set var = "c" value="${c + 1}"/>
+                        new kakao.maps.LatLng(${i[0]}, ${i[1]})
+                        <c:if test="${fn:length(polygon) != c}">,</c:if>
                     </c:forEach>
                 ];
 
@@ -43,13 +46,14 @@
                     strokeWeight: 3, // 선의 두께입니다
                     strokeColor: '#39DE2A', // 선의 색깔입니다
                     strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-                    strokeStyle: 'longdash', // 선의 스타일입니다
+                    strokeStyle: 'solid', // 선의 스타일입니다
                     fillColor: '#A2FF99', // 채우기 색깔입니다
-                    fillOpacity: 0.7 // 채우기 불투명도 입니다
+                    fillOpacity: 0.2 // 채우기 불투명도 입니다
                 });
+                console.log(polygon.strokeStyle);
 
                 // 지도에 다각형을 표시합니다
-                polygon.setMap(map);*/
+                polygon.setMap(map);
             }
 
             //위치 초기화
@@ -66,12 +70,12 @@
                 <button onclick="panTo()"><strong>${officeVO.officeName}</strong></button>
                 <a href="#"><i class="fa-solid fa-gear"></i></a>
             </p>
-            <c:forEach var="a1" items="${ab}">
+            <%--<c:forEach var="a1" items="${ab}">
                 <c:forEach var="a2" items="${a1}">
                     ${a2}
                 </c:forEach>
                 <br/>
-            </c:forEach>
+            </c:forEach>--%>
         </div>
         <div id="list-part" class="main-width">
             <div id="list-box">
