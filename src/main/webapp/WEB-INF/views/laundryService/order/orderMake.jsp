@@ -78,18 +78,18 @@
             var idx = $('.order-item-Div div[name=testForm] #delBtn').index(this);
             $('.order-item-Div .testForm').eq(idx).remove();
 
-            const totalPrice = new Array();
+            const totalPriceMake = new Array();
             let sum = 0;
             $(".priceByQty").each(function (index, item) {
                 totalPrice.push($(item).val());
             });
 
-            for (let i = 0; i < totalPrice.length; i++) {
-                const intTotalPrice = Number(totalPrice[i]);
+            for (let i = 0; i < totalPriceMake.length; i++) {
+                const intTotalPrice = Number(totalPriceMake[i]);
                 sum += intTotalPrice;
             }
 
-            $("#totalPrice").attr("value", sum);
+            $("#totalPriceMake").attr("value", sum);
         });
 
 
@@ -98,25 +98,25 @@
 
         });
 
-        $(document).on('change', '.order-item-Div div[name=testForm] #order-num', function () {
+        $(document).on('change', '#order-num', function () {
             var qty = $(this).val();
             var price = $(this).siblings('input[name=itemPrice]').val();
             //var priceByQty = $(this).val()*$('input[name=itemPrice]').val();
             var priceByQty = qty * price;
             $(this).next('.priceByQty').attr("value", priceByQty);
 
-            const totalPrice = new Array();
+            const totalPriceMake = new Array();
             let sum = 0;
             $(".priceByQty").each(function (index, item) {
-                totalPrice.push($(item).val());
+                totalPriceMake.push($(item).val());
             });
 
-            for (let i = 0; i < totalPrice.length; i++) {
-                const intTotalPrice = Number(totalPrice[i]);
+            for (let i = 0; i < totalPriceMake.length; i++) {
+                const intTotalPrice = Number(totalPriceMake[i]);
                 sum += intTotalPrice;
             }
 
-            $("#totalPrice").attr("value", sum);
+            $("#totalPriceMake").attr("value", sum);
         });
 
         var totalpriceInput = 0;
@@ -162,16 +162,16 @@
                         + "</div>";
                     $(tagAdd).appendTo(".order-item-Div");
 
-                    const totalPrice = new Array();
+                    const totalPriceMake = new Array();
                     let sum = 0;
                     $(".priceByQty").each(function (index, item) {
-                        totalPrice.push($(item).val());
+                        totalPriceMake.push($(item).val());
                     });
-                    for (let i = 0; i < totalPrice.length; i++) {
-                        const intTotalPrice = Number(totalPrice[i]);
+                    for (let i = 0; i < totalPriceMake.length; i++) {
+                        const intTotalPrice = Number(totalPriceMake[i]);
                         sum += intTotalPrice;
                     }
-                    $("#totalPrice").attr("value", sum);
+                    $("#totalPriceMake").attr("value", sum);
                 },
                 error: function () {
                     alert("err");
@@ -237,7 +237,7 @@
                 <div class="order-item-Div">
                 </div>
             </div>
-            총:<input type="text" name="totalPrice" id="totalPrice" value=""></input>원
+            총:<input type="text" name="totalPriceMake" id="totalPriceMake" value=""></input>원
 
         </div>
         <div class="margin-top-fixed"></div>
