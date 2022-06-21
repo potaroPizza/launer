@@ -15,20 +15,20 @@
 				<p>기본 정보</p>
 			</div>
 			<div class="myinfo_editbtn">
-				<a href="/launer/user/useredit">
+				<a href="/launer/mypage/useredit">
 					<button type="button" class="btn btn-dark">정보 수정</button>
 				</a>
 			</div>
 		</div>
 		<div class="myinfo_detail">
 			<p>
-				이메일 &nbsp;&nbsp;&nbsp;&nbsp;<span>launer@naver.com</span>
+				이메일 &nbsp;&nbsp;&nbsp;&nbsp;<span>${map['EMAIL']}</span>
 			</p>
 			<p>
-				이름 &nbsp;&nbsp;&nbsp;&nbsp;<span>김러너</span>
+				이름 &nbsp;&nbsp;&nbsp;&nbsp;<span>${map['NAME']}</span>
 			</p>
 			<p>
-				전화번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>010-1234-5678</span>
+				전화번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>${map['HP']}</span>
 			</p>
 		</div>
 		<div class="myinfo_space"></div>
@@ -38,10 +38,10 @@
 
 		<div class="myinfo_detail">
 			<p>
-				배송지&nbsp;&nbsp;&nbsp;&nbsp;<span>서울특별시 서대문구 라멘집</span>
+				배송지&nbsp;&nbsp;&nbsp;&nbsp;<span>${map['ADDRESS']}&nbsp;${map['ADDRESS_DETAIL']}</span>
 			</p>
 			<p>
-				공동현관 출입방법&nbsp;&nbsp;&nbsp;&nbsp;<span>자유 출입가능 & 공동현관 없음</span>
+				공동현관 출입방법&nbsp;&nbsp;&nbsp;&nbsp;<span>${map['ENTERMETHOD']}</span>
 			</p>
 
 		</div>

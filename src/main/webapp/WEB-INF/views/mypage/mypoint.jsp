@@ -22,8 +22,8 @@
 		<div class="mypoint_container1">
 			<ul class="mypoint_table1">
 				<li class="mypoint_table1-row">
-					<div class="mypoint_col1-1">잔여 러너 포인트</div>
-					<div class="mypoint_col1-2">5000p</div>
+					<div class="mypoint_col1-1">${vo.name}님의 포인트</div>
+					<div class="mypoint_col1-2">${vo.point}p</div>
 				</li>
 			</ul>
 		</div>

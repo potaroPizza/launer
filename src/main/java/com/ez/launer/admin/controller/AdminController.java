@@ -64,19 +64,4 @@ public class AdminController {
 		return "/admin/charts";
 	}
 	
-
-	@RequestMapping("/stores")
-	public String stores() {
-		logger.info("지점관리 페이지");
-		
-		return "/admin/manage/stores";
-	}
-	
-	@RequestMapping("/users")
-	public String users() {
-		logger.info("회원관리 페이지");
-		
-		return "/admin/manage/users";
-	}
-
 }

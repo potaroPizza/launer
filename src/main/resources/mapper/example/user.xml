@@ -6,7 +6,12 @@
 	<select id="selectById" parameterType="int" resultType="userVo">
 		select * from users where no = #{no}
 	</select>
-
+	<select id="selectByIdAddress" parameterType="int" resultType="hashMap">
+		select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
+		from users u, users_address a
+		where u.no=a.users_no
+		and u.no=#{no}
+	</select>
 
 
 </mapper>
