@@ -1,5 +1,7 @@
 package com.ez.launer.mypage.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -65,12 +67,28 @@ public class MypageController {
 		//String userid=(String)session.getAttribute("userid");
 		logger.info("마이페이지 내정보 화면, 파라미터 userid={}", no);
 
-		UserVO vo= userService.selectById(no);
-		logger.info("회원 정보 조회 결과, vo={}",vo);
+		HashMap<String, Object> map= userService.selectByIdAddress(no);
+		logger.info("회원 정보 조회 결과, map={}",map);
 
-		model.addAttribute("vo",vo);
+		model.addAttribute("map",map);
 		
 		return "/mypage/myinfo";
+	}
+	
+	@GetMapping("/useredit") 
+	public String edit_get(HttpSession session, 
+			Model model) { 
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		logger.info("회원정보 수정 화면, 파라미터 userid={}", no);
+
+		HashMap<String, Object> map= userService.selectByIdAddress(no);
+		logger.info("회원 정보 조회 결과, map={}",map);
+
+		model.addAttribute("map",map);
+
+		return "/user/useredit";
+
 	}
 	
 	@GetMapping("/paymentdetails")

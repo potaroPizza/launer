@@ -10,10 +10,26 @@
 <script src="https://kit.fontawesome.com/d4af3bb512.js" crossorigin="anonymous"></script>
 
 <style>
-
+	.event-box{
+		width: 100%;
+		height: 100%;
+		position:absolute;
+		z-index: 100;
+		left:0;
+		right: 0;
+	}
 </style>
 <script type="text/javascript">
 	$(function() {
+		/* $("#mypage-main-wrap .part a").mouseover(function(e) {
+			const $secPartOne = $(this);
+			e.stopPropagation();
+			let x = e.clientX - $secPartOne.offset().left;
+			let y = e.clientY - $secPartOne.offset().top;
+			
+			console.log(x, y);
+		}); */
+		
 		$("#mypage-main-wrap .part").hover(function() {
 			$(this).stop().animate({
 				top: "-3%"
@@ -48,6 +64,7 @@
 				<a href="/launer/mypage/mypoint">
 					<i class="fa-solid fa-coins"></i>
 					<div class="hover-wrap"></div>
+					<div class="event-box"></div>
 				</a>
 			</div>
 			<div class="part">
@@ -74,27 +91,7 @@
 				<span>내 정보</span>
 			</div>
 		</div>
-		<%--<div id="mypage_container">
-			<ul class="mypage_container_list">
-				<li><img src="../images/point.jpg"> <a
-					href="/launer/mypage/mypoint">
-						<div class="mypage_caption">
-							<p>포인트</p>
-						</div>
-				</a></li>
-				<li><img src="../images/paymentdetails.jpg"> <a
-					href="/launer/mypage/paymentDetails">
-						<div class="mypage_caption">
-							<p>결제내역</p>
-						</div>
-				</a></li>
-				<li><img src="../images/myinformation.jpg"> <a
-					href="/launer/mypage/myinfo">
-					<div class="mypage_caption">
-						<p>내정보</p>
-					</div></a></li>
-			</ul>
-		</div>--%>
+		
 		<!-- As a link -->
 		<div class="mypage_nav">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">

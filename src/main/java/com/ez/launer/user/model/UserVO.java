@@ -18,7 +18,6 @@ public class UserVO {
 	private Timestamp startDate;
 	private Timestamp outDate;
 	private int point;
-	
-	
+	private UserAddressVO userAddressVo;
 	
 }
