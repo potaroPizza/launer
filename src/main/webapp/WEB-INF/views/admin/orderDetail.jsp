@@ -110,12 +110,14 @@ div.pickUp{
 				                <td>2022-06-17 16:18</td>
 				            </tr>
 				            <tr>
-				                <td class="title">최종금액(합계 + 과제금액)</td>
+				                <td class="title">최종금액<br>(합계 + 과세금액)</td>
 				                <td colspan="3">16,000</td>
 				            </tr>
 
 				        </table>
 					<div class="pickUp">
+						<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp"
+							disabled="disabled">
 						<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp">
 					</div>
 				</div>

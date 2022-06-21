@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.launer.laundryService.order.model.OrderDAO">
+
+
+
+
+    <!--주문 상세 리스트  조회-->
+    <select id="selectOrderDetails" parameterType="int" resultType="hashMap">
+        select * from ORDER_DETAIL_VIEW
+        where ORDER_NO = #{orderNo}
+    </select>
+
+    <!--지점에 해당하는 주문 view 리턴--><!--
+    <select id="orderOfficeView" parameterType="orderListSearchVo" resultType="hashMap">-->
+    <select id="orderOfficeView" parameterType="orderListSearchVo" resultMap="orderDeliveryAll">
+        select * from (
+            select ROWNUM as RNUM, A.*
+            from
+            (
+                select * from ORDERS_OFFICENO_VIEW
+                where OFFICE_NO = #{officeNo}
+                  and ORDER_STATUS_NO = #{orderStatusNo} and ${listType} is null
+            ) A
+        ) B
+        where RNUM > #{firstRecordIndex}
+        <![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+    </select>
+
+    <!--지점에 해당하는 주문 view 전체 개수-->
+    <select id="orderCount" parameterType="orderListSearchVo" resultType="int">
+        select count(*) from ORDERS_OFFICENO_VIEW
+        where OFFICE_NO = #{officeNo}
+          and ORDER_STATUS_NO = #{orderStatusNo} and ${listType} is null
+    </select>
+
+
+
+    <resultMap type="OrderDeliveryAllVO" id="orderDeliveryAll">	<!-- id는 resultMap 들어갈 이름 -->
+        <association property="orderOfficeView" column="no" javaType="map">
+            <id column="no" jdbcType="BIGINT" property="NO"/>
+            <result column="name" jdbcType="VARCHAR" property="NAME"/>
+            <result column="users_no" jdbcType="BIGINT" property="USERS_NO"/>
+            <result column="users_address_no" jdbcType="BIGINT" property="USERS_ADDRESS_NO"/>
+            <result column="order_status_no" jdbcType="BIGINT" property="ORDER_STATUS_NO"/>
+            <result column="payment_date" jdbcType="TIMESTAMP" property="PAYMENT_DATE"/>
+            <result column="pickup_driver" jdbcType="VARCHAR" property="PICKUP_DRIVER"/>
+            <result column="delivery_driver" jdbcType="VARCHAR" property="DELIVERY_DRIVER"/>
+            <result column="office_no" jdbcType="BIGINT" property="OFFICE_NO"/>
+            <result column="total_price" jdbcType="BIGINT" property="TOTAL_PRICE"/>
+            <result column="order_request" jdbcType="VARCHAR" property="ORDER_REQUEST"/>
+            <result column="lat_y" jdbcType="DOUBLE" property="LAT_Y"/>
+            <result column="lon_x" jdbcType="DOUBLE" property="LON_X"/>
+            <result column="address" jdbcType="VARCHAR" property="ADDRESS"/>
+            <result column="address_detail" jdbcType="VARCHAR" property="ADDRESS_DETAIL"/>
+            <result column="sum" jdbcType="BIGINT" property="SUM"/>
+        </association>
+        <collection property="orderDetails" column="no"
+                    javaType="ArrayList" ofType="map" select="selectOrderDetails">
+        </collection>
+    </resultMap>
+</mapper>

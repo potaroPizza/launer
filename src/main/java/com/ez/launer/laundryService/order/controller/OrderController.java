@@ -103,7 +103,7 @@ public class OrderController {
 		
 		
 		int result = 0;
-		int totalPrice = 0;
+		int paramPrice = 0;
 		for(int i=0;i<paramString.length;i++) {
 			Map<String, Object> map = new HashMap<>();
 			setParamString = paramString[i].split(",");
@@ -120,12 +120,12 @@ public class OrderController {
 			*/
 			
 			//총 결제금액 int 로 실어보내기
-			totalPrice += Integer.parseInt( setParamString[4]);
+			paramPrice += Integer.parseInt( setParamString[4]);
 
 			list.add(map);
 		}
 		
-		logger.info("최종금액 ={}",totalPrice);
+		logger.info("최종금액 ={}",paramPrice);
 		/*
 		for(Map<String, Object> mmm : list) {
 			logger.info("맵 저장 후 categoryNo={}, name={}, price={}, quan={}, sum={}", 
@@ -136,7 +136,7 @@ public class OrderController {
 		
 		model.addAttribute("userVo", vo);
 		model.addAttribute("list", list);
-		model.addAttribute("paramPrice", totalPrice);
+		model.addAttribute("paramPrice", paramPrice);
 		return "/laundryService/order/orderConfirm";
 		
 		

@@ -121,9 +121,5 @@ public class SearchVO {
 				+ firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex
 				+ ", recordCountPerPage=" + recordCountPerPage + "]";
 	}
-
-	
-
-	
 }
  
