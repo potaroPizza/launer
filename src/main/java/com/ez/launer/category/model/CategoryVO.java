@@ -8,7 +8,6 @@ public class CategoryVO {
 	private int categoryGroup;
 	private String categoryName;
 	private int price;
-	private String imgURL;
 	
 
 }

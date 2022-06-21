@@ -80,7 +80,7 @@ public class OrderController {
 	
 
 	@RequestMapping("/orderConfirm")
-	public String orderConfirm_post(@RequestParam String param, Model model,HttpSession session, @RequestParam (required = false, defaultValue = "0") int totalPrice) {
+	public String orderConfirm_post(@RequestParam String param, Model model, HttpSession session) {
 		logger.info("결제전 최종확인 화면, param_string 파라미터 = {}",param);
 		//회원정보 불러오기
 		int no = 1000; //(String) session.getAttribute("userid");
@@ -103,6 +103,7 @@ public class OrderController {
 		
 		
 		int result = 0;
+		int totalPrice = 0;
 		for(int i=0;i<paramString.length;i++) {
 			Map<String, Object> map = new HashMap<>();
 			setParamString = paramString[i].split(",");
@@ -117,7 +118,6 @@ public class OrderController {
 			logger.info("분해 후 categoryNo={}, name={}, price={}, quan={}, sum={}", 
 					setParamString[0], setParamString[1], setParamString[2], setParamString[3], setParamString[4]);
 			*/
-			
 			
 			//총 결제금액 int 로 실어보내기
 			totalPrice += Integer.parseInt( setParamString[4]);
@@ -134,9 +134,9 @@ public class OrderController {
 		}
 		*/
 		
-		model.addAttribute("userVo",vo);
-		model.addAttribute("list",list);
-		model.addAttribute("totalPrice",totalPrice);
+		model.addAttribute("userVo", vo);
+		model.addAttribute("list", list);
+		model.addAttribute("paramPrice", totalPrice);
 		return "/laundryService/order/orderConfirm";
 		
 		

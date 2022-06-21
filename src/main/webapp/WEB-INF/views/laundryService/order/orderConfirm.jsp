@@ -6,11 +6,49 @@
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
 <link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderConfirm.css"/>" type="text/css"/>
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$('#shortPoint').hide();
+})
+
+
+
+
 $(function(){
 
 	const today = new Date()
 	today.setHours(today.getHours() + 12)
 	$('#take-date').val(today);
+	
+	$('#insertPointBtn').click(function(){
+		
+		var havePoint = $('#havePoint').text();
+		var insertPoint = $('#insertPoint').val();
+		
+		var buyingPrice = $('#buyingPrice').val();
+		
+		var totalPrice = buyingPrice-insertPoint;
+		
+		if(insertPoint>havePoint){
+			$('#shortPoint').show();
+			event.preventDefault();
+			return false;
+		}else{
+			$('#shortPoint').hide();
+			
+		}
+		
+		
+		
+		$('#totalPrice').val(totalPrice);
+		
+		
+		
+	});
+	
+	
+	
+	
 });
 	
 </script>
@@ -76,10 +114,10 @@ $(function(){
 								</tr>
 							</c:if>
 								<c:if test="${!empty list }">
-									<c:set var="point" value="0"/>
+									<c:set var="readyPoint" value="0"/>
 									<c:set var="buyingPrice" value="0"/>
 									<c:set var="delivery" value="0"/>
-									<c:set var="totalPrice" value="0"/>
+		
 							<!-- 반복시작 -->
 							
                         <c:forEach var ="map" items ="${list }">
@@ -112,27 +150,29 @@ $(function(){
                     
                     
                     <!-- 총배송목록 -->
-                    
-
                     <hr>
                     <div class="orderConfirm-finalInfo">
                         <div class="orderConfirm-finalInfo-div">
-                            <label for="price_sum">상품금액 : </label>
-                            <input type="text" name="price_sum" id="price_sum" class="orderConfirm-input"
-                                   value="${totalPrice }" readonly>
+                            <label for="buyingPrice">상품금액 : </label>
+                            <input type="text" name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
+                                   value="${paramPrice }" readonly>
+                                   <c:set var="readyPoint" value="${paramPrice/100 }"/>
+                                 <span class="">적립예정포인트:</span><span>${readyPoint }</span>  
                         </div>
                         <div class="orderConfirm-finalInfo-div">
                             <label for="">포인트사용 : </label>
-                            <input type="text" name="usePoint" id="usePoint" value="">
-                            <input type="button" value="사용" id="usePointBtn">&nbsp;
-
-                            <span>보유포인트 : </span><span>0</span><span>p</span><br>
-                            <span class="shortPoint">보유포인트보다 값이 큽니다</span>
+                            <input type="text" name="insertPoint" id="insertPoint" >
+							<input type="button" value="사용" id="insertPointBtn">&nbsp;
+							
+							
+                            <span>보유포인트 : </span><span id ="havePoint">${userVo.point }</span><span>p</span><br>
+                            <span id="shortPoint">보유포인트보다 값이 큽니다</span>
                         </div>
                         <div class="orderConfirm-finalInfo-div">
                             <label for="total_price">총결제금액 : </label>
-                            <input type="text" name="total_price" id="total_price" class="orderConfirm-input"
+                            <input type="text" name="totalPrice" id="totalPrice" class="orderConfirm-input"
                                    value="${totalPrice }" readonly>
+                             
                         </div>
                     </div>
 
