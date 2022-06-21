@@ -1,0 +1,136 @@
+@charset "UTF-8";
+
+.join_wrap{
+	width: 100%;
+	background: rgb(244, 244, 244);
+	display: flex;
+}
+
+.join_form {
+	margin: auto;
+	margin-top:60px;
+	}
+	.join_form div, .join_form label, .join_form .sp1{
+		font-size:1.0em; 
+	}
+	.join_form h3	{
+		font-weight: bold;
+		padding: 10px 0;
+		margin:10px 0;
+		}	
+	.join_form form, .join_form{
+		width: 800px;
+		}
+	.join_form fieldset	{
+		width: 100%;
+		padding: 0;
+		margin: 0 auto;
+		border: 0;
+		}
+	.join_form div	{
+		clear: both;
+		border-bottom: 1px solid #eee;
+		padding: 5px 0;
+		margin: 0;
+		overflow: auto;
+		}	
+	
+	.join_form .namebox {
+		border: none;
+		border-top: 2px solid #222;
+		padding-top:20px;
+		}	
+	.join_form .hpbox{
+		padding-bottom:20px;
+	}	
+		
+	.join_form label, .join_form .sp1	{
+		width: 20%;
+		float: left;
+		text-align: right;
+		padding: 3px 15px 0 0;
+		clear: left;		
+		font-weight: bold;
+		}
+	.join_form .label2{
+		width: 20%;
+		text-align: right;
+		padding: 3px 15px 0 0;
+		clear: left;		
+		font-weight: bold;
+		margin-left: 75%;
+		}
+	.join_form .label3{
+		width: 20%;
+		text-align: right;
+		padding: 3px 15px 0 0;
+		clear: left;		
+		font-weight: bold; 
+		margin-left: 35%;
+		}
+		
+	.join_form input[type="text"], .join_form input[type="password"]{
+		/* width: 55%;
+		height: 1.2em;
+		font-size: 0.9em; */
+		border: 1px solid #DCDDE3;
+		}
+	.join_form.text_width input[type="text"], .join_form.text_width input[type="password"]{
+		width: 55%;
+		height: 1.2em;
+		font-size: 0.9em;
+		}
+		
+	.join_form input[type="submit"], .join_form input[type="reset"], 
+	.join_form input[type="button"],	.join_form button{
+		padding: 2px 10px;
+	    display: inline-block;
+	    text-align: center;
+	    border: 1px;
+	    border-radius: 5px;
+	    box-sizing: border-box;
+	    background: #31363d;
+	    font-weight: 700;
+    	font-size: 15px;
+    	color: #fff;
+	    cursor: pointer;
+		}
+	.join_form input[type="checkbox"] {
+	    font-size: 1em;
+	    width: 1.25em;
+	    height: 1.25em;
+	    vertical-align: middle;
+	    float: left;
+	    margin-top: 5px;
+		}
+	.join_form .divTerms {
+		border: none;
+		border-top: 2px solid #222;
+		}
+	.join_form .divTerms h5{
+		margin-top:10px;
+	}
+	.join_form .divTerms .scroll {
+	    border: #ddd 1px solid;
+	    padding: 20px;
+	    background-color: #fff;
+	    font-size: 14px;
+	    height: 180px;
+	    overflow-y: auto;
+	}
+	.join_form .termsArea	{
+		width: 90%;
+		height: 250px;
+		border: 1px solid #DCDDE3;
+		margin-left: 5%;
+		text-align: left;
+		}
+	.join_form .center	{
+		border: none;
+		text-align: center;
+		margin:10px 0;
+		}
+	.join_form select{		
+		border: 1px solid #DCDDE3;
+		font-size: 0.9em;
+		}

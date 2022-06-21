@@ -3,6 +3,24 @@
     height: 100%;
 }
 
+.zone-box{
+    position:absolute;
+    top: 70px;
+    left: 10px;
+    z-index: 99;
+    font-size: 20px;
+    background: rgba(255,255,255, .8);
+    padding: 10px 20px;
+    border-radius: 16px;
+    line-height: 150%;
+    font-weight: 300;
+    strong{font-weight: 500;}
+    a{
+        color: #5b5b5b;
+        font-size: 18px;
+    }
+}
+
 /*
 #list-part{
     width: 100%;
