@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
-<% pageContext.setAttribute("newLine", "\r\n"); %>
+<% pageContext.setAttribute("newLine", "\n"); %>
 
 <t:head>
 </t:head>
@@ -24,6 +24,7 @@
 				success: function(res){
 					var title = res.title
 					var content = res.content.replace(/\n/g,"<br>")
+					var regdate = res.regdateStr
 					var htmls = "";
 					alert(title);
 					alert(content);
@@ -39,7 +40,7 @@
 					htmls += '	<div class="col-xl-2"></div>';
 					htmls += '	<div class="col-xl-8" style="height: 200px; padding: 10px; border: 1px solid #333;">';
 					htmls += '		<label for="exampleFormControlTextarea1" class="form-label">';
-					htmls += '<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm"/> </label>';
+					htmls += regdate + '</label>';
 					htmls += '<button type="button" class="btn-close" aria-label="Close" style="float: right"></button>';
 					htmls += '<div class="card mb-4" >';
 					htmls += '<div class="card-body" style="height: 130px">';
