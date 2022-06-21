@@ -36,15 +36,88 @@
 			dayNamesMin:['일','월','화','수','목','금','토'],
 			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
 		});
+		
 		$("#endDay").datepicker({
 			dateFormat:'yy-mm-dd',
 			changeYear:true,
 			dayNamesMin:['일','월','화','수','목','금','토'],
 			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
 		});
-	});
+		
+		$("#btnToday").click(function(){
+			$.setDate();	//오늘
+		});
+		
+		$("#btnWeek").click(function(){
+			$.setDate(7, 'D');	//1주일전
+		});
+		
+		$("#btnMonth1").click(function(){
+			$.setDate(1, 'M');	//1개월전
+		});
+		
+	});	//ready
+	
+	$.setToday = function(){	
+		if($("#startDay").val()==null || $("#startDay").val()==""){
+			var today = new Date();
+			var curDate = findDate(today);
+			$("#startDay").val(curDate);
+			$("#endDay").val(curDate);
+		}
+	}
+	
+	$.setDate= function(term, type){	// jquery함수 표현식
+		//endDay 기준으로 7일을 빼거나 1개월이나 3개월을 빼서 startDay에 셋팅
+		// var d = new Date(년, 월, 일);	=> 날짜 데이터 객체 생성
+		var str = $("#endDay").val().split("-"); // 2022-06-30 => 2022,06,30
+		var d = new Date(str[0], str[1]-1, str[2]);	// 2022,5,30
+		//=> 월은 0~11이라, -1 해줘야함
+		
+		if(type=="D") {
+			d.setDate(d.getDate()-term); //7일전
+		} else if(type=="M") {
+			d.setMonth(d.getMonth()-term); //1개월, 3개월전
+		}
+			$("#startDay").val($.findDate(d));
+	}
+	
+	$.findDate = function(date) {	// jquery함수 표현식
+		return date.getFullYear() + "-" + formatDate(date.getMonth()+1)
+			+ "-" + formatDate(date.getDate());
+	}
+	
+	function formatDate(date) {		// 순수 js함수 선언식
+		var day = date;
+		if(date < 10) {
+			day = "0" + day;
+		}
+		return day;
+	}
 </script>
+<!-- 페이징 처리를 위한 form 시작-->
+<form name="frmPage" method="post"
+	action="<c:url value='/admin/orders'/>">
+	<input type="text" name="startDay" value="${OrderSearchVO.startDay}">
+	<input type="text" name="endDay" value="${OrderSearchVO.endDay}">
+	<input type="text" name="officeName" value="">
+	<input type="text" name="orderStatus" value="">
+	<input type="text" name="currentPage">	
+	<input type="text" name="countPerPage">
+</form>
+<!-- 페이징 처리 form 끝 -->
 
+<!-- 검색테이블 처리 form 시작-->
+<form name="frmSearch" method="post" 
+	action="<c:url value='/admin/orders'/>">
+	<input type="text" name="startDay" value="">
+	<input type="text" name="endDay" value="">	
+	<input type="text" name="officeName" value="">
+	<input type="text" name="orderStatus" value="">
+	<input type="text" name="currentPage">
+	<input type="text" name="countPerPage">
+</form>
+<!-- 검색테이블 처리 form 끝-->
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">주문관리</h1>
@@ -55,15 +128,16 @@
 				<div class="card-body">
 					<div>
 						<form name="frm1" method="post"
-						action="<c:url value='/shop/order/orderList'/>">
+						action="">
 						<!-- 조회기간 include -->
 						조회기간 
-						<input type="button" value="오늘"> <input
-							type="button" value="1주일"> <input type="button"
-							value="1개월"> <input type="text" name="startDay"
-							id="startDay" value="${dateSearchVO.startDay}"> ~ <input
-							type="text" name="endDay" id="endDay"
-							value="${dateSearchVO.endDay}"> 
+						<input type="button" value="오늘" id="btnToday">
+						<input type="button" value="1주일" id="btnWeek">
+						<input type="button" value="1개월" id="btnMonth1">
+						<input type="text" name="startDay"
+							id="startDay" value="${OrderSearchVO.startDay}"> ~ 
+						<input type="text" name="endDay" id="endDay"
+							value="${OrderSearchVO.endDay}"> 
 							
 							&nbsp; 지점선택
 							<select>
@@ -72,12 +146,7 @@
 							  <option value="2">마포점</option>
 							  <option value="3">구로점</option>
 							</select>
-							
 
-
-
-
- 
 							&nbsp; 주문상태 선택
 							<select>
 							  <option selected>전체</option>
@@ -126,6 +195,7 @@
 							</tr>
 						</thead>
 						<tbody>
+						<!-- 주문리스트 반복 시작 -->
 							<tr>
 								<td>
 									<input type="checkbox" name=""
@@ -138,85 +208,33 @@
 								<td>2022-06-15 19:46</td>
 								<td><a href="#">상세보기</a></td>
 							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>세탁중</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>세탁중</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>픽업대기</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" name=""
-										value="">
-								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>픽업대기</td>
-								<td>2022-06-15 19:46</td>
-								<td><a href="#">상세보기</a></td>
-							</tr>
-
+						<!-- 주문리스트 반복 끝 -->
 						</tbody>
 					</table>
 					<input type="button" value="픽업대기 처리">
 					&nbsp; 
-							<select>
-							<option value="1">5개씩 보기</option>
-							  <option selected>10개씩 보기</option>
-							  <option value="1">20개씩 보기</option>
-
-							</select>
+					<select>
+					<option value="1">5개씩 보기</option>
+					  <option selected>10개씩 보기</option>
+					  <option value="1">20개씩 보기</option>
+					</select>
 				</div>
-				
-				
-				
 			</div>
 			<nav aria-label="...">
-					 <ul class="pagination">
-					 <li class="page-item disabled">
-					 	<span class="page-link">Previous</span>
-					 </li>
-					 <li class="page-item"><a class="page-link" href="#">1</a></li>
-					 <li class="page-item active" aria-current="page">
-					 	<span class="page-link">2</span>
-					 </li>
-					 <li class="page-item"><a class="page-link" href="#">3</a></li>
-					 <li class="page-item">
-					 	<a class="page-link" href="#">Next</a>
-					 </li>
-					 </ul>
-				</nav>
+				<ul class="pagination">
+				<li class="page-item disabled">
+					<span class="page-link">Previous</span>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item active" aria-current="page">
+					<span class="page-link">2</span>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+					<a class="page-link" href="#">Next</a>
+				</li>
+				</ul>
+			</nav>
 		</div>
 	</main>
 

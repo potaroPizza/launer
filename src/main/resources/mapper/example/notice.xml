@@ -3,9 +3,14 @@
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.notice.model.NoticeDAO">
     <select id="selectTopTen" resultType="noticeVo">
-    	select * from notice
-    	<![CDATA[
-			where rownum <= 10
+    	select * 
+		from
+		(
+		    select * from notice
+		    order by regdate desc
+		)
+		<![CDATA[
+		where rownum <= 10
 		]]>
     </select>
     
