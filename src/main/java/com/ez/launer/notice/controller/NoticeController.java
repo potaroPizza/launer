@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.admin.controller.AdminController;
 import com.ez.launer.notice.model.NoticeService;
@@ -39,14 +40,19 @@ public class NoticeController {
 	}
 	
 	//ajax - 공지사항 등록
+	@ResponseBody
 	@RequestMapping("/insertNotice")
-	public HashMap<String, Object> insertNotice(@RequestParam HashMap<String, Object> param,
+	public NoticeVO insertNotice(@RequestParam HashMap<String, Object> param,
 			Model model) {
 		logger.info("사내공지사항 등록 처리");
 		
-		HashMap<String, Object> result = new HashMap<String, Object>();
+		NoticeVO vo = new NoticeVO();
+		vo.setUsersNo(9999);
+		vo.setTitle(param.get("title")+"");
+		vo.setContent(param.get("content")+"");
+		int cnt = noticeService.insertNotice(vo);
 		
-		return result;
+		return vo;
 	}
 	
 	//ajax - 공지사항 삭제
