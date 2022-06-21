@@ -12,6 +12,15 @@
 		where u.no=a.users_no
 		and u.no=#{no}
 	</select>
+	<update id="deleteUser" parameterType="int">
+		update users set out_date=sysdate
+		where no=#{no}
+	</update>
+	
+	<select id="selectPwd" parameterType="int" resultType="String">
+		select pwd from users
+		where no=#{no} and out_date is null
+	</select>
 
 
 </mapper>
