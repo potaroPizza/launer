@@ -14,6 +14,10 @@ body {
 .clearfix::after {clear: both;}
 a {color: #000; text-decoration: none;}
 
+*, ::after, ::before {
+    box-sizing: content-box;
+}
+
 button{
     background: inherit ; 
     border:none; 
@@ -22,6 +26,8 @@ button{
     padding:0; 
     overflow:visible; 
     cursor:pointer
+    
+    
 } 
 .title-font{font-size: 38px; font-weight: 500;}
 .sub-title-font{font-size: 32px; font-weight: 500;}
@@ -31,7 +37,8 @@ button{
     margin: 70px auto 0;
 }
 
-#wrap {width:100%; background: rgb(244, 244, 244);}
+//#wrap {width:100%; background: rgb(244, 244, 244);}
+& {width:100%; background: rgb(244, 244, 244);}
 
 
 
@@ -48,7 +55,7 @@ button{
     position: fixed;
     transition-duration:0.4s;
     -webkit-transition-duration:0.4s;
-}#main-list-bar.down{top: 60px;}
+}#main-list-bar.down{top: 80px;}
 #main-list-bar .line{
     width: 88%;
     height: 1px;

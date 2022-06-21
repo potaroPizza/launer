@@ -1,5 +1,6 @@
 package com.ez.launer.laundryService.order.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.util.HashMap;
@@ -10,12 +11,14 @@ import java.util.Locale.Category;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.category.model.CategoryVO;
+import com.ez.launer.laundryService.order.model.OrderConfirmVO;
+import com.ez.launer.user.model.UserService;
+import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +45,7 @@ public class OrderController {
 		 = LoggerFactory.getLogger(OrderController.class);
 	
 	private final CategoryService categoryService;
+	private final UserService userService;
 	
 	
 	
@@ -77,37 +84,34 @@ public class OrderController {
 	}
 	
 	@GetMapping("/orderConfirm")
-	public String orderConfirm_get() {
-		logger.info("결제전 최종확인 화면");
+	public String orderConfirm_get(HttpSession session, Model model) {
+		int no = 1000;
+				//(String) session.getAttribute("userid");
+		logger.info("결제전 최종확인 화면, 파라미터 userid ={}", no);
 		
+		UserVO vo = userService.selectById(no);
+		
+		logger.info("회원정보조회 vo={}",vo);
+		model.addAttribute("userVo",vo);
+
 		return "/laundryService/order/orderConfirm";
 	}
 	
 	
-	
-	
-	   @ResponseBody
-	    @RequestMapping("/paramPost")
-	    public Map<String, String> rrrr(HttpServletRequest request) {
-	        logger.info("post넘김");
-	        String[] itemArr = request.getParameterValues("categoryNo");
-
-	        HashMap<String, String> mapmap = new HashMap<String, String>();   //아이템이랑 개수가 담길 변수? 맞나
-	        HashSet<String> setset = new HashSet<>(Arrays.asList(itemArr));   //이걸로 중복 제거해줄 거임
-
-	        String[] resultItemArr = setset.toArray(new String[0]);     //중복제거 완료?
-
-	        for (String value : resultItemArr) {    //중복없는 값
-	            int itemChk = 0;
-	            for (String s : itemArr) {
-	                if (s.equals(value)) itemChk++;
-	            }
-
-	            mapmap.put(value, String.valueOf(itemChk));
-	        }
-
-	        return mapmap;
-	    }
+	@ResponseBody
+	@PostMapping("/ajaxTest")
+	public String orderConfirm_post(@RequestParam List<Map<String, Object>> map, Model model){
+		logger.info("json-list");
+		
+		model.addAttribute("list",map);
+		return "/laundryService/order/ajaxTest";
+		
+		
+	}
+	 
+	   
+	   
+	   
 	
 	
 }

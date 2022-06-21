@@ -22,14 +22,76 @@ admin에서 만사용하는 css 분리 가능
 @import './partials/global.scss';
 @import './partials/jquery-ui.scss';
 @import './partials/reset.scss';
+@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700&display=swap';
+
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+a {color: #000; text-decoration: none;}
+.clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
+.clearfix::after {clear: both;}
+.fixed-margin-top{width: 100%; height: 60px;}
+
 .web-page {
   @import './partials/main_fixed_wrap.scss';
-  @import './partials/main.scss';
+  font-family: 'Noto Sans KR', sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+	#main-wrap{
+  		@import './partials/main.scss';
+	}
+  #useredit_wrapper {
+    width:1200px;
+    margin: 0 auto;
+
+    @import './partials/user/useredit.scss';
+  	}
+  #mypoint_wrap{
+	@import "./partials/user/mypoint.scss";
+	}
+  #paymentdetails_wrap{
+	@import "./partials/user/paymentdetails.scss";	
+	}	
+  #detailedPaymentHistory_wrap{
+	@import "./partials/user/detailedPaymentHistory.scss";	
+	}	
+  #signOut-wrap{
+	@import "./partials/user/signout.scss";	
+	}	
+  #mypage_wrap{
+	@import "./partials/user/mypage.scss";	
+	}	
+  #withdraw-wrap{
+	@import "./partials/user/withdraw.scss";	
+	}	
+  #myinfo_wrap{
+	@import "./partials/user/myinfo.scss";	
+	}	
+
 }
 
 .delivery-section {
-  @import "./partials/delivery/main.scss";
   @import "./partials/delivery/delivery-fixed.scss";
+
+  #delivery-main{
+    @import "./partials/delivery/main.scss";
+    overflow-y: hidden;
+  }
+  #deliveryList{
+    padding: 20px;
+    @import "./partials/delivery/deliveryList.scss";
+  }
 }
 
 .admin-page {
@@ -58,7 +120,7 @@ admin에서 만사용하는 css 분리 가능
 }
 */
 .title-font {
-    color: #F00;
+    //color: #F00;
     @include mobile {
         color: blue;
     }

@@ -26,7 +26,7 @@ function checkPw() {
         error[1].innerHTML = "필수 정보입니다.";
         error[1].style.display = "block";
     } else if(!pwPattern.test(pw1.value)) {
-        error[1].innerHTML = "8~16자 영문 대 소문자, 숫자를 사용하세요.";
+        error[1].innerHTML = "8~16자 영문 대 소문자, 숫자,특수문자를 사용하세요.";
         pwMsg.innerHTML = "사용불가";
         pwMsgArea.style.paddingRight = "93px";
         error[1].style.display = "block";

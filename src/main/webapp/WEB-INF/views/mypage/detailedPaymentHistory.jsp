@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ include file="../inc/top.jsp"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+
+<t:wrapper>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -10,123 +13,10 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <style>
-.detailedPaymentHistory_wrap {
-	margin: 0 auto;
-	width: 1200px;
-}
 
-.detailedPaymentHistory_top {
-	height: 100px;
-	width: 100%;
-}
-
-.detailedPaymentHistory_title {
-	font-size: 35px;
-	font-weight: bold;
-	margin-bottom: 70px;
-}
-
-.detailedPaymentHistory_sub {
-	font-size: 20px;
-	font-weight: bold;
-	color: gray;
-	margin-bottom: 30px;
-	line-height: 29px;
-}
-
-.detailedPaymentHistory_sub span {
-	font-size: 18px;
-	color: black;
-}
-
-.detailedPaymentHistory_back {
-	text-align: center;
-}
-
-.detailedPaymentHistory-section {
-	padding: 2em 0;
-}
-
-.detailedPaymentHistory-no-pt {
-	padding-top: 0;
-}
-
-.detailedPaymentHistory-no-pb {
-	padding-bottom: 0;
-}
-
-.detailedPaymentHistory-img {
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-
-.detailedPaymentHistory-table-wrap {
-	overflow-x: scroll;
-}
-
-.detailedPaymentHistory-table {
-	min-width: 1000px !important;
-	width: 100%;
-	background: #fff;
-	-webkit-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
-	-moz-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
-	box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
-}
-
-.detailedPaymentHistory-table thead.thead-primary {
-	background: #045FB4;
-}
-
-.detailedPaymentHistory-table thead th {
-	border: none;
-	padding: 30px;
-	font-size: 15px;
-	font-weight: 500;
-	color: white;
-}
-
-.detailedPaymentHistory-table tbody tr {
-	margin-bottom: 10px;
-}
-
-.detailedPaymentHistory-table tbody th, .detailedPaymentHistory-table tbody td
-	{
-	border: none;
-	padding: 30px;
-	font-size: 14px;
-	background: #fff;
-	border-bottom: 4px solid #f8f9fd;
-	vertical-align: middle;
-}
-
-.detailedPaymentHistory-table tbody td .detailedPaymentHistory-img {
-	width: 100px;
-	height: 80px;
-	margin-left: 20px;
-}
-
-.detailedPaymentHistory-table tbody td .detailedPaymentHistory-explain span {
-	color:black;
-	font-size:17px;
-	font-weight:bold;
-	display: block;
-}
-
-.detailedPaymentHistory-table tbody td .detailedPaymentHistory-explain span:last-child {
-	font-size: 13px;
-	color: rgba(0, 0, 0, 0.3);
-}
-
-.detailedPaymentHistory-table tbody td {
-	font-size: 13px;
-	color: black;
-	font-weight: bold;
-}
 </style>
 
-<body>
-	<div class="detailedPaymentHistory_wrap">
+	<div id="detailedPaymentHistory_wrap">
 		<div class="detailedPaymentHistory_top"></div>
 		<div class="detailedPaymentHistory_title">
 			<P>상세 주문내역</P>
@@ -219,5 +109,4 @@
 
 	</div>
 
-</body>
-</html>
+</t:wrapper>

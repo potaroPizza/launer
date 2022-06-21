@@ -32,4 +32,5 @@ public interface ConstUtil {
 	public static final int ORDER_DAILY=1;
 	public static final int ORDER_INDIVISUAL=2;
 
+
 }
