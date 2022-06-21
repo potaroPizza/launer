@@ -87,7 +87,7 @@ public class MypageController {
 
 		model.addAttribute("map",map);
 
-		return "/user/useredit";
+		return "/mypage/useredit";
 
 	}
 	
