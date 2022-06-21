@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderService {
-    List<Map<String, Object>> orderOfficeView(OrderListSearchVO orderListSearchVO);
+    List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO);
     int orderCount(OrderListSearchVO orderListSearchVO);
 }
