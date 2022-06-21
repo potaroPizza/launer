@@ -7,18 +7,11 @@
 <link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderConfirm.css"/>" type="text/css"/>
 <script type="text/javascript">
 $(function(){
-	
-	
+
 	const today = new Date()
 	today.setHours(today.getHours() + 12)
 	$('#take-date').val(today);
 });
-
-  
-  
-  
-
-
 	
 </script>
 
@@ -67,28 +60,66 @@ $(function(){
                             <col style="">
                             <col style="">
                             <col style="">
-                            <col style="">
                         </colgroup>
                         <thead>
                         <tr>
                             <th scope="col">상품번호</th>
-                            <th scope="col">카테고리그룹</th>
-                            <th scope="col">상품명, 수량</th>
+                            <th scope="col">상품명</th>
                             <th scope="col">금액</th>
+                            <th scope="col">수량 / 총금액</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- 반복시작 -->
+							<c:if test="${empty list }">
+								<tr class="">
+									<td colspan="5">장바구니가 비었습니다.</td>
+								</tr>
+							</c:if>
+								<c:if test="${!empty list }">
+									<c:set var="point" value="0"/>
+									<c:set var="buyingPrice" value="0"/>
+									<c:set var="delivery" value="0"/>
+									<c:set var="totalPrice" value="0"/>
+							<!-- 반복시작 -->
+							
+                        <c:forEach var ="map" items ="${list }">
+                       <%--  <c:set var="sum" value="${map['quan']*map[''] }"></c:set> --%>
+                        <tr>
+	                        <td>
+	                        	<input type="text" name="categoryNo" class="tdInput"
+									value="${map['categoryNo'] }">
+	                        </td>
+	                        <td>
+	                        	<input type="text" name="name" class="tdInput"
+									value="${map['name'] }">
+	                        </td>
+	                        <td>
+	                        	<input type="text" name="price" class="tdInput"
+									value="${map['price'] }">
+	                        </td>
+	                        <td>
+	                        	<input type="text" name="quan" class="tdInput"
+									value="${map['quan'] }">
+	                        	<input type="text" name="sum" class="tdInput"
+									value="${map['sum'] }">
+	                        </td>
+                        </tr>
+                        </c:forEach>
                         <!-- 반복끝 -->
-                        </tbody>
+						</c:if>
+						</tbody>
                     </table>
+                    
+                    
+                    <!-- 총배송목록 -->
+                    
 
                     <hr>
                     <div class="orderConfirm-finalInfo">
                         <div class="orderConfirm-finalInfo-div">
                             <label for="price_sum">상품금액 : </label>
                             <input type="text" name="price_sum" id="price_sum" class="orderConfirm-input"
-                                   value="10000원" readonly>
+                                   value="${totalPrice }" readonly>
                         </div>
                         <div class="orderConfirm-finalInfo-div">
                             <label for="">포인트사용 : </label>
@@ -101,7 +132,7 @@ $(function(){
                         <div class="orderConfirm-finalInfo-div">
                             <label for="total_price">총결제금액 : </label>
                             <input type="text" name="total_price" id="total_price" class="orderConfirm-input"
-                                   value="" readonly>
+                                   value="${totalPrice }" readonly>
                         </div>
                     </div>
 

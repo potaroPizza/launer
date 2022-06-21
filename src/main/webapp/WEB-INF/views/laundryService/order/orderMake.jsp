@@ -15,48 +15,68 @@
 <script type="text/javascript">
 
     $(function () {
-        $('form[name=order-item-form]').submit(function () {
+        $('#orderBtn').click(function () {
+        	
+        	if(!$('#flexCheckDefault').is(':checked')){
+    			alert('약관에 동의해주세요.');
+    			event.preventDefault();
+    			$('#staticBackdrop').modal("show");
+    			event.preventDefault();
+    			return false;
+    		}
+
+    		
+        	
             if ($("input[name=itemName]").length < 1) {
                 alert("상품을 선택해주세요");
                 event.preventDefault();
+                return false;
             }
-			event.preventDefault();
+
 
 			let dataArr = [];
+			
 			let dataList = $(".testForm");
 			console.log(dataList);
+			
+			
+			
+			var param_string ="";
 			$.each(dataList, (idx, item) => {
+				
 				// console.log(item.childNodes);
 				let no = item.childNodes[0].defaultValue;
+				let name = item.childNodes[1].defaultValue;
+				let price = item.childNodes[2].defaultValue;
 				let qty = item.childNodes[3].value;
 				let sum = item.childNodes[4].defaultValue;
+				
 
-				dataArr[idx] = {
+				/* dataArr[idx] = {
 					"no": no,
 					"qty": qty,
 					"sum": sum
-				};
+				}; */
+				
+				param_string+=
+					no +","+name+","+price+","+ qty + "," + sum + "|"
 			});
-			console.log(dataArr);
+			console.log("param_string = "+param_string);
+			
+			$('#param').val(param_string);
+			
+			$('form[name=frm]').attr('action',"<c:url value='/laundryService/order/orderConfirm'/>");
+			$('form[name=frm]').attr('method','post');
+			//$('form[name=frm]').submit();
+			
 
-
-            /*$.ajax({
-                url: '<c:url value="/laundryService/order/ajaxTest"/>',
-                type: 'post',
-                data: $('form[name=order-item-form]').serializeArray(),
-                dataType: 'json',
-                success: function (res) {
-                },
-                error: function (xhr, status, error) {
-                    alert('error:' + error);
-                }
-            });*/
         });
 
+        
         //동적으로 추가된 카테고리 관련
-        $(document).on('click', '.order-item-Div div[name=testForm] #delBtn', function () {
+        $(document).on('click', '.order-item-Div .testForm #delBtn', function () {
             var idx = $('.order-item-Div div[name=testForm] #delBtn').index(this);
-            $('.order-item-Div div[name=testForm]').eq(idx).remove();
+            $('.order-item-Div .testForm').eq(idx).remove();
 
             const totalPrice = new Array();
             let sum = 0;
@@ -213,7 +233,7 @@
                 <c:param name="categoryGroup" value="2"></c:param>
             </c:import> --%>
             <div id="order-item-form-div">
-                <form name="order-item-form"/>
+ 
                 <div class="order-item-Div">
                 </div>
             </div>
@@ -289,10 +309,12 @@
 
     <div class="orderInfo-goOrder">
 
-
-        <input type="submit" class="orderBtn" value="수거신청" id="submit">
-        </form>
+ 	<form id= "frm" name="frm">
+    	<input type ="hidden" value="" id="param" name="param">
+        <input type="submit" class="orderBtn" value="수거신청" id="orderBtn">
+    </form>
     </div>
+   
 </div>
 
 
