@@ -7,8 +7,7 @@
 <link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderConfirm.css"/>" type="text/css"/>
 <script type="text/javascript">
 $(function(){
-	
-	
+
 	const today = new Date()
 	today.setHours(today.getHours() + 12)
 	$('#take-date').val(today);

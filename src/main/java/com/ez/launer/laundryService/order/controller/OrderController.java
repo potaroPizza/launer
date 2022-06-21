@@ -1,16 +1,13 @@
 package com.ez.launer.laundryService.order.controller;
 
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Locale.Category;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,17 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.category.model.CategoryVO;
-import com.ez.launer.laundryService.order.model.OrderConfirmVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -98,13 +92,31 @@ public class OrderController {
 	}
 	
 	
-	@ResponseBody
-	@PostMapping("/ajaxTest")
-	public String orderConfirm_post(@RequestParam List<Map<String, Object>> map, Model model){
-		logger.info("json-list");
+
+	@PostMapping("/orderConfirm")
+	public String orderConfirm_post(@RequestParam String param, Map<String, Object> map, Model model) {
+		logger.info("param_string 파라미터 = {}",param);
+		logger.info("진입!");
+		List<Map<String, Object>> list= new ArrayList<Map<String,Object>>();
 		
-		model.addAttribute("list",map);
-		return "/laundryService/order/ajaxTest";
+		String paramString[] = param.split("[|]");
+		String setParamString[];
+		
+		
+		int result = 0;
+		for(int i=0;i<paramString.length;i++) {
+			setParamString = paramString[i].split(",");
+			
+			map.put("categoryNo", setParamString[0]);
+			map.put("quan", setParamString[1]);
+			map.put("aum", setParamString[2]);
+			
+			list.add(map);
+		}
+		
+		model.addAttribute(list);
+		return "/laundryService/order/orderConfirm";
+		
 		
 		
 	}
