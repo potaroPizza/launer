@@ -80,16 +80,7 @@ $("select[id='order-indivisual']").change(function () {
 		}
 		
 	});
-	
-	$('#submit').click(function(){
-		if(!$('#flexCheckDefault').is(':checked')){
-			alert('약관에 동의해주세요.');
-			event.preventDefault();
-			$('#staticBackdrop').modal("show");
-		}
-		
-		
-	});
+
 
 }); //jquery
 
