@@ -1,5 +1,7 @@
 package com.ez.launer.notice.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,11 +48,15 @@ public class NoticeController {
 			Model model) {
 		logger.info("사내공지사항 등록 처리");
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date now = new Date();
+		
 		NoticeVO vo = new NoticeVO();
 		vo.setUsersNo(9999);
 		vo.setTitle(param.get("title")+"");
 		vo.setContent(param.get("content")+"");
 		int cnt = noticeService.insertNotice(vo);
+		vo.setRegdateStr(sdf.format(now));
 		
 		return vo;
 	}

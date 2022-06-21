@@ -46,8 +46,11 @@
 				
 				// console.log(item.childNodes);
 				let no = item.childNodes[0].defaultValue;
+				let name = item.childNodes[1].defaultValue;
+				let price = item.childNodes[2].defaultValue;
 				let qty = item.childNodes[3].value;
 				let sum = item.childNodes[4].defaultValue;
+				
 
 				/* dataArr[idx] = {
 					"no": no,
@@ -56,7 +59,7 @@
 				}; */
 				
 				param_string+=
-					no +","+ qty + "," + sum + "|"
+					no +","+name+","+price+","+ qty + "," + sum + "|"
 			});
 			console.log("param_string = "+param_string);
 			
@@ -64,12 +67,11 @@
 			
 			$('form[name=frm]').attr('action',"<c:url value='/laundryService/order/orderConfirm'/>");
 			$('form[name=frm]').attr('method','post');
-			$('form[name=frm]').submit();
+			//$('form[name=frm]').submit();
+			
 
         });
-	
-        
-        
+
         
         //동적으로 추가된 카테고리 관련
         $(document).on('click', '.order-item-Div .testForm #delBtn', function () {
@@ -307,7 +309,7 @@
 
     <div class="orderInfo-goOrder">
 
- 	<form id= "frm">
+ 	<form id= "frm" name="frm">
     	<input type ="hidden" value="" id="param" name="param">
         <input type="submit" class="orderBtn" value="수거신청" id="orderBtn">
     </form>

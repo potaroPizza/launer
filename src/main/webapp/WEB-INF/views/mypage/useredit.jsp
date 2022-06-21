@@ -7,7 +7,6 @@
 	src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 <style>
 
 </style>
@@ -29,7 +28,7 @@
                         <label for="id">아이디(이메일)</label>
                     </h3>
                     <span class="box int_id">
-                        <input type="text" id="id" class="int" maxlength="20" readonly="readonly">
+                        <input type="text" id="id" class="int" value="${map['EMAIL']}" readonly="readonly" disabled>
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -45,21 +44,12 @@
                     <span class="error_next_box"></span>
                 </div>
 
-                <!-- PW2 -->
-                <div>
-                    <h3 class="useredit_title"><label for="pwd2">비밀번호 재확인</label></h3>
-                    <span class="box int_pass_check">
-                        <input type="password" id="pwd2" class="int" maxlength="20">
-                        <img src="../images/m_icon_check_disable.png" id="pwd2_img1" class="pswdImg">
-                    </span>
-                    <span class="error_next_box"></span>
-                </div>
 
                 <!-- NAME -->
                 <div>
                     <h3 class="useredit_title"><label for="name">이름</label></h3>
                     <span class="box int_name">
-                        <input type="text" id="name" class="int" readonly="readonly">
+                        <input type="text" id="name" class="int" value="${map['NAME']}" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -68,7 +58,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="phoneNo">휴대전화</label></h3>
                     <span class="box int_mobile">
-                        <input type="tel" id="mobile" class="int" maxlength="11" placeholder=" ' - ' 없이 전화번호를 입력해주세요">
+                        <input type="tel" id="mobile" class="int" value="${map['HP']}" maxlength="11" placeholder=" ' - ' 없이 전화번호를 입력해주세요">
                     </span>
                     <span class="error_next_box"></span>    
                 </div>
@@ -76,7 +66,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="zipcode">우편번호</label></h3>
                     <span class="box int_zipcode">
-                        <input type="text" id="zipcode" class="int" maxlength="20" onclick="execZipcode()" placeholder="우편번호 수정하기" readonly="readonly">
+                        <input type="text" id="zipcode" class="int" maxlength="20" value="${map['ZIPCODE']}" onclick="execZipcode()" placeholder="우편번호 수정하기" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -84,7 +74,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="address">주소</label></h3>
                     <span class="box int_address">
-                        <input type="text" id="address" class="int" maxlength="20" readonly="readonly">
+                        <input type="text" id="address" class="int" maxlength="20" value="${map['ADDRESS']}" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -92,7 +82,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="detailAddress">상세주소</label></h3>
                     <span class="box int_detailAddress">
-                        <input type="text" id="detailAddress" class="int" maxlength="30" placeholder="상세주소 입력">
+                        <input type="text" id="detailAddress" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}" placeholder="상세주소 입력">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -100,7 +90,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_detailAddress">
-                        <input type="text" id="enterMethod" class="int" maxlength="30" placeholder="공동현관 출입방법 입력">
+                        <input type="text" id="enterMethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}" placeholder="공동현관 출입방법 입력">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
