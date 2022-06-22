@@ -1,6 +1,9 @@
 package com.ez.launer.office.model;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,4 +18,9 @@ public class OfficeServiceImpl implements OfficeService{
     public OfficeVO selectByNo(int no) {
         return officeDAO.selectByNo(no);
     }
+
+	@Override
+	public List<OfficeVO> selectAll() {
+		return officeDAO.selectAll();
+	}
 }

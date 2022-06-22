@@ -46,7 +46,13 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:if test="${empty list}">
+						<tr>
+							<td colspan="4">사내공지가 없습니다.</td>
+						</tr>
+					</c:if>
 					<!-- 반복 시작 -->
+					<c:if test="${!empty list}">
 					<c:forEach var="vo" items="${list}">
 						<tr>
 							<td class="align-center" style="vertical-align : middle">
@@ -67,6 +73,7 @@
 							</td>
 						</tr>
 					</c:forEach>
+					</c:if>
 					<!-- 반복 끝 -->
 					</tbody>
 				</table>
