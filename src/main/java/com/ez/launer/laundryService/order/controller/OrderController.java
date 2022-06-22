@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.category.model.CategoryVO;
+import com.ez.launer.laundryService.order.model.OrderDetailVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.laundryService.order.model.OrderVO;
 import com.ez.launer.laundryService.order.model.OrderViewVO;
@@ -102,12 +103,11 @@ public class OrderController {
 		for(String str : paramString) logger.info("분리 후 str={}", str);
 		
 		
-		int result = 0;
 		int paramPrice = 0;
 		for(int i=0;i<paramString.length;i++) {
 			Map<String, Object> map = new HashMap<>();
 			setParamString = paramString[i].split(",");
-			
+
 			map.put("categoryNo", setParamString[0]);
 			map.put("name", setParamString[1]);
 			map.put("price", setParamString[2]);
@@ -125,15 +125,19 @@ public class OrderController {
 		model.addAttribute("userVo", vo);
 		model.addAttribute("list", list);
 		model.addAttribute("paramPrice", paramPrice);
+		model.addAttribute("param", param);
 		return "/laundryService/order/orderConfirm";
 	}
 	
 	
 	
 	@PostMapping("/orderComplete")
-	public String orderConfirmed_post(@RequestParam int totalPrice, Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest ) {
+	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
+			Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest) {
 		logger.info("totalPrice={}",totalPrice);
-		int no = 1000;
+		logger.info("param={}",param);
+		int no = 1000; //추후 session 으로 변경
+		
 		
 		//orders 테이블 insert
 		OrderViewVO orderViewVo = new OrderViewVO();
@@ -155,10 +159,48 @@ public class OrderController {
 		logger.info("vo={}",vo);
 		
 		int result = orderService.insertOrder(vo);
+		logger.info("orderInsert 결과 ={}",result);
 		
-		//orders_details
-		int orderNo = orderService.selectRecentOrderNo(usersNo);
-		logger.info("orderNo={}",orderNo);
+		
+		//userNO 로 최신 orderNo 가져오기
+		int orderNO = orderService.selectRecentOrderNo(usersNo);
+		logger.info("orderNo ={}",orderNO);
+		
+		
+		String temp1[] = param.split("[=]");
+		String temp2[] =temp1[1].split("}");
+
+		
+		String paramString[] = temp2[0].split("[|]");
+		String setParamString[];
+		
+		OrderDetailVO orderDetailVo = new OrderDetailVO();
+		int cnt = 0;
+		
+		
+		//order_details insert
+		for(int i=0;i<paramString.length;i++) {
+			setParamString = paramString[i].split(",");
+			
+			int categoryNo = Integer.parseInt(setParamString[0]);
+			int price = Integer.parseInt(setParamString[2]);
+			int quan= Integer.parseInt(setParamString[3]);
+			int sum = Integer.parseInt(setParamString[4]);
+			logger.info("categoryNo={}",categoryNo,"price={}",price,"quan={}",quan,"sum={}",sum);
+			
+			
+			orderDetailVo.setOrderNo(orderNO);
+			orderDetailVo.setCategoryNo(categoryNo);
+			orderDetailVo.setQuan(quan);
+			orderDetailVo.setSum(sum);
+			
+			cnt = orderService.insertOrderDetails(orderDetailVo);
+			logger.info("order_detail insert cnt ={}",cnt);
+		}
+		
+		
+		//point update
+		
 		
 		
 		
@@ -167,11 +209,7 @@ public class OrderController {
 		model.addAttribute("result", result);
 		return "/laundryService/order/orderComplete";
 		
+		
 	}
-	 
-	   
-	   
-	   
-	
 	
 }

@@ -17,14 +17,14 @@
     $(function () {
         $('#orderBtn').click(function () {
         	
-        	if(!$('#flexCheckDefault').is(':checked')){
+        /* 	if(!$('#flexCheckDefault').is(':checked')){
     			alert('약관에 동의해주세요.');
     			event.preventDefault();
     			$('#staticBackdrop').modal("show");
     			event.preventDefault();
     			return false;
     		}
-
+ */
     		
         	
             if ($("input[name=itemName]").length < 1) {
