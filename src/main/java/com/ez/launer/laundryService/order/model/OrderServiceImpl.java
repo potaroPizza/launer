@@ -23,8 +23,8 @@ public class OrderServiceImpl implements OrderService{
         return orderDAO.orderCount(orderListSearchVO);
     }
 
-	@Override
-	public Map<String, Object> selectUsersOrderView(int usersNo) {
+    @Override
+	public OrderViewVO selectUsersOrderView(int usersNo) {
 		return orderDAO.selectUsersOrderView(usersNo);
 	}
 
