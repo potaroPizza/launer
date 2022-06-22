@@ -95,11 +95,13 @@ public class DeliveryController {
 
     @RequestMapping("/listP")
     @ResponseBody
-    public List<OrderDeliveryAllVO> listP(HttpSession session, @ModelAttribute OrderListSearchVO orderListSearchVO) {
+    public List<OrderDeliveryAllVO> listP(@ModelAttribute OrderListSearchVO orderListSearchVO,
+                                          HttpSession session) {
         logger.info("수거 요청 리스트");
+//        orderListSearchVO.setCurrentPage(2);
 
         int deliveryNo = (int) session.getAttribute("deliveryNo");
-        logger.info("배송기사 메인 페이지, 기사 no={}", deliveryNo);
+        logger.info("배송기사 메인 페이지, orderListSearchVO={}, deliveryNo={}", orderListSearchVO, deliveryNo);
 
         //deliveryNo로 배달기사 정보 전체 조회
         DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
@@ -113,8 +115,8 @@ public class DeliveryController {
         paginationInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
         paginationInfo.setCurrentPage(orderListSearchVO.getCurrentPage());
 
-        orderListSearchVO.setFirstRecordIndex(paginationInfo.getFirstRecordIndex());
         orderListSearchVO.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+        orderListSearchVO.setFirstRecordIndex(paginationInfo.getFirstRecordIndex());
 
         orderListSearchVO.setOfficeNo(deliveryVO.getOfficeNo());    //리스트 조회할 지점번호
         orderListSearchVO.setOrderStatusNo(1);     //수거 전 상태

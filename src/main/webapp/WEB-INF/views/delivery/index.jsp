@@ -197,22 +197,21 @@
             //지도 마커 관련
 
 
-
+            let currentPage = 1;
 
             function viewList(group) {
                 let uriType = group == 1 ? "/listP" : "/listD";
                 console.log("<c:url value='/delivery'/>" + uriType);
+                $("#paging-form input[name=currentPage]").val(2);
+
+                let pagingData = $("#paging-form input[name=currentPage]").serialize();
                 $.ajax({
                     url: "<c:url value='/delivery'/>" + uriType,
                     method: "POST",
+                    data: pagingData,
                     dataType: "JSON",
                     success: (res) => {
                         let listElement = "";
-                        /*let positions = [  // 마커의 위치
-                            new kakao.maps.LatLng(33.44975, 126.56967),
-                            new kakao.maps.LatLng(33.450579, 126.56956),
-                            new kakao.maps.LatLng(33.4506468, 126.5707)
-                            ];*/
                         let positions = []; // 마커의 위치
 
                         $.each(res, (idx, item) => {
@@ -220,10 +219,9 @@
                             let titleStr = "";
                             for(let i = 0; i < item.orderDetails.length; i++) {
                                 titleStr += item.orderDetails[i].CATEGORY_NAME;
-                                if(i != item.orderDetails.length - 1) titleStr += ", ";
+                                if(i !== item.orderDetails.length - 1) titleStr += ", ";
                             }
                             let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
-                            let resPay =
 
                             listElement +=
                                 "<div class='order-box'>" +
@@ -263,9 +261,16 @@
             $(() => {
                 $("#orders-list").scroll(() => {
                     let scrollBody = $("#orders-list");
-                    console.log(scrollBody);
+                    if((scrollBody[0].scrollHeight - scrollBody.scrollTop()) === scrollBody.outerHeight()) {
+
+                    }
                 });
             });
+
+
+            function pagingList() {
+
+            }
         </script>
         <div class="zone-box">
             <h3><strong>${deliveryName}</strong> 기사님</h3>
@@ -275,6 +280,9 @@
             </p>
         </div>
         <div id="list-part" class="main-width">
+            <form id="paging-form">
+                <input type="hidden" name="currentPage" value=""/>
+            </form>
             <div id="list-box">
                 <div class="line"></div>
             </div>
@@ -283,7 +291,6 @@
                 <div class="delivery-tab">배송</div>
             </div>
             <div id="orders-list">
-
                 <div class="order-box">
                     <h3>상품명</h3>
                     <div class="order-text-box">
