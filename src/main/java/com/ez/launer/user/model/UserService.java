@@ -14,5 +14,6 @@ public interface UserService {
 	int deleteUser(int no);
 	public int checkLogin(int no, String pwd);
 	int updateUserHp(UserAllVO vo);
-	int updateUserAddress(UserAllVO Vo);
+	int updateUserAddress(UserAllVO vo);
+	int editPwd(UserVO vo);
 }
