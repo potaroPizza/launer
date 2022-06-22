@@ -77,27 +77,6 @@
 	</resultMap>
 
 
-	<select id="selectUsersOrderView" parameterType="int"
-		resultType="orderViewVo">
-		select * from users_order_view where users_no=#{no}
-	</select>
-
-	<insert id="insertOrder" parameterType="orderVo">
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			select orders_seq.nextval from dual
-		</selectKey>
-		insert into orders(no,users_no,users_address_no,
-		order_status_no,total_price,order_request)
-		values(#{no}, #{usersNo},
-		#{usersAddressNo}, 1 , #{totalPrice},#{orderRequest})
-	</insert>
-
-	<select id="selectRecentOrderNo">
-		select *
-		from (select no from orders where users_no =#{} order by regdate desc)
-		<![CDATA[
-		where rownum <=1	]]>
-	</select>
 	
 
 
