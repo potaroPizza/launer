@@ -74,7 +74,7 @@
 		#{usersAddressNo}, 1 , #{totalPrice},#{orderRequest})
     </insert>
     
-    
+
     
     
 	<!-- 지효가 만든거 시작 -->
@@ -117,5 +117,15 @@
 		<include refid="adminOrderListWhere"></include>
 	</select>
 	<!-- 지효가 만든거 끝 -->
+	
+	<select id="selectRecentOrderNo" parameterType="int" resultType="int">
+		SELECT no from
+		(
+		select no,users_no,
+		RANK() over(partition by users_no order by regdate desc) as rnk
+		from orders
+		)
+		where rnk ='1' and users_no = #{no}
+	</select>  
 	
 </mapper>

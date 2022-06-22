@@ -15,8 +15,8 @@ public interface OrderDAO {
     int orderCount(OrderListSearchVO orderListSearchVO);
     OrderViewVO selectUsersOrderView(int usersNo);
     int insertOrder(OrderVO orderVo);
-    
-    
+    int selectRecentOrderNo(int userNo);
+
     
     
     

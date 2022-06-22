@@ -128,11 +128,14 @@ public class OrderController {
 		return "/laundryService/order/orderConfirm";
 	}
 	
+	
+	
 	@PostMapping("/orderComplete")
 	public String orderConfirmed_post(@RequestParam int totalPrice, Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest ) {
 		logger.info("totalPrice={}",totalPrice);
 		int no = 1000;
 		
+		//orders 테이블 insert
 		OrderViewVO orderViewVo = new OrderViewVO();
 		
 		orderViewVo = orderService.selectUsersOrderView(no);
@@ -152,6 +155,14 @@ public class OrderController {
 		logger.info("vo={}",vo);
 		
 		int result = orderService.insertOrder(vo);
+		
+		//orders_details
+		int orderNo = orderService.selectRecentOrderNo(usersNo);
+		logger.info("orderNo={}",orderNo);
+		
+		
+		
+		
 		
 		model.addAttribute("result", result);
 		return "/laundryService/order/orderComplete";
