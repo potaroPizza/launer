@@ -33,7 +33,15 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.insertOrder(orderVo);
 	}
 
+	@Override
+	public int selectRecentOrderNo(int userNo) {
+		return orderDAO.selectRecentOrderNo(userNo);
+	}
 	
+	@Override
+	public int insertOrderDetails(OrderDetailVO orderDetailVo) {
+		return orderDAO.insertOrderDetails(orderDetailVo);
+	}
 	
 	
 	
@@ -48,5 +56,8 @@ public class OrderServiceImpl implements OrderService{
 	public int adminSelectTotalRecord(OrderSearchVO searchVo) {
 		return orderDAO.adminSelectTotalRecord(searchVo);
 	}
+
+	
+
 	//지효가 만든거 끝
 }
