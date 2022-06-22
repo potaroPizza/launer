@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <t:head>
 </t:head>
@@ -30,6 +31,33 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 <script type="text/javascript">
 	$(function(){
+		//var countPerPage = 10;
+		
+		// 검색테이블의 달력 유효성 검사
+		$("#od_submit").click(function(){
+			if($("#startDay").val().length<1){
+				alert("주문 시작일을 입력하세요");
+				$("#startDay").focus();
+				return false;
+			}
+			if($("#endDay").val().length<1){
+				alert("주문 종료일을 입력하세요");
+				$("#endDay").focus();
+				return false;
+			}
+		});
+		
+		/*
+		if($('input[name=countPerPage]').val() == ''){
+			$('input[name=countPerPage]').val(countPerPage);
+		}
+		*/
+		
+		$('#selectCountPerPage').on("change", function(){
+			$('input[name=countPerPage]').val($(this).val());
+		});
+		
+		// 달력관련 시작		
 		$("#startDay").datepicker({
 			dateFormat:'yy-mm-dd',
 			changeYear:true,
@@ -55,9 +83,12 @@
 		$("#btnMonth1").click(function(){
 			$.setDate(1, 'M');	//1개월전
 		});
+		// 달력관련 끝
 		
 	});	//ready
 	
+	// 달력관련 시작
+	/*
 	$.setToday = function(){	
 		if($("#startDay").val()==null || $("#startDay").val()==""){
 			var today = new Date();
@@ -66,6 +97,7 @@
 			$("#endDay").val(curDate);
 		}
 	}
+	*/
 	
 	$.setDate= function(term, type){	// jquery함수 표현식
 		//endDay 기준으로 7일을 빼거나 1개월이나 3개월을 빼서 startDay에 셋팅
@@ -94,30 +126,28 @@
 		}
 		return day;
 	}
+	// 달력관련 끝
+	
+	//페이지 번호를 클릭했을때
+	function pageFunc(curPage){
+		//페이지 번호를 클릭했을 때 처리
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();
+	}
 </script>
 <!-- 페이징 처리를 위한 form 시작-->
 <form name="frmPage" method="post"
 	action="<c:url value='/admin/orders'/>">
-	<input type="text" name="startDay" value="${OrderSearchVO.startDay}">
-	<input type="text" name="endDay" value="${OrderSearchVO.endDay}">
-	<input type="text" name="officeName" value="">
-	<input type="text" name="orderStatus" value="">
-	<input type="text" name="currentPage">	
-	<input type="text" name="countPerPage">
+	<input type="text" class="startDay" name="startDay" value="${orderSearchVO.startDay}">
+	<input type="text" class="endDay" name="endDay" value="${orderSearchVO.endDay}">
+	<input type="text" class="officeName" name="officeName" value="${orderSearchVO.officeName}">
+	<input type="text" class="orderStatus" name="orderStatus" value="${orderSearchVO.orderStatus}">
+	<input type="text" class="userEmail" name="userEmail" value="${orderSearchVO.userEmail}">
+	<input type="text" class="currentPage" name="currentPage">	
+	<input type="text" class="countPerPage" name="countPerPage" value="${orderSearchVO.countPerPage}">
 </form>
 <!-- 페이징 처리 form 끝 -->
 
-<!-- 검색테이블 처리 form 시작-->
-<form name="frmSearch" method="post" 
-	action="<c:url value='/admin/orders'/>">
-	<input type="text" name="startDay" value="">
-	<input type="text" name="endDay" value="">	
-	<input type="text" name="officeName" value="">
-	<input type="text" name="orderStatus" value="">
-	<input type="text" name="currentPage">
-	<input type="text" name="countPerPage">
-</form>
-<!-- 검색테이블 처리 form 끝-->
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">주문관리</h1>
@@ -127,40 +157,45 @@
 			<div class="card mb-4">
 				<div class="card-body">
 					<div>
-						<form name="frm1" method="post"
-						action="">
-						<!-- 조회기간 include -->
-						조회기간 
-						<input type="button" value="오늘" id="btnToday">
-						<input type="button" value="1주일" id="btnWeek">
-						<input type="button" value="1개월" id="btnMonth1">
-						<input type="text" name="startDay"
-							id="startDay" value="${OrderSearchVO.startDay}"> ~ 
-						<input type="text" name="endDay" id="endDay"
-							value="${OrderSearchVO.endDay}"> 
-							
+						<!-- 검색테이블 처리 form 시작-->
+						<form name="frmSearch" method="post"
+						action="<c:url value='/admin/orders'/>">
+							조회기간 
+							<input type="button" value="오늘" id="btnToday">
+							<input type="button" value="1주일" id="btnWeek">
+							<input type="button" value="1개월" id="btnMonth1">
+							<input type="text" name="startDay"
+								id="startDay" value="${orderSearchVO.startDay}" autocomplete = "off"> ~ 
+							<input type="text" name="endDay" id="endDay"
+								value="${orderSearchVO.endDay}" autocomplete = "off"> 
+								
 							&nbsp; 지점선택
-							<select>
+							<select name="officeNo">
 							  <option selected>전체</option>
 							  <option value="1">영등포점</option>
 							  <option value="2">마포점</option>
 							  <option value="3">구로점</option>
 							</select>
-
+		
 							&nbsp; 주문상태 선택
-							<select>
+							<select name="orderStatus">
 							  <option selected>전체</option>
 							  <option value="1">수거전</option>
 							  <option value="2">수거완료</option>
 							  <option value="3">세탁중</option>
-							  <option value="3">픽업대기</option>
-							  <option value="3">배송중</option>
-							  <option value="3">배송완료</option>
+							  <option value="4">배송대기</option>
+							  <option value="5">배송중</option>
+							  <option value="6">완료</option>
 							</select>
+							
+							&nbsp; 주문자
+							<input type="text" name="userEmail"
+								placeholder="이메일 입력">
 							
 							<input type="submit"
 							id="od_submit" value="조회">
 						</form>
+						<!-- 검색테이블 처리 form 끝-->
 					</div>
 					
 				</div>
@@ -213,10 +248,10 @@
 					</table>
 					<input type="button" value="픽업대기 처리">
 					&nbsp; 
-					<select>
-					<option value="1">5개씩 보기</option>
-					  <option selected>10개씩 보기</option>
-					  <option value="1">20개씩 보기</option>
+					<select id="selectCountPerPage">
+					<option value="5">5개씩 보기</option>
+					  <option selected value="10">10개씩 보기</option>
+					  <option value="20">20개씩 보기</option>
 					</select>
 				</div>
 			</div>
