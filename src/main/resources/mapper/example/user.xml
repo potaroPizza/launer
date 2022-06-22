@@ -13,5 +13,10 @@
 		and u.no=#{no}
 	</select>
 
+	<insert id="insertUser" parameterType="userVo">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select USERS_SEQ.nextval from DUAL;
+		</selectKey>
+	</insert>
 
 </mapper>
