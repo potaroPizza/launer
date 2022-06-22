@@ -216,26 +216,33 @@
                         let positions = []; // 마커의 위치
 
                         $.each(res, (idx, item) => {
+                            console.log(item);
+                            let titleStr = "";
+                            for(let i = 0; i < item.orderDetails.length; i++) {
+                                titleStr += item.orderDetails[i].CATEGORY_NAME;
+                                if(i != item.orderDetails.length - 1) titleStr += ", ";
+                            }
+
                             listElement +=
                                 "<div class='order-box'>" +
-                                "<h3>상품명</h3>" +
+                                "<h3>" + titleStr +"</h3>" +
                                 "<div class='order-text-box'>" +
                                 "<div class='left'>" +
                                 "<div class='order-text-list'>" +
-                                "<p>신청자 <strong>" + item.NAME + "</strong></p>" +
-                                "<p>수량 <strong>" + item.SUM + "</strong></p>" +
+                                "<p>신청자 <strong>" + item.orderOfficeView.NAME + "</strong></p>" +
+                                "<p>수량 <strong>" + item.orderOfficeView.SUM + "</strong></p>" +
                                 "</div>" +
                                 "<div class='order-text-list'>" +
-                                "<p>위치 <strong>" + item.ADDRESS +"</strong></p>" +
+                                "<p>위치 <strong>" + item.orderOfficeView.ADDRESS +"</strong></p>" +
                                 "</div>" +
                                 "</div>" +
                                 "<div class='right'>" +
-                                "<button onclick='addList(" + item.NO + ")'>수거하기</button>" +
+                                "<button onclick='addList(" + item.orderOfficeView.NO + ")'>수거하기</button>" +
                                 "</div>" +
                                 "</div>" +
                                 "</div>";
 
-                            positions.push(new kakao.maps.LatLng(item.LON_X, item.LAT_Y));
+                            positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
                         });
 
                         console.log(positions);

@@ -13,12 +13,12 @@ public class OrderServiceImpl implements OrderService{
     private final OrderDAO orderDAO;
 
     @Override
-    public List<Map<String, Object>> orderOfficeView(OrderListSearchVO orderListSearchVO) {
+    public List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO) {
         return orderDAO.orderOfficeView(orderListSearchVO);
     }
 
     @Override
     public int orderCount(OrderListSearchVO orderListSearchVO) {
-        return 0;
+        return orderDAO.orderCount(orderListSearchVO);
     }
 }

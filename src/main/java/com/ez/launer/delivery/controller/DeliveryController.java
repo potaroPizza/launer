@@ -8,6 +8,7 @@ import com.ez.launer.common.SearchVO;
 import com.ez.launer.delivery.model.DeliveryDriverService;
 import com.ez.launer.delivery.model.DeliveryDriverVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
+import com.ez.launer.laundryService.order.model.OrderDeliveryAllVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
@@ -94,7 +95,7 @@ public class DeliveryController {
 
     @RequestMapping("/listP")
     @ResponseBody
-    public List<Map<String, Object>> listP(HttpSession session, @ModelAttribute OrderListSearchVO orderListSearchVO) {
+    public List<OrderDeliveryAllVO> listP(HttpSession session, @ModelAttribute OrderListSearchVO orderListSearchVO) {
         logger.info("수거 요청 리스트");
 
         int deliveryNo = (int) session.getAttribute("deliveryNo");
@@ -124,7 +125,7 @@ public class DeliveryController {
         setMap.put("orderStatusNo", ConstUtil.BEFORE_PICKUP);
         setMap.put("listType", "PICKUP_DRIVER");*/
 
-        List<Map<String, Object>> listMap = orderService.orderOfficeView(orderListSearchVO);
+        List<OrderDeliveryAllVO> listMap = orderService.orderOfficeView(orderListSearchVO);
 
         logger.info("수거요청 리스트 조회 결과 listMap={}", listMap);
 
