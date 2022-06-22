@@ -222,6 +222,8 @@
                                 titleStr += item.orderDetails[i].CATEGORY_NAME;
                                 if(i != item.orderDetails.length - 1) titleStr += ", ";
                             }
+                            let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
+                            let resPay =
 
                             listElement +=
                                 "<div class='order-box'>" +
@@ -231,6 +233,7 @@
                                 "<div class='order-text-list'>" +
                                 "<p>신청자 <strong>" + item.orderOfficeView.NAME + "</strong></p>" +
                                 "<p>수량 <strong>" + item.orderOfficeView.SUM + "</strong></p>" +
+                                "<p>수당 <strong>" + pay.toLocaleString('ko-KR') + " 원</strong></p>" +
                                 "</div>" +
                                 "<div class='order-text-list'>" +
                                 "<p>위치 <strong>" + item.orderOfficeView.ADDRESS +"</strong></p>" +
@@ -256,6 +259,13 @@
                     }
                 });
             }
+
+            $(() => {
+                $("#orders-list").scroll(() => {
+                    let scrollBody = $("#orders-list");
+                    console.log(scrollBody);
+                });
+            });
         </script>
         <div class="zone-box">
             <h3><strong>${deliveryName}</strong> 기사님</h3>

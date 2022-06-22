@@ -12,7 +12,7 @@
 <div id="join_wrap">
 	<div class="join_form">
 		<form name="joinfrm" method="post" 
-			action="<c:url value='/user/join'/>">
+			action="${classNo == 1 ? "<c:url value='/user/join'/>" : "<c:url value='/delivery/join'/>"}" >
 			<fieldset>
 				<h3 align="center">${classNo == 1 ? "러너" : "배달기사"} 회원 가입</h3>
 				<div class="namebox">
