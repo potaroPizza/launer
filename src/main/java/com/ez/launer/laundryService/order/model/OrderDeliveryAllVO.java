@@ -9,4 +9,5 @@ import java.util.Map;
 public class OrderDeliveryAllVO {
     private Map<String, Object> orderOfficeView;
     private List<Map<String, Object>> orderDetails;
+    private int lastPage;
 }

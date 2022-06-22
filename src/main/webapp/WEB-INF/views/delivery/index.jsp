@@ -5,7 +5,7 @@
   Time: 10:01 PMs| Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/delivery" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags/layouts/delivery" %>
 <t:wrapper>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -28,7 +28,8 @@
             let map;
 
             window.onload = function () {
-                viewList(1);
+                curUpdate();
+                viewList(groupNo);
                 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapOption = {
                         center: defaultPoint, // 지도의 중심좌표
@@ -197,33 +198,45 @@
             //지도 마커 관련
 
 
+            let currentPage = 0;
+            let dbCur = 0;
+            let lastPage = 0;   //마지막 페이지
+            let groupNo = 1;    //수거 : 1, 배송 : 2
 
+            //currentPage 변수와 input value 업데이트 해주는 함수
+            function curUpdate() {
+                currentPage++;
+                $("#paging-form input[name=currentPage]").val(currentPage);
+                console.log(currentPage);
+                viewList(groupNo);
+            }
 
             function viewList(group) {
-                let uriType = group == 1 ? "/listP" : "/listD";
+                let uriType = group === 1 ? "/listP" : "/listD";
                 console.log("<c:url value='/delivery'/>" + uriType);
+
+                let pagingData = $("#paging-form input[name=currentPage]").serialize();
                 $.ajax({
                     url: "<c:url value='/delivery'/>" + uriType,
                     method: "POST",
+                    data: pagingData,
                     dataType: "JSON",
                     success: (res) => {
                         let listElement = "";
-                        /*let positions = [  // 마커의 위치
-                            new kakao.maps.LatLng(33.44975, 126.56967),
-                            new kakao.maps.LatLng(33.450579, 126.56956),
-                            new kakao.maps.LatLng(33.4506468, 126.5707)
-                            ];*/
                         let positions = []; // 마커의 위치
 
-                        $.each(res, (idx, item) => {
+                        dbCur = res.dbCur;
+                        lastPage = res.lastPage;
+                        console.log("dbCur = " + dbCur);
+                        console.log("lastPage = " + lastPage);
+                        $.each(res.listMap, (idx, item) => {
                             console.log(item);
                             let titleStr = "";
                             for(let i = 0; i < item.orderDetails.length; i++) {
                                 titleStr += item.orderDetails[i].CATEGORY_NAME;
-                                if(i != item.orderDetails.length - 1) titleStr += ", ";
+                                if(i !== item.orderDetails.length - 1) titleStr += ", ";
                             }
                             let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
-                            let resPay =
 
                             listElement +=
                                 "<div class='order-box'>" +
@@ -249,8 +262,7 @@
                         });
 
                         console.log(positions);
-
-                        $("#orders-list").html(listElement);
+                        $("#orders-list").append(listElement);
 
                         markerFor(positions);
                     },
@@ -260,12 +272,25 @@
                 });
             }
 
+            //스크롤 끝일 때 이벤트 호출
+            //스크롤 끝일 때 이벤트 호출
+            //스크롤 끝일 때 이벤트 호출
+            //스크롤 끝일 때 이벤트 호출
             $(() => {
                 $("#orders-list").scroll(() => {
                     let scrollBody = $("#orders-list");
-                    console.log(scrollBody);
+                    if((scrollBody[0].scrollHeight - scrollBody.scrollTop()) === scrollBody.outerHeight()) {
+                        if(currentPage !== lastPage && (dbCur + 1) !== currentPage) {
+                            curUpdate();
+                        }
+                    }
                 });
             });
+
+
+            function pagingList() {
+
+            }
         </script>
         <div class="zone-box">
             <h3><strong>${deliveryName}</strong> 기사님</h3>
@@ -275,6 +300,9 @@
             </p>
         </div>
         <div id="list-part" class="main-width">
+            <form id="paging-form">
+                <input type="hidden" name="currentPage" value=""/>
+            </form>
             <div id="list-box">
                 <div class="line"></div>
             </div>
@@ -283,42 +311,7 @@
                 <div class="delivery-tab">배송</div>
             </div>
             <div id="orders-list">
-
-                <div class="order-box">
-                    <h3>상품명</h3>
-                    <div class="order-text-box">
-                        <div class="left">
-                            <div class="order-text-list">
-                                <p>신청자 <strong>홍길동</strong></p>
-                                <p>위치 <strong>지역주소</strong></p>
-                            </div>
-                            <div class="order-text-list">
-                                <p>위치 <strong>서울시 금천구 시흥대로213길 123</strong></p>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <button>수거하기</button>
-                        </div>
-                    </div>
-                </div>
                 <%--<div class="order-box">
-                    <h3>상품명</h3>
-                    <div class="order-text-box">
-                        <div class="left">
-                            <div class="order-text-list">
-                                <p>신청자 <strong>홍길동</strong></p>
-                                <p>위치 <strong>지역주소</strong></p>
-                            </div>
-                            <div class="order-text-list">
-                                <p>위치 <strong>서울시 금천구 시흥대로213길 123</strong></p>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <button>수거하기</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="order-box">
                     <h3>상품명</h3>
                     <div class="order-text-box">
                         <div class="left">
