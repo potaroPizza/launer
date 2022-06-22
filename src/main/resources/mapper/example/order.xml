@@ -62,4 +62,19 @@
                     javaType="ArrayList" ofType="map" select="selectOrderDetails">
         </collection>
     </resultMap>
+    
+  
+    <select id="selectUsersOrderView" parameterType="int" resultType="map">
+    		select * from users_order_view where users_no=#{no}
+    </select>
+    
+    <insert id="insertOrder" parameterType="orderVo">
+    	<selectKey keyProperty="orderNo" resultType="int" order="BEFORE">
+    		select or orders_seq.nextval from dual
+    	</selectKey>
+    	insert into orders(no,users_no,users_address_no, order_stauts_no,total_price,order_request)
+		values(#{orderNo}, #{usersNo}, #{usersAddressNo},1, #{totalPrice}, #{orderRequest})
+    </insert>
+    
+    
 </mapper>

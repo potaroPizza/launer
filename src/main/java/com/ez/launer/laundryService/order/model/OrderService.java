@@ -8,4 +8,6 @@ import java.util.Map;
 public interface OrderService {
     List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO);
     int orderCount(OrderListSearchVO orderListSearchVO);
+    Map<String, Object> selectUsersOrderView(int usersNo);
+    int insertOrder(OrderVO orderVo);
 }

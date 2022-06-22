@@ -64,10 +64,17 @@ $(function(){
 			var cal = havePoint-insertPoint
 			
 			if(cal<0){
-				alert("asdf");
+				alert("보유하신 포인트보다 많이 입력함");
 				event.preventDefault();
     			return false;
 			}
+			if(isNaN(insertPoint)==true){
+				alert("값이 올바르지 않습니다");
+				event.preventDefault();
+				return false;
+			}
+			
+			
 			
 		 
 	 });
@@ -87,7 +94,7 @@ $(function(){
         </div>
         <hr>
         <div class="orderDivForm">
-            <form name="frmOrder" method="post">
+            <form name="frmOrder" method="post" action ="<c:url value='/laundryService/order/orderComplete'/>">
                 <div class="orderConfirm-user">
                     <div class="user-date">
                         <label for="take-date">수거일 : </label>
