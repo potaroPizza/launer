@@ -39,11 +39,18 @@
 			office_no = #{officeNo}
 		where users_no=#{no}
 	</update>
+	<!-- 비밀번호 변경처리 -->
+	<update id="editPwd" parameterType="userVo">
+		update users 
+		set pwd=#{pwd}
+		where no=#{no}
+	</update>
 
 	<insert id="insertUser" parameterType="userVo">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			select USERS_SEQ.nextval from DUAL;
 		</selectKey>
 	</insert>
+	
 
 </mapper>
