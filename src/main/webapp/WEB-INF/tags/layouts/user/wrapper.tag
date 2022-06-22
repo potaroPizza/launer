@@ -14,7 +14,7 @@
     jsp 문서가 가지는 reque
     --%>
     <link rel="stylesheet" href="${path}/launer/css/app.css"/>
-    <jsp:include page="/WEB-INF/tags/layouts/user/head.tag" flush="true"/>
+<%--    <jsp:include page="/WEB-INF/tags/layouts/user/head.tag" flush="true"/>--%>
 
     <%-- jquery, bootstrap 등 공통으로 쓸 것 --%>
     <script src="<c:url value="/js/jquery-3.6.0.min.js"/>" type="text/javascript" text="javascript"></script>
