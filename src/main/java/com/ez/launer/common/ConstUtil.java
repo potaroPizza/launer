@@ -33,4 +33,11 @@ public interface ConstUtil {
 	public static final int ORDER_INDIVISUAL=2;
 
 
+	//주문상태 상수(정상수)
+	int BEFORE_PICKUP = 1;
+	int COMPLE_PICKUP = 2;
+	int WASHING_STEP = 3;
+	int WATING_DELIVERY = 4;
+	int DELIVERY_PROGRESS = 5;
+	int COMPLETION = 6;
 }

@@ -1,5 +1,13 @@
 package com.ez.launer.laundryService.order.model;
 
-public interface OrderService {
+import com.ez.launer.delivery.model.OrderListSearchVO;
 
+import java.util.List;
+import java.util.Map;
+
+public interface OrderService {
+    List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO);
+    int orderCount(OrderListSearchVO orderListSearchVO);
+    Map<String, Object> selectUsersOrderView(int usersNo);
+    int insertOrder(OrderVO orderVo);
 }

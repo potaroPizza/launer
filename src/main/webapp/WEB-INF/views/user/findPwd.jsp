@@ -2,7 +2,7 @@
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="<c:url value="/css/user/findIdPwd.css"/>" />
 
-
+<title>비밀번호 찾기</title>
 <body>
 <div id="findIdPwdWrap">
 	<div class="findIdPwdsubWrap">

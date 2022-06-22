@@ -14,7 +14,7 @@
     jsp 문서가 가지는 reque
     --%>
     <link rel="stylesheet" href="${path}/launer/css/app.css"/>
-    <jsp:include page="/WEB-INF/tags/layouts/user/head.tag" flush="true"/>
+<%--    <jsp:include page="/WEB-INF/tags/layouts/user/head.tag" flush="true"/>--%>
 
     <%-- jquery, bootstrap 등 공통으로 쓸 것 --%>
     <script src="<c:url value="/js/jquery-3.6.0.min.js"/>" type="text/javascript" text="javascript"></script>
@@ -27,7 +27,7 @@
 <jsp:include page="/WEB-INF/tags/partials/user/header.jsp" flush="true"/>
 <jsp:doBody/>
 <%-- 개별로 필요한 js 파일은 자신의 view(jsp) 하단에 넣으세요. --%>
-<%--<jsp:include page="/WEB-INF/tags/partials/user/footer.jsp" flush="true"/>--%>
+<jsp:include page="/WEB-INF/tags/partials/user/footer.jsp" flush="true"/>
 <script src="${path}/launer/js/app.js"></script>
 </body>
 </html>

@@ -23,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.category.model.CategoryVO;
+import com.ez.launer.laundryService.order.model.OrderService;
+import com.ez.launer.laundryService.order.model.OrderVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -40,6 +42,7 @@ public class OrderController {
 	
 	private final CategoryService categoryService;
 	private final UserService userService;
+	private final OrderService orderService;
 	
 	
 	
@@ -103,7 +106,7 @@ public class OrderController {
 		
 		
 		int result = 0;
-		int totalPrice = 0;
+		int paramPrice = 0;
 		for(int i=0;i<paramString.length;i++) {
 			Map<String, Object> map = new HashMap<>();
 			setParamString = paramString[i].split(",");
@@ -120,12 +123,12 @@ public class OrderController {
 			*/
 			
 			//총 결제금액 int 로 실어보내기
-			totalPrice += Integer.parseInt( setParamString[4]);
+			paramPrice += Integer.parseInt( setParamString[4]);
 
 			list.add(map);
 		}
 		
-		logger.info("최종금액 ={}",totalPrice);
+		logger.info("최종금액 ={}",paramPrice);
 		/*
 		for(Map<String, Object> mmm : list) {
 			logger.info("맵 저장 후 categoryNo={}, name={}, price={}, quan={}, sum={}", 
@@ -136,10 +139,30 @@ public class OrderController {
 		
 		model.addAttribute("userVo", vo);
 		model.addAttribute("list", list);
-		model.addAttribute("paramPrice", totalPrice);
+		model.addAttribute("paramPrice", paramPrice);
 		return "/laundryService/order/orderConfirm";
+	}
+	
+	@PostMapping("/orderComplete")
+	public String orderConfirmed_post(@RequestParam int totalPrice, Model model) {
+		logger.info("결제전 set");
+		int no = 1000;
 		
+		Map<String, Object> map = orderService.selectUsersOrderView(no);
 		
+		Object objUsersNo = (int) map.get("usersNo");
+		logger.info("usersNo={}",objUsersNo);
+		int usersAddressNo = (int) map.get("addressNo");
+		
+		OrderVO vo = new OrderVO();
+		//vo.setUsersNo(usersNo);
+		vo.setUsersAddressNo(usersAddressNo);
+		vo.setTotalPrice(totalPrice);
+		
+		int result = orderService.insertOrder(vo);
+		
+		model.addAttribute("result", result);
+		return "/laundryService/order/orderComplete";
 		
 	}
 	 

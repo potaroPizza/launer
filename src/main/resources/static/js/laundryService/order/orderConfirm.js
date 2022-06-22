@@ -13,15 +13,6 @@
 		
 	});
 	
-	$('#submit').click(function(){
-		if(!$('#flexCheckDefault').is(':checked')){
-			alert('약관에 동의해주세요.');
-			event.preventDefault();
-			$('#staticBackdrop').modal("show");
-		}
-		
-		
-	});
 
     $("#orderInfo-tac-agreeBtn").click(function(){
         $('#staticBackdrop').modal("hide");

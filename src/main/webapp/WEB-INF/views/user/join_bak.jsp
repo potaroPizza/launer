@@ -1,20 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 
-<t:wrapper>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-	<link rel="stylesheet" href="<c:url value="/css/user/join.css"/>" />
-	<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
-
+<link rel="stylesheet" href="<c:url value="/css/user/join.css"/>" />
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" >="javascript"></script>
-<div id="join_wrap">
+
+<title>러너 회원가입</title>
+<body>
+<div class="join_wrap">
 	<div class="join_form">
 		<form name="joinfrm" method="post" 
-			action="${classNo == 1 ? "<c:url value='/user/join'/>" : "<c:url value='/delivery/join'/>"}" >
+			action="<c:url value='/user/join'/>">
 			<fieldset>
-				<h3 align="center">${classNo == 1 ? "러너" : "배달기사"} 회원 가입</h3>
+				<h3 align="center">러너 회원 가입</h3>
 				<div class="namebox">
 					<label for="name">회원 이름</label> 
 					<input type="text" name="name"
@@ -44,20 +41,18 @@
 					<label for="pwd2">비밀번호 확인</label> <input type="Password"
 						name="pwd2" id="pwd2">
 				</div>
-				<c:if test="${classNo == 1}">
-					<div>
-						<label for="zipcode">주소</label>
-						<input type="text" name="zipcode"
-							   id="zipcode" ReadOnly title="우편번호" class="width_80">
-						<input	type="Button" value="우편번호 찾기" id="btnZipcode" title="새창열림"><br />
-						<span class="sp1">&nbsp;</span>
-						<input type="text" name="address"
-							   ReadOnly title="주소" class="width_350"><br /> <span
-							class="sp1">&nbsp;</span>
+				<div>
+					<label for="zipcode">주소</label> 
+					<input type="text" name="zipcode"
+						id="zipcode" ReadOnly title="우편번호" class="width_80"> 
+					<input	type="Button" value="우편번호 찾기" id="btnZipcode" title="새창열림"><br />
+					<span class="sp1">&nbsp;</span> 
+					<input type="text" name="address"
+						ReadOnly title="주소" class="width_350"><br /> <span
+						class="sp1">&nbsp;</span> 
 						<input type="text" name="addressDetail"
-							   title="상세주소" class="width_350">
-					</div>
-				</c:if>
+						title="상세주소" class="width_350">
+				</div>
 				<div class="hpbox">
 					<label for="hp1">핸드폰</label>&nbsp;<select name="hp1" id="hp1"
 						title="휴대폰 앞자리">
@@ -250,4 +245,5 @@
 		</form>
 	</div>
 </div>
-</t:wrapper>
+</body>
+</html>

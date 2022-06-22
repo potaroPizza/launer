@@ -11,41 +11,73 @@ $(document).ready(function(){
 	$('#shortPoint').hide();
 })
 
-
-
-
 $(function(){
-
+	
+	//포인트계산
 	const today = new Date()
 	today.setHours(today.getHours() + 12)
 	$('#take-date').val(today);
 	
 	$('#insertPointBtn').click(function(){
-		
 		var havePoint = $('#havePoint').text();
 		var insertPoint = $('#insertPoint').val();
 		
-		var buyingPrice = $('#buyingPrice').val();
+		if(isNaN(insertPoint)==true){
+			alert("값이 올바르지 않습니다");
+			event.preventDefault();
+			return false;
+		}
 		
-		var totalPrice = buyingPrice-insertPoint;
+		var cal = havePoint-insertPoint
 		
-		if(insertPoint>havePoint){
+		if(cal<0){
 			$('#shortPoint').show();
 			event.preventDefault();
 			return false;
+			
 		}else{
 			$('#shortPoint').hide();
 			
 		}
-		
-		
+
+		var buyingPrice = $('#buyingPrice').val();
+		var totalPrice = buyingPrice-insertPoint;
 		
 		$('#totalPrice').val(totalPrice);
-		
-		
-		
 	});
 	
+	
+	//submit 시
+	 $('#orderBtn').click(function () {
+		 
+			if(!$('#flexCheckDefault').is(':checked')){
+    			alert('약관에 동의해주세요.');
+    			event.preventDefault();
+    			$('#staticBackdrop').modal("show");
+    			event.preventDefault();
+    			return false;
+    		}
+			
+			var havePoint = $('#havePoint').text();
+			var insertPoint = $('#insertPoint').val();
+			
+			var cal = havePoint-insertPoint
+			
+			if(cal<0){
+				alert("보유하신 포인트보다 많이 입력함");
+				event.preventDefault();
+    			return false;
+			}
+			if(isNaN(insertPoint)==true){
+				alert("값이 올바르지 않습니다");
+				event.preventDefault();
+				return false;
+			}
+			
+			
+			
+		 
+	 });
 	
 	
 	
@@ -62,7 +94,7 @@ $(function(){
         </div>
         <hr>
         <div class="orderDivForm">
-            <form name="frmOrder" method="post">
+            <form name="frmOrder" method="post" action ="<c:url value='/laundryService/order/orderComplete'/>">
                 <div class="orderConfirm-user">
                     <div class="user-date">
                         <label for="take-date">수거일 : </label>
@@ -161,7 +193,7 @@ $(function(){
                         </div>
                         <div class="orderConfirm-finalInfo-div">
                             <label for="">포인트사용 : </label>
-                            <input type="text" name="insertPoint" id="insertPoint" >
+                            <input type="text" name="insertPoint" id="insertPoint" value="">
 							<input type="button" value="사용" id="insertPointBtn">&nbsp;
 							
 							
@@ -171,7 +203,7 @@ $(function(){
                         <div class="orderConfirm-finalInfo-div">
                             <label for="total_price">총결제금액 : </label>
                             <input type="text" name="totalPrice" id="totalPrice" class="orderConfirm-input"
-                                   value="${totalPrice }" readonly>
+                                   value="${paramPrice }" readonly>
                              
                         </div>
                     </div>
@@ -240,7 +272,7 @@ $(function(){
                 </div>
                 <hr>
                 <div class="orderInfo-goOrder">
-                    <input type="button" class="orderBtn" value="결제요청" id="submit">
+                    <input type="submit" class="orderBtn" value="결제요청" id="orderBtn">
                 </div>
 
 

@@ -1,0 +1,66 @@
+@charset "UTF-8";
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, img {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    font-weight: 400;
+    -webkit-font-smoothing: auto;
+    font-size: 12px;
+    color: #666;
+}
+
+#agreementWrap{
+	width: 100%;
+	background: rgb(244, 244, 244);
+	display: flex;
+}
+
+	#agreementWrap .agreementsubWrap {
+		width: 1000px;
+		margin: auto;
+		margin-top:150px;
+	}
+	
+	#agreementWrap .titleArea {
+		margin:0;
+		text-align: center;
+	}
+	#agreementWrap .titleArea h2 {
+	    text-align: center;
+	    font-size: 34px;
+	    color: #222;
+	    margin-bottom: 100px;
+	    font-weight: bold;
+	    line-height: 20px;
+	    cursor: pointer;
+	}
+	.agreementboxWrap {
+		padding: 20px;
+	    margin-left: auto;
+	    margin-right: auto;
+	    border: 1px solid #ebebeb;
+	    color: #404040;
+	    background: #fff;
+	}
+	
+	#agreementBox p{
+		padding: 0 0 17px;
+	}
+	#agreementBox p:not([class]){
+		margin: 0;
+    	line-height: 1.5;
+	}
+	#agreementBox strong{
+		font-weight: bolder;
+	}
+	#agreementBox ul{
+		list-style-type: disc;
+		padding-left: 40px;
+	}
+	#agreementBox li{
+		display: list-item;
+    	list-style-type: inherit;
+    	list-style-position: inherit;
+    	line-height: 1.5;
+	}
