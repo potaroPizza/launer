@@ -6,7 +6,6 @@
 
 
 
-
 	<!--주문 상세 리스트 조회 -->
 	<select id="selectOrderDetails" parameterType="int"
 		resultType="hashMap">
@@ -99,46 +98,7 @@
 		<![CDATA[
 		where rownum <=1	]]>
 	</select>
-	<!-- 지효가 만든거 시작 -->
-	<sql id="adminOrderListWhere">
-		where REGDATE >= #{startDay}
-      <![CDATA[
-         and REGDATE < to_date(#{endDay})+1 
-      ]]>
-		<if test="officeNo!=0">
-			and officeNo = #{officeNo}
-		</if>
-		<if test="orderStatus!=null and orderStatus!=''">
-			and orderStatus = #{orderStatus}
-		</if>
-		<if test="userEmail!=null and userEmail!=''">
-			and userEmail like '%' || #{userEmail} || '%'
-		</if>
-	</sql>
+	
 
-	<select id="adminSelectOrderList" parameterType="orderSearchVo"
-		resultType="map">
-		select *
-		from
-		(
-		select rownum as RNUM, A.*
-		from
-		(
-		select * from adminOrderListView
-		<include refid="adminOrderListWhere"></include>
-		)A
-		)
-		where RNUM > #{firstRecordIndex} 
-      <![CDATA[
-         and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
-      ]]>
-	</select>
-
-	<select id="adminSelectTotalRecord"
-		parameterType="orderSearchVo" resultType="int">
-		select count(*) from adminOrderListView
-		<include refid="adminOrderListWhere"></include>
-	</select>
-	<!-- 지효가 만든거 끝 -->
 
 </mapper>
