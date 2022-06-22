@@ -80,6 +80,17 @@ $(function(){
 				return false;
 			}
 			
+			var usePoint = ($('#totalPrice').val()) - ($('#buyingPrice').val());
+			var savePoint = $('#savePoint').val();
+
+			$('#usePoint').val(usePoint);
+			$('#savePoint').val(savePoint);
+			
+			console.log("사용포인트 ="+usePoint);
+			console.log("적립포인트 ="+savePoint);
+			
+		
+			
 			
 		 
 	 });
@@ -99,7 +110,7 @@ $(function(){
         </div>
         <hr>
         <div class="orderDivForm">
-            <form:form id ="frmOrder" modelAttribute="orderDetailVo"  name="frmOrder" method="post" action ="/launer/laundryService/order/orderComplete">
+            <form:form id ="frmOrder" modelAttribute="orderDetailVo" name="frmOrder" method="post" action ="/launer/laundryService/order/orderComplete">
                 <div class="orderConfirm-user">
                     <div class="user-date">
                         <label for="take-date">수거일 : </label>
@@ -160,7 +171,7 @@ $(function(){
 									<c:set var="delivery" value="0"/>
 		
 							<!-- 반복시작 -->
-						<input type = "hidden" value ="${param }" name="param">
+				
 						
                         <c:forEach var ="map" items ="${list }">
                       
@@ -200,7 +211,7 @@ $(function(){
                             <input type="text" name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
                                    value="${paramPrice }" readonly>
                                   <c:set var="readyPoint" value="${paramPrice/100 }"/>
-                                 <span class="">적립예정포인트:</span><span>${readyPoint }</span>  
+                                 <span class="">적립예정포인트:</span><input type ="text" id ="savePoint" name="savePoint" value ="${readyPoint }  ">
                         </div>
                         <div class="orderConfirm-finalInfo-div">
                             <label for="">포인트사용 : </label>
@@ -285,6 +296,10 @@ $(function(){
                 <div class="orderInfo-goOrder">
                     <input type="submit" class="orderBtn" value="결제요청" id="orderBtn">
                 </div>
+                <!-- orderComplete.jsp 전달파라미터들 -->
+                		<input type = "hidden" value ="${param }" name="param">
+						<input type = "hidden" value ="" name="savePoint">
+						<input type = "hidden" value ="" name="usePoint">
             </form:form>
         </div>
     </div>

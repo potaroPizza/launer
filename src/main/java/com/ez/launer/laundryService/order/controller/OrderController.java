@@ -133,7 +133,8 @@ public class OrderController {
 	
 	@PostMapping("/orderComplete")
 	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
-			Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest) {
+			Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest,
+			@RequestParam(defaultValue = "0") int usePoint,@RequestParam int savePoint) {
 		logger.info("totalPrice={}",totalPrice);
 		logger.info("param={}",param);
 		int no = 1000; //추후 session 으로 변경
@@ -175,7 +176,7 @@ public class OrderController {
 		String setParamString[];
 		
 		OrderDetailVO orderDetailVo = new OrderDetailVO();
-		int cnt = 0;
+		
 		
 		
 		//order_details insert
@@ -194,13 +195,14 @@ public class OrderController {
 			orderDetailVo.setQuan(quan);
 			orderDetailVo.setSum(sum);
 			
-			cnt = orderService.insertOrderDetails(orderDetailVo);
+			int cnt  = orderService.insertOrderDetails(orderDetailVo);
 			logger.info("order_detail insert cnt ={}",cnt);
 		}
 		
 		
 		//point update
-		
+		logger.info("usePoint={}",usePoint);
+		logger.info("savePoint={}",savePoint);
 		
 		
 		
