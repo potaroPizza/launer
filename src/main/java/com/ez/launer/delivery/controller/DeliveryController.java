@@ -95,7 +95,7 @@ public class DeliveryController {
 
     @RequestMapping("/listP")
     @ResponseBody
-    public List<OrderDeliveryAllVO> listP(@ModelAttribute OrderListSearchVO orderListSearchVO,
+    public Map<Object, Object> listP(@ModelAttribute OrderListSearchVO orderListSearchVO,
                                           HttpSession session) {
         logger.info("수거 요청 리스트");
 //        orderListSearchVO.setCurrentPage(2);
@@ -112,8 +112,8 @@ public class DeliveryController {
 
         PaginationInfo paginationInfo = new PaginationInfo();
         paginationInfo.setBlockSize(ConstUtil.BLOCKSIZE);
-        paginationInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
         paginationInfo.setCurrentPage(orderListSearchVO.getCurrentPage());
+        paginationInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
 
         orderListSearchVO.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
         orderListSearchVO.setFirstRecordIndex(paginationInfo.getFirstRecordIndex());
@@ -122,6 +122,8 @@ public class DeliveryController {
         orderListSearchVO.setOrderStatusNo(1);     //수거 전 상태
         orderListSearchVO.setListType("PICKUP_DRIVER");
 
+        logger.info("중간 테스트 orderListSearchVO={}", orderListSearchVO);
+
         /* Map<String, Object> setMap = new HashMap<>();
         setMap.put("no", officeVO.getNo());
         setMap.put("orderStatusNo", ConstUtil.BEFORE_PICKUP);
@@ -129,8 +131,21 @@ public class DeliveryController {
 
         List<OrderDeliveryAllVO> listMap = orderService.orderOfficeView(orderListSearchVO);
 
+        int totalRecord = orderService.orderCount(orderListSearchVO);
+        logger.info("총 리스트 개수 totalRecord={}", totalRecord);
+        paginationInfo.setTotalRecord(totalRecord);
+
+        Map<Object, Object> resMap = new HashMap<>();
+        resMap.put("listMap", listMap);
+        resMap.put("lastPage", paginationInfo.getLastPage());
+        resMap.put("dbCur", orderListSearchVO.getCurrentPage());
+
+
         logger.info("수거요청 리스트 조회 결과 listMap={}", listMap);
 
-        return listMap;
+        /*Map<List<OrderDeliveryAllVO>, Map<String, Object>> resMap = new HashMap<>();
+        resMap.put(listMap, (Map<String, Object>) new HashMap<>().put("lastPage", paginationInfo.getLastPage()));*/
+
+        return resMap;
     }
 }
