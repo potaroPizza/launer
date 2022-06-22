@@ -73,7 +73,7 @@
     </insert>
 	
 	<!-- 지효가 만든거 시작 -->
-	<sql id="orderListWhere">
+	<sql id="adminOrderListWhere">
 		<where>
 			<if test="customerId!=null and customerId!=''">
 				customerId = #{customerId}
@@ -84,12 +84,12 @@
 		</where>
 	</sql>
 	
-    <select id="selectOrderList" parameterType="orderSearchVo" 
+    <select id="adminSelectOrderList" parameterType="orderSearchVo" 
     	resultType="map">
        
     </select>
     
-    <select id="selectTotalRecord" parameterType="orderSearchVo" resultType="int">
+    <select id="adminSelectTotalRecord" parameterType="orderSearchVo" resultType="int">
 		select count(*) from orders
 		<include refid="orderListWhere"></include>
 	</select>
