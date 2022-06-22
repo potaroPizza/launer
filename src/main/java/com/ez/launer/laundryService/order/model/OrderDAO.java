@@ -1,5 +1,6 @@
 package com.ez.launer.laundryService.order.model;
 
+import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,4 +17,23 @@ public interface OrderDAO {
     int insertOrder(OrderVO orderVo);
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //지효가 만든거 시작
+    List<Map<String, Object>> adminSelectOrderList(OrderSearchVO searchVo);
+    int adminSelectTotalRecord(OrderSearchVO searchVo);
+    //지효가 만든거 끝
 }

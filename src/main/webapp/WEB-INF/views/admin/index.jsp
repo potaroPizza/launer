@@ -99,6 +99,15 @@
 		</div>
 		<br>
 		<div id="div1"></div>
+		<c:if test="${empty list}">
+			<div class="row" class="contentRow" style="padding: 10px;">
+			<div class="col-xl-2"></div>
+			<div class="col-xl-8" style="height: 200px; padding: 10px; border: 1px solid #333;">
+				사내공지가 없습니다.
+			</div>
+		</div>
+		</c:if>
+		<c:if test="${!empty list }">
 		<!-- 러너보드 반복 시작 -->	
 		<c:forEach var="vo" items="${list}">
 		<div class="row" class="contentRow" style="padding: 10px;">
@@ -118,6 +127,7 @@
 			</div>
 		</div>
 		</c:forEach>
+		</c:if>
 		<!-- 러너보드 반복 끝 -->
 		
 		<div style="text-align: right;"><a href="<c:url value='/admin/noticeAll'/>">사내공지사항 더보기</a></div>

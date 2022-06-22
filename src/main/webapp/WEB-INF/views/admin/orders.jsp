@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:head>
 </t:head>
@@ -171,7 +171,7 @@
 								
 							&nbsp; 지점선택
 							<select name="officeNo">
-							  <option selected>전체</option>
+							  <option selected value="0">전체</option>
 							  <option value="1">영등포점</option>
 							  <option value="2">마포점</option>
 							  <option value="3">구로점</option>
@@ -179,7 +179,7 @@
 		
 							&nbsp; 주문상태 선택
 							<select name="orderStatus">
-							  <option selected>전체</option>
+							  <option selected  value="">전체</option>
 							  <option value="1">수거전</option>
 							  <option value="2">수거완료</option>
 							  <option value="3">세탁중</option>
@@ -230,20 +230,29 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:if test="${empty list}">
+							<tr class="align_center">
+								<td colspan="6">주문내역이 존재하지 않습니다.</td>
+							</tr>
+						</c:if>
+						<c:if test="${!empty list}">					
 						<!-- 주문리스트 반복 시작 -->
+						<c:forEach var="map" items="${list}">
 							<tr>
 								<td>
 									<input type="checkbox" name=""
 										value="">
 								</td>
-								<td>172</td>
-								<td>jihuo1004@gmail.com</td>
-								<td>영등포점</td>
-								<td>세탁중</td>
-								<td>2022-06-15 19:46</td>
+								<td>${map['ORDERNO']}</td>
+								<td>${map['USEREMAIL']}</td>
+								<td>${map['OFFICENAME']}</td>
+								<td>${map['ORDERSTATUS']}</td>
+								<td>${map['REGDATE']}</td>
 								<td><a href="#">상세보기</a></td>
 							</tr>
+						</c:forEach>
 						<!-- 주문리스트 반복 끝 -->
+						</c:if>
 						</tbody>
 					</table>
 					<input type="button" value="픽업대기 처리">
@@ -270,6 +279,32 @@
 				</li>
 				</ul>
 			</nav>
+			<div class="divPage">
+				<!-- 페이지 번호 추가 -->
+				<c:if test="${pagingInfo.firstPage>1 }">
+					<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})"> <img
+						src='<c:url value="/images/first.JPG" />' border="0">
+					</a>
+				</c:if>
+
+				<!-- [1][2][3][4][5][6][7][8][9][10] -->
+				<c:forEach var="i" begin="${pagingInfo.firstPage }"
+					end="${pagingInfo.lastPage }">
+					<c:if test="${i==pagingInfo.currentPage }">
+						<span style="color: blue; font-weight: bold">${i }</span>
+					</c:if>
+					<c:if test="${i!=pagingInfo.currentPage }">
+						<a href="#" onclick="pageFunc(${i})"> [${i }] </a>
+					</c:if>
+				</c:forEach>
+
+				<c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+					<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})"> <img
+						src="<c:url value="/images/last.JPG" />" border="0">
+					</a>
+				</c:if>
+				<!--  페이지 번호 끝 -->
+			</div>
 		</div>
 	</main>
 
