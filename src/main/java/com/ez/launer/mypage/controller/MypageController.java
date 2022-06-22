@@ -1,6 +1,7 @@
 package com.ez.launer.mypage.controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,10 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.launer.user.model.UserAddressVO;
+import com.ez.launer.user.model.UserAllVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -28,8 +32,8 @@ public class MypageController {
 	=LoggerFactory.getLogger(MypageController.class);
 
 	private final UserService userService;
-	
-	
+
+
 
 	@GetMapping("/mypage") 
 	public String mypage_get(HttpSession session, 
@@ -57,7 +61,7 @@ public class MypageController {
 		logger.info("회원 정보 조회 결과, vo={}",vo);
 
 		model.addAttribute("vo",vo);
-		
+
 		return "/mypage/mypoint";
 	}
 	@GetMapping("/myinfo")
@@ -71,10 +75,10 @@ public class MypageController {
 		logger.info("회원 정보 조회 결과, map={}",map);
 
 		model.addAttribute("map",map);
-		
+
 		return "/mypage/myinfo";
 	}
-	
+
 	@GetMapping("/useredit") 
 	public String edit_get(HttpSession session, 
 			Model model) { 
@@ -90,7 +94,54 @@ public class MypageController {
 		return "/mypage/useredit";
 
 	}
-	
+
+	@PostMapping("/useredit")
+	public String edit_post(@ModelAttribute UserAllVO vo,
+			HttpSession session, Model model) {
+		int no=1000;
+//		String userid=(String)session.getAttribute("userid");
+		
+		vo.setNo(no);
+		logger.info("회원정보 수정, UserAllVO={}", vo);
+
+		String hp=vo.getHp();
+		vo.setHp(hp);
+
+
+		String address=vo.getAddress(); 
+		String addressDetail=vo.getAddressDetail();
+
+		vo.setAddress(address); 
+		vo.setAddressDetail(addressDetail);
+
+
+		logger.info("회원정보 수정 - 비밀번호 확인 결과 ={}",vo.getNo(),vo.getPwd() );
+		String msg="비밀번호 체크 실패", url="/mypage/useredit";
+		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
+		logger.info("회원정보 수정 - 비밀번호 확인 결과, result ={}", result);
+
+		if(result==userService.LOGIN_OK) {
+			int cnt = userService.updateUserHp(vo);
+			logger.info("회원정보 수정 결과, cnt ={}", cnt);
+			int cnt2 = userService.updateUserAddress(vo);
+			logger.info("회원정보 수정 결과, cnt2={} ", cnt2);
+
+
+			if(cnt>0 && cnt2>0) { 
+				msg="회원정보를 수정하였습니다.";
+			}else { msg="회원정보 수정 실패"; }
+
+		}else if(result==userService.DISAGREE_PWD) {
+			msg="비밀번호가 일치하지 않습니다.";			
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+
+	}
+
 	@GetMapping("/withdraw")
 	public String userdelete_get(HttpSession session, Model model) {
 		logger.info("회원 탈퇴 화면");
@@ -102,22 +153,22 @@ public class MypageController {
 		logger.info("회원 정보 조회 결과, vo={}",vo);
 
 		model.addAttribute("vo",vo);
-		
+
 		return "/mypage/withdraw";
 	}
-	
+
 	@PostMapping("/withdraw")
 	public String userdelete_post(@RequestParam String pwd,
 			HttpSession session, HttpServletResponse response,
 			Model model) {
 		int no=1000;
-		
+
 		//String userid=(String)session.getAttribute("userid");
 		logger.info("회원 탈퇴 처리, 파라미터 no={}, pwd={}",no,pwd);
-		
+
 		int result=userService.checkLogin(no, pwd);
 		logger.info("회원 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
-		
+
 		String msg="비밀번호 체크 실패",url="/launer/mypage/withdraw";
 		if(result == userService.LOGIN_OK) {
 			int cnt=userService.deleteUser(no);
@@ -126,7 +177,7 @@ public class MypageController {
 				url="/mypage/signout";
 				/*
 				  session.invalidate();
-				  
+
 				  Cookie ck = new Cookie("ckUserid", userid);
 				   ck.setPath("/"); 
 				   ck.setMaxAge(0);
@@ -138,17 +189,17 @@ public class MypageController {
 		}else if(result==userService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";
 		}
-		
+
 		//3
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
+
 		//4
 		return "/common/message";
 	}
-	
-	
-	
+
+
+
 	@GetMapping("/paymentdetails")
 	public void paymentdetails() {
 		logger.info("마이페이지 결제내역 화면");

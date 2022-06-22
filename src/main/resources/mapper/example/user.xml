@@ -21,6 +21,20 @@
 		select pwd from users
 		where no=#{no} and out_date is null
 	</select>
+	
+	<update id="updateUserHp" parameterType="userVo">
+		update users
+		set hp=#{hp} where no=#{no}
+	</update>
+	<update id="updateUserAddress" parameterType="userAddressVo">
+		update users_address
+		set address=#{address}, 
+			address_detail=#{addressDetail}, 
+			entermethod=#{entermethod}, 
+			zipcode=#{zipcode},
+			office_no = #{officeNo}
+		where users_no=#{no}
+	</update>
 
 
 </mapper>

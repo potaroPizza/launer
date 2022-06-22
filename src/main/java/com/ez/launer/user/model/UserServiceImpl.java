@@ -1,10 +1,14 @@
 package com.ez.launer.user.model;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import com.ez.launer.office.model.OfficeDAO;
+import com.ez.launer.office.model.OfficeVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +18,7 @@ public class UserServiceImpl implements UserService{
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	private final UserDAO userDao;
+	private final OfficeDAO officeDao;
 
 	@Override
 	public UserVO selectById(int no) {
@@ -49,6 +54,24 @@ public class UserServiceImpl implements UserService{
 	public int deleteUser(int no) {
 		return userDao.deleteUser(no);
 	}
+
+	@Override
+	public int updateUserHp(UserAllVO vo) {
+		return userDao.updateUserHp(vo);
+	}
+
+	@Override
+	public int updateUserAddress(UserAllVO Vo) {
+//		List<OfficeVO> list = officeDao.selectAll();
+		/*for(OfficeVO officeVo : list) {
+			
+		}*/
+//		Vo.getAddress();
+		Vo.setOfficeNo(1);
+		
+		return userDao.updateUserAddress(Vo);
+	}
+
 
 }
 

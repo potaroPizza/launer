@@ -13,4 +13,6 @@ public interface UserService {
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);
 	public int checkLogin(int no, String pwd);
+	int updateUserHp(UserAllVO vo);
+	int updateUserAddress(UserAllVO Vo);
 }
