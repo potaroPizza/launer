@@ -40,6 +40,7 @@ a {color: #000; text-decoration: none;}
 
 .web-page {
   @import './partials/main_fixed_wrap.scss';
+  @import "./partials/userfooter.scss";
   font-family: 'Noto Sans KR', sans-serif;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -77,8 +78,10 @@ a {color: #000; text-decoration: none;}
 	}	
   #myinfo_wrap{
 	@import "./partials/user/myinfo.scss";	
-	}	
-
+	}
+  #join_wrap {
+    @import "./partials/user/join.scss";
+  }
 }
 
 .delivery-section {
