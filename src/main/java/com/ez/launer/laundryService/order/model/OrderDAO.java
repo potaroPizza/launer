@@ -13,8 +13,9 @@ public interface OrderDAO {
     List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO);
 
     int orderCount(OrderListSearchVO orderListSearchVO);
-    Map<String, Object> selectUsersOrderView(int usersNo);
+    OrderViewVO selectUsersOrderView(int usersNo);
     int insertOrder(OrderVO orderVo);
+    
     
     
     
