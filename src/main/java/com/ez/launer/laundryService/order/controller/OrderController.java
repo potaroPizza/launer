@@ -134,7 +134,7 @@ public class OrderController {
 	@PostMapping("/orderComplete")
 	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
 			Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest,
-			@RequestParam(defaultValue = "0") int usePoint,@RequestParam int savePoint) {
+			@RequestParam int usePoint,@RequestParam int savePoint) {
 		logger.info("totalPrice={}",totalPrice);
 		logger.info("param={}",param);
 		int no = 1000; //추후 session 으로 변경
@@ -200,13 +200,29 @@ public class OrderController {
 		}
 		
 		
-		//point update
+		
+		
+		//pointList insert
 		logger.info("usePoint={}",usePoint);
 		logger.info("savePoint={}",savePoint);
 		
+		//사용
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", usersNo);
+		map.put("orderNo",orderNO);
+		map.put("point", usePoint);
 		
+		int cnt = 0;
+		//사용
+		cnt = orderService.insertPointList(map);
 		
-		
+		//적립
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("userNo", usersNo);
+		map2.put("orderNo",orderNO);
+		map2.put("point", savePoint);
+		cnt = orderService.insertPointList(map2);
+
 		
 		model.addAttribute("result", result);
 		return "/laundryService/order/orderComplete";

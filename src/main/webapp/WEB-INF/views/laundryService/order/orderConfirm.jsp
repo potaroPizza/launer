@@ -80,19 +80,18 @@ $(function(){
 				return false;
 			}
 			
-			var usePoint = ($('#totalPrice').val()) - ($('#buyingPrice').val());
+			var usePoint =  -($('#totalPrice').val()-$('#buyingPrice').val());
 			var savePoint = $('#savePoint').val();
-
+			usePoint = usePoint*-1;
+			
+			
+			
 			$('#usePoint').val(usePoint);
 			$('#savePoint').val(savePoint);
 			
 			console.log("사용포인트 ="+usePoint);
 			console.log("적립포인트 ="+savePoint);
-			
-		
-			
-			
-		 
+
 	 });
 	
 	
@@ -210,7 +209,8 @@ $(function(){
                             <label for="buyingPrice">상품금액 : </label>
                             <input type="text" name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
                                    value="${paramPrice }" readonly>
-                                  <c:set var="readyPoint" value="${paramPrice/100 }"/>
+                                  <fmt:formatNumber type="number" maxFractionDigits="0"  var="readyPoint" value="${paramPrice/100 }" />
+                                  
                                  <span class="">적립예정포인트:</span><input type ="text" id ="savePoint" name="savePoint" value ="${readyPoint }  ">
                         </div>
                         <div class="orderConfirm-finalInfo-div">

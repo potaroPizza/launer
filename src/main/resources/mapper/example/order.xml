@@ -137,13 +137,13 @@
 	</insert>
 	
 	
-	<!-- <insert id="insertPointList" parameterType =""> 
+	<insert id="insertPointList" parameterType ="map"> 
 		<selectKey keyProperty="no" resultType="int" order = "BEFORE">
-			select point_list_seq from dual
+			select point_list_seq.nextval from dual
 		</selectKey>
 			insert into point_list (no,users_no,order_no,point)
 			values (#{no}, #{usersNo},#{orderNo},#{point})
-	</insert> -->
+	</insert>
 	
 	
 	

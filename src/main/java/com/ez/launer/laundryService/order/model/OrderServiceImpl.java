@@ -42,6 +42,12 @@ public class OrderServiceImpl implements OrderService{
 	public int insertOrderDetails(OrderDetailVO orderDetailVo) {
 		return orderDAO.insertOrderDetails(orderDetailVo);
 	}
+
+	@Override
+	public int insertPointList(Map<String, Object> map) {
+		return orderDAO.insertPointList(map);
+	}
+
 	
 	
 	
@@ -56,6 +62,9 @@ public class OrderServiceImpl implements OrderService{
 	public int adminSelectTotalRecord(OrderSearchVO searchVo) {
 		return orderDAO.adminSelectTotalRecord(searchVo);
 	}
+
+	
+
 
 	
 

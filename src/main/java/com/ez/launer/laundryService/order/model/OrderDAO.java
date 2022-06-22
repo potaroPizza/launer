@@ -17,6 +17,7 @@ public interface OrderDAO {
     int insertOrder(OrderVO orderVo);
     int selectRecentOrderNo(int userNo);
     int insertOrderDetails(OrderDetailVO orderDetailVo);
+    int insertPointList(Map<String, Object>map);
 
     
     
