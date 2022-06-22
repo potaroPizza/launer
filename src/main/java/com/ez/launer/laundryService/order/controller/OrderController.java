@@ -25,6 +25,7 @@ import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.category.model.CategoryVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.laundryService.order.model.OrderVO;
+import com.ez.launer.laundryService.order.model.OrderViewVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -144,20 +145,27 @@ public class OrderController {
 	}
 	
 	@PostMapping("/orderComplete")
-	public String orderConfirmed_post(@RequestParam int totalPrice, Model model) {
-		logger.info("결제전 set");
+	public String orderConfirmed_post(@RequestParam int totalPrice, Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest ) {
+		logger.info("totalPrice={}",totalPrice);
 		int no = 1000;
 		
-		Map<String, Object> map = orderService.selectUsersOrderView(no);
+		OrderViewVO orderViewVo = new OrderViewVO();
 		
-		Object objUsersNo = (int) map.get("usersNo");
-		logger.info("usersNo={}",objUsersNo);
-		int usersAddressNo = (int) map.get("addressNo");
+		orderViewVo = orderService.selectUsersOrderView(no);
+		logger.info("vo={}",orderViewVo);
+		
+		int usersNo = orderViewVo.getUsersNo();
+		logger.info("usersNo={}",usersNo);
+		int addressNo = orderViewVo.getAddressNo();
+		logger.info("addressNo={}",addressNo);
 		
 		OrderVO vo = new OrderVO();
-		//vo.setUsersNo(usersNo);
-		vo.setUsersAddressNo(usersAddressNo);
+		vo.setUsersNo(usersNo);
+		vo.setUsersAddressNo(addressNo);
 		vo.setTotalPrice(totalPrice);
+		vo.setOrderRequest(orderRequest);
+		
+		logger.info("vo={}",vo);
 		
 		int result = orderService.insertOrder(vo);
 		

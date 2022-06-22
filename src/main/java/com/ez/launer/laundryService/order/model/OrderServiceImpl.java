@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
 	@Override
-	public Map<String, Object> selectUsersOrderView(int usersNo) {
+	public OrderViewVO selectUsersOrderView(int usersNo) {
 		return orderDAO.selectUsersOrderView(usersNo);
 	}
 

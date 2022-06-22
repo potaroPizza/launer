@@ -120,7 +120,11 @@ $(function(){
                         <input type="text" name="entherMethod" id="entherMethod" class="orderConfirm-input"
                                value="없음" readonly>
                     </div>
-                </div>
+					<div class="orderInfo-request">
+						<div>세탁요청사항</div>
+						<input type="text" name="orderRequest" id="orderRequest">
+					</div>
+				</div>
                 <hr>
                 <div class="orderConfirm-clothing">
                     <table class="orderConfirm-clothing-table"
