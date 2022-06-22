@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="<c:url value="/css/user/findIdPwd.css"/>" />
 <link rel="stylesheet" href="<c:url value="/css/user/userfooter.css"/>" />
 
+<title>이메일 찾기</title>
 <body>
 <div id="findIdPwdWrap">
 	<div class="findIdPwdsubWrap">

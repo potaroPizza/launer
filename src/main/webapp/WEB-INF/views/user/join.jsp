@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../inc/top.jsp"%>
-
 <link rel="stylesheet" href="<c:url value="/css/user/join.css"/>" />
 <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" >="javascript"></script>
 
+<title>러너 회원가입</title>
+<body>
 <div class="join_wrap">
 	<div class="join_form">
 		<form name="joinfrm" method="post" 
