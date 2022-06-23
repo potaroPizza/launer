@@ -1,7 +1,6 @@
 package com.ez.launer.mypage.controller;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ez.launer.user.model.UserAddressVO;
+import com.ez.launer.point.model.PointHistoryAllVO;
+import com.ez.launer.point.model.PointService;
+import com.ez.launer.point.model.PointViewVO;
 import com.ez.launer.user.model.UserAllVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
@@ -32,7 +33,7 @@ public class MypageController {
 	=LoggerFactory.getLogger(MypageController.class);
 
 	private final UserService userService;
-
+	private final PointService pointService;
 
 
 	@GetMapping("/mypage") 
@@ -56,11 +57,13 @@ public class MypageController {
 		int no=1000;
 		//String userid=(String)session.getAttribute("userid");
 		logger.info("마이페이지 포인트 화면, 파라미터 userid={}", no);
-
+		
 		UserVO vo= userService.selectById(no);
 		logger.info("회원 정보 조회 결과, vo={}",vo);
 
 		model.addAttribute("vo",vo);
+		
+		
 
 		return "/mypage/mypoint";
 	}
