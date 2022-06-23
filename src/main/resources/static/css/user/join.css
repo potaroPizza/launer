@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.join_wrap{
+#join_wrap{
 	width: 100%;
 	background: rgb(244, 244, 244);
 	display: flex;

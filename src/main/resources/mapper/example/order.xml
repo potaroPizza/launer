@@ -74,7 +74,7 @@
 		#{usersAddressNo}, 1 , #{totalPrice},#{orderRequest})
     </insert>
     
-    
+
     
     
 	<!-- 지효가 만든거 시작 -->
@@ -86,8 +86,8 @@
 		<if test="officeNo!=0">
 			and officeNo = #{officeNo}
 		</if>
-		<if test="orderStatus!=null and orderStatus!=''">
-			and orderStatus = #{orderStatus}
+		<if test="statusNo!=null and statusNo!=''">
+			and statusNo = #{statusNo}
 		</if>
 		<if test="userEmail!=null and userEmail!=''">
 			and userEmail like '%' || #{userEmail} || '%'
@@ -117,5 +117,34 @@
 		<include refid="adminOrderListWhere"></include>
 	</select>
 	<!-- 지효가 만든거 끝 -->
+	
+	<select id="selectRecentOrderNo" parameterType="int" resultType="int">
+		SELECT no from
+		(
+		select no,users_no,
+		RANK() over(partition by users_no order by regdate desc) as rnk
+		from orders
+		)
+		where rnk ='1' and users_no = #{no}
+	</select>  
+	
+	<insert id="insertOrderDetails" parameterType="orderDetailVo" >
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select order_detail_seq.nextval from dual
+		</selectKey>
+			insert into order_detail (no,order_no,category_no,quan,sum)
+			values(#{no},#{orderNo},#{categoryNo},#{quan},#{sum})
+	</insert>
+	
+	
+	<insert id="insertPointList" parameterType ="map"> 
+		<selectKey keyProperty="no" resultType="int" order = "BEFORE">
+			select point_list_seq.nextval from dual
+		</selectKey>
+			insert into point_list (no,users_no,order_no,point)
+			values (#{no}, #{usersNo},#{orderNo},#{point})
+	</insert>
+	
+	
 	
 </mapper>

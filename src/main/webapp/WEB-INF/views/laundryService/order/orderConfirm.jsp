@@ -1,6 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../../inc/top.jsp" %>
 
+
+<!-- form:form -->
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+	
 <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>"/>
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
@@ -9,6 +13,8 @@
 
 $(document).ready(function(){
 	$('#shortPoint').hide();
+	
+
 })
 
 $(function(){
@@ -50,13 +56,13 @@ $(function(){
 	//submit 시
 	 $('#orderBtn').click(function () {
 		 
-			if(!$('#flexCheckDefault').is(':checked')){
+		/* 	if(!$('#flexCheckDefault').is(':checked')){
     			alert('약관에 동의해주세요.');
     			event.preventDefault();
     			$('#staticBackdrop').modal("show");
     			event.preventDefault();
     			return false;
-    		}
+    		} */
 			
 			var havePoint = $('#havePoint').text();
 			var insertPoint = $('#insertPoint').val();
@@ -74,9 +80,18 @@ $(function(){
 				return false;
 			}
 			
+			var usePoint =  -($('#totalPrice').val()-$('#buyingPrice').val());
+			var savePoint = $('#savePoint').val();
+			usePoint = usePoint*-1;
 			
 			
-		 
+			
+			$('#usePoint').val(usePoint);
+			$('#savePoint').val(savePoint);
+			
+			console.log("사용포인트 ="+usePoint);
+			console.log("적립포인트 ="+savePoint);
+
 	 });
 	
 	
@@ -94,7 +109,7 @@ $(function(){
         </div>
         <hr>
         <div class="orderDivForm">
-            <form name="frmOrder" method="post" action ="<c:url value='/laundryService/order/orderComplete'/>">
+            <form:form id ="frmOrder" modelAttribute="orderDetailVo" name="frmOrder" method="post" action ="/launer/laundryService/order/orderComplete">
                 <div class="orderConfirm-user">
                     <div class="user-date">
                         <label for="take-date">수거일 : </label>
@@ -155,12 +170,14 @@ $(function(){
 									<c:set var="delivery" value="0"/>
 		
 							<!-- 반복시작 -->
-							
+				
+						
                         <c:forEach var ="map" items ="${list }">
+                      
                        <%--  <c:set var="sum" value="${map['quan']*map[''] }"></c:set> --%>
                         <tr>
 	                        <td>
-	                        	<input type="text" name="categoryNo" class="tdInput"
+	                        	<input type="text" name="categoryNo" class="paramInput"
 									value="${map['categoryNo'] }">
 	                        </td>
 	                        <td>
@@ -168,13 +185,13 @@ $(function(){
 									value="${map['name'] }">
 	                        </td>
 	                        <td>
-	                        	<input type="text" name="price" class="tdInput"
+	                        	<input type="text" name="price" class="paramInput"
 									value="${map['price'] }">
 	                        </td>
 	                        <td>
-	                        	<input type="text" name="quan" class="tdInput"
+	                        	<input type="text" name="quan" class="paramInput"
 									value="${map['quan'] }">
-	                        	<input type="text" name="sum" class="tdInput"
+	                        	<input type="text" name="sum" class="paramInput"
 									value="${map['sum'] }">
 	                        </td>
                         </tr>
@@ -192,8 +209,9 @@ $(function(){
                             <label for="buyingPrice">상품금액 : </label>
                             <input type="text" name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
                                    value="${paramPrice }" readonly>
-                                   <c:set var="readyPoint" value="${paramPrice/100 }"/>
-                                 <span class="">적립예정포인트:</span><span>${readyPoint }</span>  
+                                  <fmt:formatNumber type="number" maxFractionDigits="0"  var="readyPoint" value="${paramPrice/100 }" />
+                                  
+                                 <span class="">적립예정포인트:</span><input type ="text" id ="savePoint" name="savePoint" value ="${readyPoint }  ">
                         </div>
                         <div class="orderConfirm-finalInfo-div">
                             <label for="">포인트사용 : </label>
@@ -278,9 +296,11 @@ $(function(){
                 <div class="orderInfo-goOrder">
                     <input type="submit" class="orderBtn" value="결제요청" id="orderBtn">
                 </div>
-
-
-            </form>
+                <!-- orderComplete.jsp 전달파라미터들 -->
+                		<input type = "hidden" value ="${param }" name="param">
+						<input type = "hidden" value ="" name="savePoint">
+						<input type = "hidden" value ="" name="usePoint">
+            </form:form>
         </div>
     </div>
 

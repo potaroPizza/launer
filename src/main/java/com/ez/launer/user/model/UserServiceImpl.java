@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 
+	
 	@Override
 	public int deleteUser(int no) {
 		return userDao.deleteUser(no);
@@ -61,16 +62,26 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int updateUserAddress(UserAllVO Vo) {
+	public int updateUserAddress(UserAllVO vo) {
 //		List<OfficeVO> list = officeDao.selectAll();
 		/*for(OfficeVO officeVo : list) {
 			
 		}*/
-//		Vo.getAddress();
-		Vo.setOfficeNo(1);
+//		vo.getAddress();
+		vo.setOfficeNo(1);
 		
-		return userDao.updateUserAddress(Vo);
+		return userDao.updateUserAddress(vo);
 	}
+
+	@Override
+	public int editPwd(UserVO vo) {
+		return userDao.editPwd(vo);
+	}
+
+
+
+
+
 
 
 }

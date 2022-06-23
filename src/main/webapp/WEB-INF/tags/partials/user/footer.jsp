@@ -7,9 +7,9 @@
         <div id="userFooter" class="clearfix">
             <div class="userFooterLeft">
                 <div id="userFooterMenu">
-                    <a href="/user/agreement">이용약관</a>
-                    <a href="/user/privacy">개인정보취급방침</a>
-                    <a href="/user/guide">이용안내</a>
+                    <a href="/launer/user/agreement">이용약관</a>
+                    <a href="/launer/user/privacy">개인정보취급방침</a>
+                    <a href="/launer/user/guide">이용안내</a>
                     <a>고객센터</a>
                 </div>
                 <div id="userFooterCompany">

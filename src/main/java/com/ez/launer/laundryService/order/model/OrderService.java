@@ -11,7 +11,9 @@ public interface OrderService {
     int orderCount(OrderListSearchVO orderListSearchVO);
     OrderViewVO selectUsersOrderView(int usersNo);
     int insertOrder(OrderVO orderVo);
-    
+    int selectRecentOrderNo(int userNo);
+    int insertOrderDetails(OrderDetailVO orderDetailVo);
+    int insertPointList(Map<String, Object>map);
     
     
     

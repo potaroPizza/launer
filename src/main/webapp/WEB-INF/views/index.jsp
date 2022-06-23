@@ -140,7 +140,7 @@
                             <div class="text-box l">
                                 <h4 class="sub-title-font">합리적 가격</h4>
                                 <span>정해진 가격 외 추가요금을 요구하지 않습니다. 정찰제로 안심하고 맡기세요.</span>
-                                <a href="#">
+                                <a href="<c:url value="/user/pricelist"/>">
                                     <div class="hover-btn"></div>
                                     <p>가격표 보기</p>
                                 </a>

@@ -11,6 +11,7 @@ public interface UserDAO {
 	int deleteUser(int no);
 	String selectPwd(int no);
 	int updateUserHp(UserAllVO vo);
-	int updateUserAddress(UserAllVO Vo);
+	int updateUserAddress(UserAllVO vo);
+	int editPwd(UserVO vo);
 	
 }
