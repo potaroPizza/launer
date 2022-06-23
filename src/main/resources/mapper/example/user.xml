@@ -2,30 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.user.model.UserDAO">
-
+	<!-- 회원 정보 조회 -->
 	<select id="selectById" parameterType="int" resultType="userVo">
 		select * from users where no = #{no}
 	</select>
+	<!-- 회원 정보 조회 주소테이블 조인 -->
 	<select id="selectByIdAddress" parameterType="int" resultType="hashMap">
 		select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
 		from users u, users_address a
 		where u.no=a.users_no
 		and u.no=#{no}
 	</select>
+	<!-- 회원 탈퇴처리 -->
 	<update id="deleteUser" parameterType="int">
 		update users set out_date=sysdate
 		where no=#{no}
 	</update>
 	
+	<!-- 비밀번호 체크 -->
 	<select id="selectPwd" parameterType="int" resultType="String">
 		select pwd from users
 		where no=#{no} and out_date is null
 	</select>
-	
+	<!-- 회원정보 수정 (전화번호)  -->
 	<update id="updateUserHp" parameterType="userVo">
 		update users
 		set hp=#{hp} where no=#{no}
 	</update>
+	<!-- 회원정보 수정(주소) -->
 	<update id="updateUserAddress" parameterType="userAddressVo">
 		update users_address
 		set address=#{address}, 
@@ -35,11 +39,18 @@
 			office_no = #{officeNo}
 		where users_no=#{no}
 	</update>
+	<!-- 비밀번호 변경처리 -->
+	<update id="editPwd" parameterType="userVo">
+		update users 
+		set pwd=#{pwd}
+		where no=#{no}
+	</update>
 
 	<insert id="insertUser" parameterType="userVo">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			select USERS_SEQ.nextval from DUAL;
 		</selectKey>
 	</insert>
+	
 
 </mapper>

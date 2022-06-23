@@ -25,11 +25,9 @@
 
                 <!-- ID -->
                 <div>
-                    <h3 class="useredit_title">
-                        <label for="id">아이디(이메일)</label>
-                    </h3>
-                    <span class="box int_id">
-                        <input type="text" id="id" name="id" class="int" value="${map['EMAIL']}" readonly="readonly" disabled>
+                    <h3 class="useredit_title"><label for="id">아이디(이메일)</label></h3>
+                    <span class="box int_id" style="background-color: #e9e9e9;">
+                        <input type="text" id="userid" name="id" class="int" value="${map['EMAIL']}" maxlength="20" readonly="readonly" disabled style="background-color: #e9e9e9;">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -38,7 +36,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="pwd">비밀번호</label></h3>
                     <span class="box int_pass">
-                        <input type="password" id="pwd" name="pwd" class="int" maxlength="20">
+                        <input type="password" id="pwd" name="pwd" class="int" maxlength="16" placeholder="비밀번호를 입력해주세요.">
                         <span id="alertTxt">사용불가</span>
                         <img src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
                     </span>
@@ -49,8 +47,8 @@
                 <!-- NAME -->
                 <div>
                     <h3 class="useredit_title"><label for="name">이름</label></h3>
-                    <span class="box int_name">
-                        <input type="text" id="name" class="int" name="name" value="${map['NAME']}" readonly="readonly">
+                    <span class="box int_name" style="background-color: #e9e9e9;">
+                        <input type="text" id="name" class="int" name="name" value="${map['NAME']}" readonly="readonly" disabled style="background-color: #e9e9e9;">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -83,7 +81,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="addressDetail">상세주소</label></h3>
                     <span class="box int_addressDetail"> 
-                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}" placeholder="상세주소 입력">
+                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}" placeholder="상세주소를 입력해주세요.">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -91,7 +89,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_entermethod">
-                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}" placeholder="공동현관 출입방법 입력">
+                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}" placeholder="공동현관 출입방법을 입력해주세요.">
                     </span>
                     <span class="error_next_box"></span>
                 </div>

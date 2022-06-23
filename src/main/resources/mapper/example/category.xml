@@ -6,7 +6,7 @@
         select * from CATEGORY_GROUP
     </select>
     <select id="selectAllCategory" resultType="categoryVo">
-    	select * from clothing_category where category_group=#{categoryGroup}
+    	select * from clothing_category
     </select>
     <select id="selectByNo" parameterType="int" resultType ="categoryVO">
     	select * from clothing_category where no =#{no}
