@@ -79,6 +79,9 @@ a {color: #000; text-decoration: none;}
   #myinfo_wrap{
 	@import "./partials/user/myinfo.scss";	
 	}
+  #editPwd_wrapper{
+	@import "./partials/user/editPwd.scss";	
+	}
   #join_wrap {
     @import "./partials/user/join.scss";
   }

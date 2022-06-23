@@ -99,8 +99,8 @@ public class MypageController {
 	public String edit_post(@ModelAttribute UserAllVO vo,
 			HttpSession session, Model model) {
 		int no=1000;
-//		String userid=(String)session.getAttribute("userid");
-		
+		//		String userid=(String)session.getAttribute("userid");
+
 		vo.setNo(no);
 		logger.info("회원정보 수정, UserAllVO={}", vo);
 
@@ -115,7 +115,6 @@ public class MypageController {
 		vo.setAddressDetail(addressDetail);
 
 
-		logger.info("회원정보 수정 - 비밀번호 확인 결과 ={}",vo.getNo(),vo.getPwd() );
 		String msg="비밀번호 체크 실패", url="/mypage/useredit";
 		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("회원정보 수정 - 비밀번호 확인 결과, result ={}", result);
@@ -139,6 +138,56 @@ public class MypageController {
 		model.addAttribute("url", url);
 
 		return "/common/message";
+
+	}
+
+	@GetMapping("/editPwd")
+	public String editPwd_get(HttpSession session,
+			Model model) {
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		logger.info("비밀번호 변경 화면, 파라미터 userid={}", no);
+
+		UserVO vo= userService.selectById(no);
+		logger.info("회원 정보 조회 결과, vo={}",vo);
+
+		model.addAttribute("vo",vo);
+
+		return "/mypage/editPwd";
+	}
+
+	@PostMapping("/editPwd")
+	public String editPwd_post(@ModelAttribute UserVO vo, @RequestParam String newPwd,
+			HttpSession session, Model model) {
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		vo.setNo(no);
+		logger.info("비밀번호 변경, vo={} ,파라미터 newPwd={}",vo,newPwd);
+
+		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
+		logger.info("비밀번호 변경 처리, 비밀번호 조회 결과 result={}", result);
+		
+		
+		vo.setPwd(newPwd);
+		logger.info("변경된 비밀번호, newPwd={}",newPwd);
+		String msg="비밀번호 체크 실패",url="/mypage/editPwd";
+		if(result == userService.LOGIN_OK) {
+			int cnt=userService.editPwd(vo);
+			if(cnt>0) {
+				msg="비밀번호가 변경되었습니다.";
+				url="/mypage/myinfo";
+			}else {
+				msg="비밀번호 변경 실패";				
+			}
+		}else if(result==userService.DISAGREE_PWD) {
+			msg="비밀번호가 일치하지 않습니다.";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+
 
 	}
 
@@ -169,7 +218,7 @@ public class MypageController {
 		int result=userService.checkLogin(no, pwd);
 		logger.info("회원 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
 
-		String msg="비밀번호 체크 실패",url="/launer/mypage/withdraw";
+		String msg="비밀번호 체크 실패",url="/mypage/withdraw";
 		if(result == userService.LOGIN_OK) {
 			int cnt=userService.deleteUser(no);
 			if(cnt>0) {
