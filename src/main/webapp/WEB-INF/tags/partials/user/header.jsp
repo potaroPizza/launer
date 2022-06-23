@@ -10,7 +10,7 @@
                         <a href="<c:url value="/"/>">소개</a>
                         <ul class="sub-nav">
                             <li><a href="#">사이트 소개</a></li>
-                            <li><a href="#">가격표</a></li>
+                            <li><a href="<c:url value="/user/pricelist"/>">가격표</a></li>
                             <li><a href="#">가이드</a></li>
                         </ul>
                     </li>
