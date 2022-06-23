@@ -22,9 +22,9 @@
 		<p>더욱 더 노력하고 발전하는 LAUNER가 되겠습니다.</p>
 		
 	</div>
-	<div class="signOut_main">
+	<div class="signOut_btn">
 		<button type="button" class="btn btn-dark" onclick="location.href='/launer/'">메인으로 돌아가기</button>
-		</div>
+	</div>
 	
 </div>
 </t:wrapper>

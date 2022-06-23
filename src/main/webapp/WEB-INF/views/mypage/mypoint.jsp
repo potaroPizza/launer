@@ -63,9 +63,5 @@
 				<li>회원 탈퇴시 보유하신 포인트 모두 소멸됩니다.</li>
 			</ul>
 		</div>
-		<div class="mypoint_back">
-			<button type="button" class="btn btn-dark"
-				onclick="location.href='/launer/mypage/mypage'">이전</button>
-		</div>
 	</div>
 </t:wrapper>
