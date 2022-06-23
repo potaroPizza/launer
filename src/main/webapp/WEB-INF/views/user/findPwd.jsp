@@ -1,10 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="../inc/top.jsp"%>
-<link rel="stylesheet" href="<c:url value="/css/user/findIdPwd.css"/>" />
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 
-<title>비밀번호 찾기</title>
-<body>
-<div id="findIdPwdWrap">
+<t:wrapper>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<link rel="stylesheet" href="<c:url value="/css/user/findIdPwd.css"/>"/>
+
+<div id="findIdPwd_wrap">
 	<div class="findIdPwdsubWrap">
 		<div class="titleArea">
 			<h2>비밀번호 찾기</h2>
@@ -42,6 +45,4 @@
 		</form>
 	</div>
 </div>
-
-</body>
-</html>
+</t:wrapper>

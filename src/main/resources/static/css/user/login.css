@@ -238,12 +238,6 @@ input, select, textarea {
 		width:100%; 
 		height:3px; 
 	}
-	.loginTabnav li a.active:before {
-		background:#7ea21e;
-	}
-	.loginTabnav li a.active {
-		border-bottom:1px solid #fff;
-	}
 	.loginTabnav li a { 
 		position:relative; 
 		display:block; 
@@ -253,10 +247,11 @@ input, select, textarea {
 		text-decoration:none; 
 		font-size:16px;
 	}
-	.loginTabnav li a:hover, .loginTabnav li a.active {
+	.loginTabnav li a:hover, .loginTabnav li a.on {
 		background:#fff; 
 		color:#466391; 
 	}
+	
 	.loginTabcontent {
 		padding: 20px;  
 		border-top:none;
@@ -276,10 +271,6 @@ input, select, textarea {
 		display: block;
 	}
 	
-	.loginTab .loginTabnav li a.on{
-		background:#fff;
-		color:#466391;
-	}
 	
 	
 	
