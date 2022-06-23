@@ -134,7 +134,7 @@ public class OrderController {
 	@PostMapping("/orderComplete")
 	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
 			Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest,
-			@RequestParam int usePoint,@RequestParam int savePoint) {
+			@RequestParam (defaultValue="0")int insertPoint,@RequestParam int savePoint, @RequestParam (defaultValue ="0", required = false)int paramPoint) {
 		logger.info("totalPrice={}",totalPrice);
 		logger.info("param={}",param);
 		int no = 1000; //추후 session 으로 변경
@@ -146,13 +146,13 @@ public class OrderController {
 		orderViewVo = orderService.selectUsersOrderView(no);
 		logger.info("vo={}",orderViewVo);
 		
-		int usersNo = orderViewVo.getUsersNo();
-		logger.info("usersNo={}",usersNo);
+		//int usersNo = orderViewVo.getUsersNo();
+		logger.info("usersNo={}",no);
 		int addressNo = orderViewVo.getAddressNo();
 		logger.info("addressNo={}",addressNo);
 		
 		OrderVO vo = new OrderVO();
-		vo.setUsersNo(usersNo);
+		vo.setUsersNo(no);
 		vo.setUsersAddressNo(addressNo);
 		vo.setTotalPrice(totalPrice);
 		vo.setOrderRequest(orderRequest);
@@ -164,7 +164,7 @@ public class OrderController {
 		
 		
 		//userNO 로 최신 orderNo 가져오기
-		int orderNO = orderService.selectRecentOrderNo(usersNo);
+		int orderNO = orderService.selectRecentOrderNo(no);
 		logger.info("orderNo ={}",orderNO);
 		
 		
@@ -199,33 +199,45 @@ public class OrderController {
 			logger.info("order_detail insert cnt ={}",cnt);
 		}
 		
-		
-		
-		
+
 		//pointList insert
-		logger.info("usePoint={}",usePoint);
+		insertPoint = insertPoint*-1;
+		logger.info("insertPoint={}",insertPoint);
 		logger.info("savePoint={}",savePoint);
 		
 		//사용
 		Map<String, Object> map = new HashMap<>();
-		map.put("userNo", usersNo);
+		map.put("usersNo", no);
 		map.put("orderNo",orderNO);
-		map.put("point", usePoint);
+		map.put("point", insertPoint);
 		
 		int cnt = 0;
-		//사용
 		cnt = orderService.insertPointList(map);
 		
 		//적립
 		Map<String, Object> map2 = new HashMap<>();
-		map2.put("userNo", usersNo);
+		map2.put("usersNo", no);
 		map2.put("orderNo",orderNO);
 		map2.put("point", savePoint);
 		cnt = orderService.insertPointList(map2);
 
 		
-		model.addAttribute("result", result);
+		
+		
+		//users테이블 point update
+		UserVO userVo = userService.selectById(no);	
+		int userPoint = userVo.getPoint();
+		logger.info("userPoint={}",userPoint);
+		int updatePoint= userPoint+savePoint+insertPoint;
+		logger.info("updatePoint={}",updatePoint);
+		int result2 = orderService.updateUserPoint(no, updatePoint);
+	
+		model.addAttribute("result", result2);
 		return "/laundryService/order/orderComplete";
+		
+		
+		
+		
 		
 		
 	}

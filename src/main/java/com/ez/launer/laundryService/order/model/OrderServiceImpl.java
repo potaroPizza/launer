@@ -63,6 +63,11 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.adminSelectTotalRecord(searchVo);
 	}
 
+	@Override
+	public int updateUserPoint(int usersNo, int point) {
+		return orderDAO.updateUserPoint(usersNo, point);
+	}
+
 	
 
 
