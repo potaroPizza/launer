@@ -28,6 +28,11 @@ public class UserController {
 	public void Agreement(){
 		logger.info("이용약관 화면");
 	}
+	
+	@GetMapping("/privacy")
+	public void Privacy(){
+		logger.info("개인정보방침 화면");
+	}
 
 
 }
