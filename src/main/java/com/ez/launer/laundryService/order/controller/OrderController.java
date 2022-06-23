@@ -221,9 +221,6 @@ public class OrderController {
 		map2.put("point", savePoint);
 		cnt = orderService.insertPointList(map2);
 
-		
-		
-		
 		//users테이블 point update
 		UserVO userVo = userService.selectById(no);	
 		
@@ -234,15 +231,13 @@ public class OrderController {
 		logger.info("updatePoint={}",updatePoint);
 		
 		int result2 = orderService.updateUserPoint(userVo);
-	
-		model.addAttribute("result", result2);
-		return "/laundryService/order/orderComplete";
+		int payPrice = totalPrice - insertPoint;
 		
-		
-		
-		
-		
-		
+		model.addAttribute("payPrice", payPrice);
+		model.addAttribute("orderNO", orderNO);
+		return "/laundryService/payment/orderPayment";
 	}
+	
+	
 	
 }
