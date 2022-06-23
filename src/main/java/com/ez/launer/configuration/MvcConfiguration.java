@@ -1,5 +1,6 @@
 package com.ez.launer.configuration;
 
+import com.ez.launer.controller.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -11,17 +12,16 @@ public class MvcConfiguration implements WebMvcConfigurer{
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-//		// 레지스트리에 인터셉터 등록
+		// 레지스트리에 인터셉터 등록
 //		registry.addInterceptor(new LoginInterceptor())
-//		.addPathPatterns("/shop/cart/*", "/shop/order/*", 
-//				"/member/memberEdit", "/member/memberOut");
-//		//=> 작성한 특성 url에만 LoginInterceptor를 적용하겠다는 뜻
-//		
-//		registry.addInterceptor(new AdminLoginInterceptor())
-//		.excludePathPatterns("/admin/login/adminLogin")	
-//		//=> 인터셉처 설정한 경로중에서, 제외할 경로 설정(예외처리)
-//		.addPathPatterns("/admin/**");	
-////=> 같은뜻! => .addPathPatterns("/admin/*/*", "/admin/*");	
+//				.addPathPatterns("/laundryService/**");
+		//=> 작성한 특성 url에만 LoginInterceptor를 적용하겠다는 뜻
+
+		/*registry.addInterceptor(new AdminLoginInterceptor())
+		.excludePathPatterns("/admin/login/adminLogin")
+		//=> 인터셉처 설정한 경로중에서, 제외할 경로 설정(예외처리)
+		.addPathPatterns("/admin/**");*/
+		//=> 같은뜻! => .addPathPatterns("/admin/*/*", "/admin/*");
 	}
 
 	@Bean

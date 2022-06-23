@@ -93,10 +93,10 @@ public class DeliveryController {
     }
 
 
-    @RequestMapping("/listP")
+    @RequestMapping("/list")
     @ResponseBody
     public Map<Object, Object> listP(@ModelAttribute OrderListSearchVO orderListSearchVO,
-                                          HttpSession session) {
+                                     HttpSession session) {
         logger.info("수거 요청 리스트");
 //        orderListSearchVO.setCurrentPage(2);
 
@@ -119,8 +119,8 @@ public class DeliveryController {
         orderListSearchVO.setFirstRecordIndex(paginationInfo.getFirstRecordIndex());
 
         orderListSearchVO.setOfficeNo(deliveryVO.getOfficeNo());    //리스트 조회할 지점번호
-        orderListSearchVO.setOrderStatusNo(1);     //수거 전 상태
-        orderListSearchVO.setListType("PICKUP_DRIVER");
+        /*orderListSearchVO.setOrderStatusNo(1);     //수거 전 상태
+        orderListSearchVO.setListType("PICKUP_DRIVER");*/
 
         logger.info("중간 테스트 orderListSearchVO={}", orderListSearchVO);
 
