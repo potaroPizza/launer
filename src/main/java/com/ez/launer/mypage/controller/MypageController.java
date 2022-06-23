@@ -115,7 +115,7 @@ public class MypageController {
 		vo.setAddressDetail(addressDetail);
 
 
-		String msg="비밀번호 체크 실패", url="/mypage/useredit";
+		String msg="비밀번호 확인 실패", url="/mypage/useredit";
 		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("회원정보 수정 - 비밀번호 확인 결과, result ={}", result);
 
@@ -170,14 +170,14 @@ public class MypageController {
 		
 		vo.setPwd(newPwd);
 		logger.info("변경된 비밀번호, newPwd={}",newPwd);
-		String msg="비밀번호 체크 실패",url="/mypage/editPwd";
+		String msg="비밀번호 확인 실패",url="/mypage/editPwd";
 		if(result == userService.LOGIN_OK) {
 			int cnt=userService.editPwd(vo);
 			if(cnt>0) {
 				msg="비밀번호가 변경되었습니다.";
 				url="/mypage/myinfo";
 			}else {
-				msg="비밀번호 변경 실패";				
+				msg="비밀번호 변경이 불가능합니다.";				
 			}
 		}else if(result==userService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";

@@ -48,7 +48,7 @@
 										<th>상품</th>
 										<th>가격</th>
 										<th>포인트</th>
-										<th>배송상태</th>
+										<th>주문상태</th>
 									</tr>
 								</thead>
 								<tbody>
