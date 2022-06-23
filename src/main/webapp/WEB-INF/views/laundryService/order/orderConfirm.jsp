@@ -4,12 +4,16 @@
 
 <!-- form:form -->
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<!-- import 라이브러리 -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	
 <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>"/>
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
 <link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderConfirm.css"/>" type="text/css"/>
 <script type="text/javascript">
+
 
 $(document).ready(function(){
 	$('#shortPoint').hide();
@@ -110,7 +114,8 @@ $(function(){
         </div>
         <hr>
         <div class="orderDivForm">
-            <form:form id ="frmOrder" modelAttribute="orderDetailVo" name="frmOrder" method="post" action ="/launer/laundryService/order/orderComplete">
+        <!-- onsubmit = "goPaymentAPI()" -->
+            <form:form id ="frmOrder"  modelAttribute="orderDetailVo" name="frmOrder" method="post" action ="/launer/laundryService/order/orderComplete">
                 <div class="orderConfirm-user">
                     <div class="user-date">
                         <label for="take-date">수거일 : </label>
