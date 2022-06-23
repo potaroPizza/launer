@@ -86,8 +86,8 @@
 		<if test="officeNo!=0">
 			and officeNo = #{officeNo}
 		</if>
-		<if test="orderStatus!=null and orderStatus!=''">
-			and orderStatus = #{orderStatus}
+		<if test="statusNo!=null and statusNo!=''">
+			and statusNo = #{statusNo}
 		</if>
 		<if test="userEmail!=null and userEmail!=''">
 			and userEmail like '%' || #{userEmail} || '%'

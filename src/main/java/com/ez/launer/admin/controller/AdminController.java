@@ -75,10 +75,10 @@ public class AdminController {
 		//페이징에 필요한 변수 셋팅
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
-		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		pagingInfo.setRecordCountPerPage(searchVo.getCountPerPage());
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		
-		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setRecordCountPerPage(searchVo.getCountPerPage());
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		
 		List<Map<String, Object>> list = orderService.adminSelectOrderList(searchVo);
