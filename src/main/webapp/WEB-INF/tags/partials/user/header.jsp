@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div id="fixed-wrap">
     <aside id="nav-bar" class="left clearfix">
@@ -46,18 +48,25 @@
                 </a>
             </h1>
             <div id="header-right">
-                <a href="#">
-                    <%--                        <i class="fa-solid fa-right-from-bracket"></i>--%>
+                <c:if test="${!empty userid}">
+                    <a href="#">
+                        <div class="line"></div>
+                        <span>LOG OUT</span>
+                        <div class="hover-text">로그아웃</div>
+                    </a>
+                    <a href="${pageContext.request.contextPath}/mypage/mypage">
+                        <div class="line"></div>
+                        <span>MY PAGE</span>
+                        <div class="hover-text">내 정보</div>
+                    </a>
+                </c:if>
+                <c:if test="${empty userid}">
+                <a href="<c:url value='/user/login'/>">
                     <div class="line"></div>
-                    <span>LOG OUT</span>
-                    <div class="hover-text">로그아웃</div>
+                    <span>LOGIN</span>
+                    <div class="hover-text">로그인</div>
                 </a>
-                <a href="${pageContext.request.contextPath}/mypage/mypage">
-                    <%--                        <i class="fa-solid fa-circle-user"></i>--%>
-                    <div class="line"></div>
-                    <span>MY PAGE</span>
-                    <div class="hover-text">내 정보</div>
-                </a>
+                </c:if>
             </div>
         </div>
     </header>

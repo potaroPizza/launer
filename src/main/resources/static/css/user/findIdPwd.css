@@ -15,24 +15,31 @@ input, select, textarea {
     vertical-align: middle;
 }
 
-#findIdPwdWrap{
+#findIdPwd_wrap{
 	width: 100%;
 	background: rgb(244, 244, 244);
 	display: flex;
 }
-
-	#findIdPwdWrap .findIdPwdsubWrap {
+	
+	#findIdPwd_wrap ul{
+		font-size:15px;
+	}
+	#findIdPwd_wrap li{
+		padding: 2px;
+	}
+	
+	#findIdPwd_wrap .findIdPwdsubWrap {
 		width: 800px;
 		margin: auto;
 		margin-top:70px;
 	}
 	
 	
-	#findIdPwdWrap .titleArea {
+	#findIdPwd_wrap .titleArea {
 		margin:0;
 		text-align: center;
 	}
-	#findIdPwdWrap .titleArea h2 {
+	#findIdPwd_wrap .titleArea h2 {
 	    text-align: center;
 	    font-size: 34px;
 	    color: #222;
@@ -41,7 +48,7 @@ input, select, textarea {
 	    line-height: 20px;
 	    cursor: pointer;
 	}
-	#findIdPwdWrap .findIdPwdsubWrap {
+	#findIdPwd_wrap .findIdPwdsubWrap {
 		padding: 49px 0 39px;
 		margin-left: auto;
     	margin-right: auto;

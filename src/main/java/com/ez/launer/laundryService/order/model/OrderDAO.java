@@ -2,6 +2,8 @@ package com.ez.launer.laundryService.order.model;
 
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
+import com.ez.launer.user.model.UserVO;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public interface OrderDAO {
     int selectRecentOrderNo(int userNo);
     int insertOrderDetails(OrderDetailVO orderDetailVo);
     int insertPointList(Map<String, Object>map);
+    int updateUserPoint(UserVO userVo);
 
     
     

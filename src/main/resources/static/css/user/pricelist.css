@@ -10,19 +10,18 @@ html, body {
     color: #666;
 }
 
-#pricelistWrap{
+#pricelist_wrap{
 	width: 100%;
 	background: rgb(244, 244, 244);
 	display: flex;
 }
 
-	#pricelistWrap .pricelistsubWrap {
+	#pricelist_wrap .pricelist_subwrap {
 		width: 1000px;
-		margin: auto;
-		margin-top:150px;
+		margin: 120px auto 80px auto;
 	}
 	
-	#pricelistsubWrap2{
+	#pricelist_subwrap2{
 		display: flex;
 		flex-wrap: wrap;
 	    flex: 1 1 auto;
@@ -48,12 +47,12 @@ html, body {
 		margin-bottom: 20px;
 	}
 	
-	#priceDetail{
+	#pricelist_subwrap2 .priceDetail{
 		max-width: 63%;
 		flex:0 0 100%;
 		padding: 12px;
 	}
-	#priceDetail h3{
+	#pricelist_subwrap2 .priceDetail h3{
 		font-size: 20px;
 		margin-bottom: 20px;
 	}
