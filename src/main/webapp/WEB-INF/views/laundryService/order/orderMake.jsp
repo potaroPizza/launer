@@ -17,14 +17,14 @@
     $(function () {
         $('#orderBtn').click(function () {
         	
-        	if(!$('#flexCheckDefault').is(':checked')){
+        /* 	if(!$('#flexCheckDefault').is(':checked')){
     			alert('약관에 동의해주세요.');
     			event.preventDefault();
     			$('#staticBackdrop').modal("show");
     			event.preventDefault();
     			return false;
     		}
-
+ */
     		
         	
             if ($("input[name=itemName]").length < 1) {
@@ -241,10 +241,7 @@
 
         </div>
         <div class="margin-top-fixed"></div>
-        <div class="orderInfo-request">
-            <div>세탁요청사항</div>
-            <input type="text" name="orderRequest" id="orderRequest">
-        </div>
+        
     </div>
     <hr>
     <div class="orderInfo-tac">

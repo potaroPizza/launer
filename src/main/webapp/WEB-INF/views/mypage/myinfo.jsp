@@ -49,6 +49,8 @@
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='/launer/mypage/mypage'">이전</button>
 			<button type="button" class="btn btn-dark"
+				onclick="location.href='/launer/mypage/editPwd'">비밀번호 변경</button>
+			<button type="button" class="btn btn-dark"
 				onclick="location.href='/launer/mypage/withdraw'">회원 탈퇴</button>
 		</div>
 	</div>

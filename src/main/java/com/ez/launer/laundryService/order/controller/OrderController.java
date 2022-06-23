@@ -1,13 +1,10 @@
 package com.ez.launer.laundryService.order.controller;
 
-import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -19,12 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.category.model.CategoryVO;
+import com.ez.launer.laundryService.order.model.OrderDetailVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.laundryService.order.model.OrderVO;
+import com.ez.launer.laundryService.order.model.OrderViewVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -105,22 +103,16 @@ public class OrderController {
 		for(String str : paramString) logger.info("분리 후 str={}", str);
 		
 		
-		int result = 0;
 		int paramPrice = 0;
 		for(int i=0;i<paramString.length;i++) {
 			Map<String, Object> map = new HashMap<>();
 			setParamString = paramString[i].split(",");
-			
+
 			map.put("categoryNo", setParamString[0]);
 			map.put("name", setParamString[1]);
 			map.put("price", setParamString[2]);
 			map.put("quan", setParamString[3]);
 			map.put("sum", setParamString[4]);
-			
-			/*
-			logger.info("분해 후 categoryNo={}, name={}, price={}, quan={}, sum={}", 
-					setParamString[0], setParamString[1], setParamString[2], setParamString[3], setParamString[4]);
-			*/
 			
 			//총 결제금액 int 로 실어보내기
 			paramPrice += Integer.parseInt( setParamString[4]);
@@ -129,46 +121,113 @@ public class OrderController {
 		}
 		
 		logger.info("최종금액 ={}",paramPrice);
-		/*
-		for(Map<String, Object> mmm : list) {
-			logger.info("맵 저장 후 categoryNo={}, name={}, price={}, quan={}, sum={}", 
-					(String) mmm.get("categoryNo"), (String) mmm.get("name"), 
-					(String) mmm.get("price"), (String) mmm.get("quan"), (String) mmm.get("sum"));
-		}
-		*/
-		
+
 		model.addAttribute("userVo", vo);
 		model.addAttribute("list", list);
 		model.addAttribute("paramPrice", paramPrice);
+		model.addAttribute("param", param);
 		return "/laundryService/order/orderConfirm";
 	}
 	
+	
+	
 	@PostMapping("/orderComplete")
-	public String orderConfirmed_post(@RequestParam int totalPrice, Model model) {
-		logger.info("결제전 set");
-		int no = 1000;
+	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
+			Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest,
+			@RequestParam int usePoint,@RequestParam int savePoint) {
+		logger.info("totalPrice={}",totalPrice);
+		logger.info("param={}",param);
+		int no = 1000; //추후 session 으로 변경
 		
-		Map<String, Object> map = orderService.selectUsersOrderView(no);
 		
-		Object objUsersNo = (int) map.get("usersNo");
-		logger.info("usersNo={}",objUsersNo);
-		int usersAddressNo = (int) map.get("addressNo");
+		//orders 테이블 insert
+		OrderViewVO orderViewVo = new OrderViewVO();
+		
+		orderViewVo = orderService.selectUsersOrderView(no);
+		logger.info("vo={}",orderViewVo);
+		
+		int usersNo = orderViewVo.getUsersNo();
+		logger.info("usersNo={}",usersNo);
+		int addressNo = orderViewVo.getAddressNo();
+		logger.info("addressNo={}",addressNo);
 		
 		OrderVO vo = new OrderVO();
-		//vo.setUsersNo(usersNo);
-		vo.setUsersAddressNo(usersAddressNo);
+		vo.setUsersNo(usersNo);
+		vo.setUsersAddressNo(addressNo);
 		vo.setTotalPrice(totalPrice);
+		vo.setOrderRequest(orderRequest);
+		
+		logger.info("vo={}",vo);
 		
 		int result = orderService.insertOrder(vo);
+		logger.info("orderInsert 결과 ={}",result);
+		
+		
+		//userNO 로 최신 orderNo 가져오기
+		int orderNO = orderService.selectRecentOrderNo(usersNo);
+		logger.info("orderNo ={}",orderNO);
+		
+		
+		String temp1[] = param.split("[=]");
+		String temp2[] =temp1[1].split("}");
+
+		
+		String paramString[] = temp2[0].split("[|]");
+		String setParamString[];
+		
+		OrderDetailVO orderDetailVo = new OrderDetailVO();
+		
+		
+		
+		//order_details insert
+		for(int i=0;i<paramString.length;i++) {
+			setParamString = paramString[i].split(",");
+			
+			int categoryNo = Integer.parseInt(setParamString[0]);
+			int price = Integer.parseInt(setParamString[2]);
+			int quan= Integer.parseInt(setParamString[3]);
+			int sum = Integer.parseInt(setParamString[4]);
+			logger.info("categoryNo={}",categoryNo,"price={}",price,"quan={}",quan,"sum={}",sum);
+			
+			
+			orderDetailVo.setOrderNo(orderNO);
+			orderDetailVo.setCategoryNo(categoryNo);
+			orderDetailVo.setQuan(quan);
+			orderDetailVo.setSum(sum);
+			
+			int cnt  = orderService.insertOrderDetails(orderDetailVo);
+			logger.info("order_detail insert cnt ={}",cnt);
+		}
+		
+		
+		
+		
+		//pointList insert
+		logger.info("usePoint={}",usePoint);
+		logger.info("savePoint={}",savePoint);
+		
+		//사용
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", usersNo);
+		map.put("orderNo",orderNO);
+		map.put("point", usePoint);
+		
+		int cnt = 0;
+		//사용
+		cnt = orderService.insertPointList(map);
+		
+		//적립
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("userNo", usersNo);
+		map2.put("orderNo",orderNO);
+		map2.put("point", savePoint);
+		cnt = orderService.insertPointList(map2);
+
 		
 		model.addAttribute("result", result);
 		return "/laundryService/order/orderComplete";
 		
+		
 	}
-	 
-	   
-	   
-	   
-	
 	
 }
