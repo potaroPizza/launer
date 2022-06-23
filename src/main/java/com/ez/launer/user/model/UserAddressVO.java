@@ -6,7 +6,7 @@ import lombok.Data;
 public class UserAddressVO{
 	private int no;
 	private int usersNo;
-	private int ofiiceNo;
+	private int officeNo;
 	private String address;
 	private String addressDetail;
 	private String zipcode;

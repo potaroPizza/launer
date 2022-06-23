@@ -8,10 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 
-<t:head>
-    <meta name="apple-mobile-web-app-title" content="TEST-TEST-TEst">
-    <%-- 부트스트랩 --%>
-</t:head>
 <t:wrapper>
     <%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -67,7 +63,7 @@
                 </section>
                 <section class="part-two clearfix main-width">
                     <div class="brn-box">
-                        <a href="#">
+                        <a href="/launer/user/join">
                             <h3 class="sub-title-font"><i class="fa-solid fa-users"></i> 일반회원</h3>
                             <span>
                                     지금 주문하면 24시간 이내 수거해요. 세탁 없는 삶, 바로 시작해보세요!
@@ -77,7 +73,7 @@
                         </a>
                     </div>
                     <div class="brn-box">
-                        <a href="#">
+                        <a href="/launer/delivery/join">
                             <h3 class="sub-title-font"><i class="fa-solid fa-box"></i> 배송기사</h3>
                             <span>
                                     우리들과 함께 나아갈 배송기사님을 모십니다.
@@ -142,7 +138,7 @@
                             <div class="text-box l">
                                 <h4 class="sub-title-font">합리적 가격</h4>
                                 <span>정해진 가격 외 추가요금을 요구하지 않습니다. 정찰제로 안심하고 맡기세요.</span>
-                                <a href="#">
+                                <a href="<c:url value="/user/pricelist"/>">
                                     <div class="hover-btn"></div>
                                     <p>가격표 보기</p>
                                 </a>

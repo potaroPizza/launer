@@ -12,16 +12,7 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		/*$('form[name=withdrawFrm]').submit(function(){
-			if($('#pwd').val().length<1){
-				alert('비밀번호를 입력해주세요');
-				return false;
-			}
-			if($('#chk:checked').length<1){
-				alert('탈퇴 유의사항을 확인하고 동의해 주세요.');
-				return false;
-			}
-		});*/
+		
 		$("#withdraw-btn").click(function() {
 			if($('#pwd').val().length<1){
 				alert('비밀번호를 입력해주세요');
@@ -49,7 +40,7 @@
 		<h2>회원 탈퇴</h2>
 		</div>
 	<div class="withdraw-explain">
-		<p><span style="font-size: 25px; color: black;">러너님</span> 탈퇴하시겠습니까?</p> 
+		<p><span style="font-size: 25px; color: black;">${vo.name}님</span> 탈퇴하시겠습니까?</p> 
 		<p>지금까지 저희 러너 서비스를 이용해주셔서 감사합니다.</p>
 		<p><span>탈퇴하기 전 아래 유의사항을 반드시 확인해주세요.</span></p>
 		<ul>
@@ -62,17 +53,17 @@
 				<li><p>회원정보, 배송정보 기록이 모두 삭제되며, <span>삭제된 데이터는 복구되지 않습니다.</span></p></li>
 		</ul>
 	</div>
-	<form name="withdrawFrm" method="post" action="<c:url value='/mypage/signout'/>">
+	<form name="withdrawFrm" method="post" action="<c:url value='/mypage/withdraw'/>">
 		<p>본인확인을 위해 비밀번호를 입력해 주세요.</p>
 		<div class="inputBx">
 		<div class="group-input">
            <!-- <label for="userid">아이디 *</label> -->
-           <input type="text" id="userid" class="inputText" name="userId" 
-           	value="러너님" size=30 readonly="readonly">
+           <input type="text" id="userid" class="inputText" name="no" 
+           	value="${vo.name}" size=30 readonly="readonly">
        </div>
        <div class="group-input">
            <!-- <label for="pwd">비밀번호 *</label> -->
-           <input type="password" id="pwd" class="inputText" name="userPassword" size=30;
+           <input type="password" id="pwd" class="inputText" name="pwd" size=30;
            placeholder="비밀번호 입력">
        </div>
        </div>

@@ -1,13 +1,10 @@
 package com.ez.launer.laundryService.order.controller;
 
-import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -19,10 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.category.model.CategoryVO;
+import com.ez.launer.laundryService.order.model.OrderService;
+import com.ez.launer.laundryService.order.model.OrderVO;
+import com.ez.launer.laundryService.order.model.OrderViewVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -40,6 +39,7 @@ public class OrderController {
 	
 	private final CategoryService categoryService;
 	private final UserService userService;
+	private final OrderService orderService;
 	
 	
 	
@@ -114,11 +114,6 @@ public class OrderController {
 			map.put("quan", setParamString[3]);
 			map.put("sum", setParamString[4]);
 			
-			/*
-			logger.info("분해 후 categoryNo={}, name={}, price={}, quan={}, sum={}", 
-					setParamString[0], setParamString[1], setParamString[2], setParamString[3], setParamString[4]);
-			*/
-			
 			//총 결제금액 int 로 실어보내기
 			paramPrice += Integer.parseInt( setParamString[4]);
 
@@ -126,20 +121,40 @@ public class OrderController {
 		}
 		
 		logger.info("최종금액 ={}",paramPrice);
-		/*
-		for(Map<String, Object> mmm : list) {
-			logger.info("맵 저장 후 categoryNo={}, name={}, price={}, quan={}, sum={}", 
-					(String) mmm.get("categoryNo"), (String) mmm.get("name"), 
-					(String) mmm.get("price"), (String) mmm.get("quan"), (String) mmm.get("sum"));
-		}
-		*/
-		
+
 		model.addAttribute("userVo", vo);
 		model.addAttribute("list", list);
 		model.addAttribute("paramPrice", paramPrice);
 		return "/laundryService/order/orderConfirm";
+	}
+	
+	@PostMapping("/orderComplete")
+	public String orderConfirmed_post(@RequestParam int totalPrice, Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest ) {
+		logger.info("totalPrice={}",totalPrice);
+		int no = 1000;
 		
+		OrderViewVO orderViewVo = new OrderViewVO();
 		
+		orderViewVo = orderService.selectUsersOrderView(no);
+		logger.info("vo={}",orderViewVo);
+		
+		int usersNo = orderViewVo.getUsersNo();
+		logger.info("usersNo={}",usersNo);
+		int addressNo = orderViewVo.getAddressNo();
+		logger.info("addressNo={}",addressNo);
+		
+		OrderVO vo = new OrderVO();
+		vo.setUsersNo(usersNo);
+		vo.setUsersAddressNo(addressNo);
+		vo.setTotalPrice(totalPrice);
+		vo.setOrderRequest(orderRequest);
+		
+		logger.info("vo={}",vo);
+		
+		int result = orderService.insertOrder(vo);
+		
+		model.addAttribute("result", result);
+		return "/laundryService/order/orderComplete";
 		
 	}
 	 
