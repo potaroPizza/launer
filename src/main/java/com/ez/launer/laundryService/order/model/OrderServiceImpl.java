@@ -63,10 +63,10 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.adminSelectTotalRecord(searchVo);
 	}
 
-	
-
-
-	
+	@Override
+	public AdminOrderDetailVO adminSelectOrderDetail(int orderNo) {
+		return orderDAO.adminSelectOrderDetail(orderNo);
+	}
 
 	//지효가 만든거 끝
 }
