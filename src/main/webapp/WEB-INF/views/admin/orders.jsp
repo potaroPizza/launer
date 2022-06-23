@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <t:head>
 </t:head>
@@ -55,6 +57,10 @@
 		
 		$('#selectCountPerPage').on("change", function(){
 			$('input[name=countPerPage]').val($(this).val());
+		});
+		
+		$('#selectCountPerPage').on("change", function(){
+			$('form[name=frmSearch]').submit();
 		});
 		
 		// 달력관련 시작		
@@ -284,8 +290,11 @@
 								<td>${map['USEREMAIL']}</td>
 								<td>${map['OFFICENAME']}</td>
 								<td>${map['ORDERSTATUS']}</td>
-								<td>${map['REGDATE']}</td>
-								<td><a href="#">상세보기</a></td>
+								<td>
+									<fmt:formatDate value="${map['REGDATE']}"
+										pattern="yyyy-MM-dd HH:mm"/> 
+								</td>
+								<td><a href="<c:url value="/admin/orderDetail?orderNo=${map['ORDERNO']}"/>">상세보기</a></td>
 							</tr>
 						</c:forEach>
 						<!-- 주문리스트 반복 끝 -->
@@ -356,32 +365,6 @@
 				</c:if>
 				</ul>
 			</nav>
-			<div class="divPage">
-				<!-- 페이지 번호 추가 -->
-				<c:if test="${pagingInfo.firstPage>1 }">
-					<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})"> <img
-						src='<c:url value="/images/first.JPG" />' border="0">
-					</a>
-				</c:if>
-
-				<!-- [1][2][3][4][5][6][7][8][9][10] -->
-				<c:forEach var="i" begin="${pagingInfo.firstPage }"
-					end="${pagingInfo.lastPage }">
-					<c:if test="${i==pagingInfo.currentPage }">
-						<span style="color: blue; font-weight: bold">${i }</span>
-					</c:if>
-					<c:if test="${i!=pagingInfo.currentPage }">
-						<a href="#" onclick="pageFunc(${i})"> [${i }] </a>
-					</c:if>
-				</c:forEach>
-
-				<c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
-					<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})"> <img
-						src="<c:url value="/images/last.JPG" />" border="0">
-					</a>
-				</c:if>
-				<!--  페이지 번호 끝 -->
-			</div>
 		</div>
 	</main>
 

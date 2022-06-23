@@ -50,6 +50,9 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.insertPointList(map);
 	}
 
+	public int updateUserPoint(UserVO userVo) {
+		return orderDAO.updateUserPoint(userVo);
+	}
 	
 	
 	
@@ -66,14 +69,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public int updateUserPoint(UserVO userVo) {
-		return orderDAO.updateUserPoint(userVo);
+	public AdminOrderDetailVO adminSelectOrderDetail(int orderNo) {
+		return orderDAO.adminSelectOrderDetail(orderNo);
 	}
-
-	
-
-
-	
-
 	//지효가 만든거 끝
 }
