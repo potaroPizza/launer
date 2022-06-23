@@ -27,9 +27,12 @@
 
             let map;
 
-            window.onload = function () {
-                curUpdate();
-                viewList(groupNo);
+
+            //map 생성
+            //map 생성
+            //map 생성
+            //map 생성
+            function createMap() {
                 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapOption = {
                         center: defaultPoint, // 지도의 중심좌표
@@ -39,17 +42,17 @@
                 map = new kakao.maps.Map(mapContainer, mapOption);
 
 
-                var polygonPath = [
+                const polygonPath = [
                     <c:set var = "c" value="0"/>
                     <c:forEach var="i" items="${polygon}">
-                        <c:set var = "c" value="${c + 1}"/>
-                        new kakao.maps.LatLng(${i[0]}, ${i[1]})
-                        <c:if test="${fn:length(polygon) != c}">,</c:if>
+                    <c:set var = "c" value="${c + 1}"/>
+                    new kakao.maps.LatLng(${i[0]}, ${i[1]})
+                    <c:if test="${fn:length(polygon) != c}">,</c:if>
                     </c:forEach>
                 ];
 
                 // 지도에 표시할 다각형을 생성합니다
-                var polygon = new kakao.maps.Polygon({
+                const polygon = new kakao.maps.Polygon({
                     path: polygonPath, // 그려질 다각형의 좌표 배열입니다
                     strokeWeight: 3, // 선의 두께입니다
                     strokeColor: '#39DE2A', // 선의 색깔입니다
@@ -64,12 +67,20 @@
                 polygon.setMap(map);
             }
 
+
+            window.onload = function () {
+                curUpdate();
+                viewList(groupNo);
+                createMap();
+                listEvent();
+            }
+
             //위치 초기화
             //위치 초기화
             //위치 초기화
             //위치 초기화
-            function panTo() {
-                map.panTo(defaultPoint);
+            function panTo(dP) {
+                map.panTo(dP);
             }
             //지도 관련
             //지도 관련
@@ -148,12 +159,11 @@
 
             //전부 초기화하는 함수
             function cleanList() {
+                positions = [];
+                createMap();
                 $("#orders-list").html("");
                 $("#paging-form input[name=currentPage]").val(1);
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: null
-                });
+                listEvent();
             }
 
 
@@ -195,7 +205,7 @@
                         console.log("lastPage = " + lastPage);
 
                         if(Array.isArray(res.listMap) && res.listMap.length === 0) {
-                            panTo();
+                            panTo(defaultPoint);
                             listElement += "<h1 style='text-align: center'>리스트가 없습니다.</h1>";
                         }else {
                             $.each(res.listMap, (idx, item) => {
@@ -230,15 +240,14 @@
                                 positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
                             });
                             console.log(positions);
+                            markerFor(positions);
+                            bounds = new kakao.maps.LatLngBounds();
+                            for (let i = 0; i < positions.length; i++) bounds.extend(positions[i]);
+                            panTo(bounds);
                         }
 
                         $("#orders-list").append(listElement);
 
-                        markerFor(positions);
-
-                        bounds = new kakao.maps.LatLngBounds();
-                        for (let i = 0; i < positions.length; i++) bounds.extend(positions[i]);
-                        setBounds();
                     },
                     error: (xhr, status, error) => {
                         alert("error : " + error);
@@ -246,7 +255,9 @@
                 });
             }
 
-            $(() => {
+
+            //탭, 리스트 관련 함수
+            function listEvent() {
                 //스크롤 끝일 때 이벤트 호출
                 //스크롤 끝일 때 이벤트 호출
                 //스크롤 끝일 때 이벤트 호출
@@ -260,8 +271,6 @@
                         }
                     }
                 });
-
-
 
                 //탭 클릭 시 리스트 전환
                 //탭 클릭 시 리스트 전환
@@ -286,18 +295,14 @@
                         viewList(emp);
                     }
                 });
-
-            });
-
-
-
+            }
 
 
         </script>
         <div class="zone-box">
             <h3><strong>${deliveryName}</strong> 기사님</h3>
             <p>
-                <button onclick="panTo()"><strong>${officeVO.officeName}</strong></button>
+                <button onclick="panTo(defaultPoint)"><strong>${officeVO.officeName}</strong></button>
                 <a href="#"><i class="fa-solid fa-gear"></i></a>
             </p>
         </div>
