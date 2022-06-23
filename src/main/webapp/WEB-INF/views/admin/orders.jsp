@@ -160,6 +160,8 @@
 						<!-- 검색테이블 처리 form 시작-->
 						<form name="frmSearch" method="post"
 						action="<c:url value='/admin/orders'/>">
+							<input type="hidden" class="countPerPage" name="countPerPage"
+								value="${orderSearchVO.countPerPage}">
 							조회기간 
 							<input type="button" value="오늘" id="btnToday">
 							<input type="button" value="1주일" id="btnWeek">
@@ -171,26 +173,62 @@
 								
 							&nbsp; 지점선택
 							<select name="officeNo">
-							  <option selected value="0">전체</option>
-							  <option value="1">영등포점</option>
-							  <option value="2">마포점</option>
-							  <option value="3">구로점</option>
+								<option value="0">전체</option>
+								<option value="1"
+									<c:if test="${orderSearchVO.officeNo==1}">
+	           							selected
+	           						</c:if>
+								>영등포점</option>
+								<option value="2"
+							  		<c:if test="${orderSearchVO.officeNo==2}">
+	           							selected
+	           						</c:if>
+								>마포점</option>
+								<option value="3"
+									<c:if test="${orderSearchVO.officeNo==3}">
+	           							selected
+	           						</c:if>
+								>구로점</option>
 							</select>
 		
 							&nbsp; 주문상태 선택
-							<select name="orderStatus">
-							  <option selected  value="">전체</option>
-							  <option value="1">수거전</option>
-							  <option value="2">수거완료</option>
-							  <option value="3">세탁중</option>
-							  <option value="4">배송대기</option>
-							  <option value="5">배송중</option>
-							  <option value="6">완료</option>
+							<select name="statusNo">
+								<option value="0">전체</option>
+								<option value="1"
+							  		<c:if test="${orderSearchVO.statusNo==1}">
+            							selected
+            						</c:if>
+								>수거전</option>
+								<option value="2"
+									<c:if test="${orderSearchVO.statusNo==2}">
+            							selected
+            						</c:if>
+								>수거완료</option>
+								<option value="3"
+									<c:if test="${orderSearchVO.statusNo==3}">
+            							selected
+            						</c:if>
+								>세탁중</option>
+								<option value="4"
+									<c:if test="${orderSearchVO.statusNo==4}">
+            							selected
+            						</c:if>
+								>배송대기</option>
+								<option value="5"
+									<c:if test="${orderSearchVO.statusNo==5}">
+            							selected
+            						</c:if>
+								>배송중</option>
+								<option value="6"
+									<c:if test="${orderSearchVO.statusNo==6}">
+            							selected
+            						</c:if>
+								>완료</option>
 							</select>
 							
 							&nbsp; 주문자
-							<input type="text" name="userEmail"
-								placeholder="이메일 입력">
+							<input type="text" name="userEmail" placeholder="이메일 입력"
+								value="${orderSearchVO.userEmail}">
 							
 							<input type="submit"
 							id="od_submit" value="조회">
@@ -226,13 +264,12 @@
 								<th>주문상태</th>
 								<th>날짜</th>
 								<th>상세보기</th>
-
 							</tr>
 						</thead>
 						<tbody>
 						<c:if test="${empty list}">
 							<tr class="align_center">
-								<td colspan="6">주문내역이 존재하지 않습니다.</td>
+								<td colspan="7">주문내역이 존재하지 않습니다.</td>
 							</tr>
 						</c:if>
 						<c:if test="${!empty list}">					
@@ -258,25 +295,65 @@
 					<input type="button" value="픽업대기 처리">
 					&nbsp; 
 					<select id="selectCountPerPage">
-					<option value="5">5개씩 보기</option>
-					  <option selected value="10">10개씩 보기</option>
-					  <option value="20">20개씩 보기</option>
+						<option value="5"
+							<c:if test="${orderSearchVO.countPerPage==5}">
+            					selected
+            				</c:if>
+						>5개씩 보기</option>
+						<option value="10"
+							<c:if test="${orderSearchVO.countPerPage==10}">
+            					selected
+            				</c:if>
+						>10개씩 보기</option>
+						<option value="20"
+							<c:if test="${orderSearchVO.countPerPage==20}">
+            					selected
+            				</c:if>
+						>20개씩 보기</option>
+						<option value="50"
+							<c:if test="${orderSearchVO.countPerPage==50}">
+            					selected
+            				</c:if>
+						>50개씩 보기</option>
 					</select>
 				</div>
 			</div>
 			<nav aria-label="...">
 				<ul class="pagination">
-				<li class="page-item disabled">
-					<span class="page-link">Previous</span>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item active" aria-current="page">
-					<span class="page-link">2</span>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-					<a class="page-link" href="#">Next</a>
-				</li>
+				<c:if test="${pagingInfo.firstPage>1 }">
+					<li class="page-item">Previous
+						<a class="page-link" href="#"
+							onclick="pageFunc(${pagingInfo.firstPage-1})"
+							>Previous
+						</a>
+					</li>
+				</c:if>
+				<!-- [1][2][3][4][5][6][7][8][9][10] -->
+				<c:forEach var="i" begin="${pagingInfo.firstPage }"
+					end="${pagingInfo.lastPage }">
+					<c:if test="${i==pagingInfo.currentPage }">
+						<li class="page-item disabled">
+							<span class="page-link" 
+								style="color: white; background: blue; font-weight: bold">
+								${i}
+							</span>
+						</li>
+					</c:if>
+					<c:if test="${i!=pagingInfo.currentPage }">
+						<li class="page-item">
+							<a class="page-link" href="#"
+								onclick="pageFunc(${i})">${i}</a>
+						</li>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+					<li class="page-item">
+						<a class="page-link" href="#"
+							onclick="pageFunc(${pagingInfo.lastPage+1})"
+							>Next
+						</a>
+					</li>
+				</c:if>
 				</ul>
 			</nav>
 			<div class="divPage">
