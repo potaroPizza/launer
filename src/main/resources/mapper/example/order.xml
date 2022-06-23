@@ -145,7 +145,7 @@
 			values (#{no}, #{usersNo},#{orderNo},#{point})
 	</insert>
 	
-	<update id="updateUserPoint" parameterType="int">
+	<update id="updateUserPoint" parameterType="userVo">
 		update users
 		set point = #{point}
 		where no= #{no}
