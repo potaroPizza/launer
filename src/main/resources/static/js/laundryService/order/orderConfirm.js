@@ -7,19 +7,14 @@
 		}else{
 			console.log("비동의");
 			$('#orderDisagree').show();
-			$('#orderAgree').hide();
-			
+			$('#orderAgree').hide();	
 		}
-		
 	});
 	
-
     $("#orderInfo-tac-agreeBtn").click(function(){
         $('#staticBackdrop').modal("hide");
 
     });
-
-
 });
 
 
