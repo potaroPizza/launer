@@ -2,6 +2,8 @@ package com.ez.launer.laundryService.order.model;
 
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
+import com.ez.launer.user.model.UserVO;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -64,8 +66,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public int updateUserPoint(int usersNo, int point) {
-		return orderDAO.updateUserPoint(usersNo, point);
+	public int updateUserPoint(UserVO userVo) {
+		return orderDAO.updateUserPoint(userVo);
 	}
 
 	

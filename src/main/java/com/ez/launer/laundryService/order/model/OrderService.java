@@ -2,6 +2,7 @@ package com.ez.launer.laundryService.order.model;
 
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
+import com.ez.launer.user.model.UserVO;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ public interface OrderService {
     int selectRecentOrderNo(int userNo);
     int insertOrderDetails(OrderDetailVO orderDetailVo);
     int insertPointList(Map<String, Object>map);
-    int updateUserPoint(int usersNo, int point);
+    int updateUserPoint(UserVO userVo);
     
     
     

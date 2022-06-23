@@ -226,11 +226,14 @@ public class OrderController {
 		
 		//users테이블 point update
 		UserVO userVo = userService.selectById(no);	
+		
 		int userPoint = userVo.getPoint();
 		logger.info("userPoint={}",userPoint);
 		int updatePoint= userPoint+savePoint+insertPoint;
+		userVo.setPoint(updatePoint);		
 		logger.info("updatePoint={}",updatePoint);
-		int result2 = orderService.updateUserPoint(no, updatePoint);
+		
+		int result2 = orderService.updateUserPoint(userVo);
 	
 		model.addAttribute("result", result2);
 		return "/laundryService/order/orderComplete";
