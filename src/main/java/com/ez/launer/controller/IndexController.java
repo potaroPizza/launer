@@ -15,7 +15,9 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
         logger.info("메인화면");
+        String userid = (String) session.getAttribute("userid");
 
+        model.addAttribute("userid", userid);
 //        session.setAttribute("name", "나는나");
 //        model.addAttribute("htmlTitle", "런드리고 index");
 

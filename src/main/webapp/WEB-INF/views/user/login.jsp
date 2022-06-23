@@ -5,7 +5,7 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-	<link rel="stylesheet" href="<c:url value="/css/user/login.css"/>" />
+	<link rel="stylesheet" href="<c:url value="/css/user/login.css"/>"/>
 	
 <script src="<c:url value="/js/login.js"/>" type="text/javascript" text="javascript"></script>
 <div id="login_wrap">
@@ -79,9 +79,9 @@
 							</div>
 							<button class="login_btn">러너 크루 로그인</button>
 							<div class="login_findmenu" style="display:block">
-								<a href="/launer/member/findMail">이메일 찾기</a>
-								<a href="/launer/member/findPwd">비밀번호 찾기</a>
-								<a href="/launer/member/join" class="right" 
+								<a href="/launer/user/findMail">이메일 찾기</a>
+								<a href="/launer/user/findPwd">비밀번호 찾기</a>
+								<a href="/launer/user/join" class="right" 
 									style="display:">러너 크루 가입하기</a>
 							</div>
 						</div>

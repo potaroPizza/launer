@@ -1,11 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="../inc/top.jsp"%>
-<link rel="stylesheet" href="<c:url value="/css/user/agreement.css"/>" />
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 
-<title>러너 개인정보취급 방침</title>
-<body>
-<div id="agreementWrap">
-	<div class="agreementsubWrap">
+<t:wrapper>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<link rel="stylesheet" href="<c:url value="/css/user/agreement.css"/>"/>
+
+<div id="agreement_wrap">
+	<div class="agreement_subWrap">
 		<div class="titleArea">
 			<h2>Privacy Policy</h2>
 		</div>
@@ -88,5 +91,4 @@
 		</div>
 	</div>
 </div>
-</body>
-</html>
+</t:wrapper>

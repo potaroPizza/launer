@@ -111,69 +111,11 @@
             function markerFor(positions) {      //이게 맞나?
                 // 지도 위에 마커를 표시합니다
                 for (let i = 0, len = positions.length; i < len; i++) {
-                    let gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
-                        originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
-                        overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
-                        normalOrigin = new kakao.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
-                        clickOrigin = new kakao.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
-                        overOrigin = new kakao.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
-
-                    // 마커를 생성하고 지도위에 표시합니다
-                    addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: positions[i]
+                    });
                 }
-            }
-
-
-            // 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
-            function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
-                // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
-                var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
-                    overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
-                    clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
-
-                // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: position
-                });
-
-                /*// 마커에 mouseover 이벤트를 등록합니다
-                kakao.maps.event.addListener(marker, 'mouseover', function() {
-
-                    // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
-                    // 마커의 이미지를 오버 이미지로 변경합니다
-                    if (!selectedMarker || selectedMarker !== marker) {
-                        marker.setImage(overImage);
-                    }
-                });*/
-
-                // 마커에 mouseout 이벤트를 등록합니다
-                kakao.maps.event.addListener(marker, 'mouseout', function() {
-
-                    // 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
-                    // 마커의 이미지를 기본 이미지로 변경합니다
-                    /*if (!selectedMarker || selectedMarker !== marker) {
-                        marker.setImage(normalImage);
-                    }*/
-                });
-
-                // 마커에 click 이벤트를 등록합니다
-                kakao.maps.event.addListener(marker, 'click', function() {
-                    // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
-                    // 마커의 이미지를 클릭 이미지로 변경합니다
-                    /*if (!selectedMarker || selectedMarker !== marker) {
-
-                        // 클릭된 마커 객체가 null이 아니면
-                        // 클릭된 마커의 이미지를 기본 이미지로 변경하고
-                        !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
-
-                        // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
-                        marker.setImage(clickImage);
-                    }*/
-
-                    // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-                    //selectedMarker = marker;
-                });
             }
 
 
@@ -193,9 +135,26 @@
 
                 return markerImage;
             }
+            let positions = []; // 마커의 위치
+            let bounds;
+
+            function setBounds() {
+                map.setBounds(bounds);
+            }
             //지도 마커 관련
             //지도 마커 관련
             //지도 마커 관련
+
+
+            //전부 초기화하는 함수
+            function cleanList() {
+                $("#orders-list").html("");
+                $("#paging-form input[name=currentPage]").val(1);
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: null
+                });
+            }
 
 
             let currentPage = 0;
@@ -212,59 +171,74 @@
             }
 
             function viewList(group) {
-                let uriType = group === 1 ? "/listP" : "/listD";
-                console.log("<c:url value='/delivery'/>" + uriType);
+                const formSet = $("#paging-form");
+                if(group === 1) {
+                    formSet.find("input[name=orderStatusNo]").val(1);
+                    formSet.find("input[name=listType]").val("PICKUP_DRIVER");
+                }else if(group === 2) {
+                    formSet.find("input[name=orderStatusNo]").val(4);
+                    formSet.find("input[name=listType]").val("DELIVERY_DRIVER");
+                }
 
-                let pagingData = $("#paging-form input[name=currentPage]").serialize();
+                let listData = formSet.serialize();
                 $.ajax({
-                    url: "<c:url value='/delivery'/>" + uriType,
+                    url: "<c:url value='/delivery/list'/>",
                     method: "POST",
-                    data: pagingData,
+                    data: listData,
                     dataType: "JSON",
                     success: (res) => {
                         let listElement = "";
-                        let positions = []; // 마커의 위치
 
                         dbCur = res.dbCur;
                         lastPage = res.lastPage;
                         console.log("dbCur = " + dbCur);
                         console.log("lastPage = " + lastPage);
-                        $.each(res.listMap, (idx, item) => {
-                            console.log(item);
-                            let titleStr = "";
-                            for(let i = 0; i < item.orderDetails.length; i++) {
-                                titleStr += item.orderDetails[i].CATEGORY_NAME;
-                                if(i !== item.orderDetails.length - 1) titleStr += ", ";
-                            }
-                            let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
 
-                            listElement +=
-                                "<div class='order-box'>" +
-                                "<h3>" + titleStr +"</h3>" +
-                                "<div class='order-text-box'>" +
-                                "<div class='left'>" +
-                                "<div class='order-text-list'>" +
-                                "<p>신청자 <strong>" + item.orderOfficeView.NAME + "</strong></p>" +
-                                "<p>수량 <strong>" + item.orderOfficeView.SUM + "</strong></p>" +
-                                "<p>수당 <strong>" + pay.toLocaleString('ko-KR') + " 원</strong></p>" +
-                                "</div>" +
-                                "<div class='order-text-list'>" +
-                                "<p>위치 <strong>" + item.orderOfficeView.ADDRESS +"</strong></p>" +
-                                "</div>" +
-                                "</div>" +
-                                "<div class='right'>" +
-                                "<button onclick='addList(" + item.orderOfficeView.NO + ")'>수거하기</button>" +
-                                "</div>" +
-                                "</div>" +
-                                "</div>";
+                        if(Array.isArray(res.listMap) && res.listMap.length === 0) {
+                            panTo();
+                            listElement += "<h1 style='text-align: center'>리스트가 없습니다.</h1>";
+                        }else {
+                            $.each(res.listMap, (idx, item) => {
+                                console.log(item);
+                                let titleStr = "";
+                                for(let i = 0; i < item.orderDetails.length; i++) {
+                                    titleStr += item.orderDetails[i].CATEGORY_NAME;
+                                    if(i !== item.orderDetails.length - 1) titleStr += ", ";
+                                }
+                                let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
 
-                            positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
-                        });
+                                listElement +=
+                                    "<div class='order-box'>" +
+                                    "<h3>" + titleStr +"</h3>" +
+                                    "<div class='order-text-box'>" +
+                                    "<div class='left'>" +
+                                    "<div class='order-text-list'>" +
+                                    "<p>신청자 <strong>" + item.orderOfficeView.NAME + "</strong></p>" +
+                                    "<p>수량 <strong>" + item.orderOfficeView.SUM + "</strong></p>" +
+                                    "<p>수당 <strong>" + pay.toLocaleString('ko-KR') + " 원</strong></p>" +
+                                    "</div>" +
+                                    "<div class='order-text-list'>" +
+                                    "<p>위치 <strong>" + item.orderOfficeView.ADDRESS +"</strong></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "<div class='right'>" +
+                                    "<button onclick='addList(" + item.orderOfficeView.NO + ")'>수거하기</button>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
 
-                        console.log(positions);
+                                positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
+                            });
+                            console.log(positions);
+                        }
+
                         $("#orders-list").append(listElement);
 
                         markerFor(positions);
+
+                        bounds = new kakao.maps.LatLngBounds();
+                        for (let i = 0; i < positions.length; i++) bounds.extend(positions[i]);
+                        setBounds();
                     },
                     error: (xhr, status, error) => {
                         alert("error : " + error);
@@ -272,25 +246,53 @@
                 });
             }
 
-            //스크롤 끝일 때 이벤트 호출
-            //스크롤 끝일 때 이벤트 호출
-            //스크롤 끝일 때 이벤트 호출
-            //스크롤 끝일 때 이벤트 호출
             $(() => {
+                //스크롤 끝일 때 이벤트 호출
+                //스크롤 끝일 때 이벤트 호출
+                //스크롤 끝일 때 이벤트 호출
+                //스크롤 끝일 때 이벤트 호출
                 $("#orders-list").scroll(() => {
                     let scrollBody = $("#orders-list");
                     if((scrollBody[0].scrollHeight - scrollBody.scrollTop()) === scrollBody.outerHeight()) {
                         if(currentPage !== lastPage && (dbCur + 1) !== currentPage) {
                             curUpdate();
+                            console.log("리스트 업데이트");
                         }
                     }
                 });
+
+
+
+                //탭 클릭 시 리스트 전환
+                //탭 클릭 시 리스트 전환
+                //탭 클릭 시 리스트 전환
+                //탭 클릭 시 리스트 전환
+                $("#order-tab-box div").click((e) => {
+                    let $tabElement = $(e.target);
+                    let $groupText = $tabElement.text();
+                    console.log($groupText);
+                    //수거 : 1, 배송 : 2
+
+                    if($tabElement.hasClass("on")) {
+                        $("#orders-list").animate({
+                            scrollTop: 0
+                        }, 200, "swing");
+                    }else {
+                        $("#order-tab-box div").removeClass("on");
+                        $tabElement.addClass("on");
+                        let emp = $groupText === '수거' ? 1 : '배송' ? 2 : 0;
+                        console.log("탭 타입 : " + emp);
+                        cleanList();
+                        viewList(emp);
+                    }
+                });
+
             });
 
 
-            function pagingList() {
 
-            }
+
+
         </script>
         <div class="zone-box">
             <h3><strong>${deliveryName}</strong> 기사님</h3>
@@ -302,6 +304,8 @@
         <div id="list-part" class="main-width">
             <form id="paging-form">
                 <input type="hidden" name="currentPage" value=""/>
+                <input type="hidden" name="orderStatusNo" value=""/>    <%--배송상태 : 수거전 1, 배송대기 4--%>
+                <input type="hidden" name="listType" value=""/>     <%--리스트 유형 : 픽업 PICKUP_DRIVER, 배송 DELIVERY_DRIVER--%>
             </form>
             <div id="list-box">
                 <div class="line"></div>
