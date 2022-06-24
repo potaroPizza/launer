@@ -23,6 +23,10 @@
     <script src="<c:url value="/js/jquery.animate-shadow-min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/main-fixed-wrap.js"/>"></script>
     <script src="https://kit.fontawesome.com/d4af3bb512.js" crossorigin="anonymous"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+
+    
     <title>Launer</title>
 </head>
 

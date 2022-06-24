@@ -133,13 +133,13 @@ public class OrderController {
 	
 	@PostMapping("/orderComplete")
 	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
-			Model model,@RequestParam (defaultValue = "없음", required = false)String orderRequest,
-			@RequestParam (defaultValue="0")int insertPoint,@RequestParam int savePoint, @RequestParam (defaultValue ="0", required = false)int paramPoint) {
+			Model model, @RequestParam (defaultValue = "없음", required = false)String orderRequest,
+			@RequestParam (defaultValue="0")int usePoint,@RequestParam int savePoint, 
+			@RequestParam (defaultValue ="0", required = false)int paramPoint) {
 		logger.info("totalPrice={}",totalPrice);
 		logger.info("param={}",param);
 		int no = 1000; //추후 session 으로 변경
-		
-		
+
 		//orders 테이블 insert
 		OrderViewVO orderViewVo = new OrderViewVO();
 		
@@ -162,23 +162,19 @@ public class OrderController {
 		int result = orderService.insertOrder(vo);
 		logger.info("orderInsert 결과 ={}",result);
 		
-		
 		//userNO 로 최신 orderNo 가져오기
 		int orderNO = orderService.selectRecentOrderNo(no);
 		logger.info("orderNo ={}",orderNO);
 		
-		
+		//orderDetail에 들어갈 String 상세상품목록 split
 		String temp1[] = param.split("[=]");
 		String temp2[] =temp1[1].split("}");
 
-		
 		String paramString[] = temp2[0].split("[|]");
 		String setParamString[];
 		
 		OrderDetailVO orderDetailVo = new OrderDetailVO();
-		
-		
-		
+
 		//order_details insert
 		for(int i=0;i<paramString.length;i++) {
 			setParamString = paramString[i].split(",");
@@ -198,51 +194,43 @@ public class OrderController {
 			int cnt  = orderService.insertOrderDetails(orderDetailVo);
 			logger.info("order_detail insert cnt ={}",cnt);
 		}
-		
 
-		//pointList insert
-		insertPoint = insertPoint*-1;
-		logger.info("insertPoint={}",insertPoint);
+		//point_list 관련
+		usePoint = usePoint*-1; //음수파라미터로 받으면 0으로 들어와서 컨트롤러에서 음수로 변경
+		logger.info("usePoint={}",usePoint);
 		logger.info("savePoint={}",savePoint);
 		
-		//사용
+		//포인트 사용
 		Map<String, Object> map = new HashMap<>();
 		map.put("usersNo", no);
 		map.put("orderNo",orderNO);
-		map.put("point", insertPoint);
+		map.put("point", usePoint);
 		
 		int cnt = 0;
 		cnt = orderService.insertPointList(map);
 		
-		//적립
+		//포인트 적립
 		Map<String, Object> map2 = new HashMap<>();
 		map2.put("usersNo", no);
 		map2.put("orderNo",orderNO);
 		map2.put("point", savePoint);
 		cnt = orderService.insertPointList(map2);
 
-		
-		
-		
 		//users테이블 point update
 		UserVO userVo = userService.selectById(no);	
 		
 		int userPoint = userVo.getPoint();
-		logger.info("userPoint={}",userPoint);
-		int updatePoint= userPoint+savePoint+insertPoint;
+		logger.info("결제 전 포인트={}",userPoint);
+		int updatePoint= userPoint+savePoint+usePoint;
 		userVo.setPoint(updatePoint);		
-		logger.info("updatePoint={}",updatePoint);
+		logger.info("결제 후 포인트={}",updatePoint);
 		
 		int result2 = orderService.updateUserPoint(userVo);
-	
-		model.addAttribute("result", result2);
-		return "/laundryService/order/orderComplete";
+		int payPrice = totalPrice + usePoint;
 		
-		
-		
-		
-		
-		
+		model.addAttribute("payPrice", payPrice); //결제할 금액
+		model.addAttribute("orderNO", orderNO); //fk 주문번호
+		model.addAttribute("havePoint", paramPoint);//결제취소대비한 결제 전 포인트
+		return "/laundryService/payment/orderPayment";
 	}
-	
 }

@@ -107,8 +107,8 @@ function scrollList() {
     var windowScrollTop = $(window).scrollTop();
     var windowHeight = $(window).height() / 4;
     var headerHeight = $("#header-wrap").height();
-    var sectionPartTwo = $("section.part-two").offset().top - windowHeight;
-    var sectionPartThree = $("section.part-three").offset().top - headerHeight - 2;
+    var sectionPartTwo = $("section.part-two").offset().top - headerHeight; //- windowHeight;
+    var sectionPartThree = $("section.part-three").offset().top - headerHeight; //- headerHeight - 2;
     var sectionPartFour = $("section.part-four").offset().top;
     /*console.log(sectionPartTwo);
     console.log(sectionPartThree);

@@ -4,12 +4,16 @@
 
 <!-- form:form -->
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<!-- import 라이브러리 -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	
 <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>"/>
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
 <link rel="stylesheet" href="<c:url value="/css/laundryService/order/orderConfirm.css"/>" type="text/css"/>
 <script type="text/javascript">
+
 
 $(document).ready(function(){
 	$('#shortPoint').hide();
@@ -24,19 +28,22 @@ $(function(){
 	$('#take-date').val(today);
 	
 	var insertPoint;
+	var totalPrice;
+	var usePoint;
 	
 	//포인트 사용 버튼 클릭시
 	$('#insertPointBtn').click(function(){
 		var havePoint = $('#havePoint').text();
-		insertPoint = $('#insertPoint').val();	
-		alert("입력포인트 : "+insertPoint);
+		var insertPoint = $('#insertPoint').val();
+		
+		alert("입력포인트 "+insertPoint+"p");
 
+		//유효성검사
 		if(isNaN(insertPoint)==true){
 			alert("포인트가 올바르지 않습니다. 사용버튼을 눌러주세요");
 			event.preventDefault();
 			return false;
 		}
-		
 		var cal = havePoint-insertPoint
 		
 		if(cal<0){
@@ -47,12 +54,15 @@ $(function(){
 		}else{
 			$('#shortPoint').hide();
 		}
+		
+		//검사가 끝나면 파라미터 usePoint set
+		usePoint = insertPoint;
 
 		var buyingPrice = $('#buyingPrice').val();
-		var totalPrice = buyingPrice-insertPoint;
+		totalPrice = buyingPrice-usePoint;
 		
 		$('#totalPrice').val(totalPrice);
-		$('#usePoint').val(insertPoint);
+		$('#usePoint').val(usePoint);
 	});
 	
 	
@@ -66,31 +76,36 @@ $(function(){
     			event.preventDefault();
     			return false;
     		} */
-    		console.log("테스트 usePoint="+usePoint);
     		
-			var havePoint = $('#havePoint').text();
-			var cal = havePoint-insertPoint
+    		var havePoint = $('#havePoint').text();
+    		
+    		/*
+    		//제출할때는 text 에 set 되어있는금액이아니라 고객이 '사용' 버튼을
+    		//누른 금액으로 비교
+			var cal = havePoint-usePoint
 			
 			if(cal<0){
 				alert("보유하신 포인트보다 많이 입력함");
 				event.preventDefault();
     			return false;
 			}
-			if(isNaN(insertPoint)==true){
+			if(isNaN(insertPoint)==true && insertPoint!=null){
 				alert("포인트가 올바르지 않습니다. 사용버튼을 눌러주세요");
 				event.preventDefault();
 				return false;
-			}
+			}*/
 			
+			if(usePoint ==null){
+				usePoint = 0;
+			}
+
 			var savePoint = $('#savePoint').val();
 			
 			$('#savePoint').val(savePoint);
-			$('#insertPoint').val(insertPoint);
 			
-			console.log("사용포인트 ="+insertPoint);
+			console.log("사용포인트 ="+usePoint);
 			console.log("적립포인트 ="+savePoint);
-			console.log("usePoint ="+$('#insertPoint').val());
-			
+
 
 
 	 });
@@ -110,7 +125,8 @@ $(function(){
         </div>
         <hr>
         <div class="orderDivForm">
-            <form:form id ="frmOrder" modelAttribute="orderDetailVo" name="frmOrder" method="post" action ="/launer/laundryService/order/orderComplete">
+        <!-- onsubmit = "goPaymentAPI()" -->
+            <form:form id ="frmOrder"  modelAttribute="orderDetailVo" name="frmOrder" method="post" action ="/launer/laundryService/order/orderComplete">
                 <div class="orderConfirm-user">
                     <div class="user-date">
                         <label for="take-date">수거일 : </label>
@@ -216,8 +232,8 @@ $(function(){
                         </div>
                         <div class="orderConfirm-finalInfo-div">
                             <label for="">포인트사용 : </label>
-                            <input type="text" name="insertPoint" id="insertPoint" value="0">
-                            <input type="hidden" name="usePoint" id="usePoint" value="0">
+                            <input type="text" name="insertPoint" id="insertPoint">
+                            <input type="hidden" name="usePoint" id="usePoint" >
 							<input type="button" value="사용" id="insertPointBtn">&nbsp;
 							
 							
@@ -292,8 +308,6 @@ $(function(){
                         <span id="orderDisagree">&nbsp;<i
                                 class="fas fa-solid fas fa-exclamation"></i>&nbsp;약관동의해주세요</span>
                     </div>
-
-
                 </div>
                 <hr>
                 <div class="orderInfo-goOrder">

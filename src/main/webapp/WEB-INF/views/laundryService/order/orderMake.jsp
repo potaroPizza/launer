@@ -1,19 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="../../inc/top.jsp" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>"/>
-<script src="<c:url value="/js/bootstrap.min.js"/>"
-        type="text/javascript" text="javascript"></script>
+<t:wrapper>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 
 <!-- select -->
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
-
     $(function () {
         $('#orderBtn').click(function () {
         	
@@ -179,21 +174,8 @@
             });
         });
     });
-
-
 </script>
-
-
-<script src="<c:url value="/js/laundryService/order/orderMake.js"/>"
-        type="text/javascript" text="javascript"></script>
-<link rel="stylesheet"
-      href="<c:url value="/css/laundryService/order/orderMake.css"/>"
-      type="text/css"/>
-
-
-
-
-
+<script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <div class="margin-top-fixed"></div>
 <div id="orderWrapper">
     <p>
@@ -317,5 +299,4 @@
 
 </div>
 <div class="margin-top-fixed"></div>
-</body>
-</html>
+</t:wrapper>
