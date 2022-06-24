@@ -195,10 +195,12 @@
         <div class="orderInfo-address">
             <div>
                 <div>수거/배송 주소</div>
-                <span id="orderInfo-address-edit"><a href="#">&nbsp;&nbsp;수정&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i></a></span>
+                <span id="orderInfo-address-edit"><a href="<c:url value="/mypage/useredit"/>">&nbsp;&nbsp;수정&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i></a></span>
+               
               	 <div class="orderInfo-address-myaddress">
-                    <span id = "orderAddress"> ${map['address'] }</span><br> 
-                    <span class="orderInfo-address-myaddress-enter"> 현관출입방법 :${['']} }</span>
+                    <span id = "orderAddress">${map['ADDRESS']} &nbsp; ${map['ADDRESS_DETAIL']}</span><br> 
+                    <div id = "orderAddressDetail" >
+                    <span class="orderInfo-address-myaddress-enter"> 현관출입방법 : ${map['ENTERMETHOD']}</span>
                         </div>
                 </div>
             </div>
