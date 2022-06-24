@@ -53,6 +53,10 @@ public class OrderServiceImpl implements OrderService{
 	public int updateUserPoint(UserVO userVo) {
 		return orderDAO.updateUserPoint(userVo);
 	}
+	@Override
+	public int updatePaymentDate(int orderNo) {
+		return orderDAO.updatePaymentDate(orderNo);
+	}
 	
 	
 	
@@ -72,5 +76,7 @@ public class OrderServiceImpl implements OrderService{
 	public AdminOrderDetailVO adminSelectOrderDetail(int orderNo) {
 		return orderDAO.adminSelectOrderDetail(orderNo);
 	}
+
+	
 	//지효가 만든거 끝
 }

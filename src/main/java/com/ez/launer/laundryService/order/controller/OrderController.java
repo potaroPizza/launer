@@ -134,8 +134,7 @@ public class OrderController {
 	@PostMapping("/orderComplete")
 	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
 			Model model, @RequestParam (defaultValue = "없음", required = false)String orderRequest,
-			@RequestParam (defaultValue="0")int usePoint,@RequestParam int savePoint, 
-			@RequestParam (defaultValue ="0", required = false)int paramPoint) {
+			@RequestParam (defaultValue="0")int usePoint,@RequestParam int savePoint) {
 		logger.info("totalPrice={}",totalPrice);
 		logger.info("param={}",param);
 		int no = 1000; //추후 session 으로 변경
@@ -219,18 +218,18 @@ public class OrderController {
 		//users테이블 point update
 		UserVO userVo = userService.selectById(no);	
 		
-		int userPoint = userVo.getPoint();
+		int userPoint = userVo.getPoint(); //변경 전 point 저장
 		logger.info("결제 전 포인트={}",userPoint);
 		int updatePoint= userPoint+savePoint+usePoint;
 		userVo.setPoint(updatePoint);		
 		logger.info("결제 후 포인트={}",updatePoint);
 		
 		int result2 = orderService.updateUserPoint(userVo);
-		int payPrice = totalPrice + usePoint;
+			
 		
-		model.addAttribute("payPrice", payPrice); //결제할 금액
+		model.addAttribute("payPrice", totalPrice); //결제할 금액
 		model.addAttribute("orderNO", orderNO); //fk 주문번호
-		model.addAttribute("havePoint", paramPoint);//결제취소대비한 결제 전 포인트
+		model.addAttribute("userPoint", userPoint);//결제취소대비한 결제 전 포인트
 		return "/laundryService/payment/orderPayment";
 	}
 }

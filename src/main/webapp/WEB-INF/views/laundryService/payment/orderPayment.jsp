@@ -52,17 +52,14 @@ $(function(){
 		            		data:{
 		            			"orderNo" : orderNo,
 		            			"payPrice" :payPrice
-		            			
 		            		},
-		            		
 		            	});
-
 		            } else {
 		                var msg = '결제에 실패하였습니다.';
 		                msg += '에러내용 : ' + rsp.error_msg;
 		            }
 		            alert(msg);
-		            document.location.href="/launer/laundryService/payment/orderPayment"; //alert창 확인 후 이동할 url 설정
+		            document.location.href="/launer/laundryService/order/orderMake"; //alert창 확인 후 이동할 url 설정
 	});
 });
 });
@@ -70,9 +67,11 @@ $(function(){
 	<div class="margin-fixed-margin"></div>
 	<div id="payment-wrap">
 		<div class="orderPaymentWrapper">
-			<input type="text" id="payPrice" class="div" value="${payPrice }"
-				   name="payPrice"> <input type="text" id="orderNo" class="div"
-										   value="${orderNO }" name="orderNo">
+		
+		<label for = "payPrice"></label>
+		<input type="text" id="payPrice" class="div" value="${payPrice }" name="payPrice"> 
+		<label for = "orderNo"></label>
+		<input type="text" id="orderNo" class="div" value="${orderNO }" name="orderNo">
 			<button class="btn" value="결제하기" id="paymentBtn">결제하기</button>
 		</div>
 	</div>

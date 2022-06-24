@@ -7,6 +7,7 @@
 
 <!-- select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+<script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
     $(function () {
