@@ -1,29 +1,20 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
-
-<t:wrapper>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<!-- form:form -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+ 
+<t:wrapper>
+<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 
 <!-- import 라이브러리 -->
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
 <script type="text/javascript">
-
-
-$(document).ready(function(){
-	$('#shortPoint').hide();
-})
-
-$(function(){
+$(function () {
 	//포인트계산
-	const today = new Date()
+/* 	const today = new Date();
 	today.setHours(today.getHours() + 12)
-	$('#take-date').val(today);
+	$('#take-date').val(today); */
 	
 	var insertPoint;
 	var totalPrice;
@@ -32,14 +23,15 @@ $(function(){
 	
 	//포인트 사용 버튼 클릭시
 	$('#insertPointBtn').click(function(){
+		
 		var havePoint = $('#havePoint').text();
 		var insertPoint = $('#insertPoint').val();
-		
-		
-		var cal = havePoint-insertPoint
+		console.log(insertPoint);
+		var cal = havePoint-insertPoint;
 		
 		if(cal<0){
 			$('#shortPoint').show();
+			alert("보유포인트보다 값이 큽니다");
 			event.preventDefault();
 			return false;
 			
@@ -47,9 +39,8 @@ $(function(){
 			$('#shortPoint').hide();
 		}
 
-		//유효성검사
-		if(isNaN(insertPoint)==true){
-			alert("포인트가 올바르지 않습니다.);
+		if(isNaN(insertPoint)==true || insertPoint == null ){
+			alert("포인트가 올바르지 않습니다.");
 			event.preventDefault();
 			return false;
 		}
@@ -77,20 +68,17 @@ $(function(){
     			return false;
     		} */
     		insertPoint = $('#insertPoint').val();
-    		alert(insertPoint);
+    		console.log("입력포인트="+insertPoint);
+    		console.log("클릭포인트="+usePoint);
     		
-    		event.preventDefault();
-			return false;
     		if(insertPoint!=null && usePoint!=insertPoint){
     			alert("포인트사용버튼을 눌러주세요");
     			event.preventDefault();
     			return false;
     			
     		}
-    		
-    		
+
     		var havePoint = $('#havePoint').text();
-    		
     		
     		//제출할때는 text 에 set 되어있는금액이아니라 고객이 '사용' 버튼을
     		//누른 금액으로 비교
@@ -102,7 +90,7 @@ $(function(){
     			return false;
 			}
 			if(isNaN(insertPoint)==true && insertPoint!=null){
-				alert("포인트가 올바르지 않습니다. 사용버튼을 눌러주세요");
+				alert("포인트가 올바르지 않습니다.");
 				event.preventDefault();
 				return false;
 			}
@@ -117,19 +105,14 @@ $(function(){
 			
 			console.log("사용포인트 ="+usePoint);
 			console.log("적립포인트 ="+savePoint);
-
-
-
 	 });
-	
-	
-	
 });
 	
 </script>
 
-<div class="margin-top-fixed"></div>
-<div class="orderConfirm-wrapper-wrapper">
+<div id ="confirmWrapforScss">
+
+<div id ="orderConfirm-wrap">
 	<div class="orderConfirm-wrapper">
 		<div class="orderConfirm-inform">
 			<p>주문확인하기</p>
@@ -331,7 +314,10 @@ $(function(){
 	</div>
 
 </div>
+</
 <div class="margin-top-fixed"></div>
+</div>
+
 
 </t:wrapper>
 

@@ -36,24 +36,26 @@ public class PaymentController {
 	//결제요청
 	@GetMapping("/requestPayment")
 	public String requestPayment_post(Model model, int orderNo,int payPrice, RedirectAttributes reAttr) {
-		logger.info("requestPayment");
+		logger.info("fk주문번호={}",orderNo);
+		logger.info("결제금액={}",payPrice);
 		
 		PaymentVO paymentVo = new PaymentVO();
-		paymentVo.setNo(orderNo);
+		paymentVo.setOrderNo(orderNo);
 		paymentVo.setPayPrice(payPrice);
 		
 		int result = paymentService.insertPaymentDetail(paymentVo);
 		
 		//orders 테이블 paymentDate null => sysdate
 		
+		int rs =0;
 		if(result>0) {
-			int rs = orderService.updatePaymentDate(orderNo);
+			rs = orderService.updatePaymentDate(orderNo);
 		}
 
 		logger.info("result={}",result);
 		
 		reAttr.addAttribute("paymentCode", paymentVo.getPaymentCode());
-		reAttr.addAttribute("paymentCode", paymentVo.getPaymentCode());
+		reAttr.addAttribute("paymentStatus", rs);
 		
 		return "/launer/laundryService/payment/orderPayment";
 	}

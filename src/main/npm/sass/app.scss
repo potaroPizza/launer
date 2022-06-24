@@ -51,12 +51,14 @@ a {color: #000; text-decoration: none;}
   .margin-fixed-margin{
     height: 80px;
   }
-
-#orderConfirm-wrapper-wrapper{
+  #confirmWrapforScss{
 	@import "./partials/user/orderConfirm.scss";
-}
+  }
+
   #orderWrapper{
     @import "./partials/user/orderMake.scss";
+    
+    
   }
 
   #main-wrap{
@@ -101,7 +103,10 @@ a {color: #000; text-decoration: none;}
       margin: 0 auto;
     }
   }
+
 }
+
+
 
 .delivery-section {
   @import "./partials/delivery/delivery-fixed.scss";
