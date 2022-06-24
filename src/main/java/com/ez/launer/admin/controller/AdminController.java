@@ -17,7 +17,9 @@ import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.common.PaginationInfo;
 import com.ez.launer.laundryService.order.model.AdminOrderDetailVO;
+import com.ez.launer.laundryService.order.model.AdminOrderListVO;
 import com.ez.launer.laundryService.order.model.OrderService;
+import com.ez.launer.laundryService.order.model.OrderVO;
 import com.ez.launer.notice.model.NoticeService;
 import com.ez.launer.notice.model.NoticeVO;
 
@@ -54,6 +56,7 @@ public class AdminController {
 		return "/admin/test";
 	}
 	
+	//주문관리 관련 핸들러
 	@RequestMapping("/orders")
 	public String orders(@ModelAttribute OrderSearchVO searchVo,
 			Model model) {
@@ -117,6 +120,50 @@ public class AdminController {
 		return "/admin/orderDetail";
 	}
 	
+	@RequestMapping("/ordersUpdateMulti")
+	public String ordersUpdateMulti(@ModelAttribute AdminOrderListVO vo,
+			Model model) {
+		logger.info("주문 다중 픽업대기 처리, 파라미터 AdminOrderListVO={}", vo);
+		
+		List<OrderVO> list = vo.getOrderItems();
+		
+		int cnt = orderService.adminOrderStatusUpdateMulti(list);
+		
+		String msg = "선택한 주문 처리를 실패했습니다.";
+		String url = "/admin/orders";
+		
+		if(cnt > 0) {
+			msg = "선택한 주문 처리를 성공했습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+	}
+	
+	@RequestMapping("/ordersUpdate")
+	public String ordersUpdate(@RequestParam(defaultValue = "0") int orderNo,
+			Model model) {
+		logger.info("주문 픽업대기 처리, 파라미터 orderNo={}", orderNo);
+		
+		int cnt = orderService.adminOrderStatusUpdate(orderNo);
+		
+		String msg = "주문 처리를 실패했습니다.";
+		String url = "/admin/orders";
+		
+		if(cnt > 0) {
+			msg = "주문 처리를 성공했습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+	}
+	
+	
+	//통계 관련 핸들러
 	@RequestMapping("/charts")
 	public String charts() {
 		logger.info("통계 페이지");
