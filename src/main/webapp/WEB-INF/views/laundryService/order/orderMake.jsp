@@ -6,7 +6,7 @@
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 
 <!-- select -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+<script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -86,6 +86,16 @@
 
             $("#totalPriceMake").attr("value", sum);
         });
+        
+        $(document).on('mouseover', '#xWrap', function () {
+        	$(this).css('background','#f3d2d2');
+
+        });
+        $(document).on('mouseout', '#xWrap', function () {
+        	$(this).css('background','');
+
+        });
+        
 
 
         $(document).on('mouseover', '.order-item-Div div[name=testForm] #delBtn', function () {
@@ -145,15 +155,15 @@
                     }
 
                     var tagAdd = "<div class ='testForm'><input type = 'hidden' name = 'no' class ='tagInputAdd' value=" + vo.no + ">"
-                        + "<input type ='text' name = 'itemName' class ='tagAddDiv' value=" + vo.categoryName + ">"
-                        + "<input type = 'text' name = 'itemPrice' class ='tagAddDiv' value=" + vo.price + ">"
+                        + "<input type ='text' name = 'itemName' class ='tagAddDiv' readonly value=" + vo.categoryName + ">"
+                        + "<input type = 'text' name = 'itemPrice' class ='tagAddDiv' readonly value=" + vo.price + ">"
                         + "<select class='mulit-select' name='order-num' id='order-num'>"
                         + "<c:forEach var ='cnt' begin ='1' end='10' step='1'>"
                         + "<option >${cnt}</option>"
                         + "</c:forEach>"
                         + "</select>"
-                        + "<input type ='text' name='priceByQty' class = 'priceByQty' value=" + vo.price + ">"
-                        + "<a href=# id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a>"
+                        + "<input type ='text' name='priceByQty' class = 'priceByQty' readonly style='border:none' value=" + vo.price + " >"
+                        + "<div id ='xWrap' style='display:inline-block'><a href=# id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a></div>"
                         + "</div>";
                     $(tagAdd).appendTo(".order-item-Div");
 
@@ -176,7 +186,7 @@
     });
 </script>
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
-<div class="margin-top-fixed"></div>
+<div class="margin-top-fixed" style ="height: 100px;"></div>
 <div id="orderWrapper">
     <p>
         <span>한서현 님</span> 수거요청
@@ -185,11 +195,11 @@
         <div class="orderInfo-address">
             <div>
                 <div>수거/배송 주소</div>
-                <span id="orderInfo-address-edit"><a href="#">수정 > </a></span>
-                <div class="orderInfo-address-myaddress">
-                    <span>서울특별시 마포구 대흥동 고산 1길 1-1 101호</span><br> <span
-                        class="orderInfo-address-myaddress-enter">현관출입방법 : </span><span
-                        class="orderInfo-address-myaddress-enter">없음</span>
+                <span id="orderInfo-address-edit"><a href="#">&nbsp;&nbsp;수정&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i></a></span>
+              	 <div class="orderInfo-address-myaddress">
+                    <span id = "orderAddress"> ${map['address'] }</span><br> 
+                    <span class="orderInfo-address-myaddress-enter"> 현관출입방법 :${['']} }</span>
+                        </div>
                 </div>
             </div>
             <div></div>
@@ -219,84 +229,23 @@
                 <div class="order-item-Div">
                 </div>
             </div>
-            총:<input type="text" name="totalPriceMake" id="totalPriceMake" value=""></input>원
+           <div id="totalPriceDiv"> 총 : <input type="text" name="totalPriceMake" id="totalPriceMake" value=""></input>원</div>
 
         </div>
         <div class="margin-top-fixed"></div>
         
     </div>
     <hr>
-    <div class="orderInfo-tac">
-        <!-- 약관동의버튼 -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop">이용약관
-        </button>
-
-        <!-- 약관동의 모달 -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-             data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">수거신청 약관</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit. Etiam metus justo, molestie quis
-                        tincidunt in, dignissim eu orci. Nullam malesuada nunc ut
-                        accumsan posuere. Susp endisse efficitur sapien nulla, non
-                        consequat tellus dapibus et. Sed porta rutrum elit, eget
-                        imperdiet orci sollicitudin at. Morbi at imperdiet velit. Duis
-                        tincidunt luctus dui, commodo vehicula ipsum cursus sit amet.
-                        Class aptent taciti sociosqu ad litora torquent per conubia
-                        nostra, per inceptos himenaeos. Morbi vestibulum fermentum lacus
-                        et pellentesque. In feugiat ligula mollis rhoncus lacinia.
-                        Vivamus pulvinar orci ac auctor tristique. In eget massa enim.
-                        Donec vitae orci in tellus bibendum tempus. Aenean vehicula enim
-                        quis metus aliquet, at consectetur quam sagittis. Aenean nulla
-                        dui, varius et nisi id, fringilla vestibulum purus.
-                    </div>
-                    <div class="modal-footer">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value=""
-                                   id="flexCheckDefault"> <label class="form-check-label"
-                                                                 for="flexCheckDefault"> 위 약관에 동의합니다 </label>
-                        </div>
-                        &nbsp;
-                        <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">취소
-                        </button>
-                        <button type="button" class="btn btn-primary"
-                                id="orderInfo-tac-agreeBtn">확인
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <span id="orderAgree">&nbsp;<i
-                class="fas fa-solid fas fa-check"></i>동의
-			</span> <br>
-        <div class="sp1"></div>
-        <span id="orderDisagree">&nbsp;<i
-                class="fas fa-solid fas fa-exclamation"></i>&nbsp;약관동의해주세요
-			</span>
-    </div>
+ 
 
     <div class="orderInfo-goOrder">
 
  	<form id= "frm" name="frm">
     	<input type ="hidden" value="" id="param" name="param">
-        <input type="submit" class="orderBtn" value="수거신청" id="orderBtn">
+       <div class = "submitBtnWrapDiv"><input type="submit" class="orderBtn" value="수거신청" id="orderBtn"></div> 
     </form>
     </div>
    
 </div>
-
-
-</div>
-<div class="margin-top-fixed"></div>
+<div class="margin-top-fixed" style ="height: 100px;"></div>
 </t:wrapper>

@@ -192,10 +192,11 @@
 		where no= #{no}
 	</update>
 	
-<!-- 	<update id="updatePaymentDate" parameterType ="timestamp">
-		
-	
-	</update> -->
+	<update id="updatePaymentDate" parameterType ="int">
+		update orders
+		set payment_date = sysdate
+		where no = #{no}
+	</update> 
 	
 	
 	
