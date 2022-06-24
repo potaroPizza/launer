@@ -16,6 +16,8 @@
 	<script type="text/javascript">
 $(function(){
 		$('#paymentBtn').click(function(){
+				var email = $('#email').val();
+				var name = $('#name').val();
 				var orderNo = $('#orderNo').val();
 				var payPrice = $('#payPrice').val();
 
@@ -31,11 +33,11 @@ $(function(){
 	                 paymentCode: 'p' + new Date().getTime(),
 	                 pay_method:"card",
 	                 merchant_uid: orderNo,
-	                 name: '빨래',
 	                 amount: amount,
-	                 buyer_email: '000312@daum.net',
-	                 buyer_name: '한서현',
-	                 buyer_tel: '010-1111-1111',
+	               //  name: '빨래',
+	                 buyer_email: email,
+	                 buyer_name: name,
+	                // buyer_tel: '010-1111-1111', 
 	            
 		        }, function (rsp) {
 		            console.log(rsp);
@@ -43,7 +45,7 @@ $(function(){
 		            	
 		            	
 		                var msg = '결제가 완료되었습니다.';
-		                msg += '고유ID : ' + rsp.imp_uid;
+		               // msg += '고유ID : ' + rsp.imp_uid;
 		                msg += '카드 승인번호 : ' + rsp.apply_num;
 		           
 		                $.ajax({
@@ -72,6 +74,9 @@ $(function(){
 		<input type="text" id="payPrice" class="div" value="${payPrice }" name="payPrice"> 
 		<label for = "orderNo"></label>
 		<input type="text" id="orderNo" class="div" value="${orderNO }" name="orderNo">
+		<input type="hidden" id="email" class="div" value="${email }" name="email">
+		<input type="hidden" id="name" class="div" value="${name }" name="name">
+		<input type="hidden" id="userPoint" class="div" value="${userPoint }" name="userPoint">
 			<button class="btn" value="결제하기" id="paymentBtn">결제하기</button>
 		</div>
 	</div>

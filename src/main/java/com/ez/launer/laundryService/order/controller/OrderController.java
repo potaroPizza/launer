@@ -226,7 +226,8 @@ public class OrderController {
 		
 		int result2 = orderService.updateUserPoint(userVo);
 			
-		
+		model.addAttribute("email",userVo.getEmail());
+		model.addAttribute("name",userVo.getName());
 		model.addAttribute("payPrice", totalPrice); //결제할 금액
 		model.addAttribute("orderNO", orderNO); //fk 주문번호
 		model.addAttribute("userPoint", userPoint);//결제취소대비한 결제 전 포인트

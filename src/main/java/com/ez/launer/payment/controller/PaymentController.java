@@ -35,7 +35,7 @@ public class PaymentController {
 	
 	//결제요청
 	@GetMapping("/requestPayment")
-	public String requestPayment_post(Model model, int orderNo,int payPrice, RedirectAttributes reAttr) {
+	public String requestPayment_post(Model model, int orderNo,int payPrice,int userPoint, RedirectAttributes reAttr) {
 		logger.info("fk주문번호={}",orderNo);
 		logger.info("결제금액={}",payPrice);
 		
@@ -50,9 +50,16 @@ public class PaymentController {
 		int rs =0;
 		if(result>0) {
 			rs = orderService.updatePaymentDate(orderNo);
+		}else if(result<=0) {
+			
+			//결제 실패 시 point 원상복구
+			UserVO userVo = userService.selectById(orderNo);
+			userVo.setPoint(userPoint);
+			rs = orderService.updateUserPoint(userVo);
 		}
 
-		logger.info("result={}",result);
+		logger.info("결제성공여부 result={}",result);
+		logger.info("결제일(date)update rs={}",rs);
 		
 		reAttr.addAttribute("paymentCode", paymentVo.getPaymentCode());
 		reAttr.addAttribute("paymentStatus", rs);
