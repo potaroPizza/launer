@@ -73,11 +73,13 @@ public class OrderController {
 		logger.info("수거요청화면");
 		int no = 1000; //(String) session.getAttribute("userid");
 		
+		UserVO userVo = userService.selectById(no);
+		
 		HashMap<String, Object> map = userService.selectByIdAddress(no);
 		logger.info("회원 정보 조회 결과, map={}",map);
 		
 		
-		
+		model.addAttribute("userVo",userVo);
 		model.addAttribute("map" ,map);
 		return "/laundryService/order/orderMake";
 		
