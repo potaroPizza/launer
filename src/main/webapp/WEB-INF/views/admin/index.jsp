@@ -26,8 +26,8 @@
 					var content = res.content.replace(/\n/g,"<br>")
 					var regdate = res.regdateStr
 					var htmls = "";
-					alert(title);
-					alert(content);
+					//alert(title);
+					//alert(content);
 				/*
 					var info = "제목 : " + res.title + "<br>"
 						+ "내용 : " + res.content + "<br>";

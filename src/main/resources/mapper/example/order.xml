@@ -78,6 +78,7 @@
     
     
 	<!-- 지효가 만든거 시작 -->
+	<!-- 주문관리 리스트 검색시 사용하는 조건절 -->
 	<sql id="adminOrderListWhere">
 		where REGDATE >= #{startDay}
 		<![CDATA[
@@ -94,6 +95,7 @@
 		</if>
 	</sql>
 	
+	<!-- 주문관리 리스트 검색 쿼리 -->
     <select id="adminSelectOrderList" parameterType="orderSearchVo" 
     	resultType="map">
     	select *
@@ -112,9 +114,41 @@
 		]]>
     </select>
     
+    <!-- 주문관리 리스트 검색에 필요한 총 레코드 수 조회 -->
     <select id="adminSelectTotalRecord" parameterType="orderSearchVo" resultType="int">
 		select count(*) from adminOrderListView
 		<include refid="adminOrderListWhere"></include>
+	</select>
+	
+	<!-- 주문관리 - 주문상세 조회하는 쿼리 -->
+	<select id="adminOrderListView2" parameterType="int" resultType="map">
+		select * from adminOrderListView2
+		where orderNo = #{orderNo}
+	</select>
+	
+	<resultMap type="AdminOrderDetailVO" id="adminOrderDetailResultMap">
+		<association property="adminOrderDetailVo" column="orderNo" javaType="map">
+			<id column="orderNo" jdbcType="BIGINT" property="orderNo"/>
+			<result column="userEmail" jdbcType="VARCHAR" property="userEmail"/>
+			<result column="officeName" jdbcType="VARCHAR" property="officeName"/>
+			<result column="status" jdbcType="VARCHAR" property="status"/>
+			<result column="regdate" jdbcType="TIMESTAMP" property="regdate"/>
+			<result column="address" jdbcType="VARCHAR" property="address	"/>
+			<result column="pickupDriver" jdbcType="VARCHAR" property="pickupDriver"/>
+			<result column="deliveryDriver" jdbcType="VARCHAR" property="deliveryDriver"/>
+			<result column="paymentNo" jdbcType="BIGINT" property="paymentNo"/>
+			<result column="paymentDate" jdbcType="TIMESTAMP" property="paymentDate"/>
+		</association>
+		
+		<collection property="adminOrderDetailList" column="orderNo"
+			javaType="ArrayList" ofType="map" select="adminOrderListView2">	
+		</collection>
+	</resultMap>
+	
+	<select id="adminSelectOrderDetail" parameterType="int" 
+		resultMap="adminOrderDetailResultMap">
+		select * from adminOrderDetailView
+		where orderNo = #{orderNo}
 	</select>
 	<!-- 지효가 만든거 끝 -->
 	
@@ -144,6 +178,13 @@
 			insert into point_list (no,users_no,order_no,point)
 			values (#{no}, #{usersNo},#{orderNo},#{point})
 	</insert>
+	
+	<update id="updateUserPoint" parameterType="userVo">
+		update users
+		set point = #{point}
+		where no= #{no}
+	</update>
+	
 	
 	
 	

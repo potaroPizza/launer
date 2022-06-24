@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.common.PaginationInfo;
+import com.ez.launer.laundryService.order.model.AdminOrderDetailVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.notice.model.NoticeService;
 import com.ez.launer.notice.model.NoticeVO;
@@ -96,8 +98,21 @@ public class AdminController {
 	
 
 	@RequestMapping("/orderDetail")
-	public String orderDetail() {
-		logger.info("주문상세 페이지");
+	public String orderDetail(@RequestParam(defaultValue = "0") int orderNo,
+			Model model) {
+		logger.info("주문상세 페이지, 파라미터 orderNo={}", orderNo);
+		
+		if(orderNo == 0) {
+			model.addAttribute("msg", "잘못된 url 접근입니다.");
+			model.addAttribute("url", "/admin/orders");
+	
+			return "/common/message";
+		}
+		
+		AdminOrderDetailVO vo = orderService.adminSelectOrderDetail(orderNo);
+		logger.info("주문상세 출력 결과, vo={}", vo);
+		
+		model.addAttribute("vo", vo);
 		
 		return "/admin/orderDetail";
 	}
