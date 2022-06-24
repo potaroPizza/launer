@@ -62,6 +62,7 @@ public class DeliveryController {
         model.addAttribute("deliveryName", deliveryVO.getName());
         model.addAttribute("officeVO", officeVO);
         model.addAttribute("polygon", polygon);
+        model.addAttribute("polygon", polygon);
 
         return "/delivery/index";
     }
@@ -97,18 +98,18 @@ public class DeliveryController {
     @ResponseBody
     public Map<Object, Object> listP(@ModelAttribute OrderListSearchVO orderListSearchVO,
                                      HttpSession session) {
-        logger.info("수거 요청 리스트");
+        logger.info("수거 요청 리스트, 파라미터 orderListSearchVO={}", orderListSearchVO);
 //        orderListSearchVO.setCurrentPage(2);
 
         int deliveryNo = (int) session.getAttribute("deliveryNo");
-        logger.info("배송기사 메인 페이지, orderListSearchVO={}, deliveryNo={}", orderListSearchVO, deliveryNo);
+//        logger.info("배송기사 메인 페이지, orderListSearchVO={}, deliveryNo={}", orderListSearchVO, deliveryNo);
 
         //deliveryNo로 배달기사 정보 전체 조회
         DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
-        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+//        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
 
-        OfficeVO officeVO = officeService.selectByNo(deliveryVO.getOfficeNo());
-        logger.info("지점정보 조회 officeVO={}", officeVO);
+//        OfficeVO officeVO = officeService.selectByNo(deliveryVO.getOfficeNo());
+//        logger.info("지점정보 조회 officeVO={}", officeVO);
 
         PaginationInfo paginationInfo = new PaginationInfo();
         paginationInfo.setBlockSize(ConstUtil.BLOCKSIZE);
@@ -122,7 +123,7 @@ public class DeliveryController {
         /*orderListSearchVO.setOrderStatusNo(1);     //수거 전 상태
         orderListSearchVO.setListType("PICKUP_DRIVER");*/
 
-        logger.info("중간 테스트 orderListSearchVO={}", orderListSearchVO);
+//        logger.info("중간 테스트 orderListSearchVO={}", orderListSearchVO);
 
         /* Map<String, Object> setMap = new HashMap<>();
         setMap.put("no", officeVO.getNo());
@@ -130,6 +131,7 @@ public class DeliveryController {
         setMap.put("listType", "PICKUP_DRIVER");*/
 
         List<OrderDeliveryAllVO> listMap = orderService.orderOfficeView(orderListSearchVO);
+        logger.info("검색 사이즈 listMap.size={}", listMap.size());
 
         int totalRecord = orderService.orderCount(orderListSearchVO);
         logger.info("총 리스트 개수 totalRecord={}", totalRecord);
@@ -137,8 +139,9 @@ public class DeliveryController {
 
         Map<Object, Object> resMap = new HashMap<>();
         resMap.put("listMap", listMap);
-        resMap.put("lastPage", paginationInfo.getLastPage());
+        resMap.put("totalPage", paginationInfo.getTotalPage());
         resMap.put("dbCur", orderListSearchVO.getCurrentPage());
+        resMap.put("totalRecord", totalRecord);
 
 
         logger.info("수거요청 리스트 조회 결과 listMap={}", listMap);

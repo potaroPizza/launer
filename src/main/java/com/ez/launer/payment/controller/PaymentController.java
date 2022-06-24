@@ -31,6 +31,7 @@ public class PaymentController {
 		logger.info("결제요청 창");
 	}
 	
+	//결제요청
 	@GetMapping("/requestPayment")
 	public String requestPayment_post(Model model, int orderNo,int payPrice, RedirectAttributes reAttr) {
 		logger.info("requestPayment");
@@ -40,13 +41,15 @@ public class PaymentController {
 		paymentVo.setPayPrice(payPrice);
 		
 		int result = paymentService.insertPaymentDetail(paymentVo);
+		
+		//orders 테이블 paymentDate null => sysdate
+		
+		
+		
 		logger.info("result={}",result);
 		
 		reAttr.addAttribute("paymentCode", paymentVo.getPaymentCode());
 		
 		return "/launer/laundryService/payment/orderPayment";
 	}
-	
-	
-	
 }

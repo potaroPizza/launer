@@ -27,9 +27,12 @@
 
             let map;
 
-            window.onload = function () {
-                curUpdate();
-                viewList(groupNo);
+
+            //map 생성
+            //map 생성
+            //map 생성
+            //map 생성
+            function createMap() {
                 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapOption = {
                         center: defaultPoint, // 지도의 중심좌표
@@ -39,17 +42,17 @@
                 map = new kakao.maps.Map(mapContainer, mapOption);
 
 
-                var polygonPath = [
+                const polygonPath = [
                     <c:set var = "c" value="0"/>
                     <c:forEach var="i" items="${polygon}">
-                        <c:set var = "c" value="${c + 1}"/>
-                        new kakao.maps.LatLng(${i[0]}, ${i[1]})
-                        <c:if test="${fn:length(polygon) != c}">,</c:if>
+                    <c:set var = "c" value="${c + 1}"/>
+                    new kakao.maps.LatLng(${i[0]}, ${i[1]})
+                    <c:if test="${fn:length(polygon) != c}">,</c:if>
                     </c:forEach>
                 ];
 
                 // 지도에 표시할 다각형을 생성합니다
-                var polygon = new kakao.maps.Polygon({
+                const polygon = new kakao.maps.Polygon({
                     path: polygonPath, // 그려질 다각형의 좌표 배열입니다
                     strokeWeight: 3, // 선의 두께입니다
                     strokeColor: '#39DE2A', // 선의 색깔입니다
@@ -64,12 +67,27 @@
                 polygon.setMap(map);
             }
 
+
+            window.onload = function () {
+                curUpdate();
+                createMap();
+                listEvent();
+                /*$("#orders-list").scroll((e) => {
+                    console.log("height : " + $(e.target).height());
+                    console.log($("#order-scroll-box input[value=10003]"));
+                    console.log("scrollTop() = " + $(e.target).scrollTop());
+                    console.log("offset() = " + ($("#order-scroll-box input[value=10004]").parent().parent().parent().position().top));
+                });*/
+
+                slideTog();
+            }
+
             //위치 초기화
             //위치 초기화
             //위치 초기화
             //위치 초기화
-            function panTo() {
-                map.panTo(defaultPoint);
+            function panTo(dP) {
+                map.panTo(dP);
             }
             //지도 관련
             //지도 관련
@@ -83,39 +101,56 @@
             //지도 마커 관련
             //지도 마커 관련
             //지도 마커 관련
-            const MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
-                MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
-                OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
-                OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
-                OVER_MARKER_WIDTH = 40, // 오버 마커의 너비
-                OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
-                OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
-                OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
-                SPRITE_MARKER_URL = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png', // 스프라이트 마커 이미지 URL
-                SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
-                SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
-                SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
+            const basicImageSrc = 'http://localhost:9095/launer/images/basic_marker.png'; // 마커이미지의 주소입니다
+            const clickImageSrc = 'http://localhost:9095/launer/images/click_marker.png';
+            const imageSize = new kakao.maps.Size(40, 40);     // 마커이미지의 크기입니다.
 
-            let markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
-                markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
-                overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
-                overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
-                spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
 
-            /*let positions = [  // 마커의 위치
-                    new kakao.maps.LatLng(37.5768086518, 126.989058671)
-                ],
-                selectedMarker = null; // 클릭한 마커를 담을 변수*/
-
+            const markerImage = new kakao.maps.MarkerImage(basicImageSrc, imageSize);
+            const clickImage = new kakao.maps.MarkerImage(clickImageSrc, imageSize);
 
             function markerFor(positions) {      //이게 맞나?
                 // 지도 위에 마커를 표시합니다
                 for (let i = 0, len = positions.length; i < len; i++) {
-                    var marker = new kakao.maps.Marker({
-                        map: map,
-                        position: positions[i]
-                    });
+                    addMarker(positions[i], i);
                 }
+            }
+
+            function addMarker(position, index) {
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: position,
+                    image: markerImage
+                });
+
+                // 마커에 click 이벤트를 등록합니다
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    if (!selectedMarker || selectedMarker !== marker) {
+                        // 클릭된 마커 객체가 null이 아니면
+                        // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+                        !!selectedMarker && selectedMarker.setImage(markerImage);
+                        // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+                        marker.setImage(clickImage);
+
+                        let orderData = positionDataNo[index].orderNo;
+
+
+                        //orderList에서 orderNo를 찾음
+                        let inputFind = $("#order-scroll-box input[value=" + orderData + "]").parent().parent().parent();
+                        // let paddT = (inputFind.innerHeight() - inputFind.height()) / 2;
+                        console.log(inputFind.position().top);
+
+                        $("#orders-list").animate({
+                            scrollTop: inputFind.position().top
+                        }, 300);
+                        console.log(inputFind);
+                        // $findList.css("background", "red");
+                    }
+
+                    panTo(position);
+                    // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+                    selectedMarker = marker;
+                });
             }
 
 
@@ -136,6 +171,8 @@
                 return markerImage;
             }
             let positions = []; // 마커의 위치
+            let positionDataNo = [];    //마커에 대한 orderNO (객체로 넣으면 고쳐야할 부분이 많아져 변수로 따로 지정)
+            let selectedMarker = null; // 클릭한 마커를 담을 변수
             let bounds;
 
             function setBounds() {
@@ -148,25 +185,25 @@
 
             //전부 초기화하는 함수
             function cleanList() {
-                $("#orders-list").html("");
+                positions = [];
+                createMap();
+                $("#order-scroll-box").html("");
                 $("#paging-form input[name=currentPage]").val(1);
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: null
-                });
+                listEvent();
             }
 
 
             let currentPage = 0;
             let dbCur = 0;
-            let lastPage = 0;   //마지막 페이지
+            let totalPage = 0;   //마지막 페이지
             let groupNo = 1;    //수거 : 1, 배송 : 2
+            let totalRecord = 0;
 
             //currentPage 변수와 input value 업데이트 해주는 함수
             function curUpdate() {
                 currentPage++;
                 $("#paging-form input[name=currentPage]").val(currentPage);
-                console.log(currentPage);
+                console.log("현재페이지 증감 : currentPage++ = " + currentPage);
                 viewList(groupNo);
             }
 
@@ -190,12 +227,17 @@
                         let listElement = "";
 
                         dbCur = res.dbCur;
-                        lastPage = res.lastPage;
+                        totalPage = res.totalPage;
+                        totalRecord = res.totalRecord;
+
                         console.log("dbCur = " + dbCur);
-                        console.log("lastPage = " + lastPage);
+                        console.log("totalPage = " + totalPage);
+                        console.log("totalRecord = " + totalRecord);
+
+                        $(".total-recode strong").text(totalRecord);
 
                         if(Array.isArray(res.listMap) && res.listMap.length === 0) {
-                            panTo();
+                            panTo(defaultPoint);
                             listElement += "<h1 style='text-align: center'>리스트가 없습니다.</h1>";
                         }else {
                             $.each(res.listMap, (idx, item) => {
@@ -208,7 +250,7 @@
                                 let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
 
                                 listElement +=
-                                    "<div class='order-box'>" +
+                                    "<div class='order-box' onclick='markerPositon(" + item.orderOfficeView.LON_X + ", " +  item.orderOfficeView.LAT_Y + ")'>" +
                                     "<h3>" + titleStr +"</h3>" +
                                     "<div class='order-text-box'>" +
                                     "<div class='left'>" +
@@ -223,22 +265,28 @@
                                     "</div>" +
                                     "<div class='right'>" +
                                     "<button onclick='addList(" + item.orderOfficeView.NO + ")'>수거하기</button>" +
+                                    "<input type='hidden' value='" + item.orderOfficeView.NO + "'/>" +
                                     "</div>" +
                                     "</div>" +
                                     "</div>";
 
+                                /*let testEle = [
+                                    new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y),
+                                    {orderNo : item.orderOfficeView.NO}
+                                ];*/
+                                // console.log(testEle);
                                 positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
+                                positionDataNo.push({orderNo : item.orderOfficeView.NO});
                             });
                             console.log(positions);
+                            markerFor(positions);
+                            bounds = new kakao.maps.LatLngBounds();
+                            for (let i = 0; i < positions.length; i++) bounds.extend(positions[i]);
+                            panTo(bounds);
                         }
 
-                        $("#orders-list").append(listElement);
+                        $("#order-scroll-box").append(listElement);
 
-                        markerFor(positions);
-
-                        bounds = new kakao.maps.LatLngBounds();
-                        for (let i = 0; i < positions.length; i++) bounds.extend(positions[i]);
-                        setBounds();
                     },
                     error: (xhr, status, error) => {
                         alert("error : " + error);
@@ -246,22 +294,23 @@
                 });
             }
 
-            $(() => {
+
+            //탭, 리스트 관련 함수
+            function listEvent() {
                 //스크롤 끝일 때 이벤트 호출
                 //스크롤 끝일 때 이벤트 호출
                 //스크롤 끝일 때 이벤트 호출
                 //스크롤 끝일 때 이벤트 호출
                 $("#orders-list").scroll(() => {
                     let scrollBody = $("#orders-list");
-                    if((scrollBody[0].scrollHeight - scrollBody.scrollTop()) === scrollBody.outerHeight()) {
-                        if(currentPage !== lastPage && (dbCur + 1) !== currentPage) {
+                    //console.log(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) +", " + scrollBody.outerHeight());
+                    if(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) <= scrollBody.outerHeight()) {
+                        if(currentPage <= totalPage) {
+                            console.log("리스트 업데이트, totalPage= "+ totalPage + ", currentPage=" + currentPage);
                             curUpdate();
-                            console.log("리스트 업데이트");
                         }
                     }
                 });
-
-
 
                 //탭 클릭 시 리스트 전환
                 //탭 클릭 시 리스트 전환
@@ -274,7 +323,7 @@
                     //수거 : 1, 배송 : 2
 
                     if($tabElement.hasClass("on")) {
-                        $("#orders-list").animate({
+                        $("#order-scroll-box").animate({
                             scrollTop: 0
                         }, 200, "swing");
                     }else {
@@ -286,20 +335,54 @@
                         viewList(emp);
                     }
                 });
+            }
 
-            });
+            function slideTog() {
+                const $listPart = $("#list-part");
+                const $mapPart = $("#map");
+
+                $("#list-box").click(() => {
+                    if($listPart.hasClass("active")) {
+                        $listPart.removeClass("active");
+                        $listPart.addClass("non-active");
+                        resizeMap("non-active");
+                    }else{
+                        $listPart.removeClass("non-active");
+                        $listPart.addClass("active");
+                        resizeMap("active");
+                    }
+                });
+            }
+
+            function resizeMap(chk) {
+                var mapContainer = document.getElementById('map');
+
+                if(chk === "active") {
+                    mapContainer.style.height = '60%';
+                }else {
+                    mapContainer.style.height = '90%';
+                }
+                setTimeout(() => {
+                    map.relayout();
+                }, 600);
+            }
 
 
-
-
-
+            //리스트 클릭 시 해당 리스트의 마커로 모션이동
+            function markerPositon(LAT_Y, LON_X) {
+                let thisPoint = new kakao.maps.LatLng(LAT_Y, LON_X);
+                panTo(thisPoint);
+            }
         </script>
         <div class="zone-box">
             <h3><strong>${deliveryName}</strong> 기사님</h3>
             <p>
-                <button onclick="panTo()"><strong>${officeVO.officeName}</strong></button>
+                <button onclick="panTo(defaultPoint)"><strong>${officeVO.officeName}</strong></button>
                 <a href="#"><i class="fa-solid fa-gear"></i></a>
             </p>
+        </div>
+        <div class="total-recode">
+            전체 <strong></strong> 건
         </div>
         <div id="list-part" class="main-width">
             <form id="paging-form">
@@ -315,6 +398,7 @@
                 <div class="delivery-tab">배송</div>
             </div>
             <div id="orders-list">
+                <div id="order-scroll-box">
                 <%--<div class="order-box">
                     <h3>상품명</h3>
                     <div class="order-text-box">
@@ -332,7 +416,7 @@
                         </div>
                     </div>
                 </div>--%>
-
+                </div>
             </div>
         </div>
     </div>
