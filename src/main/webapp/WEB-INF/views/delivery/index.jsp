@@ -70,9 +70,14 @@
 
             window.onload = function () {
                 curUpdate();
-                viewList(groupNo);
                 createMap();
                 listEvent();
+                /*$("#orders-list").scroll((e) => {
+                    console.log("height : " + $(e.target).height());
+                    console.log($("#order-scroll-box input[value=10003]"));
+                    console.log("scrollTop() = " + $(e.target).scrollTop());
+                    console.log("offset() = " + ($("#order-scroll-box input[value=10004]").parent().parent().parent().position().top));
+                });*/
             }
 
             //위치 초기화
@@ -94,39 +99,57 @@
             //지도 마커 관련
             //지도 마커 관련
             //지도 마커 관련
-            const MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
-                MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
-                OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
-                OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
-                OVER_MARKER_WIDTH = 40, // 오버 마커의 너비
-                OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
-                OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
-                OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
-                SPRITE_MARKER_URL = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png', // 스프라이트 마커 이미지 URL
-                SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
-                SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
-                SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
+            const basicImageSrc = 'http://localhost:9095/launer/images/basic_marker.png'; // 마커이미지의 주소입니다
+            const clickImageSrc = 'http://localhost:9095/launer/images/click_marker.png';
+            const imageSize = new kakao.maps.Size(40, 40);     // 마커이미지의 크기입니다.
 
-            let markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
-                markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
-                overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
-                overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
-                spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
 
-            /*let positions = [  // 마커의 위치
-                    new kakao.maps.LatLng(37.5768086518, 126.989058671)
-                ],
-                selectedMarker = null; // 클릭한 마커를 담을 변수*/
-
+            const markerImage = new kakao.maps.MarkerImage(basicImageSrc, imageSize);
+            const clickImage = new kakao.maps.MarkerImage(clickImageSrc, imageSize);
 
             function markerFor(positions) {      //이게 맞나?
                 // 지도 위에 마커를 표시합니다
                 for (let i = 0, len = positions.length; i < len; i++) {
-                    var marker = new kakao.maps.Marker({
-                        map: map,
-                        position: positions[i]
-                    });
+                    addMarker(positions[i], i);
                 }
+            }
+
+            function addMarker(position, index) {
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: position,
+                    image: markerImage
+                });
+
+                // 마커에 click 이벤트를 등록합니다
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    if (!selectedMarker || selectedMarker !== marker) {
+                        // 클릭된 마커 객체가 null이 아니면
+                        // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+                        !!selectedMarker && selectedMarker.setImage(markerImage);
+                        // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+                        marker.setImage(clickImage);
+
+                        let orderData = positionDataNo[index].orderNo;
+
+                        //orderList에서 orderNo를 찾음
+                        let inputFind = $("#order-scroll-box input[value=" + orderData + "]").parent().parent().parent();
+                        let paddT = (inputFind.innerHeight() - inputFind.height()) / 2;
+                        console.log(inputFind.position().top);
+
+                        $("#orders-list").animate({
+                            scrollTop: inputFind.position().top
+                        }, 300);
+
+                        const $findList = $(inputFind);
+                        console.log($findList);
+                        // $findList.css("background", "red");
+                    }
+
+                    panTo(position);
+                    // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+                    selectedMarker = marker;
+                });
             }
 
 
@@ -147,6 +170,8 @@
                 return markerImage;
             }
             let positions = []; // 마커의 위치
+            let positionDataNo = [];    //마커에 대한 orderNO (객체로 넣으면 고쳐야할 부분이 많아져 변수로 따로 지정)
+            let selectedMarker = null; // 클릭한 마커를 담을 변수
             let bounds;
 
             function setBounds() {
@@ -161,7 +186,7 @@
             function cleanList() {
                 positions = [];
                 createMap();
-                $("#orders-list").html("");
+                $("#order-scroll-box").html("");
                 $("#paging-form input[name=currentPage]").val(1);
                 listEvent();
             }
@@ -171,6 +196,7 @@
             let dbCur = 0;
             let lastPage = 0;   //마지막 페이지
             let groupNo = 1;    //수거 : 1, 배송 : 2
+            let totalRecord = 0;
 
             //currentPage 변수와 input value 업데이트 해주는 함수
             function curUpdate() {
@@ -201,8 +227,13 @@
 
                         dbCur = res.dbCur;
                         lastPage = res.lastPage;
+                        totalRecord = res.totalRecord;
+
                         console.log("dbCur = " + dbCur);
                         console.log("lastPage = " + lastPage);
+                        console.log("totalRecord = " + totalRecord);
+
+                        $(".total-recode strong").text(totalRecord);
 
                         if(Array.isArray(res.listMap) && res.listMap.length === 0) {
                             panTo(defaultPoint);
@@ -218,7 +249,7 @@
                                 let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
 
                                 listElement +=
-                                    "<div class='order-box'>" +
+                                    "<div class='order-box' onclick='markerPositon(" + item.orderOfficeView.LON_X + ", " +  item.orderOfficeView.LAT_Y + ")'>" +
                                     "<h3>" + titleStr +"</h3>" +
                                     "<div class='order-text-box'>" +
                                     "<div class='left'>" +
@@ -233,11 +264,18 @@
                                     "</div>" +
                                     "<div class='right'>" +
                                     "<button onclick='addList(" + item.orderOfficeView.NO + ")'>수거하기</button>" +
+                                    "<input type='hidden' value='" + item.orderOfficeView.NO + "'/>" +
                                     "</div>" +
                                     "</div>" +
                                     "</div>";
 
+                                /*let testEle = [
+                                    new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y),
+                                    {orderNo : item.orderOfficeView.NO}
+                                ];*/
+                                // console.log(testEle);
                                 positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
+                                positionDataNo.push({orderNo : item.orderOfficeView.NO});
                             });
                             console.log(positions);
                             markerFor(positions);
@@ -246,7 +284,7 @@
                             panTo(bounds);
                         }
 
-                        $("#orders-list").append(listElement);
+                        $("#order-scroll-box").append(listElement);
 
                     },
                     error: (xhr, status, error) => {
@@ -283,7 +321,7 @@
                     //수거 : 1, 배송 : 2
 
                     if($tabElement.hasClass("on")) {
-                        $("#orders-list").animate({
+                        $("#order-scroll-box").animate({
                             scrollTop: 0
                         }, 200, "swing");
                     }else {
@@ -298,6 +336,11 @@
             }
 
 
+            //리스트 클릭 시 해당 리스트의 마커로 모션이동
+            function markerPositon(LAT_Y, LON_X) {
+                let thisPoint = new kakao.maps.LatLng(LAT_Y, LON_X);
+                panTo(thisPoint);
+            }
         </script>
         <div class="zone-box">
             <h3><strong>${deliveryName}</strong> 기사님</h3>
@@ -305,6 +348,9 @@
                 <button onclick="panTo(defaultPoint)"><strong>${officeVO.officeName}</strong></button>
                 <a href="#"><i class="fa-solid fa-gear"></i></a>
             </p>
+        </div>
+        <div class="total-recode">
+            전체 <strong></strong> 건
         </div>
         <div id="list-part" class="main-width">
             <form id="paging-form">
@@ -320,6 +366,7 @@
                 <div class="delivery-tab">배송</div>
             </div>
             <div id="orders-list">
+                <div id="order-scroll-box">
                 <%--<div class="order-box">
                     <h3>상품명</h3>
                     <div class="order-text-box">
@@ -337,7 +384,7 @@
                         </div>
                     </div>
                 </div>--%>
-
+                </div>
             </div>
         </div>
     </div>
