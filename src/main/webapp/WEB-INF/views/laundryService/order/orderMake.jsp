@@ -179,7 +179,7 @@
                     $("#totalPriceMake").attr("value", sum);
                 },
                 error: function () {
-                    alert("err");
+                    alert("상품을 선택하세요");
                 }
             });
         });
@@ -188,8 +188,8 @@
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <div class="margin-top-fixed" style ="height: 100px;"></div>
 <div id="orderWrapper">
-    <p>
-        <span>한서현 님</span> 수거요청
+    <p id ="nim_p">
+        <span id ="nim">${userVo.name}  님</span> 수거요청
     </p>
     <div class="orderInfo">
         <div class="orderInfo-address">
@@ -222,10 +222,14 @@
             <c:import url="/laundryService/order/orderMakeSelect">
                 <c:param name="categoryGroup" value="1"></c:param>
             </c:import>
-            <%-- 	<p>개별클리닝</p>
-            <c:import url ="/laundryService/order/orderMakeSelect">
-                <c:param name="categoryGroup" value="2"></c:param>
-            </c:import> --%>
+           
+			<div id ="categoryDiv">
+				<div id="categoryNameDiv" class = "categoryDiv-div">상품</div>
+				<div id="categoryPriceDiv" class = "categoryDiv-div">금액</div>
+				<div id="categoryQTYDiv" class = "categoryDiv-div">수량</div>
+				<div id="categoryTotalDiv" class = "categoryDiv-div">총금액</div>
+			</div>
+           
             <div id="order-item-form-div">
  
                 <div class="order-item-Div">

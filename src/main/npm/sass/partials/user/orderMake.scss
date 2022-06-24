@@ -10,6 +10,8 @@
     width: 70px;
 }
 
+
+
 a { text-decoration: none; color: black; } a:visited { text-decoration: none; } a:hover { text-decoration: none; } a:focus { text-decoration: none; } a:hover, a:active { text-decoration: none; }
 
 .orderInfo-order-select-wrapper .title-select{
@@ -174,14 +176,14 @@ span#orderDisagree {
     }
   
   .orderBtn:hover {
-    background-color: #2EE59D;
-    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    background-color: #7292b1;
+    box-shadow: 0px 15px 20px rgb(110 135 129 / 40%);
     color: #fff;
     transform: translateY(-7px);
   }
 
   .orderInfo-address {
-    margin-top: 43px;
+    margin-top: 65px;
 }
 
 
@@ -237,7 +239,11 @@ i.fa-solid.fa-circle-xmark {
 	
 }
 
-input.tagAddDiv {height: 43px;font-size: 20px;width: 148px;padding-left: 26px;border: none;}
+input.tagAddDiv {    height: 43px;
+    font-size: 20px;
+    width: 148px;
+    padding-left: 15px;
+    border: none;}
 select#order-item {width: 300px;border-radius: 28px;height: 63px;padding: 12px;margin-right: 19px;}
 
 .addBtnWrap {
@@ -250,12 +256,11 @@ select#order-item {width: 300px;border-radius: 28px;height: 63px;padding: 12px;m
 }
 
 .priceByQty {
-    border: 1px solid black;
-    width: 130px;
+  	width: 71px;
     height: 34px;
     display: inline-block;
-    margin-left: 48px;
-    font-size:20px;
+    margin-left: 82px;
+    font-size: 20px;
 }
 
 i#plusI {color: #255bc7;}
@@ -354,11 +359,33 @@ div#totalPriceDiv {
     height: 29px;
 }
   .testForm{text-align: center;
-    margin-right: 28px;  
+    margin-right: -17px;  
 	
 }  
 
 div#orderAddressDetail {
     margin-top: 16px;
+}
+div#categoryDiv {text-align: center;margin: 16px;margin-bottom: 32px;}
+
+
+.categoryDiv-div {
+    display: inline-block;
+    font-size: 21px;
+    margin: auto;
+    margin-right: 31px;
+    width: 109px;
+    height: 43px;
+    border-radius: 8px;
+    font-weight: bold;
+    background: #f6f6f6;
+    padding-top: 10px;
+}
+select#order-num {
+    width: 58px;
+    margin-left: 17px;
+}
+p#nim_p {
+    font-size: 27px;
 }
   
