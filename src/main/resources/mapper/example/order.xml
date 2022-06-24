@@ -185,6 +185,11 @@
 		where no= #{no}
 	</update>
 	
+<!-- 	<update id="updatePaymentDate" parameterType ="timestamp">
+		
+	
+	</update> -->
+	
 	
 	
 	
