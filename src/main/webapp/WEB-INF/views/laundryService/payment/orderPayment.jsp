@@ -2,20 +2,16 @@
 
 <!-- iamport.payment.js -->
 
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
+
+<t:wrapper>
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>paymentComplete.jsp</title>
-</head>
-<body>
-	<style>
-.orderPaymentWrapper {
-	width: 300px;
-	border: 1px solid black;
-}
+<style>
+	.orderPaymentWrapper {
+		width: 300px;
+		border: 1px solid black;
+	}
 </style>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 	<script type="text/javascript">
 $(function(){
@@ -71,12 +67,13 @@ $(function(){
 });
 });
 </script>
-
-	<div class="orderPaymentWrapper">
-		<input type="text" id="payPrice" class="div" value="${payPrice }"
-			name="payPrice"> <input type="text" id="orderNo" class="div"
-			value="${orderNO }" name="orderNo">
-		<button class="btn" value="결제하기" id="paymentBtn">결제하기</button>
+	<div class="margin-fixed-margin"></div>
+	<div id="payment-wrap">
+		<div class="orderPaymentWrapper">
+			<input type="text" id="payPrice" class="div" value="${payPrice }"
+				   name="payPrice"> <input type="text" id="orderNo" class="div"
+										   value="${orderNO }" name="orderNo">
+			<button class="btn" value="결제하기" id="paymentBtn">결제하기</button>
+		</div>
 	</div>
-</body>
-</html>
+</t:wrapper>
