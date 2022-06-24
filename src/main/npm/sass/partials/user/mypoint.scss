@@ -93,6 +93,7 @@
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-bottom: 70px;
+		
 }
 
 .mypoint_table li {
@@ -101,6 +102,8 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 25px;
+	text-align: center;
+	
 }
 
 .mypoint_table-header {
@@ -110,6 +113,7 @@
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
 	color: white;
+	
 }
 
 .mypoint_table-row {
@@ -120,13 +124,17 @@
 }
 
 .mypoint_col-1 {
-	flex-basis: 30%;
+	flex-basis: 25%;
+	
 }
 
 .mypoint_col-2 {
-	flex-basis: 55%;
+	flex-basis: 25%;
 }
 
 .mypoint_col-3 {
-	flex-basis: 15%;
+	flex-basis: 25%;
+}
+.mypoint_col-4 {
+	flex-basis: 25%;
 }
