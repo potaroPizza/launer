@@ -62,14 +62,20 @@ public class NoticeController {
 	}
 	
 	//ajax - 공지사항 삭제
-	@RequestMapping("/deleteNotoce")
-	public HashMap<String, Object> deleteNotoce(@RequestParam HashMap<String, Object> param,
+	@ResponseBody
+	@RequestMapping("/deleteNotice")
+	public NoticeVO deleteNotoce(@RequestParam HashMap<String, Object> param,
 			Model model) {
 		logger.info("사내공지사항 삭제 처리");
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
-		return result;
+		NoticeVO vo = new NoticeVO();
+		int no = Integer.parseInt(param.get("no")+"");
+		vo.setNo(no);
+		int cnt = noticeService.deleteNotice(vo.getNo());
+		
+		return vo;
 	}
 	
 	
