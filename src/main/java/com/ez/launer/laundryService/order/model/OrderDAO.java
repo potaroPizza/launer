@@ -42,5 +42,6 @@ public interface OrderDAO {
     List<Map<String, Object>> adminSelectOrderList(OrderSearchVO searchVo);
     int adminSelectTotalRecord(OrderSearchVO searchVo);
     AdminOrderDetailVO adminSelectOrderDetail(int orderNo);
+    int adminOrderStatusUpdate(int orderNo);
     //지효가 만든거 끝
 }

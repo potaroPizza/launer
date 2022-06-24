@@ -29,5 +29,7 @@ public interface OrderService {
     List<Map<String, Object>> adminSelectOrderList(OrderSearchVO searchVo);
     int adminSelectTotalRecord(OrderSearchVO searchVo);
     AdminOrderDetailVO adminSelectOrderDetail(int orderNo);
+    int adminOrderStatusUpdateMulti(List<OrderVO> list);
+    int adminOrderStatusUpdate(int orderNo);
     //지효가 만든거 끝
 }

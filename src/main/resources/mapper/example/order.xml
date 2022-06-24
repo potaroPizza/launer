@@ -133,7 +133,7 @@
 			<result column="officeName" jdbcType="VARCHAR" property="officeName"/>
 			<result column="status" jdbcType="VARCHAR" property="status"/>
 			<result column="regdate" jdbcType="TIMESTAMP" property="regdate"/>
-			<result column="address" jdbcType="VARCHAR" property="address	"/>
+			<result column="address" jdbcType="VARCHAR" property="address"/>
 			<result column="pickupDriver" jdbcType="VARCHAR" property="pickupDriver"/>
 			<result column="deliveryDriver" jdbcType="VARCHAR" property="deliveryDriver"/>
 			<result column="paymentNo" jdbcType="BIGINT" property="paymentNo"/>
@@ -150,6 +150,13 @@
 		select * from adminOrderDetailView
 		where orderNo = #{orderNo}
 	</select>
+	
+	<!-- 주문상태 : 세탁중 => 배송대기 처리 -->
+	<update id="adminOrderStatusUpdate" parameterType="int">
+		update orders
+		set ORDER_STATUS_NO = 4
+		where NO = #{orderNo}
+	</update>
 	<!-- 지효가 만든거 끝 -->
 	
 	<select id="selectRecentOrderNo" parameterType="int" resultType="int">

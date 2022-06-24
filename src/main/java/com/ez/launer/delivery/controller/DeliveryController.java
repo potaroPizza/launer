@@ -139,7 +139,7 @@ public class DeliveryController {
 
         Map<Object, Object> resMap = new HashMap<>();
         resMap.put("listMap", listMap);
-        resMap.put("lastPage", paginationInfo.getLastPage());
+        resMap.put("totalPage", paginationInfo.getTotalPage());
         resMap.put("dbCur", orderListSearchVO.getCurrentPage());
         resMap.put("totalRecord", totalRecord);
 

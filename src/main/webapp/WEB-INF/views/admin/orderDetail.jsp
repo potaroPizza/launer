@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="top.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style type="text/css">
 .sb-sidenav-footer {
 	position: absolute;
@@ -70,55 +73,82 @@ div.pickUp{
 								<col style="width: 50%">
 
 							</colgroup>
+							<c:set var="vo" value="${vo}"></c:set>
+							<c:set var="map" value="${vo.adminOrderDetailVo}"></c:set>
 				            <tr>	<!-- 총 4열 -->
 				                <td class="title">주문번호</td>
-				                <td>103</td>
+				                <td>${map.orderNo}</td>
 				                <td class="title">주문자 아이디</td>
-				                <td>jihuo1004@gmail.com</td>
+				                <td>${map.userEmail}</td>
 				            </tr>
 				            <tr>
 				                <td class="title">주문상태</td>
-				                <td>세탁중</td>
+				                <td>${map.status}</td>
 				                <td class="title">주문자 주소</td>
-				                <td>서울특별시 영등포구 여의도동 여의대로21길 15 한강아파트 101동 101호</td>
+				                <td>${map.address}</td>
 
 				            </tr>
 				            <tr>
 				                <td class="title">담당지점</td>
-				                <td>영등포점</td>
+				                <td>${map.officeName}</td>
 				                <td class="title">신청시간</td>
-				                <td>2022-06-17 16:17</td>
+				                <td>
+				                	<fmt:formatDate value='${map.regdate}' pattern="yyyy-MM-dd HH:mm"/>
+				                </td>
 				            </tr>
 				            <tr>
 				                <td class="title">수거자</td>
-				                <td>jihuo1004@gmail.com</td>
+				                <td>${map.pickupDriver}</td>
 				                <td class="title">배송자</td>
-				                <td>jihuo1004@gmail.com</td>
+				                <td>${map.deliveryDriver}</td>
 				            </tr>
 				            <tr>
 				                <td class="title">주문상세</td>
-				                <td colspan="3">블라우스 &nbsp; 2개 &nbsp; 8,000(건 당)</td>
+				                <td colspan="3">
+				                	<!-- 주문상세 반복 시작-->
+				                	<c:set var="count" value="0"/>
+				                	<c:set var="sum" value="0"/>
+				                	<c:forEach var="listMap" items="${vo.adminOrderDetailList}">
+				                		<span>${listMap['CATEGORYNAME']}</span> 
+				                		<span>/ ${listMap['QUAN']}개</span> 
+				                		<span>/ ${listMap['EAPRICE']}원(단위 당)</span>
+				                		<c:set var="sum" value="${sum + listMap['EAPRICE']}"/>
+				                		<c:set var="count" value="${count+1}"/>
+				                		<c:if test="${fn:length(item) != count}">
+				                		<br>
+				                		</c:if>
+				                		<!-- &nbsp; 2개 &nbsp; 8,000(건 당) -->
+				                	</c:forEach>
+				                	<!-- 주문상세 반복 끝-->
+				                </td>
 				            </tr>
 				            <tr>
 				                <td class="title">총 합계</td>
-				                <td colspan="3">16,000</td>
+				                <td colspan="3">
+				                	<fmt:formatNumber value="${sum}" pattern="#,###"/>원
+				                </td>
 				            </tr>
 				            <tr>
 				                <td class="title">결제번호</td>
-				                <td>57777777</td>
+				                <td>${map.paymentNo}</td>
 				                <td class="title">결제시간</td>
-				                <td>2022-06-17 16:18</td>
+				                <td>
+				                	<fmt:formatDate value='${map.paymentDate}' pattern="yyyy-MM-dd HH:mm"/>
+				                </td>
 				            </tr>
 				            <tr>
 				                <td class="title">최종금액<br>(합계 + 과세금액)</td>
-				                <td colspan="3">16,000</td>
+				                <td colspan="3">
+				                	<fmt:formatNumber value="${sum}" pattern="#,###"/>원
+				                </td>
 				            </tr>
 
 				        </table>
 					<div class="pickUp">
 						<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp"
 							disabled="disabled">
-						<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp">
+						<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp"
+							onclick="location.href='<c:url value="/admin/ordersUpdate?orderNo=${map.orderNo}"/>';">
 					</div>
 				</div>
 							

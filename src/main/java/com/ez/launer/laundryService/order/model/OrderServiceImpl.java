@@ -53,13 +53,11 @@ public class OrderServiceImpl implements OrderService{
 	public int updateUserPoint(UserVO userVo) {
 		return orderDAO.updateUserPoint(userVo);
 	}
-	@Override
+
 	public int updatePaymentDate(int orderNo) {
 		return orderDAO.updatePaymentDate(orderNo);
 	}
-	
-	
-	
+
 	
 	//지효가 만든거 시작
 	@Override
@@ -75,6 +73,18 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public AdminOrderDetailVO adminSelectOrderDetail(int orderNo) {
 		return orderDAO.adminSelectOrderDetail(orderNo);
+	}
+
+	@Override
+	public int adminOrderStatusUpdateMulti(List<OrderVO> list) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int adminOrderStatusUpdate(int orderNo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

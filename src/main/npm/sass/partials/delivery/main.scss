@@ -1,6 +1,13 @@
+& {
+    width: 100%;
+    height: 100vh;
+}
+
 #map{
     width: 100%;
-    height: 100%;
+    //height: 60%;
+    height: 90%;
+    transition: 0.5s;
 }
 
 .zone-box, .total-recode {
@@ -58,11 +65,11 @@
         font-size: 20px;
     }
     &.active {
-        animation: 0.5s ease-in 0s 1 normal forwards running delivery-slide-active;
+        animation: 0.5s ease 0s 1 normal forwards running delivery-slide-active;
     }
 
     &.non-active {
-        animation: 0.5s ease-in 0s 1 normal forwards running delivery-slide-non-active;
+        animation: 0.5s ease 0s 1 normal forwards running delivery-slide-non-active;
     }
 }
 
