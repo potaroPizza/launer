@@ -27,4 +27,26 @@
                     javaType="ArrayList" ofType="map" select="selectOrderDetails">
         </collection>
 	</resultMap>
+	
+	<select id="PointSelectTotalRecord" parameterType="PointSearchVo" resultType="int">
+		select count(*) from point_history_view
+	</select>
+	
+	<select id="PointSelectList" parameterType="PointSearchVo" 
+    	resultType="map">
+    	select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+				select * from point_history_view order by regdate desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+    </select>
+	
 </mapper>
