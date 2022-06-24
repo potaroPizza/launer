@@ -82,6 +82,8 @@ $("select[id='order-indivisual']").change(function () {
 	});
 
 
+
+
 }); //jquery
 
 
