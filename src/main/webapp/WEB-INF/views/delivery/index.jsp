@@ -78,6 +78,8 @@
                     console.log("scrollTop() = " + $(e.target).scrollTop());
                     console.log("offset() = " + ($("#order-scroll-box input[value=10004]").parent().parent().parent().position().top));
                 });*/
+
+                slideTog();
             }
 
             //위치 초기화
@@ -132,17 +134,16 @@
 
                         let orderData = positionDataNo[index].orderNo;
 
+
                         //orderList에서 orderNo를 찾음
                         let inputFind = $("#order-scroll-box input[value=" + orderData + "]").parent().parent().parent();
-                        let paddT = (inputFind.innerHeight() - inputFind.height()) / 2;
+                        // let paddT = (inputFind.innerHeight() - inputFind.height()) / 2;
                         console.log(inputFind.position().top);
 
                         $("#orders-list").animate({
                             scrollTop: inputFind.position().top
                         }, 300);
-
-                        const $findList = $(inputFind);
-                        console.log($findList);
+                        console.log(inputFind);
                         // $findList.css("background", "red");
                     }
 
@@ -194,7 +195,7 @@
 
             let currentPage = 0;
             let dbCur = 0;
-            let lastPage = 0;   //마지막 페이지
+            let totalPage = 0;   //마지막 페이지
             let groupNo = 1;    //수거 : 1, 배송 : 2
             let totalRecord = 0;
 
@@ -202,7 +203,7 @@
             function curUpdate() {
                 currentPage++;
                 $("#paging-form input[name=currentPage]").val(currentPage);
-                console.log(currentPage);
+                console.log("현재페이지 증감 : currentPage++ = " + currentPage);
                 viewList(groupNo);
             }
 
@@ -226,11 +227,11 @@
                         let listElement = "";
 
                         dbCur = res.dbCur;
-                        lastPage = res.lastPage;
+                        totalPage = res.totalPage;
                         totalRecord = res.totalRecord;
 
                         console.log("dbCur = " + dbCur);
-                        console.log("lastPage = " + lastPage);
+                        console.log("totalPage = " + totalPage);
                         console.log("totalRecord = " + totalRecord);
 
                         $(".total-recode strong").text(totalRecord);
@@ -302,10 +303,11 @@
                 //스크롤 끝일 때 이벤트 호출
                 $("#orders-list").scroll(() => {
                     let scrollBody = $("#orders-list");
-                    if((scrollBody[0].scrollHeight - scrollBody.scrollTop()) === scrollBody.outerHeight()) {
-                        if(currentPage !== lastPage && (dbCur + 1) !== currentPage) {
+                    //console.log(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) +", " + scrollBody.outerHeight());
+                    if(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) <= scrollBody.outerHeight()) {
+                        if(currentPage <= totalPage) {
+                            console.log("리스트 업데이트, totalPage= "+ totalPage + ", currentPage=" + currentPage);
                             curUpdate();
-                            console.log("리스트 업데이트");
                         }
                     }
                 });
@@ -333,6 +335,36 @@
                         viewList(emp);
                     }
                 });
+            }
+
+            function slideTog() {
+                const $listPart = $("#list-part");
+                const $mapPart = $("#map");
+
+                $("#list-box").click(() => {
+                    if($listPart.hasClass("active")) {
+                        $listPart.removeClass("active");
+                        $listPart.addClass("non-active");
+                        resizeMap("non-active");
+                    }else{
+                        $listPart.removeClass("non-active");
+                        $listPart.addClass("active");
+                        resizeMap("active");
+                    }
+                });
+            }
+
+            function resizeMap(chk) {
+                var mapContainer = document.getElementById('map');
+
+                if(chk === "active") {
+                    mapContainer.style.height = '60%';
+                }else {
+                    mapContainer.style.height = '90%';
+                }
+                setTimeout(() => {
+                    map.relayout();
+                }, 600);
             }
 
 
