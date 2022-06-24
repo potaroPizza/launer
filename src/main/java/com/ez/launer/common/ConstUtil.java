@@ -6,6 +6,7 @@ public interface ConstUtil {
 	//게시판 페이징 관련 상수
 	public static final int RECORD_COUNT = 5;
 	int BLOCKSIZE = 10;
+	int BLOCKSIZE_POINT=5;
 	
 	//파일 업로드 관련 상수
 	String FILE_UPLOAD_TYPE = "test";		// 테스트시
