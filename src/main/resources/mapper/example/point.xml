@@ -13,7 +13,7 @@
         select * from ORDER_DETAIL_VIEW
         where ORDER_NO = #{orderNo}
     </select>
-    
+    <!-- 1:N -->
    <resultMap type="PointDetailAllVO" id="pointHistoryAll">
         <association property="pointViewVO" column="order_no" javaType="PointViewVO">
             <id column="point_no" jdbcType="BIGINT" property="pointNo"/>
@@ -27,11 +27,11 @@
                     javaType="ArrayList" ofType="map" select="selectOrderDetails">
         </collection>
 	</resultMap>
-	
+	<!-- 페이징 처리 -->
 	<select id="PointSelectTotalRecord" parameterType="PointSearchVo" resultType="int">
 		select count(*) from point_history_view
 	</select>
-	
+	<!-- 페이징 처리 -->
 	<select id="PointSelectList" parameterType="PointSearchVo" 
     	resultType="map">
     	select *

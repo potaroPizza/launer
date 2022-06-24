@@ -64,7 +64,7 @@ public class MypageController {
 		logger.info("마이페이지 포인트 화면, 파라미터 userid={}", no);
 		
 		if(searchVo.getCountPerPage() == 0) {	
-			searchVo.setCountPerPage(10);
+			searchVo.setCountPerPage(5);
 		}
 		logger.info("페이징, searchVo={}", searchVo);
 		
