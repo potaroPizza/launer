@@ -195,12 +195,10 @@
         <div class="orderInfo-address">
             <div>
                 <div>수거/배송 주소</div>
-                <span id="orderInfo-address-edit"><a href="#">수정 > </a></span>
-                <div class="orderInfo-address-myaddress">
-                    <span id = "orderAddress">서울특별시 마포구 대흥동 고산 1길 1-1 101호</span><br> 
-                    <div id = "orderAddressDetail" >
-                    <span class="orderInfo-address-myaddress-enter">현관출입방법 : </span><span
-                        class="orderInfo-address-myaddress-enter">없음</span>
+                <span id="orderInfo-address-edit"><a href="#">&nbsp;&nbsp;수정&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i></a></span>
+              	 <div class="orderInfo-address-myaddress">
+                    <span id = "orderAddress"> ${map['address'] }</span><br> 
+                    <span class="orderInfo-address-myaddress-enter"> 현관출입방법 :${['']} }</span>
                         </div>
                 </div>
             </div>

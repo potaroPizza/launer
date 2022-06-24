@@ -28,8 +28,6 @@ import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
 
-
-
 @Controller
 @RequestMapping("/laundryService/order")
 @RequiredArgsConstructor
@@ -71,9 +69,16 @@ public class OrderController {
 	
 	
 	@GetMapping("/orderMake")
-	public String orderMake_get() {
+	public String orderMake_get(HttpSession session,Model model) {
 		logger.info("수거요청화면");
-
+		int no = 1000; //(String) session.getAttribute("userid");
+		
+		HashMap<String, Object> map = userService.selectByIdAddress(no);
+		logger.info("회원 정보 조회 결과, map={}",map);
+		
+		
+		
+		model.addAttribute("map" ,map);
 		return "/laundryService/order/orderMake";
 		
 	}
