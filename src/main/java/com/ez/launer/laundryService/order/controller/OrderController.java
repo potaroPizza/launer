@@ -87,7 +87,7 @@ public class OrderController {
 	
 	
 
-	@RequestMapping("/orderConfirm")
+	@PostMapping("/orderConfirm")
 	public String orderConfirm_post(@RequestParam String param, Model model, HttpSession session) {
 		logger.info("결제전 최종확인 화면, param_string 파라미터 = {}",param);
 		//회원정보 불러오기
@@ -97,6 +97,10 @@ public class OrderController {
 		UserVO vo = userService.selectById(no);
 		
 		logger.info("회원정보조회 vo={}",vo);
+
+		//회원 주소 정보 불러오기
+		HashMap<String,Object> mapAddress = userService.selectByIdAddress(no);
+		logger.info("회원주소조회={}",mapAddress);
 		
 
 		//주문정보확인
@@ -133,6 +137,7 @@ public class OrderController {
 		model.addAttribute("list", list);
 		model.addAttribute("paramPrice", paramPrice);
 		model.addAttribute("param", param);
+		model.addAttribute("map", mapAddress);
 		return "/laundryService/order/orderConfirm";
 	}
 	
