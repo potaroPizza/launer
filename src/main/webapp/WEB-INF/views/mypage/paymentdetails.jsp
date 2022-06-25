@@ -71,7 +71,7 @@
 				<input type="button" value="3개월" class="btn btn-outline-dark" id="btMonth3">
 				<input type="button" value="6개월" class="btn btn-outline-dark" id="btMonth6">
 				<br> <br> <input type="text" name="startDay" id="startDay"
-					value="${dateSearchVO.startDay }"> ~ <input type="text"
+					value="${dateSearchVO.startDay }" > ~ <input type="text"
 					name="endDay" id="endDay" value="${dateSearchVO.endDay }">
 				<input type="submit" id="" value="조회">
 			</form>
