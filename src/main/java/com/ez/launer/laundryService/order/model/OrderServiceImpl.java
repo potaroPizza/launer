@@ -106,6 +106,11 @@ public class OrderServiceImpl implements OrderService{
 	public int adminOrderStatusUpdate(int orderNo) {
 		return orderDAO.adminOrderStatusUpdate(orderNo);
 	}
+
+	@Override
+	public List<Map<String, Object>> adminSelectAll() {
+		return orderDAO.adminSelectAll();
+	}
 	
 	//지효가 만든거 끝
 }

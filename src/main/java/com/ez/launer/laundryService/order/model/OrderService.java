@@ -7,6 +7,8 @@ import com.ez.launer.user.model.UserVO;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 public interface OrderService {
     List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO);
     int orderCount(OrderListSearchVO orderListSearchVO);
@@ -30,5 +32,6 @@ public interface OrderService {
     AdminOrderDetailVO adminSelectOrderDetail(int orderNo);
     int adminOrderStatusUpdateMulti(List<OrderVO> list);
     int adminOrderStatusUpdate(int orderNo);
+    List<Map<String, Object>> adminSelectAll();
     //지효가 만든거 끝
 }
