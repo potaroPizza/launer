@@ -1,17 +1,16 @@
 package com.ez.launer.laundryService.order.model;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
 import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -56,6 +55,21 @@ public class OrderServiceImpl implements OrderService{
 	public int updateUserPoint(UserVO userVo) {
 		return orderDAO.updateUserPoint(userVo);
 	}
+
+	public int updatePaymentDate(int orderNo) {
+		return orderDAO.updatePaymentDate(orderNo);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -107,10 +121,12 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.adminOrderStatusUpdate(orderNo);
 	}
 
+
 	@Override
 	public List<Map<String, Object>> adminSelectAll() {
 		return orderDAO.adminSelectAll();
 	}
+
 	
 	//지효가 만든거 끝
 }

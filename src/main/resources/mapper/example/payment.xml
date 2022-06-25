@@ -5,11 +5,11 @@
 
 <insert id="insertPaymentDetail" parameterType="paymentVo">
 	<selectKey keyProperty ="no" resultType ="int" order="BEFORE">
-		select payment_detail_seq.nextval from dual
+		select PAYMENT_DETAIL_SEQ.nextval from dual
 	</selectKey>
-		insert into payment_detail(no,order_no,payment_code,pay_price)
-		values(#{no},#{orderNo},#{paymentCode},#{payPrice})
+		insert into payment_detail(no,order_no,payment_code,pay_price,payment_state,payment_method)
+		values(#{no},#{orderNo},#{paymentCode},#{payPrice},'OK','CARD')
 </insert>
-
+	
 
 </mapper>

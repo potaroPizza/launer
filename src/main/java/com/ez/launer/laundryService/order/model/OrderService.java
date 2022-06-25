@@ -18,6 +18,7 @@ public interface OrderService {
     int insertOrderDetails(OrderDetailVO orderDetailVo);
     int insertPointList(Map<String, Object>map);
     int updateUserPoint(UserVO userVo);
+    int updatePaymentDate(int orderNo);
     
     
     

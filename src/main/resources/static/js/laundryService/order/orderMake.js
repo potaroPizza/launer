@@ -1,4 +1,5 @@
 $(function() {
+	//첫고객가이드
     $(".orderInfo-guide a").hover(function(){
         $(this).find(".hover-btn").stop().animate({
             width: "100%"
@@ -22,20 +23,6 @@ $(function() {
     $("#plusI").hide();
     });
     
-   /* $($("#XDel")).hide();
-    $(this).hover(function(){
-	    $(this).css("background", "#D7E6FF");
-    $(this).show();
-	    
-    },function(){
-        $(this).css("background", "#FFF");
-    $(this).hide();
-    });
-*/
-    
-
-
-
 $("select[id='order-daily']").change(function () {
     var selectedOptionsDaily = [];
     $("select[id='order-daily'] option:selected").each(function(){
@@ -63,9 +50,7 @@ $("select[id='order-indivisual']").change(function () {
 	
 	});
 	
-
-
-			$('#orderAgree').hide();
+	$('#orderAgree').hide();
 		
 	$('#flexCheckDefault').change(function(){
 		if($(this).is(":checked")){
@@ -77,11 +62,8 @@ $("select[id='order-indivisual']").change(function () {
 			$('#orderDisagree').show();
 			$('#orderAgree').hide();
 			
-		}
-		
+		}	
 	});
-
-
 }); //jquery
 
 

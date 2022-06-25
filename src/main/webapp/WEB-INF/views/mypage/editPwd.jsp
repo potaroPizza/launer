@@ -7,6 +7,12 @@
 
 </style>
 <script type="text/javascript">
+function isPassword(asValue) {
+	var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+ 
+	return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
+}
+
 	$(function(){
 		$('form[name=editPwdfrm]').submit(function(){
 		
@@ -30,7 +36,11 @@
 				alert('새 비밀번호가 일치하지 않습니다.');
 				$('#newPwd2').focus();
 				event.preventDefault();
-				}
+			}else if(!isPassword($("#newPwd").val())){
+				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
+				$('#newPwd').focus();
+				event.preventDefault();
+			}
 			});
 		});
 </script>
@@ -44,13 +54,13 @@
 
 		<div id="editPwd_explain">
 			<ul>
-				<li><p>러너는 회원님의 중요한 개인정보를 관리자도 알 수 없도록 암호화하여 철저히 관리하고 있습니다.</p></li>
+				<li><p>러너는 회원님의 중요한 개인정보를 관리자도 알 수 없도록 <span>암호화</span>하여 철저히 관리하고 있습니다.</p></li>
 				<li><p>개인정보 보호를 위해 동일한 숫자반복 등과 같이 다른사람이 쉽게 알아낼 수 있는 비밀번호는
 						사용하지 마십시오.</p></li>
-				<li><p>개인정보는 보안 강화를 위하여 비밀번호의 대소문자를 구분하고 있습니다. 비밀번호 대소문자를
+				<li><p>개인정보는 보안 강화를 위하여 비밀번호의 <span>대소문자</span>를 구분하고 있습니다. 비밀번호 <span>대소문자</span>를
 						확인하시고 입력해주세요.</p></li>
 				<li><p>비밀번호는 주기적으로 변경해 주시기 바랍니다.</p></li>
-				<li><p>비밀번호는 8~16자 이내, 숫자/특수문자/영문 대소문자를 사용해주세요.</p></li>
+				<li><p>비밀번호는 <span>8~16자 이내, 숫자/특수문자/영문 대소문자</span>를 혼합하여 사용해주세요.</p></li>
 			</ul>
 		</div>
 
