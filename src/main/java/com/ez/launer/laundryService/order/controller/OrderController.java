@@ -28,8 +28,6 @@ import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
 
-
-
 @Controller
 @RequestMapping("/laundryService/order")
 @RequiredArgsConstructor
@@ -71,16 +69,25 @@ public class OrderController {
 	
 	
 	@GetMapping("/orderMake")
-	public String orderMake_get() {
+	public String orderMake_get(HttpSession session,Model model) {
 		logger.info("수거요청화면");
-
+		int no = 1000; //(String) session.getAttribute("userid");
+		
+		UserVO userVo = userService.selectById(no);
+		
+		HashMap<String, Object> map = userService.selectByIdAddress(no);
+		logger.info("회원 정보 조회 결과, map={}",map);
+		
+		
+		model.addAttribute("userVo",userVo);
+		model.addAttribute("map" ,map);
 		return "/laundryService/order/orderMake";
 		
 	}
 	
 	
 
-	@RequestMapping("/orderConfirm")
+	@PostMapping("/orderConfirm")
 	public String orderConfirm_post(@RequestParam String param, Model model, HttpSession session) {
 		logger.info("결제전 최종확인 화면, param_string 파라미터 = {}",param);
 		//회원정보 불러오기
@@ -90,6 +97,10 @@ public class OrderController {
 		UserVO vo = userService.selectById(no);
 		
 		logger.info("회원정보조회 vo={}",vo);
+
+		//회원 주소 정보 불러오기
+		HashMap<String,Object> mapAddress = userService.selectByIdAddress(no);
+		logger.info("회원주소조회={}",mapAddress);
 		
 
 		//주문정보확인
@@ -126,6 +137,7 @@ public class OrderController {
 		model.addAttribute("list", list);
 		model.addAttribute("paramPrice", paramPrice);
 		model.addAttribute("param", param);
+		model.addAttribute("map", mapAddress);
 		return "/laundryService/order/orderConfirm";
 	}
 	
@@ -134,10 +146,10 @@ public class OrderController {
 	@PostMapping("/orderComplete")
 	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
 			Model model, @RequestParam (defaultValue = "없음", required = false)String orderRequest,
-			@RequestParam (defaultValue="0")int usePoint,@RequestParam int savePoint, 
-			@RequestParam (defaultValue ="0", required = false)int paramPoint) {
+			@RequestParam (defaultValue="0")int usePoint,@RequestParam int savePoint, @RequestParam (defaultValue = "0", required = false)int paramPoint) {
 		logger.info("totalPrice={}",totalPrice);
 		logger.info("param={}",param);
+		logger.info("paramPoint={}",paramPoint);
 		int no = 1000; //추후 session 으로 변경
 
 		//orders 테이블 insert
@@ -219,18 +231,21 @@ public class OrderController {
 		//users테이블 point update
 		UserVO userVo = userService.selectById(no);	
 		
-		int userPoint = userVo.getPoint();
+		int userPoint = userVo.getPoint(); //변경 전 point 저장
 		logger.info("결제 전 포인트={}",userPoint);
+		logger.info("결제 전 포인트 parma= {}",paramPoint);
 		int updatePoint= userPoint+savePoint+usePoint;
 		userVo.setPoint(updatePoint);		
 		logger.info("결제 후 포인트={}",updatePoint);
 		
 		int result2 = orderService.updateUserPoint(userVo);
-		int payPrice = totalPrice + usePoint;
-		
-		model.addAttribute("payPrice", payPrice); //결제할 금액
+		logger.info("userVo 포인트 업데이트 result2 ={}", result2);
+			
+		model.addAttribute("email",userVo.getEmail());
+		model.addAttribute("name",userVo.getName());
+		model.addAttribute("payPrice", totalPrice); //결제할 금액
 		model.addAttribute("orderNO", orderNO); //fk 주문번호
-		model.addAttribute("havePoint", paramPoint);//결제취소대비한 결제 전 포인트
+		model.addAttribute("userPoint", paramPoint);//결제취소대비한 결제 전 포인트
 		return "/laundryService/payment/orderPayment";
 	}
 }

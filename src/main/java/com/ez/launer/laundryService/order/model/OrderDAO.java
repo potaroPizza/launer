@@ -33,7 +33,7 @@ public interface OrderDAO {
     int insertOrderDetails(OrderDetailVO orderDetailVo);
     int insertPointList(Map<String, Object>map);
     int updateUserPoint(UserVO userVo);
-
+    int updatePaymentDate(int orderNo);
     
     
     
@@ -54,5 +54,7 @@ public interface OrderDAO {
     List<Map<String, Object>> adminSelectOrderList(OrderSearchVO searchVo);
     int adminSelectTotalRecord(OrderSearchVO searchVo);
     AdminOrderDetailVO adminSelectOrderDetail(int orderNo);
+    int adminOrderStatusUpdate(int orderNo);
+    List<Map<String, Object>> adminSelectAll();
     //지효가 만든거 끝
 }

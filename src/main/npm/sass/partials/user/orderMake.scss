@@ -10,6 +10,8 @@
     width: 70px;
 }
 
+
+
 a { text-decoration: none; color: black; } a:visited { text-decoration: none; } a:hover { text-decoration: none; } a:focus { text-decoration: none; } a:hover, a:active { text-decoration: none; }
 
 .orderInfo-order-select-wrapper .title-select{
@@ -32,7 +34,7 @@ a { text-decoration: none; color: black; } a:visited { text-decoration: none; }
     width: 500px;
     border-radius: 8px;
     margin-top: 14px;
-    padding: 10px;
+    padding: 20px;
 }
 
 span.orderInfo-address-myaddress-enter {
@@ -78,13 +80,13 @@ span#orderInfo-address-edit a {
 }
 .margin-top-fixed{
     width: 100%;
-    height: 70px;
+    height: 100px;
 }
 
 .orderInfo-order > div:first-child {
     font-size: 23px;
     margin-top: 20px;
-    margin-bottom: 52px;
+    margin-bottom: 34px;
 }
 
 
@@ -151,8 +153,6 @@ span#orderDisagree {
 }
 
 .orderInfo-goOrder{
-    height: 100%;
-    display: flex;
     align-items: center;
     justify-content: center;
   }
@@ -176,14 +176,14 @@ span#orderDisagree {
     }
   
   .orderBtn:hover {
-    background-color: #2EE59D;
-    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    background-color: #7292b1;
+    box-shadow: 0px 15px 20px rgb(110 135 129 / 40%);
     color: #fff;
     transform: translateY(-7px);
   }
 
   .orderInfo-address {
-    margin-top: 43px;
+    margin-top: 65px;
 }
 
 
@@ -239,7 +239,11 @@ i.fa-solid.fa-circle-xmark {
 	
 }
 
-input.tagAddDiv {height: 43px;font-size: 20px;width: 148px;padding-left: 26px;border: none;}
+input.tagAddDiv {    height: 43px;
+    font-size: 20px;
+    width: 148px;
+    padding-left: 15px;
+    border: none;}
 select#order-item {width: 300px;border-radius: 28px;height: 63px;padding: 12px;margin-right: 19px;}
 
 .addBtnWrap {
@@ -252,18 +256,18 @@ select#order-item {width: 300px;border-radius: 28px;height: 63px;padding: 12px;m
 }
 
 .priceByQty {
-    border: 1px solid black;
-    width: 130px;
+  	width: 71px;
     height: 34px;
     display: inline-block;
-    margin-left: 37px;
+    margin-left: 82px;
+    font-size: 20px;
 }
 
 i#plusI {color: #255bc7;}
 
 
 i.fa-solid.fa-xmark {
-    margin-left: 17px;
+    margin-left: 1px;
     border-radius: 10px;
     width: 27px;
     height: 25px;
@@ -275,3 +279,113 @@ input#order_request {
     width: 100%;
     height: 100px;
 }
+
+& .addBtnWrap {
+    width: 120px;
+    }
+    
+    button#orderAddBtn {
+    background: none;
+    height: 35px;
+    width: 70px;
+    border: none;
+}
+
+
+button#orderAddBtn {
+    background: none;
+    height: 35px;
+    width: 70px;
+    border: none;
+}
+
+
+input#totalPriceMake {
+    margin-top: 63px;
+    width: 113px;
+    margin-right: 14px;
+    margin-left: 10px;
+    font-size: 1.4em;
+    border: none;
+    text-align: right;
+    border-bottom: 1px solid black;
+
+}
+
+
+
+.orderInfo-order-select-wrapper {
+    padding-top: 66px;
+}
+
+
+.title-select {
+    margin-left: 12px;
+}
+
+
+
+button.btn.btn-primary {
+    display: list-item;
+}
+
+.orderInfo-tac {
+    width: 100%;
+}
+
+ div#xWrap {
+    text-align: center;
+    width: 42px;
+    margin-left: 0px;
+    border-radius: 20px;
+}   
+
+div#totalPriceDiv {
+    text-align: right;
+    margin-right: 31px;
+    font-size: 19px;
+    font-weight: bold;
+    color: #000;
+}
+
+
+.submitBtnWrapDiv {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+    
+.margin-top-fixed {
+    height: 29px;
+}
+  .testForm{text-align: center;
+    margin-right: -17px;  
+	
+}  
+
+div#orderAddressDetail {
+    margin-top: 16px;
+}
+div#categoryDiv {text-align: center;margin: 16px;margin-bottom: 32px;}
+
+
+.categoryDiv-div {
+    display: inline-block;
+    font-size: 21px;
+    margin: auto;
+    margin-right: 31px;
+    width: 109px;
+    height: 43px;
+    border-radius: 8px;
+    font-weight: bold;
+    background: #f6f6f6;
+    padding-top: 10px;
+}
+select#order-num {
+    width: 58px;
+    margin-left: 17px;
+}
+p#nim_p {
+    font-size: 27px;
+}
+  

@@ -23,5 +23,6 @@ $(document).ready(function(){
 
     $('#orderAgree').hide();
     $('#orderDisagree').show();
+    $('#shortPoint').hide();
 
 });

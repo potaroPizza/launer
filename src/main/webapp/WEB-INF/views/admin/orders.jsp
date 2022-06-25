@@ -23,7 +23,7 @@
 수거전
 수거완료
 세탁중
-픽업대기
+배송대기
 배송중
 배송완료 
 -->
@@ -33,7 +33,65 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 <script type="text/javascript">
 	$(function(){
-		//var countPerPage = 10;
+		//체크박스 관련
+		var chkBox = $("tbody input[type=checkbox]");
+		
+		$("#chkAll").click(function() {
+			chkBox.prop("checked", this.checked);	// chkAll의 checked의 값을 따라감
+		})
+		
+		//개별 체크박스 클릭시, 모두 체크되어있지 않으면, 최상위 체크박스 해제 
+		chkBox.click(function() {
+			var total = chkBox.length;
+			var checked = $("tbody input[type=checkbox]:checked").length;
+
+			if(total != checked) {
+				$("#chkAll").prop("checked", false);
+			} else {
+				$("#chkAll").prop("checked", true); 
+			}
+		}); 
+		
+		//주문 다중 처리
+		$('#btMultiUpdate').click(function(){
+			if(confirm("정말로 배송대기 처리를 하시겠습니까?")){
+				var count = $('tbody input[type=checkbox]:checked').length;
+
+				if(count > 0) {
+					var items = $('input[type=checkbox]:checked').parent().siblings('.tdStatus').text();
+					var str = items.split(" ");
+					var bool = true;
+					str.forEach(function(item, index){
+						if(item !== "수거전"){
+							bool = false;
+						}
+					});
+					if(!bool){
+						alert("세탁중인 상태의 주문만 배송대기 처리할 수 있습니다.");
+						return false;
+					}
+					
+					$('form[name="frmList"]').prop('action',
+							'<c:url value="/admin/ordersUpdateMulti"/>');
+					$('form[name="frmList"]').submit();
+				} else {
+					alert('배송대기 처리할 주문을 먼저 선택해주세요.');
+				}	
+			} else{
+				return false;
+			}
+			
+		});
+		
+		//엑셀파일로 받기
+		$('#btnReadExcel').click(function(){
+			if(confirm("주문들을 엑셀로 받으시겠습니까?")){
+				location.href="<c:url value='/admin/excel'/>";
+			} else{
+				return false;
+			}
+			
+		});
 		
 		// 검색테이블의 달력 유효성 검사
 		$("#od_submit").click(function(){
@@ -55,11 +113,9 @@
 		}
 		*/
 		
+		//페이지 당 레코드 수 설정
 		$('#selectCountPerPage').on("change", function(){
 			$('input[name=countPerPage]').val($(this).val());
-		});
-		
-		$('#selectCountPerPage').on("change", function(){
 			$('form[name=frmSearch]').submit();
 		});
 		
@@ -251,6 +307,8 @@
 					
 				</div>
 				<div class="card-body">
+				<form name="frmList" method="post"
+					action="<c:url value=''/>">
 					<table class="table table-striped" id="orders">
 						<colgroup>
 							<col style="width: 5%">
@@ -278,18 +336,19 @@
 								<td colspan="7">주문내역이 존재하지 않습니다.</td>
 							</tr>
 						</c:if>
-						<c:if test="${!empty list}">					
+						<c:if test="${!empty list}">
+						<c:set var="i" value="0"/>					
 						<!-- 주문리스트 반복 시작 -->
 						<c:forEach var="map" items="${list}">
 							<tr>
 								<td>
-									<input type="checkbox" name=""
-										value="">
+									<input type="checkbox" name="orderItems[${i}].no"
+										value="${map['ORDERNO']}">
 								</td>
 								<td>${map['ORDERNO']}</td>
 								<td>${map['USEREMAIL']}</td>
 								<td>${map['OFFICENAME']}</td>
-								<td>${map['ORDERSTATUS']}</td>
+								<td class="tdStatus">${map['ORDERSTATUS']} </td>
 								<td>
 									<fmt:formatDate value="${map['REGDATE']}"
 										pattern="yyyy-MM-dd HH:mm"/> 
@@ -301,7 +360,8 @@
 						</c:if>
 						</tbody>
 					</table>
-					<input type="button" value="픽업대기 처리">
+					<input type="button" id="btMultiUpdate" value="배송대기 처리">
+					
 					&nbsp; 
 					<select id="selectCountPerPage">
 						<option value="5"
@@ -325,12 +385,15 @@
             				</c:if>
 						>50개씩 보기</option>
 					</select>
+					<input type="button" id="btnReadExcel" 
+						style="float:right;" value="엑셀파일로 받기">
+					</form>
 				</div>
 			</div>
 			<nav aria-label="...">
 				<ul class="pagination">
 				<c:if test="${pagingInfo.firstPage>1 }">
-					<li class="page-item">Previous
+					<li class="page-item">
 						<a class="page-link" href="#"
 							onclick="pageFunc(${pagingInfo.firstPage-1})"
 							>Previous
