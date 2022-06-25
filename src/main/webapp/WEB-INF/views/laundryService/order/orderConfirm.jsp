@@ -38,8 +38,8 @@ $(function () {
 		}else{
 			$('#shortPoint').hide();
 		}
-
-		if(isNaN(insertPoint)==true || insertPoint == null ){
+		if(isNaN(insertPoint)==true || insertPoint == null){
+		
 			alert("포인트가 올바르지 않습니다.");
 			event.preventDefault();
 			return false;
@@ -91,6 +91,7 @@ $(function () {
 			}
 			if(isNaN(insertPoint)==true && insertPoint!=null){
 				alert("포인트가 올바르지 않습니다.");
+				insetPoint = 0;
 				event.preventDefault();
 				return false;
 			}
@@ -105,8 +106,20 @@ $(function () {
 			
 			console.log("사용포인트 ="+usePoint);
 			console.log("적립포인트 ="+savePoint);
+			
+		    totalPrice = $('#totalPrice').val();
+		    var response = confirm('결제금액은 '+totalPrice+"원입니다. 결제를 계속 진행하시겠습니까? ");
+	        if(response==false) {
+	        	event.preventDefault();
+				return false;
+	        }
+			
+			
+			
 	 });
 });
+
+
 	
 </script>
 <div class="margin-top-fixed" style ="height: 100px;"></div>
@@ -153,9 +166,12 @@ $(function () {
 							name="entherMethod" id="entherMethod" class="orderConfirm-input"
 							value="${map['ENTERMETHOD']}" readonly>
 					</div>
+					
+					
 					<div class="orderInfo-request">
-						<div><i class="fa-solid fa-circle-info"></i>&nbsp;세탁요청사항</div>
-						<input type="text" name="orderRequest" id="orderRequest">
+						 <div><i class="fa-solid fa-circle-info"></i>&nbsp;세탁요청사항</div>
+					 	
+						 <input type="text" name="orderRequest" id="orderRequest">  
 					</div>
 				</div>
 				<hr>
@@ -227,14 +243,14 @@ $(function () {
 								var="readyPoint" value="${paramPrice/100 }" />
 
 							<span class="">적립예정포인트:</span><input type="text" id="savePoint"
-								name="savePoint" value="${readyPoint }  ">
+								name="savePoint" value="${readyPoint }">
 						</div>
 						<div class="orderConfirm-finalInfo-div">
-							<label for="">포인트사용 : </label> <input type="text"
-								name="insertPoint" id="insertPoint"> <input
-								type="hidden" name="usePoint" id="usePoint"> <input
-								type="button" value="사용" id="insertPointBtn">&nbsp; <span>보유포인트
-								: </span><span id="havePoint">${userVo.point }</span><span>p</span><br>
+							<label for="">포인트사용 : </label> 
+							<input type="text" name="insertPoint" id="insertPoint"> 
+							<input type="hidden" name="usePoint" id="usePoint"> 
+							<input type="button" value="사용" id="insertPointBtn">&nbsp; 
+							<span>보유포인트 : </span><span id="havePoint">${userVo.point }</span><span>p</span><br>
 							<input type="hidden" name="paramPoint" id="havePoint2"
 								value="${userVo.point }"> <span id="shortPoint">보유포인트보다
 								값이 큽니다</span>
@@ -253,7 +269,7 @@ $(function () {
 						<button type="button" class="btn btn-primary"
 							data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 							이용약관</button>
-
+				
 						<!-- 약관동의 모달 -->
 						<div class="modal fade" id="staticBackdrop"
 							data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
