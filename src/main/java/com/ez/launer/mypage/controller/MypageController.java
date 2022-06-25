@@ -1,5 +1,7 @@
 package com.ez.launer.mypage.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.launer.common.ConstUtil;
+import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.common.PaginationInfo;
+import com.ez.launer.common.PaymentSearchVO;
 import com.ez.launer.common.PointSearchVO;
 import com.ez.launer.payment.model.PaymentDetailAllVO;
 import com.ez.launer.payment.model.PaymentService;
@@ -287,11 +291,33 @@ public class MypageController {
 
 
 	@RequestMapping("/paymentdetails")
-	public String paymentdetails(HttpSession session, Model model) {
+	public String paymentdetails(HttpSession session,@ModelAttribute PaymentSearchVO searchVo, Model model) {
 		
 		int no=1000;
 		//String userid=(String)session.getAttribute("userid");
 		logger.info("마이페이지 결제내역 화면, 파라미터 userid={}", no);
+		
+		if(searchVo.getCountPerPage() == 0) {	
+			searchVo.setCountPerPage(10);
+		}
+		
+		if(searchVo.getStartDay() == null || searchVo.getStartDay().isEmpty()) {
+			Date today = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String str = sdf.format(today);
+			searchVo.setStartDay(str);
+			searchVo.setEndDay(str);
+			
+			logger.info("페이징, searchVo={}", searchVo);
+		}
+		
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
+		pagingInfo.setRecordCountPerPage(searchVo.getCountPerPage());
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		searchVo.setRecordCountPerPage(searchVo.getCountPerPage());
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
 		
 		UserVO vo= userService.selectById(no);
 		logger.info("회원 정보 조회 결과 vo={}", vo);
@@ -299,10 +325,19 @@ public class MypageController {
 		List<PaymentDetailAllVO> list = paymentService.selectPaymentDetail(no);
 		logger.info("마이페이지 결제내역 결과 list={}", list);
 		
+		List<Map<String, Object>> paymentList = paymentService.selectPaymentList(searchVo);
+		logger.info("마이페이지 결제내역 결과, paymentList.size={}", paymentList.size());
+		
+		int totalRecord = paymentService.paymentSelectTotalRecord(searchVo);
+		logger.info("마이페이지 결제내역 결과, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
 		model.addAttribute("vo",vo);
 		model.addAttribute("list",list);
+		model.addAttribute("paymentList",paymentList);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
-		return "mypage/paymentdetails";
+		return "/mypage/paymentdetails";
 	}
 	
 	

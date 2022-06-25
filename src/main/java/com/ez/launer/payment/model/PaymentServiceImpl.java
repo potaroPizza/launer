@@ -3,8 +3,11 @@ package com.ez.launer.payment.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.ez.launer.common.PaymentSearchVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +36,18 @@ public class PaymentServiceImpl implements PaymentService{
 	public List<PaymentDetailAllVO> selectPaymentDetail(int userNo) {
 		return paymentDao.selectPaymentDetail(userNo);
 	}
-	
+
+
+	@Override
+	public List<Map<String, Object>> selectPaymentList(PaymentSearchVO searchVo) {
+		return paymentDao.selectPaymentList(searchVo);
+	}
+
+
+	@Override
+	public int paymentSelectTotalRecord(PaymentSearchVO searchVo) {
+		return paymentDao.paymentSelectTotalRecord(searchVo);
+	}
 	
 
 }
