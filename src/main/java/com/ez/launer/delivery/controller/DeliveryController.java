@@ -17,10 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -150,5 +147,25 @@ public class DeliveryController {
         resMap.put(listMap, (Map<String, Object>) new HashMap<>().put("lastPage", paginationInfo.getLastPage()));*/
 
         return resMap;
+    }
+
+
+    @RequestMapping("/addList")
+    @ResponseBody
+    public String addList(@RequestParam(defaultValue = "0") int groupNo,
+                          @RequestParam(defaultValue = "0") int orderNo,
+                          HttpSession session) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        logger.info("수거/배송 리스트 내 항목으로 추가, 현재 deliveryNo={}, " +
+                "파라미터 groupNo={}, orderNo={}", deliveryNo, groupNo, orderNo);
+
+        if(groupNo == 0 && orderNo == 0) return "알 수 없는 에러, 수거하기 실패";
+
+        /*
+        * 리스트에서 내 수거/배송 목록으로
+        * [1] order 테이블에서 PICKUP_DRIVER/DELIVERY_DRIVER, ORDER_STATUS_NO 업데이트
+        * */
+
+        return "ㄹㄹㄹ";
     }
 }
