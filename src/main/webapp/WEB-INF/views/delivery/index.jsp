@@ -72,13 +72,6 @@
                 curUpdate();
                 createMap();
                 listEvent();
-                /*$("#orders-list").scroll((e) => {
-                    console.log("height : " + $(e.target).height());
-                    console.log($("#order-scroll-box input[value=10003]"));
-                    console.log("scrollTop() = " + $(e.target).scrollTop());
-                    console.log("offset() = " + ($("#order-scroll-box input[value=10004]").parent().parent().parent().position().top));
-                });*/
-
                 slideTog();
             }
 
@@ -153,9 +146,6 @@
                 });
             }
 
-
-
-
             // MakrerImage 객체를 생성하여 반환하는 함수입니다
             function createMarkerImage(markerSize, offset, spriteOrigin) {
                 var markerImage = new kakao.maps.MarkerImage(
@@ -185,11 +175,14 @@
 
             //전부 초기화하는 함수
             function cleanList() {
+                $("#order-scroll-box").text("");
                 positions = [];
+                currentPage = 0;
+                dbCur = 0;
                 createMap();
-                $("#order-scroll-box").html("");
-                $("#paging-form input[name=currentPage]").val(1);
-                listEvent();
+                curUpdate();
+                // slideTog();
+                // listEvent();
             }
 
 
@@ -231,6 +224,7 @@
                         totalRecord = res.totalRecord;
 
                         console.log("dbCur = " + dbCur);
+                        console.log("currentPage = " + currentPage);
                         console.log("totalPage = " + totalPage);
                         console.log("totalRecord = " + totalRecord);
 
@@ -323,16 +317,16 @@
                     //수거 : 1, 배송 : 2
 
                     if($tabElement.hasClass("on")) {
-                        $("#order-scroll-box").animate({
+                        $("#orders-list").animate({
                             scrollTop: 0
                         }, 200, "swing");
                     }else {
                         $("#order-tab-box div").removeClass("on");
                         $tabElement.addClass("on");
-                        let emp = $groupText === '수거' ? 1 : '배송' ? 2 : 0;
-                        console.log("탭 타입 : " + emp);
+                        groupNo = $groupText === '수거' ? 1 : '배송' ? 2 : 0;
+                        console.log("탭 타입 : " + groupNo);
                         cleanList();
-                        viewList(emp);
+                        // viewList(groupNo);
                     }
                 });
             }
