@@ -106,8 +106,20 @@ $(function () {
 			
 			console.log("사용포인트 ="+usePoint);
 			console.log("적립포인트 ="+savePoint);
+			
+		    totalPrice = $('#totalPrice').val();
+		    var response = confirm('결제금액은 '+totalPrice+"원입니다. 결제를 계속 진행하시겠습니까? ");
+	        if(response==false) {
+	        	event.preventDefault();
+				return false;
+	        }
+			
+			
+			
 	 });
 });
+
+
 	
 </script>
 <div class="margin-top-fixed" style ="height: 100px;"></div>
@@ -231,7 +243,7 @@ $(function () {
 								var="readyPoint" value="${paramPrice/100 }" />
 
 							<span class="">적립예정포인트:</span><input type="text" id="savePoint"
-								name="savePoint" value="${readyPoint }p">
+								name="savePoint" value="${readyPoint }">
 						</div>
 						<div class="orderConfirm-finalInfo-div">
 							<label for="">포인트사용 : </label> 
