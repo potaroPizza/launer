@@ -10,6 +10,7 @@ import java.util.Map;
 public interface OrderService {
     List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO);
     int orderCount(OrderListSearchVO orderListSearchVO);
+    int updateOrder(OrderDeliveryVO orderDeliveryVO);
     OrderViewVO selectUsersOrderView(int usersNo);
     int insertOrder(OrderVO orderVo);
     int selectRecentOrderNo(int userNo);

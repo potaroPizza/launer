@@ -400,13 +400,13 @@
                         thisElement.attr("onclick", addListAttr).toggleClass("on").text("취소");
                         thisParentElement.toggleClass("timer");
                         countAdd++;
-                        setTimeAddList(orderNo, 0);
+                        setTimeAddList(orderNo, thisParentElement);
                     }else{alert("진행중인 항목이 있습니다.");}
                 }
             }
 
             let addSetTime;
-            function setTimeAddList(orderNo) {
+            function setTimeAddList(orderNo, element) {
                 let thisGroupNo = groupNo;
                 addSetTime = setTimeout(() => {
                     console.log(thisGroupNo);
@@ -418,7 +418,17 @@
                         },
                         type: "POST",
                         success: (res) => {
-                            alert(res);
+                            if(res === "추가 성공") {
+                                element.animate({
+                                    left: "200%"
+                                }, 100, () => {
+                                    setTimeout(() => {
+                                        $(element).remove();
+                                    }, 400);
+                                });
+                            }else {
+                                alert(res);
+                            }
                         },
                         error: (xhr, status, error) => {
                             alert("error : " + error);

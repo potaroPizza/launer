@@ -25,7 +25,12 @@ public class OrderServiceImpl implements OrderService{
         return orderDAO.orderCount(orderListSearchVO);
     }
 
-    @Override
+	@Override
+	public int updateOrder(OrderDeliveryVO orderDeliveryVO) {
+		return orderDAO.updateOrder(orderDeliveryVO);
+	}
+
+	@Override
 	public OrderViewVO selectUsersOrderView(int usersNo) {
 		return orderDAO.selectUsersOrderView(usersNo);
 	}

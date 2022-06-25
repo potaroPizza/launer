@@ -1,14 +1,13 @@
 package com.ez.launer.delivery.controller;
 
-import com.ez.launer.category.model.CategoryService;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.MapPolygon;
 import com.ez.launer.common.PaginationInfo;
-import com.ez.launer.common.SearchVO;
 import com.ez.launer.delivery.model.DeliveryDriverService;
 import com.ez.launer.delivery.model.DeliveryDriverVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
 import com.ez.launer.laundryService.order.model.OrderDeliveryAllVO;
+import com.ez.launer.laundryService.order.model.OrderDeliveryVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
@@ -163,9 +162,33 @@ public class DeliveryController {
 
         /*
         * 리스트에서 내 수거/배송 목록으로
+        * [1] 우선 해당 Order가 상태 업데이트 상태인지 확인해야함
         * [1] order 테이블에서 PICKUP_DRIVER/DELIVERY_DRIVER, ORDER_STATUS_NO 업데이트
         * */
 
-        return "ㄹㄹㄹ";
+        OrderDeliveryVO orderDeliveryVO = new OrderDeliveryVO();
+        int orderStatusNo = 0;
+        String typeStatus = "";
+        if(groupNo == 1) {
+            orderStatusNo = ConstUtil.COMPLE_PICKUP;
+            typeStatus = "PICKUP_DRIVER";
+        }else if(groupNo == 2) {
+            orderStatusNo = ConstUtil.DELIVERY_PROGRESS;
+            typeStatus = "DELIVERY_DRIVER";
+        }
+
+        orderDeliveryVO.setNo(orderNo);
+        orderDeliveryVO.setOrderStatusNo(orderStatusNo);
+        orderDeliveryVO.setTypeStatus(typeStatus);
+        orderDeliveryVO.setDeliveryNo(deliveryNo);
+
+        logger.info("내 할일로 추가 전 orderDeliveryVO={}", orderDeliveryVO);
+
+        int cnt = orderService.updateOrder(orderDeliveryVO);
+        logger.info("내 할일로 추가 결과 cnt={}", cnt);
+        String res = "해당 항목이 유효하지않습니다. 새로고침 후 다시 시도해주세요.";
+        if(cnt > 0) res = "추가 성공";
+
+        return res;
     }
 }

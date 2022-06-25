@@ -11,10 +11,22 @@ import java.util.Map;
 
 @Mapper
 public interface OrderDAO {
-//    List<Map<String, Object>> orderOfficeView(OrderListSearchVO orderListSearchVO);
+    // 박권순 시작
+    // 박권순 시작
+    // 박권순 시작
+    // 박권순 시작
+    // List<Map<String, Object>> orderOfficeView(OrderListSearchVO orderListSearchVO);
     List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO);
 
     int orderCount(OrderListSearchVO orderListSearchVO);
+    int updateOrder(OrderDeliveryVO orderDeliveryVO);
+    // 박권순 끝
+    // 박권순 끝
+    // 박권순 끝
+    // 박권순 끝
+
+
+
     OrderViewVO selectUsersOrderView(int usersNo);
     int insertOrder(OrderVO orderVo);
     int selectRecentOrderNo(int userNo);
