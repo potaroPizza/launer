@@ -83,6 +83,16 @@
 			
 		});
 		
+		//엑셀파일로 받기
+		$('#btnReadExcel').click(function(){
+			if(confirm("주문들을 엑셀로 받으시겠습니까?")){
+				location.href="<c:url value='/admin/excel'/>";
+			} else{
+				return false;
+			}
+			
+		});
+		
 		// 검색테이블의 달력 유효성 검사
 		$("#od_submit").click(function(){
 			if($("#startDay").val().length<1){
@@ -375,13 +385,15 @@
             				</c:if>
 						>50개씩 보기</option>
 					</select>
+					<input type="button" id="btnReadExcel" 
+						style="float:right;" value="엑셀파일로 받기">
 					</form>
 				</div>
 			</div>
 			<nav aria-label="...">
 				<ul class="pagination">
 				<c:if test="${pagingInfo.firstPage>1 }">
-					<li class="page-item">Previous
+					<li class="page-item">
 						<a class="page-link" href="#"
 							onclick="pageFunc(${pagingInfo.firstPage-1})"
 							>Previous
