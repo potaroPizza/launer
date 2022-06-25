@@ -130,9 +130,5 @@
 				총 결제 금액 <span>1500</span>원
 			</p>
 		</div>
-		<div class="paymentdetails_back">
-			<button type="button" class="btn btn-dark"
-				onclick="location.href='/launer/mypage/mypage'">이전</button>
-		</div>
 	</div>
 </t:wrapper>

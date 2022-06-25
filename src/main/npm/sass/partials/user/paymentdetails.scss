@@ -56,27 +56,33 @@
 	margin-bottom: 70px;
 }
 
+.paymentdetails_table {
+	box-shadow: 0px 0px 35px -11px rgba(0,0,0,0.3);
+	background-color: rgba(255, 255, 255, .2);
+	border-radius: 10px;
+	overflow:hidden;
+}
+
 .paymentdetails_table li {
-	border-radius: 3px;
-	padding: 5px 30px;
+	padding: 14px 30px;
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 10px;
 }
 
 .paymentdetails_table-header {
-	background-color: #849EC2;
+	background-color: rgba(132, 158, 194, 0.9);
 	font-size: 17px;
 	font-weight: bold;
 	text-transform: uppercase;
 	letter-spacing: 0.03em;
 	color: white;
 	text-align: center;
+	border-radius: 10px;
+	overflow:hidden;
 }
 
 .paymentdetails_table-row {
-	background-color: #ffffff;
-	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+	color: rgb(93, 93, 93);
 	font-size: 15px;
 	font-weight: bold;
 	text-align: center;

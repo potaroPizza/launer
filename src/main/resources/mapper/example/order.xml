@@ -78,6 +78,10 @@
     
     
 	<!-- 지효가 만든거 시작 -->
+	<select id="adminSelectAll" resultType="map">
+		select * from adminOrderListView
+	</select>
+	
 	<!-- 주문관리 리스트 검색시 사용하는 조건절 -->
 	<sql id="adminOrderListWhere">
 		where REGDATE >= #{startDay}
@@ -121,8 +125,8 @@
 	</select>
 	
 	<!-- 주문관리 - 주문상세 조회하는 쿼리 -->
-	<select id="adminOrderListView2" parameterType="int" resultType="map">
-		select * from adminOrderListView2
+	<select id="adminOrderDetailView2" parameterType="int" resultType="map">
+		select * from adminOrderDetailView2
 		where orderNo = #{orderNo}
 	</select>
 	
@@ -133,7 +137,7 @@
 			<result column="officeName" jdbcType="VARCHAR" property="officeName"/>
 			<result column="status" jdbcType="VARCHAR" property="status"/>
 			<result column="regdate" jdbcType="TIMESTAMP" property="regdate"/>
-			<result column="address" jdbcType="VARCHAR" property="address	"/>
+			<result column="address" jdbcType="VARCHAR" property="address"/>
 			<result column="pickupDriver" jdbcType="VARCHAR" property="pickupDriver"/>
 			<result column="deliveryDriver" jdbcType="VARCHAR" property="deliveryDriver"/>
 			<result column="paymentNo" jdbcType="BIGINT" property="paymentNo"/>
@@ -141,7 +145,7 @@
 		</association>
 		
 		<collection property="adminOrderDetailList" column="orderNo"
-			javaType="ArrayList" ofType="map" select="adminOrderListView2">	
+			javaType="ArrayList" ofType="map" select="adminOrderDetailView2">	
 		</collection>
 	</resultMap>
 	
@@ -150,6 +154,13 @@
 		select * from adminOrderDetailView
 		where orderNo = #{orderNo}
 	</select>
+	
+	<!-- 주문상태 : 세탁중 => 배송대기 처리 -->
+	<update id="adminOrderStatusUpdate" parameterType="int">
+		update orders
+		set ORDER_STATUS_NO = 4
+		where NO = #{orderNo}
+	</update>
 	<!-- 지효가 만든거 끝 -->
 	
 	<select id="selectRecentOrderNo" parameterType="int" resultType="int">
@@ -185,10 +196,11 @@
 		where no= #{no}
 	</update>
 	
-<!-- 	<update id="updatePaymentDate" parameterType ="timestamp">
-		
-	
-	</update> -->
+	<update id="updatePaymentDate" parameterType ="int">
+		update orders
+		set payment_date = sysdate
+		where no = #{no}
+	</update> 
 	
 	
 	
