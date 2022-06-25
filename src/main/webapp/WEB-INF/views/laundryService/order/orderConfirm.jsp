@@ -109,7 +109,7 @@ $(function () {
 });
 	
 </script>
-
+<div class="margin-top-fixed" style ="height: 100px;"></div>
 <div id ="confirmWrapforScss">
 
 <div id ="orderConfirm-wrap">
@@ -144,23 +144,25 @@ $(function () {
 					</div>
 
 					<div class="user-address">
-						<label for="address">주소 : </label> <input type="text"
-							name="address" id="address" class="orderConfirm-input" value="주소"
-							readonly>
+						<label for="address">주소 : </label> 
+						<input type="text" name="address" id="address" class="orderConfirm-input" value="${map['ADDRESS'] }" readonly>
+						<input type="text" name="addressDetail" id="addressDetail" class="orderConfirm-input" value=" ${map['ADDRESS_DETAIL']}" readonly>
 					</div>
 					<div class="user-address-method">
 						<label for="entherMethod">현관출입방법 : </label> <input type="text"
 							name="entherMethod" id="entherMethod" class="orderConfirm-input"
-							value="없음" readonly>
+							value="${map['ENTERMETHOD']}" readonly>
 					</div>
 					<div class="orderInfo-request">
-						<div>세탁요청사항</div>
+						<div><i class="fa-solid fa-circle-info"></i>&nbsp;세탁요청사항</div>
 						<input type="text" name="orderRequest" id="orderRequest">
 					</div>
 				</div>
 				<hr>
 				<div class="orderConfirm-clothing">
-					<table class="orderConfirm-clothing-table"
+				
+				<div class ="orderTableDiv"></div>				
+				<table class="orderConfirm-clothing-table"
 						summary="수거요청상품 목록에 대한 표로서 상품명, 가격,금액,이미지 등의 정보를 제공합니다">
 						<colgroup>
 							<col style="">
@@ -177,6 +179,7 @@ $(function () {
 							</tr>
 						</thead>
 						<tbody>
+						
 							<c:if test="${empty list }">
 								<tr class="">
 									<td colspan="5">장바구니가 비었습니다.</td>
@@ -210,6 +213,7 @@ $(function () {
 							</c:if>
 						</tbody>
 					</table>
+					<div class ="orderTableDiv"></div>	
 
 
 					<!-- 총배송목록 -->
@@ -303,7 +307,6 @@ $(function () {
 						</span>
 					</div>
 				</div>
-				<hr>
 				<div class="orderInfo-goOrder">
 					<input type="submit" class="orderBtn" value="결제요청" id="orderBtn">
 				</div>
@@ -314,9 +317,8 @@ $(function () {
 	</div>
 
 </div>
-</
-<div class="margin-top-fixed"></div>
 </div>
+<div class="margin-top-fixed" style ="height: 100px;"></div>
 
 
 </t:wrapper>

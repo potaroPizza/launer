@@ -112,9 +112,8 @@ span#orderAgree {
     color: #19b919;
 }
 
-.margin-top-fixed{
-    width: 100%;
-    height: 70px;
+.margin-top-fixed {
+    height: 29px;
 }
 
 
@@ -122,9 +121,8 @@ span#orderAgree {
     justify-content: left;
 }
 
+
 .orderInfo-goOrder{
-    height: 100%;
-    display: flex;
     align-items: center;
     justify-content: center;
   }
@@ -157,7 +155,82 @@ span#orderAgree {
   .orderConfirm-finalInfo div:nth-child(2) {
     height: 72px;
 }
-  
-  
 
+td input {
+        width: 171px;
+    text-align: center;
+    font-size: 21px;
+    border: none;
+}
+thead {
+    font-size: 24px;
+}
+
+table.orderConfirm-clothing-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    display: table-cell;
+    vertical-align: middle;
+
+}
+
+tr {
+    text-align: center;
+    vertical-align: middle;
+    height: 34px;
+}
+.orderTableDiv {
+    height: 26px;
+}
+
+
+.orderConfirm-inform > p {
+    margin-bottom: 27px;
+}
   
+input#addressDetail {
+    DISPLAY: inherit;
+}
+
+
+input#orderRequest {
+        height: 77px;
+    border-radius: 12px;
+    width: 250px;
+    margin-left: 10px;
+}
+
+.orderInfo-request {
+    margin-top: 38px;
+}
+
+
+.orderInfo-request > div {
+    font-size: 19px;
+    font-weight: bold;
+}
+  
+  
+  thead {font-weight: bold;}
+  
+  input#buyingPrice {
+    width: 293px;
+}
+
+input#savePoint {
+    border: none;
+    width: 91px;
+}
+  .orderBtn:hover {
+    background-color: #7292b1;
+    box-shadow: 0px 15px 20px rgb(110 135 129 / 40%);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+  
+  .orderInfo-goOrder {
+    text-align: center;
+}
