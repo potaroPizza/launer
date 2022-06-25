@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:wrapper>
 <script type="text/javascript">
@@ -78,49 +79,25 @@
 		<div class="paymentdetails_container">
 			<ul class="paymentdetails_table">
 				<li class="paymentdetails_table-header">
-					<div class="paymentdetails_col-1">주문코드</div>
+					<div class="paymentdetails_col-1">주문번호</div>
 					<div class="paymentdetails_col-2">상품명</div>
 					<div class="paymentdetails_col-3">가격</div>
 					<div class="paymentdetails_col-4">주문일</div>
 					<div class="paymentdetails_col-5">상태</div>
 				</li>
-				<li class="paymentdetails_table-row">
-					<div class="paymentdetails_col-1" data-label="주문코드">00001</div>
+				<c:if test="${!empty list }">
+				<c:forEach var="PaymentViewVO" items="${list }">
+				<li class="paymentdetails_table-row"> 
+					<div class="paymentdetails_col-1" data-label="주문번호">${PaymentViewVO.paymentViewVO.orderNo}</div>
 					<div class="paymentdetails_col-2" data-label="상품명">
-						<a href="/launer/mypage/detailedPaymentHistory">신발외 5건</a>
+						<a href="/launer/mypage/detailedPaymentHistory">${PaymentViewVO.paymentViewVO.categoryName}</a>
 					</div>
-					<div class="paymentdetails_col-3" data-label="가격">5000원</div>
-					<div class="paymentdetails_col-4" data-label="주문일">2022-06-18</div>
-					<div class="paymentdetails_col-5" data-label="상태">배송중</div>
+					<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${PaymentViewVO.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber></div>
+					<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${PaymentViewVO.paymentViewVO.regdate}" pattern="yyyy-MM-dd" /></div>
+					<div class="paymentdetails_col-5" data-label="상태">${PaymentViewVO.paymentViewVO.status}</div>
 				</li>
-				<li class="paymentdetails_table-row">
-					<div class="paymentdetails_col-1" data-label="주문코드">00002</div>
-					<div class="paymentdetails_col-2" data-label="상품명">청바지외 5건</div>
-					<div class="paymentdetails_col-3" data-label="가격">15000원</div>
-					<div class="paymentdetails_col-4" data-label="주문일">2022-06-18</div>
-					<div class="paymentdetails_col-5" data-label="상태">배송완료</div>
-				</li>
-				<li class="paymentdetails_table-row">
-					<div class="paymentdetails_col-1" data-label="주문코드">00003</div>
-					<div class="paymentdetails_col-2" data-label="상품명">신발외 5건</div>
-					<div class="paymentdetails_col-3" data-label="가격">5000원</div>
-					<div class="paymentdetails_col-4" data-label="주문일">2022-06-18</div>
-					<div class="paymentdetails_col-5" data-label="상태">배송중</div>
-				</li>
-				<li class="paymentdetails_table-row">
-					<div class="paymentdetails_col-1" data-label="주문코드">00004</div>
-					<div class="paymentdetails_col-2" data-label="상품명">신발외 5건</div>
-					<div class="paymentdetails_col-3" data-label="가격">5000원</div>
-					<div class="paymentdetails_col-4" data-label="주문일">2022-06-18</div>
-					<div class="paymentdetails_col-5" data-label="상태">배송중</div>
-				</li>
-				<li class="paymentdetails_table-row">
-					<div class="paymentdetails_col-1" data-label="주문코드">00005</div>
-					<div class="paymentdetails_col-2" data-label="상품명">신발외 5건</div>
-					<div class="paymentdetails_col-3" data-label="가격">45000원</div>
-					<div class="paymentdetails_col-4" data-label="주문일">2022-06-18</div>
-					<div class="paymentdetails_col-5" data-label="상태">결제완료</div>
-				</li>
+				</c:forEach>
+				</c:if>
 
 			</ul>
 		</div>

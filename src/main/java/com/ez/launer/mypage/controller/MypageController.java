@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.PaginationInfo;
 import com.ez.launer.common.PointSearchVO;
+import com.ez.launer.payment.model.PaymentDetailAllVO;
+import com.ez.launer.payment.model.PaymentService;
 import com.ez.launer.point.model.PointDetailAllVO;
 import com.ez.launer.point.model.PointService;
 import com.ez.launer.user.model.UserAllVO;
@@ -38,6 +40,7 @@ public class MypageController {
 
 	private final UserService userService;
 	private final PointService pointService;
+	private final PaymentService paymentService;
 
 
 	@GetMapping("/mypage") 
@@ -283,10 +286,26 @@ public class MypageController {
 
 
 
-	@GetMapping("/paymentdetails")
-	public void paymentdetails() {
-		logger.info("마이페이지 결제내역 화면");
+	@RequestMapping("/paymentdetails")
+	public String paymentdetails(HttpSession session, Model model) {
+		
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		logger.info("마이페이지 결제내역 화면, 파라미터 userid={}", no);
+		
+		UserVO vo= userService.selectById(no);
+		logger.info("회원 정보 조회 결과 vo={}", vo);
+		
+		List<PaymentDetailAllVO> list = paymentService.selectPaymentDetail(no);
+		logger.info("마이페이지 결제내역 결과 list={}", list);
+		
+		model.addAttribute("vo",vo);
+		model.addAttribute("list",list);
+		
+		return "mypage/paymentdetails";
 	}
+	
+	
 	@GetMapping("/detailedPaymentHistory")
 	public void detailedPaymentHistory() {
 		logger.info("마이페이지 결제내역 상세 화면");

@@ -2,6 +2,7 @@ package com.ez.launer.payment.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,13 @@ public class PaymentServiceImpl implements PaymentService{
 		paymentVo.setPaymentCode(paymentCode);
 
 		return paymentDao.insertPaymentDetail(paymentVo);
+	}
+
+	
+	//
+	@Override
+	public List<PaymentDetailAllVO> selectPaymentDetail(int userNo) {
+		return paymentDao.selectPaymentDetail(userNo);
 	}
 	
 	
