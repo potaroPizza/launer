@@ -7,19 +7,26 @@
 <t:wrapper>
 <!DOCTYPE html>
 <style>
-	.orderPaymentWrapper {
-		width: 300px;
-		border: 1px solid black;
-	}
+div#payment-wrap {
+    height: 100%;
+}
 </style>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 	<script type="text/javascript">
 $(function(){
-		$('#paymentBtn').click(function(){
+	var paymentResult = true;
+	$(document).ready(function () {
 				var email = $('#email').val();
 				var name = $('#name').val();
 				var orderNo = $('#orderNo').val();
 				var payPrice = $('#payPrice').val();
+				var userPoint = $('#userPoint').val();
+				
+				console.log(userPoint);
+				
+				if(userPoint<0 || userPoint==null){
+					userPoint = 0;
+				}
 
 		        // getter
 		        var IMP = window.IMP;
@@ -53,15 +60,32 @@ $(function(){
 		            		url:"/launer/laundryService/payment/requestPayment",
 		            		data:{
 		            			"orderNo" : orderNo,
-		            			"payPrice" :payPrice
+		            			"payPrice" :payPrice,
+		            			"userPoint" : userPoint
 		            		},
 		            	});
 		            } else {
-		                var msg = '결제에 실패하였습니다.';
-		                msg += '에러내용 : ' + rsp.error_msg;
+		            	var msg = '결제에 실패하였습니다. 메인화면으로 이동합니다';
+		            	paymentResult = false;
 		            }
 		            alert(msg);
-		            document.location.href="/launer/laundryService/order/orderMake"; //alert창 확인 후 이동할 url 설정
+		            //alert창 확인 후 이동할 url 설정
+		            if(paymentResult){
+		           	  document.location.href="/launer/laundryService/order/orderMake"; //결제 성공 시 이동할 url
+		            }else {
+		            	$.ajax({
+		                	type:'get',
+		            		url:"/launer/laundryService/payment/paymentFailed",
+		            		data:{
+		            			"orderNo" : orderNo,
+		            			"payPrice" :payPrice,
+		            			"userPoint" : userPoint
+		            		},
+		            	});
+		            	
+		            }
+		          	 document.location.href="/launer"; //모두 완료 후 이동할 rul
+		            
 	});
 });
 });
@@ -70,14 +94,12 @@ $(function(){
 	<div id="payment-wrap">
 		<div class="orderPaymentWrapper">
 		
-		<label for = "payPrice"></label>
-		<input type="text" id="payPrice" class="div" value="${payPrice }" name="payPrice"> 
+		<input type="hidden" id="payPrice" class="div" value="${payPrice }" name="payPrice"> 
 		<label for = "orderNo"></label>
-		<input type="text" id="orderNo" class="div" value="${orderNO }" name="orderNo">
+		<input type="hidden" id="orderNo" class="div" value="${orderNO }" name="orderNo">
 		<input type="hidden" id="email" class="div" value="${email }" name="email">
 		<input type="hidden" id="name" class="div" value="${name }" name="name">
-		<input type="hidden" id="userPoint" class="div" value="${userPoint }" name="userPoint">
-			<button class="btn" value="결제하기" id="paymentBtn">결제하기</button>
+		<input type="hidden" id="userPoint" class="div" value="${userPoint}" name="userPoint">
 		</div>
 	</div>
 </t:wrapper>

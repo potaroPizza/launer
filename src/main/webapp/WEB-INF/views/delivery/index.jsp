@@ -72,13 +72,6 @@
                 curUpdate();
                 createMap();
                 listEvent();
-                /*$("#orders-list").scroll((e) => {
-                    console.log("height : " + $(e.target).height());
-                    console.log($("#order-scroll-box input[value=10003]"));
-                    console.log("scrollTop() = " + $(e.target).scrollTop());
-                    console.log("offset() = " + ($("#order-scroll-box input[value=10004]").parent().parent().parent().position().top));
-                });*/
-
                 slideTog();
             }
 
@@ -142,8 +135,18 @@
 
                         $("#orders-list").animate({
                             scrollTop: inputFind.position().top
-                        }, 300);
-                        console.log(inputFind);
+                        }, 300, () => {
+                            let i = 0;
+                            inputFind.toggleClass("marker-focus");
+                            const markerListEvent = setInterval(() => {
+                                if(i < 3) {
+                                    inputFind.toggleClass("marker-focus");
+                                    i++;
+                                }else {
+                                    clearInterval(markerListEvent);
+                                }
+                            }, 280);
+                        });
                         // $findList.css("background", "red");
                     }
 
@@ -152,9 +155,6 @@
                     selectedMarker = marker;
                 });
             }
-
-
-
 
             // MakrerImage 객체를 생성하여 반환하는 함수입니다
             function createMarkerImage(markerSize, offset, spriteOrigin) {
@@ -185,11 +185,16 @@
 
             //전부 초기화하는 함수
             function cleanList() {
-                positions = [];
-                createMap();
                 $("#order-scroll-box").html("");
-                $("#paging-form input[name=currentPage]").val(1);
-                listEvent();
+                positions = [];
+                totalPage = 0;
+                currentPage = 0;
+                dbCur = 0;
+
+                createMap();
+                curUpdate();
+                // slideTog();
+                // listEvent();
             }
 
 
@@ -231,6 +236,7 @@
                         totalRecord = res.totalRecord;
 
                         console.log("dbCur = " + dbCur);
+                        console.log("currentPage = " + currentPage);
                         console.log("totalPage = " + totalPage);
                         console.log("totalRecord = " + totalRecord);
 
@@ -238,7 +244,7 @@
 
                         if(Array.isArray(res.listMap) && res.listMap.length === 0) {
                             panTo(defaultPoint);
-                            listElement += "<h1 style='text-align: center'>리스트가 없습니다.</h1>";
+                            listElement += "<h1 style='text-align: center; padding: 20px 0;'>리스트가 없습니다.</h1>";
                         }else {
                             $.each(res.listMap, (idx, item) => {
                                 console.log(item);
@@ -251,8 +257,9 @@
 
                                 listElement +=
                                     "<div class='order-box' onclick='markerPositon(" + item.orderOfficeView.LON_X + ", " +  item.orderOfficeView.LAT_Y + ")'>" +
+                                    "<div class='timer-box'></div>" +
                                     "<h3>" + titleStr +"</h3>" +
-                                    "<div class='order-text-box'>" +
+                                    "<div class='order-text-box clearfix'>" +
                                     "<div class='left'>" +
                                     "<div class='order-text-list'>" +
                                     "<p>신청자 <strong>" + item.orderOfficeView.NAME + "</strong></p>" +
@@ -264,7 +271,7 @@
                                     "</div>" +
                                     "</div>" +
                                     "<div class='right'>" +
-                                    "<button onclick='addList(" + item.orderOfficeView.NO + ")'>수거하기</button>" +
+                                    "<button onclick='addList(1," + item.orderOfficeView.NO + ", this)'>수거하기</button>" +
                                     "<input type='hidden' value='" + item.orderOfficeView.NO + "'/>" +
                                     "</div>" +
                                     "</div>" +
@@ -286,7 +293,6 @@
                         }
 
                         $("#order-scroll-box").append(listElement);
-
                     },
                     error: (xhr, status, error) => {
                         alert("error : " + error);
@@ -305,7 +311,7 @@
                     let scrollBody = $("#orders-list");
                     //console.log(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) +", " + scrollBody.outerHeight());
                     if(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) <= scrollBody.outerHeight()) {
-                        if(currentPage <= totalPage) {
+                        if(currentPage <= totalPage && totalPage !== 0) {
                             console.log("리스트 업데이트, totalPage= "+ totalPage + ", currentPage=" + currentPage);
                             curUpdate();
                         }
@@ -323,16 +329,16 @@
                     //수거 : 1, 배송 : 2
 
                     if($tabElement.hasClass("on")) {
-                        $("#order-scroll-box").animate({
+                        $("#orders-list").animate({
                             scrollTop: 0
                         }, 200, "swing");
                     }else {
                         $("#order-tab-box div").removeClass("on");
                         $tabElement.addClass("on");
-                        let emp = $groupText === '수거' ? 1 : '배송' ? 2 : 0;
-                        console.log("탭 타입 : " + emp);
+                        groupNo = $groupText === '수거' ? 1 : '배송' ? 2 : 0;
+                        console.log("탭 타입 : " + groupNo);
                         cleanList();
-                        viewList(emp);
+                        // viewList(groupNo);
                     }
                 });
             }
@@ -372,6 +378,63 @@
             function markerPositon(LAT_Y, LON_X) {
                 let thisPoint = new kakao.maps.LatLng(LAT_Y, LON_X);
                 panTo(thisPoint);
+            }
+
+
+            let countAdd = 0;
+
+            function addList(chk, orderNo, element) {
+                let thisElement = $(element);
+                let thisParentElement = $(element).parent().parent().parent();
+                let addListAttr;
+
+                if (chk === 0) {
+                    addListAttr = "addList(1, " + orderNo + ", this)";
+                    thisElement.attr("onclick", addListAttr).toggleClass("on").text("수거하기");
+                    thisParentElement.toggleClass("timer");
+                    countAdd = 0;
+                    clearTimeout(addSetTime);
+                } else {
+                    if (countAdd === 0) {
+                        addListAttr = "addList(0, " + orderNo + ", this)";
+                        thisElement.attr("onclick", addListAttr).toggleClass("on").text("취소");
+                        thisParentElement.toggleClass("timer");
+                        countAdd++;
+                        setTimeAddList(orderNo, thisParentElement);
+                    }else{alert("진행중인 항목이 있습니다.");}
+                }
+            }
+
+            let addSetTime;
+            function setTimeAddList(orderNo, element) {
+                let thisGroupNo = groupNo;
+                addSetTime = setTimeout(() => {
+                    console.log(thisGroupNo);
+                    $.ajax({
+                        url: "<c:url value="/delivery/addList"/>",
+                        data: {
+                            groupNo : thisGroupNo,
+                            orderNo : orderNo
+                        },
+                        type: "POST",
+                        success: (res) => {
+                            if(res === "추가 성공") {
+                                element.animate({
+                                    left: "200%"
+                                }, 100, () => {
+                                    setTimeout(() => {
+                                        $(element).remove();
+                                    }, 400);
+                                });
+                            }else {
+                                alert(res);
+                            }
+                        },
+                        error: (xhr, status, error) => {
+                            alert("error : " + error);
+                        }
+                    });
+                }, 4000);
             }
         </script>
         <div class="zone-box">
