@@ -10,12 +10,14 @@
 <!-- import 라이브러리 -->
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
 <script type="text/javascript">
+
+
 $(function () {
 	//포인트계산
 /* 	const today = new Date();
 	today.setHours(today.getHours() + 12)
 	$('#take-date').val(today); */
-	
+
 	var insertPoint;
 	var totalPrice;
 	var usePoint=0;
@@ -38,8 +40,8 @@ $(function () {
 		}else{
 			$('#shortPoint').hide();
 		}
-
-		if(isNaN(insertPoint)==true || insertPoint == null ){
+		if(isNaN(insertPoint)==true || insertPoint == null){
+		
 			alert("포인트가 올바르지 않습니다.");
 			event.preventDefault();
 			return false;
@@ -60,13 +62,13 @@ $(function () {
 	//submit 시
 	 $('#orderBtn').click(function () {
 		 
-		/* 	if(!$('#flexCheckDefault').is(':checked')){
+		 	if(!$('#flexCheckDefault').is(':checked')){
     			alert('약관에 동의해주세요.');
     			event.preventDefault();
     			$('#staticBackdrop').modal("show");
     			event.preventDefault();
     			return false;
-    		} */
+    		} 
     		insertPoint = $('#insertPoint').val();
     		console.log("입력포인트="+insertPoint);
     		console.log("클릭포인트="+usePoint);
@@ -91,6 +93,7 @@ $(function () {
 			}
 			if(isNaN(insertPoint)==true && insertPoint!=null){
 				alert("포인트가 올바르지 않습니다.");
+				insetPoint = 0;
 				event.preventDefault();
 				return false;
 			}
@@ -105,8 +108,18 @@ $(function () {
 			
 			console.log("사용포인트 ="+usePoint);
 			console.log("적립포인트 ="+savePoint);
+			
+		    totalPrice = $('#totalPrice').val();
+		    var response = confirm('결제금액은 '+totalPrice+"원입니다. 결제를 계속 진행하시겠습니까? ");
+	        if(response==false) {
+	        	event.preventDefault();
+				return false;
+	        }
+
 	 });
 });
+
+
 	
 </script>
 <div class="margin-top-fixed" style ="height: 100px;"></div>
@@ -128,10 +141,9 @@ $(function () {
 				action="/launer/laundryService/order/orderComplete">
 				<div class="orderConfirm-user">
 					<div class="user-date">
-						<label for="take-date">수거일 : </label> <input type="text"
-							name="take-date" id="take-date" class="orderConfirm-input"
-							value="" readonly>
-					</div>
+						<label for="take-date">수거일 : </label> 
+						<span  id="take-date" class="orderConfirm-input" ></span>
+					</div><br>
 					<div class="user-name">
 						<label for="orderUserName">이름 : </label> <input type="text"
 							name="name" id="name" class="orderConfirm-input"
@@ -153,9 +165,12 @@ $(function () {
 							name="entherMethod" id="entherMethod" class="orderConfirm-input"
 							value="${map['ENTERMETHOD']}" readonly>
 					</div>
+					
+					
 					<div class="orderInfo-request">
-						<div><i class="fa-solid fa-circle-info"></i>&nbsp;세탁요청사항</div>
-						<input type="text" name="orderRequest" id="orderRequest">
+						 <div><i class="fa-solid fa-circle-info"></i>&nbsp;세탁요청사항</div>
+					 	
+						 <input type="text" name="orderRequest" id="orderRequest">  
 					</div>
 				</div>
 				<hr>
@@ -227,14 +242,14 @@ $(function () {
 								var="readyPoint" value="${paramPrice/100 }" />
 
 							<span class="">적립예정포인트:</span><input type="text" id="savePoint"
-								name="savePoint" value="${readyPoint }  ">
+								name="savePoint" value="${readyPoint }">
 						</div>
 						<div class="orderConfirm-finalInfo-div">
-							<label for="">포인트사용 : </label> <input type="text"
-								name="insertPoint" id="insertPoint"> <input
-								type="hidden" name="usePoint" id="usePoint"> <input
-								type="button" value="사용" id="insertPointBtn">&nbsp; <span>보유포인트
-								: </span><span id="havePoint">${userVo.point }</span><span>p</span><br>
+							<label for="">포인트사용 : </label> 
+							<input type="text" name="insertPoint" id="insertPoint"> 
+							<input type="hidden" name="usePoint" id="usePoint"> 
+							<input type="button" value="사용" id="insertPointBtn">&nbsp; 
+							<span>보유포인트 : </span><span id="havePoint">${userVo.point }</span><span>p</span><br>
 							<input type="hidden" name="paramPoint" id="havePoint2"
 								value="${userVo.point }"> <span id="shortPoint">보유포인트보다
 								값이 큽니다</span>
@@ -253,7 +268,7 @@ $(function () {
 						<button type="button" class="btn btn-primary"
 							data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 							이용약관</button>
-
+				
 						<!-- 약관동의 모달 -->
 						<div class="modal fade" id="staticBackdrop"
 							data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
