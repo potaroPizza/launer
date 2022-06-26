@@ -3,19 +3,35 @@
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.payment.model.PaymentDAO">
 
-<insert id="insertPaymentDetail" parameterType="paymentVo">
-	<selectKey keyProperty ="no" resultType ="int" order="BEFORE">
-		select PAYMENT_DETAIL_SEQ.nextval from dual
-	</selectKey>
-		insert into payment_detail(no,order_no,payment_code,pay_price,payment_state,payment_method)
-		values(#{no},#{orderNo},#{paymentCode},#{payPrice},'OK','CARD')
-</insert>
+	<insert id="insertPaymentDetail" parameterType="paymentVo">
+		<selectKey keyProperty ="no" resultType ="int" order="BEFORE">
+			select PAYMENT_DETAIL_SEQ.nextval from dual
+		</selectKey>
+			insert into payment_detail(no,order_no,payment_code,pay_price,payment_state,payment_method)
+			values(#{no},#{orderNo},#{paymentCode},#{payPrice},'OK','CARD')
+	</insert>
 
-  <!--회원 결제 내역  조회-->
+  	<!--회원 결제 내역  조회-->
+	<!--박권순 수정-->
     <select id="selectPaymentDetail" parameterType="int" resultMap="paymentHistoryAll">
-	    select * from payment_detail_view 
+	<!--<select id="selectPaymentDetail" parameterType="paymentSearchVo" resultMap="paymentHistoryAll">-->
+	    select * from payment_detail_view
 		where users_no=#{usersNo} order by regdate desc
-		
+		<!--select *
+			from
+			(
+				select rownum as RNUM, A.*
+				from
+				(
+					select * from payment_detail_view
+					<include refid="selectPaymentListWhere"></include>
+					order by regdate desc
+				)A
+			)
+		where RNUM > #{firstRecordIndex}
+		<![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>-->
     </select>
     
    <!--결제내역 리스트 1:N 조회-->
@@ -23,6 +39,7 @@
        select * from ORDER_DETAIL_VIEW
        where ORDER_NO = #{orderNo}
    </select>
+
    <resultMap type="PaymentDetailAllVO" id="paymentHistoryAll">
         <association property="paymentViewVO" column="order_no" javaType="PaymentViewVO">
             <id column="order_no" jdbcType="BIGINT" property="orderNo"/>
@@ -38,17 +55,16 @@
         </collection>
 	</resultMap>
 	
-		<!-- 결제내역 리스트 검색시 사용하는 조건절 -->
-		<sql id="selectPaymentListWhere">
+	<!-- 결제내역 리스트 검색시 사용하는 조건절 -->
+	<sql id="selectPaymentListWhere">
 		where REGDATE >= #{startDay}
 		<![CDATA[
 			and REGDATE < to_date(#{endDay})+1 
 		]]>
-		
 	</sql>
 	<!-- 결제내역 리스트 -->
     <select id="selectPaymentList" parameterType="paymentSearchVo" 
-    	resultType="map">
+    	resultMap="paymentHistoryAll">
     	select *
 		from
 		(

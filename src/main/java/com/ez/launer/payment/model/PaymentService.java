@@ -9,8 +9,8 @@ public interface PaymentService {
 	int insertPaymentDetail (PaymentVO paymentVo);
 	
 	//
-	List<PaymentDetailAllVO> selectPaymentDetail(int userNo);
-	List<Map<String, Object>> selectPaymentList(PaymentSearchVO searchVo);
+	List<PaymentDetailAllVO> selectPaymentDetail(PaymentSearchVO searchVo);
+	List<PaymentDetailAllVO> selectPaymentList(PaymentSearchVO searchVo);
 	int paymentSelectTotalRecord(PaymentSearchVO searchVo);
 
 }
