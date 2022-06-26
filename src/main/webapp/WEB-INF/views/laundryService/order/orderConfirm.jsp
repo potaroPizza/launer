@@ -10,12 +10,14 @@
 <!-- import 라이브러리 -->
 <script src="<c:url value="/js/laundryService/order/orderConfirm.js"/>" type="text/javascript" text="javascript"></script>
 <script type="text/javascript">
+
+
 $(function () {
 	//포인트계산
 /* 	const today = new Date();
 	today.setHours(today.getHours() + 12)
 	$('#take-date').val(today); */
-	
+
 	var insertPoint;
 	var totalPrice;
 	var usePoint=0;
@@ -60,13 +62,13 @@ $(function () {
 	//submit 시
 	 $('#orderBtn').click(function () {
 		 
-		/* 	if(!$('#flexCheckDefault').is(':checked')){
+		 	if(!$('#flexCheckDefault').is(':checked')){
     			alert('약관에 동의해주세요.');
     			event.preventDefault();
     			$('#staticBackdrop').modal("show");
     			event.preventDefault();
     			return false;
-    		} */
+    		} 
     		insertPoint = $('#insertPoint').val();
     		console.log("입력포인트="+insertPoint);
     		console.log("클릭포인트="+usePoint);
@@ -113,9 +115,7 @@ $(function () {
 	        	event.preventDefault();
 				return false;
 	        }
-			
-			
-			
+
 	 });
 });
 
@@ -141,10 +141,9 @@ $(function () {
 				action="/launer/laundryService/order/orderComplete">
 				<div class="orderConfirm-user">
 					<div class="user-date">
-						<label for="take-date">수거일 : </label> <input type="text"
-							name="take-date" id="take-date" class="orderConfirm-input"
-							value="" readonly>
-					</div>
+						<label for="take-date">수거일 : </label> 
+						<span  id="take-date" class="orderConfirm-input" ></span>
+					</div><br>
 					<div class="user-name">
 						<label for="orderUserName">이름 : </label> <input type="text"
 							name="name" id="name" class="orderConfirm-input"
