@@ -33,13 +33,13 @@ public class PaymentServiceImpl implements PaymentService{
 	
 	//
 	@Override
-	public List<PaymentDetailAllVO> selectPaymentDetail(int userNo) {
-		return paymentDao.selectPaymentDetail(userNo);
+	public List<PaymentDetailAllVO> selectPaymentDetail(PaymentSearchVO searchVo) {
+		return paymentDao.selectPaymentDetail(searchVo);
 	}
 
 
 	@Override
-	public List<Map<String, Object>> selectPaymentList(PaymentSearchVO searchVo) {
+	public List<PaymentDetailAllVO> selectPaymentList(PaymentSearchVO searchVo) {
 		return paymentDao.selectPaymentList(searchVo);
 	}
 

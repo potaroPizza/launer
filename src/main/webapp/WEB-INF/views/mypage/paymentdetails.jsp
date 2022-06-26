@@ -116,7 +116,8 @@
 					<div class="paymentdetails_col-5">상태</div>
 				</li>
 				
-				<c:if test="${empty paymentList }">
+<%--				<c:if test="${empty paymentList }">--%>
+				<c:if test="${empty list }">
 				<li class="paymentdetails_table-row"> 
 					<div class="paymentdetails_col-1" data-label="주문번호"></div>
 					<div class="paymentdetails_col-2" data-label="상품명">결제 내역이 없습니다.</div>
@@ -125,19 +126,40 @@
 					<div class="paymentdetails_col-5" data-label="상태"></div>
 				</li>
 				</c:if>
-				<c:if test="${!empty paymentList }">
-				<c:forEach var="map" items="${paymentList }">
-				<li class="paymentdetails_table-row"> 
-					<%-- <div class="paymentdetails_col-1" data-label="주문번호">${PaymentViewVO.paymentViewVO.orderNo}</div> --%>
-					<div class="paymentdetails_col-1" data-label="주문번호">${map['ORDER_NO']}</div>
-					<div class="paymentdetails_col-2" data-label="상품명">
-						<a href="/launer/mypage/detailedPaymentHistory">${map['CATEGORY_NAME']}</a>
-					</div>
-					<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${map['TOTAL_PRICE']}" pattern="#,###"></fmt:formatNumber></div>
-					<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" /></div>
-					<div class="paymentdetails_col-5" data-label="상태">${map['STATUS']}</div>
-				</li>
-				</c:forEach>
+<%--				<c:if test="${!empty paymentList }">--%>
+				<c:if test="${!empty list }">
+<%--					<c:forEach var="map" items="${paymentList }">--%>
+					<c:forEach var="vo" items="${list }">
+						<li class="paymentdetails_table-row">
+							<c:set var="title" value=""/>
+							<c:set var="titleCnt" value="0"/>
+							<c:forEach var="titleMap" items="${vo.paymentDetails}">
+								<c:if test="${titleCnt == 0}">
+									<c:set var="title" value="${titleMap.CATEGORY_NAME}"/>
+								</c:if>
+								<c:if test="${titleCnt != 0}">
+									<c:set var="title" value="${title}, ${titleMap.CATEGORY_NAME}"/>
+								</c:if>
+								<c:set var="titleCnt" value="${titleCnt + 1}"/>
+							</c:forEach>
+							<%-- <div class="paymentdetails_col-1" data-label="주문번호">${PaymentViewVO.paymentViewVO.orderNo}</div> --%>
+							<div class="paymentdetails_col-1" data-label="주문번호">${vo.paymentViewVO.orderNo}</div>
+							<div class="paymentdetails_col-2" data-label="상품명">
+								<a href="/launer/mypage/detailedPaymentHistory">${title}</a>
+							</div>
+							<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber></div>
+							<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${vo.paymentViewVO.regdate}" pattern="yyyy-MM-dd" /></div>
+							<div class="paymentdetails_col-5" data-label="상태">${vo.paymentViewVO.status}</div>
+
+								<%--<div class="paymentdetails_col-1" data-label="주문번호">${map['ORDER_NO']}</div>
+								<div class="paymentdetails_col-2" data-label="상품명">
+									<a href="/launer/mypage/detailedPaymentHistory">${map['CATEGORY_NAME']}</a>
+								</div>
+								<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${map['TOTAL_PRICE']}" pattern="#,###"></fmt:formatNumber></div>
+								<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" /></div>
+								<div class="paymentdetails_col-5" data-label="상태">${map['STATUS']}</div>--%>
+						</li>
+					</c:forEach>
 				</c:if>
 
 			</ul>

@@ -321,19 +321,21 @@ public class MypageController {
 		UserVO vo= userService.selectById(no);
 		logger.info("회원 정보 조회 결과 vo={}", vo);
 		
-		List<PaymentDetailAllVO> list = paymentService.selectPaymentDetail(no);
-		logger.info("마이페이지 결제내역 결과 list={}", list);
-		
-		List<Map<String, Object>> paymentList = paymentService.selectPaymentList(searchVo);
+		/*List<PaymentDetailAllVO> list = paymentService.selectPaymentDetail(searchVo);
+		logger.info("마이페이지 결제내역 결과 list={}", list);*/
+
+		List<PaymentDetailAllVO> paymentList = paymentService.selectPaymentList(searchVo);
 		logger.info("마이페이지 결제내역 결과, paymentList.size={}", paymentList.size());
-		
+
 		int totalRecord = paymentService.paymentSelectTotalRecord(searchVo);
 		logger.info("마이페이지 결제내역 결과, totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
+
+
 		
 		model.addAttribute("vo",vo);
-		model.addAttribute("list",list);
-		model.addAttribute("paymentList",paymentList);
+//		model.addAttribute("list",list);
+		model.addAttribute("list",paymentList);
 		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "/mypage/paymentdetails";
