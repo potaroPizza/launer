@@ -10,6 +10,69 @@
 		insert into payment_detail(no,order_no,payment_code,pay_price,payment_state,payment_method)
 		values(#{no},#{orderNo},#{paymentCode},#{payPrice},'OK','CARD')
 </insert>
+
+  <!--회원 결제 내역  조회-->
+    <select id="selectPaymentDetail" parameterType="int" resultMap="paymentHistoryAll">
+	    select * from payment_detail_view 
+		where users_no=#{usersNo} order by regdate desc
+		
+    </select>
+    
+   <!--결제내역 리스트 1:N 조회-->
+   <select id="selectOrderDetails" parameterType="int" resultType="hashMap">
+       select * from ORDER_DETAIL_VIEW
+       where ORDER_NO = #{orderNo}
+   </select>
+   <resultMap type="PaymentDetailAllVO" id="paymentHistoryAll">
+        <association property="paymentViewVO" column="order_no" javaType="PaymentViewVO">
+            <id column="order_no" jdbcType="BIGINT" property="orderNo"/>
+            <result column="users_no" jdbcType="BIGINT" property="usersNo"/>
+            <result column="status_no" jdbcType="BIGINT" property="statusNo"/>
+            <result column="regdate" jdbcType="TIMESTAMP" property="regdate"/>
+            <result column="total_price" jdbcType="BIGINT" property="totalPrice"/>
+            <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+            <result column="status" jdbcType="VARCHAR" property="status"/>
+        </association>
+        <collection property="paymentDetails" column="order_no"
+                    javaType="ArrayList" ofType="map" select="selectOrderDetails">
+        </collection>
+	</resultMap>
+	
+		<!-- 결제내역 리스트 검색시 사용하는 조건절 -->
+		<sql id="selectPaymentListWhere">
+		where REGDATE >= #{startDay}
+		<![CDATA[
+			and REGDATE < to_date(#{endDay})+1 
+		]]>
+		
+	</sql>
+	<!-- 결제내역 리스트 -->
+    <select id="selectPaymentList" parameterType="paymentSearchVo" 
+    	resultType="map">
+    	select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+				select * from payment_detail_view 
+				<include refid="selectPaymentListWhere"></include>
+				order by regdate desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+    </select>
+    
+    <!-- 결제내역 리스트 검색에 필요한 총 레코드 수 조회 -->
+    <select id="paymentSelectTotalRecord" parameterType="paymentSearchVo" resultType="int">
+		select count(*) from payment_detail_view 
+		<include refid="selectPaymentListWhere"></include>
+	</select>
+	
+
 	
 
 </mapper>

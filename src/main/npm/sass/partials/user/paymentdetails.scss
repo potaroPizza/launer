@@ -20,6 +20,7 @@
 	margin: 0 auto;
 	margin-bottom: 30px;
 	margin-left: 45px;
+	display: inline-block;
 }
 
 
@@ -110,4 +111,27 @@
 
 a {
 	display: block;
+}
+
+.payment_paging{
+	margin-left: 400px;
+	margin-bottom: 70px;
+}
+.paymentdetails_count{
+	display: inline-block;
+	margin-bottom: 60px;
+	margin-left: 45px;
+}
+#paysubmit{
+	margin-left: 20px;
+	height: 35px;
+}
+.dateText{
+    border-radius: 4px;
+    height: 35px;
+    text-align: center;
+}
+.paymentdetails_count span{
+	font-size: 18px;
+	font-weight: bold;;
 }
