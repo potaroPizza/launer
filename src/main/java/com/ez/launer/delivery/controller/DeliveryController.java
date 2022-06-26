@@ -12,6 +12,7 @@ import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.bcel.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -64,14 +65,41 @@ public class DeliveryController {
     }
 
     @GetMapping("/pickup")
-    public String pickupList(Model model) {
+    public String pickupList(HttpSession session, Model model) {
         logger.info("내 수거목록 리스트");
 
-        Map<String, Object> info = new HashMap<>();
-        info.put("name", "홍홍홍");
-        info.put("title", "수거목록");
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        logger.info("배송기사 메인 페이지, 기사 no={}", deliveryNo);
 
-        model.addAttribute("deliveryInfo", info);
+        //deliveryNo로 배달기사 정보 전체 조회
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+
+        OfficeVO officeVO = officeService.selectByNo(deliveryVO.getOfficeNo());
+        logger.info("지점정보 조회 officeVO={}", officeVO);
+
+        // 해당 기사의 수거목록 개수
+        OrderDeliveryVO orderDeliveryVO = new OrderDeliveryVO();
+        orderDeliveryVO.setTypeStatus("PICKUP_DRIVER");
+        orderDeliveryVO.setDeliveryNo(deliveryNo);
+        orderDeliveryVO.setOrderStatusNo(ConstUtil.COMPLE_PICKUP);
+        int countList = orderService.countOrderByDeliveryNo(orderDeliveryVO);
+
+        // 해당 기사의 수거목록 가져오기
+        Map<String, Object> findListMap = new HashMap<>();
+        findListMap.put("officeNo", deliveryVO.getOfficeNo());
+        findListMap.put("orderStatusNo", ConstUtil.COMPLE_PICKUP);
+        findListMap.put("typeStatus", "PICKUP_DRIVER");
+        findListMap.put("deliveryNo", deliveryVO.getNo());
+
+        List<OrderDeliveryAllVO> list = orderService.selectByDeliveryNo(findListMap);
+        logger.info("내 할일(수거목록) 조회결과 list.size={}", list.size());
+
+        model.addAttribute("deliveryName", deliveryVO.getName());
+        model.addAttribute("officeVO", officeVO);
+        model.addAttribute("groupNo", 1);
+        model.addAttribute("countList", countList);
+        model.addAttribute("list", list);
 
         return "/delivery/deliveryList";
     }
@@ -169,6 +197,7 @@ public class DeliveryController {
         OrderDeliveryVO orderDeliveryVO = new OrderDeliveryVO();
         int orderStatusNo = 0;
         String typeStatus = "";
+
         if(groupNo == 1) {
             orderStatusNo = ConstUtil.COMPLE_PICKUP;
             typeStatus = "PICKUP_DRIVER";
@@ -187,7 +216,9 @@ public class DeliveryController {
         int cnt = orderService.updateOrder(orderDeliveryVO);
         logger.info("내 할일로 추가 결과 cnt={}", cnt);
         String res = "해당 항목이 유효하지않습니다. 새로고침 후 다시 시도해주세요.";
-        if(cnt > 0) res = "추가 성공";
+        if(cnt > 0) {
+            res = "추가 성공";
+        }
 
         return res;
     }

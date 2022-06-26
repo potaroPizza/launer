@@ -10,9 +10,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 public interface OrderService {
+    // 박권순 시작
+    // 박권순 시작
+    // 박권순 시작
+    // 박권순 시작
     List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO);
     int orderCount(OrderListSearchVO orderListSearchVO);
     int updateOrder(OrderDeliveryVO orderDeliveryVO);
+    int countOrderByDeliveryNo(OrderDeliveryVO orderDeliveryVO);
+    List<OrderDeliveryAllVO> selectByDeliveryNo(Map<String, Object> map);
+    // 박권순 끝
+    // 박권순 끝
+    // 박권순 끝
+    // 박권순 끝
     OrderViewVO selectUsersOrderView(int usersNo);
     int insertOrder(OrderVO orderVo);
     int selectRecentOrderNo(int userNo);

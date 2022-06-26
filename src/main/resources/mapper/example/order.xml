@@ -74,6 +74,44 @@
 		set ORDER_STATUS_NO = #{orderStatusNo}, ${typeStatus} = #{deliveryNo}
 		where NO = #{no} and ${typeStatus} is null
 	</update>
+
+	<!-- 배송기사의 내 할일(수거/배송) 개수 찾기 -->
+	<select id="countOrderByDeliveryNo" parameterType="orderDeliveryVO" resultType="int">
+		select count(*) from ORDERS
+		where ${typeStatus} = #{deliveryNo} and ORDER_STATUS_NO = #{orderStatusNo}
+	</select>
+
+	<!-- 내 할일(수거/배송) 리스트 찾기-->
+	<select id="selectByDeliveryNo" parameterType="map" resultMap="orderAllByDeliveryNo">
+		select * from ORDERS_OFFICENO_VIEW
+		where OFFICE_NO = #{officeNo}
+		  and ORDER_STATUS_NO = #{orderStatusNo}
+		  and ${typeStatus} = #{deliveryNo}
+	</select>
+
+	<resultMap id="orderAllByDeliveryNo" type="OrderDeliveryAllVO">
+		<association property="orderOfficeView" column="no" javaType="map">
+			<id column="no" jdbcType="BIGINT" property="NO"/>
+			<result column="name" jdbcType="VARCHAR" property="NAME"/>
+			<result column="users_no" jdbcType="BIGINT" property="USERS_NO"/>
+			<result column="users_address_no" jdbcType="BIGINT" property="USERS_ADDRESS_NO"/>
+			<result column="order_status_no" jdbcType="BIGINT" property="ORDER_STATUS_NO"/>
+			<result column="payment_date" jdbcType="TIMESTAMP" property="PAYMENT_DATE"/>
+			<result column="pickup_driver" jdbcType="VARCHAR" property="PICKUP_DRIVER"/>
+			<result column="delivery_driver" jdbcType="VARCHAR" property="DELIVERY_DRIVER"/>
+			<result column="office_no" jdbcType="BIGINT" property="OFFICE_NO"/>
+			<result column="total_price" jdbcType="BIGINT" property="TOTAL_PRICE"/>
+			<result column="order_request" jdbcType="VARCHAR" property="ORDER_REQUEST"/>
+			<result column="lat_y" jdbcType="DOUBLE" property="LAT_Y"/>
+			<result column="lon_x" jdbcType="DOUBLE" property="LON_X"/>
+			<result column="address" jdbcType="VARCHAR" property="ADDRESS"/>
+			<result column="address_detail" jdbcType="VARCHAR" property="ADDRESS_DETAIL"/>
+			<result column="sum" jdbcType="BIGINT" property="SUM"/>
+		</association>
+		<collection property="orderDetails" column="no"
+					javaType="ArrayList" ofType="map" select="selectOrderDetails">
+		</collection>
+	</resultMap>
 	<!--박권순 마지막-->
 	<!--박권순 마지막-->
 	<!--박권순 마지막-->

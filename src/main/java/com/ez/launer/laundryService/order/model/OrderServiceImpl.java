@@ -17,6 +17,10 @@ import java.util.Map;
 public class OrderServiceImpl implements OrderService{
     private final OrderDAO orderDAO;
 
+	// 박권순 시작
+	// 박권순 시작
+	// 박권순 시작
+	// 박권순 시작
     @Override
     public List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO) {
         return orderDAO.orderOfficeView(orderListSearchVO);
@@ -31,6 +35,22 @@ public class OrderServiceImpl implements OrderService{
 	public int updateOrder(OrderDeliveryVO orderDeliveryVO) {
 		return orderDAO.updateOrder(orderDeliveryVO);
 	}
+
+	@Override
+	public int countOrderByDeliveryNo(OrderDeliveryVO orderDeliveryVO) {
+		return orderDAO.countOrderByDeliveryNo(orderDeliveryVO);
+	}
+
+	@Override
+	public List<OrderDeliveryAllVO> selectByDeliveryNo(Map<String, Object> map) {
+		return orderDAO.selectByDeliveryNo(map);
+	}
+
+
+	// 박권순 끝
+	// 박권순 끝
+	// 박권순 끝
+	// 박권순 끝
 
 	@Override
 	public OrderViewVO selectUsersOrderView(int usersNo) {

@@ -20,6 +20,9 @@ public interface OrderDAO {
 
     int orderCount(OrderListSearchVO orderListSearchVO);
     int updateOrder(OrderDeliveryVO orderDeliveryVO);
+    int countOrderByDeliveryNo(OrderDeliveryVO orderDeliveryVO);
+
+    List<OrderDeliveryAllVO> selectByDeliveryNo(Map<String, Object> map);
     // 박권순 끝
     // 박권순 끝
     // 박권순 끝
