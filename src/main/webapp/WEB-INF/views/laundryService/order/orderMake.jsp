@@ -71,14 +71,14 @@
 
         
         //동적으로 추가된 카테고리 관련
-        $(document).on('click', '.order-item-Div .testForm #delBtn', function () {
-            var idx = $('.order-item-Div div[name=testForm] #delBtn').index(this);
+        $(document).on('click', '#delBtn', function () {
+            var idx = $('.order-item-Div .testForm #delBtn').index(this);
             $('.order-item-Div .testForm').eq(idx).remove();
 
             const totalPriceMake = new Array();
             let sum = 0;
             $(".priceByQty").each(function (index, item) {
-                totalPrice.push($(item).val());
+            	totalPriceMake.push($(item).val());
             });
 
             for (let i = 0; i < totalPriceMake.length; i++) {

@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.launer.admin.model.AdminChartsService;
+import com.ez.launer.admin.model.AdminChartsVO;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.common.PaginationInfo;
@@ -53,6 +55,7 @@ public class AdminController {
 	
 	private final NoticeService noticeService;
 	private final OrderService orderService;
+	private final AdminChartsService chartsService;
 	
 	
 	@RequestMapping("/")
@@ -307,10 +310,86 @@ public class AdminController {
 	
 	//통계 관련 핸들러
 	@RequestMapping("/charts")
-	public String charts() {
-		logger.info("통계 페이지");
+	public String charts(@ModelAttribute AdminChartsVO vo,
+			Model model) {
+		logger.info("통계 페이지 officeNo={}", vo.getRevenueChart());
+		
+		List<Map<String, Object>> vum = null;
+		List<Map<String, Object>> jum = null;
+		List<Map<String, Object>> uum = null;
+		List<Map<String, Object>> rcm = null;
+		List<Map<String, Object>> ccm = null;
+		
+		if(vo.getUserChart() == null) {	// 첫 화면 세팅
+			vo.setUserChart("1");
+			vo.setRevenueChart("0");
+			vo.setCategoryChart("1");
+		}
+		
+		if(vo.getUserChart() != null && !vo.getUserChart().isEmpty()) {
+			if(vo.getUserChart().equals("1")) {	// 최근 2주
+				vum = chartsService.selectVisitByDay();
+				jum = chartsService.selectJoinByDay();
+				uum = chartsService.selectUsersByDay();
+			} else if(vo.getUserChart().equals("2022")) {	// 2022년
+				vum = chartsService.selectVisitByMonth();
+				jum = chartsService.selectjoinByMonth();
+				uum = chartsService.selectUsersByMonth();
+			}
+		}
+		
+		if(vo.getRevenueChart() != null && !vo.getRevenueChart().isEmpty()) {
+			int officeNo = Integer.parseInt(vo.getRevenueChart());
+			rcm = chartsService.selectRevenueByMonth(officeNo);
+		}
+
+		if(vo.getCategoryChart() != null && !vo.getCategoryChart().isEmpty()) {
+			ccm = chartsService.selectAdminCategory();
+		}
+		
+		logger.info("통계 페이지 rcm={}", rcm);
+		
+		model.addAttribute("vum", vum);
+		model.addAttribute("jum", jum);
+		model.addAttribute("uum", uum);
+		model.addAttribute("rcm", rcm);
+		if(!vo.getRevenueChart().equals("0")) {
+			model.addAttribute("ofn", rcm.get(0).get("OFFICENO"));
+			model.addAttribute("ofName", rcm.get(0).get("OFFICENAME"));
+		} else {
+			model.addAttribute("ofn", 0);
+		}
+		model.addAttribute("ccm", ccm);
 		
 		return "/admin/charts";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
