@@ -93,7 +93,7 @@ public class DeliveryController {
         findListMap.put("deliveryNo", deliveryVO.getNo());
 
         List<OrderDeliveryAllVO> list = orderService.selectByDeliveryNo(findListMap);
-        logger.info("내 할일(수거목록) 조회결과 list.size={}", list.size());
+        logger.info("내 할일(수거목록) 조회결과 list={}", list);
 
         model.addAttribute("deliveryName", deliveryVO.getName());
         model.addAttribute("officeVO", officeVO);
@@ -104,15 +104,42 @@ public class DeliveryController {
         return "/delivery/deliveryList";
     }
 
-    @GetMapping("/return")
-    public String deliveryList(Model model) {
+    @GetMapping("/pass")
+    public String deliveryList(HttpSession session, Model model) {
         logger.info("내 배송목록 리스트");
 
-        Map<String, Object> info = new HashMap<>();
-        info.put("name", "홍홍홍");
-        info.put("title", "배송목록");
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        logger.info("배송기사 메인 페이지, 기사 no={}", deliveryNo);
 
-        model.addAttribute("deliveryInfo", info);
+        //deliveryNo로 배달기사 정보 전체 조회
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+
+        OfficeVO officeVO = officeService.selectByNo(deliveryVO.getOfficeNo());
+        logger.info("지점정보 조회 officeVO={}", officeVO);
+
+        // 해당 기사의 수거목록 개수
+        OrderDeliveryVO orderDeliveryVO = new OrderDeliveryVO();
+        orderDeliveryVO.setTypeStatus("DELIVERY_DRIVER");
+        orderDeliveryVO.setDeliveryNo(deliveryNo);
+        orderDeliveryVO.setOrderStatusNo(ConstUtil.DELIVERY_PROGRESS);
+        int countList = orderService.countOrderByDeliveryNo(orderDeliveryVO);
+
+        // 해당 기사의 수거목록 가져오기
+        Map<String, Object> findListMap = new HashMap<>();
+        findListMap.put("officeNo", deliveryVO.getOfficeNo());
+        findListMap.put("orderStatusNo", ConstUtil.DELIVERY_PROGRESS);
+        findListMap.put("typeStatus", "DELIVERY_DRIVER");
+        findListMap.put("deliveryNo", deliveryVO.getNo());
+
+        List<OrderDeliveryAllVO> list = orderService.selectByDeliveryNo(findListMap);
+        logger.info("내 할일(배송목록) 조회결과 list={}", list);
+
+        model.addAttribute("deliveryName", deliveryVO.getName());
+        model.addAttribute("officeVO", officeVO);
+        model.addAttribute("groupNo", 2);
+        model.addAttribute("countList", countList);
+        model.addAttribute("list", list);
 
         return "/delivery/deliveryList";
     }
@@ -221,5 +248,48 @@ public class DeliveryController {
         }
 
         return res;
+    }
+
+
+    // 내 수거/배송 항목 두개가 하나의 핸들러를 바라보게
+    @PostMapping("/process")
+    @ResponseBody
+    public String processing(@RequestParam Map<String, Object> map, HttpSession session) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        map.put("deliveryNo", deliveryNo);
+
+        logger.info("내 할일 프로세싱 처리, 파라미터 map={}", map);
+        logger.info("접속자 : {}", deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryNo={}", deliveryNo);
+
+        int cnt = deliveryDriverService.insertDeliveryAmount(map);
+        logger.info("내 할일 프로세싱 처리 결과 cnt={}", cnt);
+
+        String message = "실패";
+        if(cnt > 0) message = "성공";
+
+        return message;
+    }
+
+    //내 할일 페이지 취소 버튼 ajax
+    @PostMapping("/return/process")
+    @ResponseBody
+    public Map<String, Object> returnProcess(@RequestParam(defaultValue = "0") int orderNo,
+                                          @RequestParam(defaultValue = "0") int groupNo,
+                                          HttpSession session) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        logger.info("내 할일 프로세싱 취소, 파라미터 orderNo={}, groupNo={}", orderNo, groupNo);
+        logger.info("접속자 : {}", deliveryNo);
+
+        //deliveryNo로 배달기사 정보 전체 조회
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryNo={}", deliveryNo);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderNo", orderNo);
+        map.put("groupNo", groupNo);
+        map.put("result", 1);
+
+        return map;
     }
 }
