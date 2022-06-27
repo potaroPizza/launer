@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <t:head>
 </t:head>
@@ -76,11 +79,20 @@ juqery가 hicharts보다 위에 선언되어야함
 
 <script type="text/javascript">
 	$(function () {
+		Highcharts.setOptions({
+			lang: {
+				thousandsSep: ','
+			}
+		});
+		
 		lineChart();
 		barChart();
 		pieChart();
 		
-		
+		$('#revenueChart').on("change", function(){
+			//$('input[name=revenueChart]').val($(this).val());
+			$('form[name=frmCharts]').submit();
+		});
 	});
 	
 	function lineChart(){
@@ -140,7 +152,12 @@ juqery가 hicharts보다 위에 선언되어야함
 				type : 'column'
 			},
 			title : {
-				text: '월별 총 수입',
+				<c:if test="${ofn != 0}">
+					text: '${ofName}의 월별 수입',
+				</c:if>
+				<c:if test="${ofn == 0}">
+					text: '전체 월별 총 수입',
+				</c:if>
 	            x: -20 //center
 			},
 			subtitle : {
@@ -165,9 +182,17 @@ juqery가 hicharts보다 위에 선언되어야함
 				enabled : false
 			},
 			series : [ {
-				name : "매출액(백만원)",
+				name : "매출액(원)",
 				colorByPoint : true,
-				data : [ {
+				data : [
+					<c:forEach var="rcMap" items="${rcm}">
+					{
+						name : "${rcMap['MONTH']}월",
+						y : ${rcMap['SUM']},
+					}, 
+					</c:forEach>
+				]
+				/* data : [ {
 					name : "1월",
 					y : 2.3,
 				}, {
@@ -203,7 +228,7 @@ juqery가 hicharts보다 위에 선언되어야함
 				}, {
 					name : "12월",
 					y : null,
-				} ]
+				} ] */
 			} ]
 			
 			});
@@ -325,10 +350,18 @@ juqery가 hicharts보다 위에 선언되어야함
                     <i class="fas fa-chart-bar me-1"></i>
                     매출 통계
                     
-                    &nbsp; 기간별
-					<select name="revenueChart">
-						<option value="1">최근 2주</option>
-						<option value="2022">2022년</option>
+                    &nbsp; <span style="margin-left: 15px">지점 선택</span>
+					<select name="revenueChart" id="revenueChart">
+						<option value="0"
+							<c:if test="${ofn == 0}">
+									selected
+            				</c:if>
+						>전체</option>
+						<option value="1"
+							<c:if test="${ofn == 1}">
+									selected
+            				</c:if>
+						>종로지점</option>
 					</select>
                 </div>
                 <div class="card-body">
@@ -346,9 +379,6 @@ juqery가 hicharts보다 위에 선언되어야함
                     &nbsp;
 					<select name="categoryChart">
 						<option value="1">전체</option>
-						<option value="2">서비스 종류별</option>
-						<option value="3">생활빨래</option>
-						<option value="4">개별클리닝</option>
 					</select>
                 </div>
                 <div class="card-body">

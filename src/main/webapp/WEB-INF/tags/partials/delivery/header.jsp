@@ -17,7 +17,7 @@
             <li><span class="sub-btn">내 할일</span>
                 <ul class="sub-nav">
                     <li><a href="<c:url value="/delivery/pickup"/>">내 수거목록</a></li>
-                    <li><a href="<c:url value="/delivery/return"/>">내 배송목록</a></li>
+                    <li><a href="<c:url value="/delivery/pass"/>">내 배송목록</a></li>
                 </ul>
             </li>
             <li><a href="#">공지사항</a></li>

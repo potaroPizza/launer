@@ -112,6 +112,13 @@
 					javaType="ArrayList" ofType="map" select="selectOrderDetails">
 		</collection>
 	</resultMap>
+
+
+	<update id="updateOrderStatus" parameterType="map">
+		update ORDERS
+		set ORDER_STATUS_NO = #{orderStatusNo}
+		where NO = #{orderNo}
+	</update>
 	<!--박권순 마지막-->
 	<!--박권순 마지막-->
 	<!--박권순 마지막-->
