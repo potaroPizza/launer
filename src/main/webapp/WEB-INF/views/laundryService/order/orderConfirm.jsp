@@ -238,8 +238,8 @@ $(function () {
 							<label for="buyingPrice">상품금액 : </label> <input type="text"
 								name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
 								value="${paramPrice }" readonly>
-							<fmt:formatNumber type="number" maxFractionDigits="0"
-								var="readyPoint" value="${paramPrice/100 }" />
+							<fmt:parseNumber 
+								var="readyPoint" value="${paramPrice/100 }" integerOnly="true"/>
 
 							<span class="">적립예정포인트:</span><input type="text" id="savePoint"
 								name="savePoint" value="${readyPoint }">
