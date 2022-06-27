@@ -1,5 +1,9 @@
 package com.ez.launer.user.controller;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +31,28 @@ public class LoginController {
 		return "/user/login";
 	}
 	
+	@ResponseBody
 	@RequestMapping("/login_kakao")
-	public String kakaoCallback(@RequestParam ("code")String code) {
-
+	public String kakaoLogin(@RequestParam ("code")String code,HttpSession session) {
 		
+		//accessToken 발급받기
 		String access_Token = kakao.getAccessToken(code);
 		logger.info("controller access_token ={} " , access_Token);
 		
+		//user email과 name 받아오기 
+		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+		
+		//받아온 email,name => 세션에 저장
+		if (userInfo.get("email") != null) {
+			session.setAttribute("email", userInfo.get("email"));
+			session.setAttribute("name", userInfo.get("name"));
+			session.setAttribute("access_Token", access_Token);
+		}
+		
+		
 		 return "/user/login";
+	
+	
 	}
 	
 	@GetMapping("/findId")
