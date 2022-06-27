@@ -31,6 +31,7 @@ $(function () {
 		console.log(insertPoint);
 		var cal = havePoint-insertPoint;
 		
+		//입력포인트 > 보유포인트
 		if(cal<0){
 			$('#shortPoint').show();
 			alert("보유포인트보다 값이 큽니다");
@@ -40,12 +41,22 @@ $(function () {
 		}else{
 			$('#shortPoint').hide();
 		}
+		
+		//입력포인트 != number
 		if(isNaN(insertPoint)==true || insertPoint == null){
 		
 			alert("포인트가 올바르지 않습니다.");
 			event.preventDefault();
 			return false;
 		}
+		
+		//포인트 사용가능 최소주문금액=10000
+		if(buyingPrice <= 10000){
+			alert("10,000원 이상 구매시 포인트 사용가능합니다");
+			event.preventDefault();
+			return false;
+		}
+		
 		
 		
 		//검사가 끝나면 파라미터 usePoint set
@@ -238,8 +249,8 @@ $(function () {
 							<label for="buyingPrice">상품금액 : </label> <input type="text"
 								name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
 								value="${paramPrice }" readonly>
-							<fmt:formatNumber type="number" maxFractionDigits="0"
-								var="readyPoint" value="${paramPrice/100 }" />
+							<fmt:parseNumber 
+								var="readyPoint" value="${paramPrice/100 }" integerOnly="true"/>
 
 							<span class="">적립예정포인트:</span><input type="text" id="savePoint"
 								name="savePoint" value="${readyPoint }">
