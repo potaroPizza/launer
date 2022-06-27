@@ -4,7 +4,7 @@
 <mapper namespace="com.ez.launer.user.model.UserDAO">
 	<!-- 회원 정보 조회 -->
 	<select id="selectById" parameterType="int" resultType="userVo">
-		select * from users where no = #{no}
+		select * from users
 	</select>
 	<!-- 회원 정보 조회 주소테이블 조인 -->
 	<select id="selectByIdAddress" parameterType="int" resultType="hashMap">
@@ -51,6 +51,19 @@
 			select USERS_SEQ.nextval from DUAL;
 		</selectKey>
 	</insert>
-	
+
+	<select id="selectUser" parameterType="int">	/*1:유저, 3~4:관리자*/
+		select * from USERS
+		<if test="no == 1">
+			where USER_CODE = #{no}
+		</if>
+		<if test="no != 1">
+			where USER_CODE >= #{no}
+		</if>
+	</select>
+
+	<select id="selectDeliveryUser">
+		select * from DELIVERY_DRIVER
+	</select>
 
 </mapper>
