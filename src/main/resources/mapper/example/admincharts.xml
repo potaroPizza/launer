@@ -67,21 +67,37 @@
 	
 	
 	<!-- 총 매출 -->
-	<select id="selectRevenueByDay" resultType="map">
+	<!-- <select id="selectRevenueByDay" resultType="map">
 		select sum(pay_price) as sum, TO_CHAR(payment_date, 'yyyy-MM-dd') as paymentDate 
 		from payment_detail
 		where payment_date >= SYSDATE-15
 		group by TO_CHAR(payment_date, 'yyyy-MM-dd');
-	</select>
+		
+	</select> -->
 	
-	<select id="selectRevenueByMonth" resultType="map">
-		select sum(pay_price) as sum, TO_CHAR(payment_date, 'yyyy-MM') as paymentDate 
-		from payment_detail
+	<select id="selectRevenueByMonth" parameterType="int" resultType="map">
+		select sum(pay_price) as sum, TO_CHAR(payment_date, 'yyyy-MM') as paymentDate,
+			TO_CHAR(a.payment_date, 'MM') as month
+			<if test="officeNo != 0">
+				, b.officeNo as officeNo, b.officeName as officeName
+			</if>
+		from payment_detail a join adminOrderListView b
+		on a.order_no = b.orderNo
 		where TO_CHAR(payment_date, 'yyyy') = '2022'
-		group by TO_CHAR(payment_date, 'yyyy-MM');
+		<if test="officeNo != 0">
+			and officeNo = #{officeNo}
+		</if>
+		group by TO_CHAR(payment_date, 'yyyy-MM'), TO_CHAR(payment_date, 'MM')
+			<if test="officeNo != 0">
+				, officeNo, officeName
+			</if>
 	</select>
 	
 	
 	<!-- 카테고리 통계 -->
+	<select id="selectAdminCategory"  resultType="map">
+		select categoryNo, sum(quan) from adminCharCategoryView
+		group by categoryNo
+	</select>
 	
 </mapper>
