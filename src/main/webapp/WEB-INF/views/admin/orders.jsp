@@ -59,13 +59,20 @@
 
 				if(count > 0) {
 					var items = $('input[type=checkbox]:checked').parent().siblings('.tdStatus').text();
+					alert(items);
 					var str = items.split(" ");
+					alert(str);
 					var bool = true;
 					str.forEach(function(item, index){
-						if(item !== "수거전"){
-							bool = false;
+						alert(item);
+						if(index != $('input[type=checkbox]:checked').length){
+							if(item !== "세탁중"){
+								bool = false;
+							}
 						}
+						
 					});
+					console.log(bool);
 					if(!bool){
 						alert("세탁중인 상태의 주문만 배송대기 처리할 수 있습니다.");
 						return false;
@@ -344,6 +351,7 @@
 								<td>
 									<input type="checkbox" name="orderItems[${i}].no"
 										value="${map['ORDERNO']}">
+										<c:set var="i" value="${i+1}"/>
 								</td>
 								<td>${map['ORDERNO']}</td>
 								<td>${map['USEREMAIL']}</td>

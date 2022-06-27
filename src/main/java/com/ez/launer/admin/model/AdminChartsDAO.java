@@ -16,6 +16,7 @@ public interface AdminChartsDAO {
 	List<Map<String, Object>> selectUsersByDay();
 	List<Map<String, Object>> selectUsersByMonth();
 	
-	List<Map<String, Object>> selectRevenueByDay();
-	List<Map<String, Object>> selectRevenueByMonth();
+	List<Map<String, Object>> selectRevenueByMonth(int officeNo);
+	
+	List<Map<String, Object>> selectAdminCategory();
 }
