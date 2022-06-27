@@ -15,6 +15,8 @@ public interface PaymentDAO {
 	List<PaymentDetailAllVO> selectPaymentDetail(PaymentSearchVO searchVo);
 	List<PaymentDetailAllVO> selectPaymentList(PaymentSearchVO searchVo);
 	int paymentSelectTotalRecord(PaymentSearchVO searchVo);
+	//
+	PaymentHistoryAllVO selectPaymentHistory(PaymentHistoryViewVO paymentHistoryViewVO);
 	
 
 }

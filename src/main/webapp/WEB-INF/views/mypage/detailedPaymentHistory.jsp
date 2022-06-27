@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <t:wrapper>
 <link
@@ -23,19 +25,22 @@
 		</div>
 		<div class="detailedPaymentHistory_sub">
 			<p>
-				주문번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>000001</span>
+				주문번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.orderNo }</span>
 			</p>
 			<p>
-				주소 &nbsp;&nbsp;&nbsp;&nbsp;<span>신촌</span>
+				주소 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.address } &nbsp;&nbsp;
+													${paymentHistoryAllVO.paymentHistoryViewVO.addressDetail }</span>
 			</p>
 			<p>
-				주문일자 &nbsp;&nbsp;&nbsp;&nbsp;<span>2022/06/14</span>
+				공동현관 출입방법 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.entermethod }</span>
 			</p>
 			<p>
-				총 금액 &nbsp;&nbsp;&nbsp;&nbsp;<span>1500원</span>
+				주문일자 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.regdate }</span>
+			</p>
+			<p>
+				총 금액 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.totalPrice }원</span>
 			</p>
 		</div>
-
 		<section class="detailedPaymentHistory-section">
 			<div class="detailedPaymentHistory-container">
 				<div class="detailedPaymentHistory-row">
@@ -47,7 +52,7 @@
 										<th>&nbsp;</th>
 										<th>상품</th>
 										<th>가격</th>
-										<th>포인트</th>
+										<th>적립 포인트</th>
 										<th>주문상태</th>
 									</tr>
 								</thead>
@@ -55,16 +60,18 @@
 									<tr>
 										<td>
 											<div class="detailedPaymentHistory-img"
-												style="background-image: url(../images/product-4.png);"></div>
+												style="background-image: url(${paymentHistoryAllVO.paymentHistoryViewVO.imgurl });"></div>
+<!-- 											<div class="detailedPaymentHistory-img"
+												style="background-image: url(../images/product-4.png);"></div> -->
 										</td>
 										<td>
 											<div class="detailedPaymentHistory-explain">
-												<span>신발 </span> <span>신발 왼쪽에 검은 얼룩 묻었어요</span>
+												<span>${paymentHistoryAllVO.paymentHistoryViewVO.categoryName } </span> <span>수량: </span>
 											</div>
 										</td>
-										<td>500원</td>
-										<td>500p</td>
-										<td>입금완료</td>
+										<td>${paymentHistoryAllVO.paymentHistoryViewVO.price }</td>
+										<td>${paymentHistoryAllVO.paymentHistoryViewVO.price/100.0 }p</td>
+										<td>${paymentHistoryAllVO.paymentHistoryViewVO.status }</td>
 									</tr>
 									<tr>
 										<td>

@@ -24,6 +24,8 @@ import com.ez.launer.common.PaginationInfo;
 import com.ez.launer.common.PaymentSearchVO;
 import com.ez.launer.common.PointSearchVO;
 import com.ez.launer.payment.model.PaymentDetailAllVO;
+import com.ez.launer.payment.model.PaymentHistoryAllVO;
+import com.ez.launer.payment.model.PaymentHistoryViewVO;
 import com.ez.launer.payment.model.PaymentService;
 import com.ez.launer.point.model.PointDetailAllVO;
 import com.ez.launer.point.model.PointService;
@@ -342,9 +344,31 @@ public class MypageController {
 	}
 	
 	
-	@GetMapping("/detailedPaymentHistory")
-	public void detailedPaymentHistory() {
-		logger.info("마이페이지 결제내역 상세 화면");
+	@RequestMapping("/detailedPaymentHistory")
+	public String detailedPaymentHistory(HttpSession session, @RequestParam(defaultValue = "0") int orderNo, Model model) {
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		
+		logger.info("마이페이지 주문내역 상세 화면, 파라미터 userid={},orderNo={}",no,orderNo);
+		
+		UserVO vo= userService.selectById(no);
+		logger.info("회원 정보 조회 결과 vo={}", vo);
+		
+		PaymentHistoryViewVO paymentHistoryViewVO = new PaymentHistoryViewVO();
+		paymentHistoryViewVO.setUsersNo(no);
+		paymentHistoryViewVO.setOrderNo(orderNo);
+		
+		PaymentHistoryAllVO aVo=paymentService.selectPaymentHistory(paymentHistoryViewVO);
+		logger.info("aVo={}",aVo);
+		
+		model.addAttribute(vo);
+		model.addAttribute(aVo);
+		
+		return "/mypage/detailedPaymentHistory";
+		
+		
+		
+		
 	}
 	@GetMapping("/signout")
 	public void singOut() {

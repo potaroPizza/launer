@@ -147,11 +147,11 @@
 							<div class="paymentdetails_col-1" data-label="주문번호">${vo.paymentViewVO.orderNo}</div>
 							<div class="paymentdetails_col-2" data-label="상품명">
 								<c:if test="${fn: length(title)>20}">
-								<a href="/launer/mypage/detailedPaymentHistory">${fn:substringBefore(title,",")} 외...</a>
+								<a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${fn:substringBefore(title,",")} 외...</a>
 								</c:if>
 						
 			            <c:if test="${fn: length(title)<=20}">
-			                  <a href="/launer/mypage/detailedPaymentHistory">${title}</a>           
+			                  <a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${title}</a>           
 			            </c:if>
 							</div>
 							<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber></div>
