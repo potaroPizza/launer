@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -39,7 +40,7 @@ public class KakaoAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=17794c6c3763c9ee2f66e9d03e0b9c5b");
-            sb.append("&redirect_uri=http://localhost:9095/launer/user/login_kakao");
+            sb.append("&redirect_uri=http://localhost:9095/launer/user/kakaoLogin/requestToken");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -109,12 +110,17 @@ public class KakaoAPI {
             
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+
+            
+            //id = 앱과 연결된 사용자 회원번호 ex) 2316363390 
             
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String socialLoginKey = element.getAsJsonObject().get("id").getAsString();
             
             userInfo.put("name", nickname);
             userInfo.put("email", email);
+            userInfo.put("socialLoginKey", socialLoginKey);
             
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -123,9 +129,4 @@ public class KakaoAPI {
         
         return userInfo;
     }
-
-    
-    
-    
-    
 }
