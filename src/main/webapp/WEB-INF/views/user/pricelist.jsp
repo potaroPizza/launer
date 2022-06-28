@@ -7,22 +7,32 @@
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<link rel="stylesheet" href="<c:url value="/css/user/pricelist.css"/>"/>
 
+<script src="<c:url value="/js/pricelist.js"/>" type="text/javascript" text="javascript"></script>
 <div id="pricelist_wrap">
 	<div class="pricelist_subwrap">
 		<div id="pricelist_subwrap2">
-			<div id="pricelistMenu">
+			<div id="pricelist_menu">
 				<h2>세탁가격을<br>알려드립니다</h2>
-				<div id="pricelistTab">
-					<ul class="pricelistTabnav">
-						<li>명품관</li><li>교복</li><li>상의</li><li>골프웨어</li>
-						<li>상의 외투</li><li>하의</li><li>신발</li><li>기타</li>
-						<li>침구류</li><li>커튼</li><li>러그</li><li>이벤트</li>
+				<div class="pricelist_tab">
+					<ul>
+						<li><a href ="#luxury">명품관</a></li>
+						<li><a href ="#schooluniform">교복</a></li>
+						<li><a href ="#top">상의</a></li>
+						<li><a href ="#golf">골프웨어</a></li>
+						<li><a href ="#outer">상의 외투</a></li>
+						<li><a href ="#bottom">하의</a></li>
+						<li><a href ="#shoes">신발</a></li>
+						<li><a href ="#etc">기타</a></li>
+						<li><a href ="#bed">침구류</a></li>
+						<li><a href ="#curtain">커튼</a></li>
+						<li><a href ="#rug">러그</a></li>
+						<li><a href ="#event">이벤트</a></li>
 					</ul>
 				</div>
 			</div>
-			<div class="priceDetail">
+			<div class="price_detail">
 			<!---------명품관---------->
-				<div id="luxury">
+				<div id="luxury" class="laundrytab">
 					<h3>일반</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -37,7 +47,7 @@
 					</ul>
 				</div>
 			<!---------교복---------->
-				<div id="schooluniform">
+				<div id="schooluniform" class="laundrytab">
 					<h3>상의</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -64,7 +74,7 @@
 					</ul>
 				</div>
 			<!---------상의---------->
-				<div id="top">
+				<div id="top" class="laundrytab">
 					<h3>남성</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -103,7 +113,7 @@
 					</ul>
 				</div>
 			<!---------골프 웨어---------->
-				<div id="golf">
+				<div id="golf" class="laundrytab">
 					<h3>공용</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -118,7 +128,7 @@
 					</ul>
 				</div>
 			<!---------상의 외투---------->
-				<div id="outer">
+				<div id="outer" class="laundrytab">
 					<h3>가디건</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -196,7 +206,7 @@
 					</ul>
 				</div>
 			<!---------하의---------->
-				<div id="bottom">
+				<div id="bottom" class="laundrytab">
 					<h3>일반</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -223,7 +233,7 @@
 					</ul>
 				</div>
 			<!---------신발---------->
-				<div id="luxury">
+				<div id="shoes" class="laundrytab">
 					<h3>일반</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -238,7 +248,7 @@
 					</ul>
 				</div>
 			<!---------기타---------->
-				<div id="etc">
+				<div id="etc" class="laundrytab">
 					<h3>일반</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -253,7 +263,7 @@
 					</ul>
 				</div>
 			<!---------침구류---------->
-				<div id="bed">
+				<div id="bed" class="laundrytab">
 					<h3>일반</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -292,7 +302,7 @@
 					</ul>
 				</div>
 			<!---------커튼---------->
-				<div id="curtain">
+				<div id="curtain" class="laundrytab">
 					<h3>일반</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -319,7 +329,7 @@
 					</ul>
 				</div>
 			<!---------러그---------->
-				<div id="rug">
+				<div id="rug" class="laundrytab">
 					<h3>단모</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">
@@ -346,7 +356,7 @@
 					</ul>
 				</div>
 			<!---------이벤트---------->
-				<div id="event">
+				<div id="event" class="laundrytab">
 					<h3>양복</h3>
 					<ul id="priceInfo">
 						<li class="priceInfobox">

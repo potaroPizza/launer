@@ -68,6 +68,10 @@
 		font-weight: bold; 
 		margin-left: 35%;
 		}
+	.join_form #name, #acHolder{
+		ime-mode: active;
+		width: 100px;
+	}
 		
 	.join_form input[type="text"], .join_form input[type="password"]{
 		/* width: 55%;

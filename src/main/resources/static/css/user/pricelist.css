@@ -27,32 +27,41 @@ html, body {
 	    flex: 1 1 auto;
 	    margin: -12px;
 	}
-	#pricelistMenu{
+	#pricelist_menu{
 		max-width: 32%;
 		flex:0 0 100%;
 		padding: 12px;
 	}
-	#pricelistMenu h2 {
+	#pricelist_menu h2 {
 	    font-size: 35px;
 	    color: #222;
 	    font-weight: bold;
 	}
 	
-	#pricelistTab{
+	#pricelist_menu .pricelist_tab{
 		margin-top: 30px;
 	}
 	
-	#pricelistTab li{
+	.pricelist_tab li{
 		font-size: 25px;
-		margin-bottom: 20px;
+		text-decoration:none;
+		cursor: pointer; 
+		margin-bottom: 25px;
+	}
+	.pricelist_tab .on a{
+		color:#466391; 
 	}
 	
-	#pricelist_subwrap2 .priceDetail{
+	.pricelist_tab li a:hover {
+		color:#466391; 
+	}
+	
+	#pricelist_subwrap2 .price_detail{
 		max-width: 63%;
 		flex:0 0 100%;
 		padding: 12px;
 	}
-	#pricelist_subwrap2 .priceDetail h3{
+	#pricelist_subwrap2 .price_detail h3{
 		font-size: 20px;
 		margin-bottom: 20px;
 	}
