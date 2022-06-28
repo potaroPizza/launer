@@ -80,7 +80,6 @@ public class KakaoLoginController {
 				userVo.setEmail(email);
 				userVo.setPwd(socialLoginKey); 
 				userVo.setSocialLoginKey(socialLoginKey);
-				userVo.setPwd(socialLoginKey);
 				logger.info("미가입회원 userVo ={}",userVo);
 			}	
 			int cnt = userService.insertKakaoUser(userVo);
