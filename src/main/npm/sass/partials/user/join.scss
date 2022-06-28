@@ -38,10 +38,10 @@
 	.join_form .namebox {
 		border: none;
 		border-top: 2px solid #222;
-		padding-top:20px;
+		padding-top:15px;
 		}	
 	.join_form .hpbox{
-		padding-bottom:20px;
+		padding-bottom:15px;
 	}	
 		
 	.join_form label, .join_form .sp1	{
@@ -68,12 +68,16 @@
 		font-weight: bold; 
 		margin-left: 35%;
 		}
-		
+	.join_form #name, #acHolder{
+		ime-mode: active;
+		width: 100px;
+		}
 	.join_form input[type="text"], .join_form input[type="password"]{
 		width: 200px;
 		height: 2em;
 		font-size: 0.9em; 
 		border: 1px solid #DCDDE3;
+		margin: 2px 10px 2px 0;
 		}
 	.join_form.text_width input[type="text"], .join_form.text_width input[type="password"]{
 		width: 200px;

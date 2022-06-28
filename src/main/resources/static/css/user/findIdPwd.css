@@ -95,14 +95,8 @@ input, select, textarea {
 		width: 226px;
 	}
 	
-	#findIdPwdbox #hp1{
-		width: 58px;
-	}
-	#findIdPwdbox #hp2{
-		width: 65px;
-	}
-	#findIdPwdbox #hp3{
-		width: 65px;
+	#findIdPwdbox #hp{
+		width: 226px;
 	}
 	#findIdPwdbox #email{
 		width: 226px;

@@ -63,10 +63,10 @@
                 </div>
 
                 <div>
-                    <h3 class="useredit_title"><label for="zipcode">우편번호</label></h3>
+                    <h3 class="useredit_title"><label for="zipcode">우편번호  <input type="button" onclick="execZipcode()" id="btnZipcode" value="우편번호 찾기" name="btnZipcode"></label></h3>
                     <span class="box int_zipcode">
                         <input type="text" id="zipcode" name="zipcode" class="int" maxlength="20" value="${map['ZIPCODE']}" onclick="execZipcode()" placeholder="우편번호 수정하기" readonly="readonly">
-                    </span>
+                    	</span>
                     <span class="error_next_box"></span>
                 </div>
                 

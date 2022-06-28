@@ -30,9 +30,8 @@
 							<input id="name" name="name" type="text">
 						</p>
 						<p id="mobile_view"><strong>휴대폰 번호</strong> 
-							<input id="hp1" name="hp1" maxlength="3" type="text"> - 
-							<input id="hp2" name="hp2" maxlength="4" type="text"> -
-							<input id="hp3" name="hp3" maxlength="4" type="text">
+							<input type="text" name="hp" id="hp" maxlength="11" 
+								placeholder="-를 제외하고 입력해주세요">
 						</p>
 						<p id="email_view" style=""><strong id="email_lable">이메일 주소</strong>
 							<input id="email" name="email" type="text">

@@ -2,6 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <t:wrapper>
 <script type="text/javascript">
@@ -145,19 +146,19 @@
 							<%-- <div class="paymentdetails_col-1" data-label="주문번호">${PaymentViewVO.paymentViewVO.orderNo}</div> --%>
 							<div class="paymentdetails_col-1" data-label="주문번호">${vo.paymentViewVO.orderNo}</div>
 							<div class="paymentdetails_col-2" data-label="상품명">
-								<a href="/launer/mypage/detailedPaymentHistory">${title}</a>
+								<c:if test="${fn: length(title)>20}">
+								<a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${fn:substringBefore(title,",")} 외...</a>
+								</c:if>
+						
+			            <c:if test="${fn: length(title)<=20}">
+			                  <a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${title}</a>           
+			            </c:if>
 							</div>
 							<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber></div>
 							<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${vo.paymentViewVO.regdate}" pattern="yyyy-MM-dd" /></div>
 							<div class="paymentdetails_col-5" data-label="상태">${vo.paymentViewVO.status}</div>
 
-								<%--<div class="paymentdetails_col-1" data-label="주문번호">${map['ORDER_NO']}</div>
-								<div class="paymentdetails_col-2" data-label="상품명">
-									<a href="/launer/mypage/detailedPaymentHistory">${map['CATEGORY_NAME']}</a>
-								</div>
-								<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${map['TOTAL_PRICE']}" pattern="#,###"></fmt:formatNumber></div>
-								<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" /></div>
-								<div class="paymentdetails_col-5" data-label="상태">${map['STATUS']}</div>--%>
+								
 						</li>
 					</c:forEach>
 				</c:if>

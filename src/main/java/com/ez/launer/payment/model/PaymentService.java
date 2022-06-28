@@ -13,4 +13,5 @@ public interface PaymentService {
 	List<PaymentDetailAllVO> selectPaymentList(PaymentSearchVO searchVo);
 	int paymentSelectTotalRecord(PaymentSearchVO searchVo);
 
+	List<PaymentHistoryAllVO> selectPaymentHistoryList(PaymentHistoryViewVO paymentHistoryViewVO);
 }
