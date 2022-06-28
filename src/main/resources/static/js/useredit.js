@@ -22,7 +22,7 @@ function execZipcode() {
 	
 
 	$(function(){
-		$('form[name=usereditfrm]').submit(function(){
+		$('btnuseredit').submit(function(){
 			if($("#pwd").val().length<1) {
 				alert("비밀번호를 입력하세요");
 				$("#pwd").focus();

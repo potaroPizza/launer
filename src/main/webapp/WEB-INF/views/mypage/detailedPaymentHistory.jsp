@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <t:wrapper>
 <link
@@ -15,7 +17,6 @@
 <style>
 
 </style>
-
 	<div id="detailedPaymentHistory_wrap">
 		<div class="detailedPaymentHistory_top"></div>
 		<div class="detailedPaymentHistory_title">
@@ -23,19 +24,25 @@
 		</div>
 		<div class="detailedPaymentHistory_sub">
 			<p>
-				주문번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>000001</span>
+				주문번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.orderNo} </span>
 			</p>
 			<p>
-				주소 &nbsp;&nbsp;&nbsp;&nbsp;<span>신촌</span>
+				주문일자 &nbsp;&nbsp;&nbsp;&nbsp;<span><fmt:formatDate value="${list[0].paymentHistoryViewVO.regdate}" pattern="yyyy년  MM월  dd일   HH:mm:ss"/> </span>
 			</p>
 			<p>
-				주문일자 &nbsp;&nbsp;&nbsp;&nbsp;<span>2022/06/14</span>
+				주소 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.address} &nbsp;&nbsp;
+					${list[0].paymentHistoryViewVO.addressDetail}</span>
 			</p>
 			<p>
-				총 금액 &nbsp;&nbsp;&nbsp;&nbsp;<span>1500원</span>
+				공동현관 출입방법 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.entermethod}</span>
+			</p>
+			<p>
+				주문 요청사항 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.orderRequest}</span>
+			</p>
+			<p>
+				총 금액 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.totalPrice}원</span>
 			</p>
 		</div>
-
 		<section class="detailedPaymentHistory-section">
 			<div class="detailedPaymentHistory-container">
 				<div class="detailedPaymentHistory-row">
@@ -47,54 +54,31 @@
 										<th>&nbsp;</th>
 										<th>상품</th>
 										<th>가격</th>
-										<th>포인트</th>
+										<th>적립 포인트</th>
 										<th>주문상태</th>
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="vo2" items="${list }">
+								
 									<tr>
 										<td>
 											<div class="detailedPaymentHistory-img"
-												style="background-image: url(../images/product-4.png);"></div>
+												style="background-image: url(${vo2.paymentHistoryViewVO.imgurl });"></div>
 										</td>
 										<td>
 											<div class="detailedPaymentHistory-explain">
-												<span>신발 </span> <span>신발 왼쪽에 검은 얼룩 묻었어요</span>
+												<span>${vo2.paymentHistoryViewVO.categoryName } </span>
+												 <span>수량:<%-- ${vo2.paymentHistory[1].QUAN } --%> </span>
 											</div>
 										</td>
-										<td>500원</td>
-										<td>500p</td>
-										<td>입금완료</td>
+										<td><fmt:formatNumber pattern="#,###">${vo2.paymentHistoryViewVO.price }</fmt:formatNumber>원 </td>
+										<td><fmt:formatNumber type="number" pattern="#,###" maxFractionDigits="0" value="${vo2.paymentHistoryViewVO.price/100 }" />p</td>
+										<td>${vo2.paymentHistoryViewVO.status }</td>
 									</tr>
-									<tr>
-										<td>
-											<div class="detailedPaymentHistory-img"
-												style="background-image: url(../images/product-4.png);"></div>
-										</td>
-										<td>
-											<div class="detailedPaymentHistory-explain">
-												<span>신발 </span> <span>신발 오른쪽에 빨간 얼룩 묻었어요</span>
-											</div>
-										</td>
-										<td>500원</td>
-										<td>500p</td>
-										<td>배송중</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="detailedPaymentHistory-img"
-												style="background-image: url(../images/product-4.png);"></div>
-										</td>
-										<td>
-											<div class="detailedPaymentHistory-explain">
-												<span>신발 </span> <span>신발 왼쪽에 검은 얼룩 묻었어요</span>
-											</div>
-										</td>
-										<td>1500원</td>
-										<td>1500p</td>
-										<td>배송완료</td>
-									</tr>
+								
 
+								</c:forEach>
 								</tbody>
 							</table>
 						</div>
