@@ -4,7 +4,7 @@
 <mapper namespace="com.ez.launer.user.model.UserDAO">
 	<!-- 회원 정보 조회 -->
 	<select id="selectById" parameterType="int" resultType="userVo">
-		select * from users
+		select * from users where no=#{no}
 	</select>
 	<!-- 회원 정보 조회 주소테이블 조인 -->
 	<select id="selectByIdAddress" parameterType="int" resultType="hashMap">

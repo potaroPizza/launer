@@ -51,17 +51,9 @@ public class PaymentServiceImpl implements PaymentService{
 
 
 	@Override
-	public PaymentHistoryAllVO selectPaymentHistory(PaymentHistoryViewVO paymentHistoryViewVO) {
-		return paymentDao.selectPaymentHistory(paymentHistoryViewVO);
+	public List<PaymentHistoryAllVO> selectPaymentHistoryList(PaymentHistoryViewVO paymentHistoryViewVO) {
+		return paymentDao.selectPaymentHistoryList(paymentHistoryViewVO);
 	}
 
-
-
-
-
-
-
-	
-	
 
 }

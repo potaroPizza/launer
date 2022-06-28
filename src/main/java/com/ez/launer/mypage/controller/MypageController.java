@@ -48,7 +48,7 @@ public class MypageController {
 	private final PaymentService paymentService;
 
 
-	@GetMapping("/mypage") 
+	@GetMapping("/") 
 	public String mypage_get(HttpSession session, 
 			Model model) { 
 		int no=1000;
@@ -351,6 +351,13 @@ public class MypageController {
 		
 		logger.info("마이페이지 주문내역 상세 화면, 파라미터 userid={},orderNo={}",no,orderNo);
 		
+		if(orderNo == 0) {
+			model.addAttribute("msg", "잘못된 url 접근입니다.");
+			model.addAttribute("url", "/mypage/paymentdetails");
+	
+			return "/common/message";
+		}
+		
 		UserVO vo= userService.selectById(no);
 		logger.info("회원 정보 조회 결과 vo={}", vo);
 		
@@ -358,11 +365,14 @@ public class MypageController {
 		paymentHistoryViewVO.setUsersNo(no);
 		paymentHistoryViewVO.setOrderNo(orderNo);
 		
-		PaymentHistoryAllVO aVo=paymentService.selectPaymentHistory(paymentHistoryViewVO);
-		logger.info("aVo={}",aVo);
+		List<PaymentHistoryAllVO> list =paymentService.selectPaymentHistoryList(paymentHistoryViewVO);
+		logger.info("list.size={}",list.size());
+		logger.info("list={}",list);
+		
+		
 		
 		model.addAttribute(vo);
-		model.addAttribute(aVo);
+		model.addAttribute("list", list);
 		
 		return "/mypage/detailedPaymentHistory";
 		

@@ -88,8 +88,8 @@
 		<include refid="selectPaymentListWhere"></include>
 	</select>
 	
-	<!-- 상세 주문내역 조회하기 -->
-	<select id="selectPaymentHistory" parameterType="paymentHistoryViewVO" resultMap="paymentHistoryDetail">
+	<!-- 상세 주문내역 리스트 조회하기 -->
+	<select id="selectPaymentHistoryList" parameterType="paymentHistoryViewVO" resultMap="paymentHistoryDetail">
 		select * from payment_histroy_view
 		where users_no=#{usersNo} and order_no=#{orderNo}
     </select>
@@ -120,8 +120,6 @@
                     javaType="ArrayList" ofType="map" select="selectOrderDetailss">
         </collection>
 	</resultMap>
-	
 
-	
 
 </mapper>

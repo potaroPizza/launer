@@ -17,7 +17,6 @@
 <style>
 
 </style>
-
 	<div id="detailedPaymentHistory_wrap">
 		<div class="detailedPaymentHistory_top"></div>
 		<div class="detailedPaymentHistory_title">
@@ -25,20 +24,23 @@
 		</div>
 		<div class="detailedPaymentHistory_sub">
 			<p>
-				주문번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.orderNo }</span>
+				주문번호 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.orderNo} </span>
 			</p>
 			<p>
-				주소 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.address } &nbsp;&nbsp;
-													${paymentHistoryAllVO.paymentHistoryViewVO.addressDetail }</span>
+				주문일자 &nbsp;&nbsp;&nbsp;&nbsp;<span><fmt:formatDate value="${list[0].paymentHistoryViewVO.regdate}" pattern="yyyy년  MM월  dd일   HH:mm:ss"/> </span>
 			</p>
 			<p>
-				공동현관 출입방법 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.entermethod }</span>
+				주소 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.address} &nbsp;&nbsp;
+					${list[0].paymentHistoryViewVO.addressDetail}</span>
 			</p>
 			<p>
-				주문일자 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.regdate }</span>
+				공동현관 출입방법 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.entermethod}</span>
 			</p>
 			<p>
-				총 금액 &nbsp;&nbsp;&nbsp;&nbsp;<span>${paymentHistoryAllVO.paymentHistoryViewVO.totalPrice }원</span>
+				주문 요청사항 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.orderRequest}</span>
+			</p>
+			<p>
+				총 금액 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.totalPrice}원</span>
 			</p>
 		</div>
 		<section class="detailedPaymentHistory-section">
@@ -57,51 +59,26 @@
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="vo2" items="${list }">
+								
 									<tr>
 										<td>
 											<div class="detailedPaymentHistory-img"
-												style="background-image: url(${paymentHistoryAllVO.paymentHistoryViewVO.imgurl });"></div>
-<!-- 											<div class="detailedPaymentHistory-img"
-												style="background-image: url(../images/product-4.png);"></div> -->
+												style="background-image: url(${vo2.paymentHistoryViewVO.imgurl });"></div>
 										</td>
 										<td>
 											<div class="detailedPaymentHistory-explain">
-												<span>${paymentHistoryAllVO.paymentHistoryViewVO.categoryName } </span> <span>수량: </span>
+												<span>${vo2.paymentHistoryViewVO.categoryName } </span>
+												 <span>수량:<%-- ${vo2.paymentHistory[1].QUAN } --%> </span>
 											</div>
 										</td>
-										<td>${paymentHistoryAllVO.paymentHistoryViewVO.price }</td>
-										<td>${paymentHistoryAllVO.paymentHistoryViewVO.price/100.0 }p</td>
-										<td>${paymentHistoryAllVO.paymentHistoryViewVO.status }</td>
+										<td><fmt:formatNumber pattern="#,###">${vo2.paymentHistoryViewVO.price }</fmt:formatNumber>원 </td>
+										<td><fmt:formatNumber type="number" pattern="#,###" maxFractionDigits="0" value="${vo2.paymentHistoryViewVO.price/100 }" />p</td>
+										<td>${vo2.paymentHistoryViewVO.status }</td>
 									</tr>
-									<tr>
-										<td>
-											<div class="detailedPaymentHistory-img"
-												style="background-image: url(../images/product-4.png);"></div>
-										</td>
-										<td>
-											<div class="detailedPaymentHistory-explain">
-												<span>신발 </span> <span>신발 오른쪽에 빨간 얼룩 묻었어요</span>
-											</div>
-										</td>
-										<td>500원</td>
-										<td>500p</td>
-										<td>배송중</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="detailedPaymentHistory-img"
-												style="background-image: url(../images/product-4.png);"></div>
-										</td>
-										<td>
-											<div class="detailedPaymentHistory-explain">
-												<span>신발 </span> <span>신발 왼쪽에 검은 얼룩 묻었어요</span>
-											</div>
-										</td>
-										<td>1500원</td>
-										<td>1500p</td>
-										<td>배송완료</td>
-									</tr>
+								
 
+								</c:forEach>
 								</tbody>
 							</table>
 						</div>
