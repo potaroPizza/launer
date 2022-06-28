@@ -114,8 +114,10 @@ a {
 }
 
 .payment_paging{
-	margin-left: 400px;
 	margin-bottom: 70px;
+	ul {
+		justify-content: center;
+	}
 }
 .paymentdetails_count{
 	display: inline-block;
@@ -133,5 +135,5 @@ a {
 }
 .paymentdetails_count span{
 	font-size: 18px;
-	font-weight: bold;;
+	font-weight: bold;
 }

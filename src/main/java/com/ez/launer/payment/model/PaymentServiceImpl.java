@@ -48,6 +48,12 @@ public class PaymentServiceImpl implements PaymentService{
 	public int paymentSelectTotalRecord(PaymentSearchVO searchVo) {
 		return paymentDao.paymentSelectTotalRecord(searchVo);
 	}
-	
+
+
+	@Override
+	public List<PaymentHistoryAllVO> selectPaymentHistoryList(PaymentHistoryViewVO paymentHistoryViewVO) {
+		return paymentDao.selectPaymentHistoryList(paymentHistoryViewVO);
+	}
+
 
 }

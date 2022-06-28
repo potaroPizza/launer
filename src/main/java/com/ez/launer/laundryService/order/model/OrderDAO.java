@@ -23,6 +23,8 @@ public interface OrderDAO {
     int countOrderByDeliveryNo(OrderDeliveryVO orderDeliveryVO);
 
     List<OrderDeliveryAllVO> selectByDeliveryNo(Map<String, Object> map);
+
+    int updateOrderStatus(Map<String, Object> map);
     // 박권순 끝
     // 박권순 끝
     // 박권순 끝

@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.launer.common.ConstUtil;
-import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.common.PaginationInfo;
 import com.ez.launer.common.PaymentSearchVO;
 import com.ez.launer.common.PointSearchVO;
 import com.ez.launer.payment.model.PaymentDetailAllVO;
+import com.ez.launer.payment.model.PaymentHistoryAllVO;
+import com.ez.launer.payment.model.PaymentHistoryViewVO;
 import com.ez.launer.payment.model.PaymentService;
 import com.ez.launer.point.model.PointDetailAllVO;
 import com.ez.launer.point.model.PointService;
@@ -47,7 +48,7 @@ public class MypageController {
 	private final PaymentService paymentService;
 
 
-	@GetMapping("/mypage") 
+	@GetMapping("/") 
 	public String mypage_get(HttpSession session, 
 			Model model) { 
 		int no=1000;
@@ -343,9 +344,41 @@ public class MypageController {
 	}
 	
 	
-	@GetMapping("/detailedPaymentHistory")
-	public void detailedPaymentHistory() {
-		logger.info("마이페이지 결제내역 상세 화면");
+	@RequestMapping("/detailedPaymentHistory")
+	public String detailedPaymentHistory(HttpSession session, @RequestParam(defaultValue = "0") int orderNo, Model model) {
+		int no=1000;
+		//String userid=(String)session.getAttribute("userid");
+		
+		logger.info("마이페이지 주문내역 상세 화면, 파라미터 userid={},orderNo={}",no,orderNo);
+		
+		if(orderNo == 0) {
+			model.addAttribute("msg", "잘못된 url 접근입니다.");
+			model.addAttribute("url", "/mypage/paymentdetails");
+	
+			return "/common/message";
+		}
+		
+		UserVO vo= userService.selectById(no);
+		logger.info("회원 정보 조회 결과 vo={}", vo);
+		
+		PaymentHistoryViewVO paymentHistoryViewVO = new PaymentHistoryViewVO();
+		paymentHistoryViewVO.setUsersNo(no);
+		paymentHistoryViewVO.setOrderNo(orderNo);
+		
+		List<PaymentHistoryAllVO> list =paymentService.selectPaymentHistoryList(paymentHistoryViewVO);
+		logger.info("list.size={}",list.size());
+		logger.info("list={}",list);
+		
+		
+		
+		model.addAttribute(vo);
+		model.addAttribute("list", list);
+		
+		return "/mypage/detailedPaymentHistory";
+		
+		
+		
+		
 	}
 	@GetMapping("/signout")
 	public void singOut() {
