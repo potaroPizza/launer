@@ -209,8 +209,8 @@
 	action="<c:url value='/admin/orders'/>">
 	<input type="text" class="startDay" name="startDay" value="${orderSearchVO.startDay}">
 	<input type="text" class="endDay" name="endDay" value="${orderSearchVO.endDay}">
-	<input type="text" class="officeName" name="officeName" value="${orderSearchVO.officeName}">
-	<input type="text" class="orderStatus" name="orderStatus" value="${orderSearchVO.orderStatus}">
+	<input type="text" class="officeNo" name="officeNo" value="${orderSearchVO.officeNo}">
+	<input type="text" class="statusNo" name="statusNo" value="${orderSearchVO.statusNo}">
 	<input type="text" class="userEmail" name="userEmail" value="${orderSearchVO.userEmail}">
 	<input type="text" class="currentPage" name="currentPage">	
 	<input type="text" class="countPerPage" name="countPerPage" value="${orderSearchVO.countPerPage}">
