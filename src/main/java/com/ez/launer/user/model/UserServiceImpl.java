@@ -80,6 +80,16 @@ public class UserServiceImpl implements UserService{
 		return userDao.editPwd(vo);
 	}
 
+	
+	
+	
+	
+	/* 한서현 */
+	@Override
+	public int insertKakaoUser(UserVO userVo) {
+		return userDao.insertKakaoUser(userVo);
+	}
+
 
 
 

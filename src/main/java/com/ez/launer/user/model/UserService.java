@@ -16,4 +16,9 @@ public interface UserService {
 	int updateUserHp(UserAllVO vo);
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
+	
+	
+	
+	/* 한서현 */
+	int insertKakaoUser(UserVO userVo);
 }

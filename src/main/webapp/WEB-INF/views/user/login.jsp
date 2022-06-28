@@ -58,7 +58,10 @@
 											<li class="btn_naver"><a>네이버로
 													로그인</a></li>
 											<li class="btn_kakao">
-											<a href="https://kauth.kakao.com/oauth/authorize?client_id=17794c6c3763c9ee2f66e9d03e0b9c5b&redirect_uri=http://localhost:9095/launer/user/login_kakao&response_type=code">
+											<a href="https://kauth.kakao.com/oauth/authorize?
+											client_id=17794c6c3763c9ee2f66e9d03e0b9c5b
+											&redirect_uri=http://localhost:9095/launer/user/kakaoLogin/requestToken
+											&response_type=code">
             								카카오로 로그인</a></li>
 										</ul>
 									</div>
