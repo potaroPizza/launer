@@ -2,8 +2,12 @@ package com.ez.launer.laundryService.order.model;
 
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
+import com.ez.launer.user.model.UserVO;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +17,10 @@ import java.util.Map;
 public class OrderServiceImpl implements OrderService{
     private final OrderDAO orderDAO;
 
+	// 박권순 시작
+	// 박권순 시작
+	// 박권순 시작
+	// 박권순 시작
     @Override
     public List<OrderDeliveryAllVO> orderOfficeView(OrderListSearchVO orderListSearchVO) {
         return orderDAO.orderOfficeView(orderListSearchVO);
@@ -23,7 +31,28 @@ public class OrderServiceImpl implements OrderService{
         return orderDAO.orderCount(orderListSearchVO);
     }
 
-    @Override
+	@Override
+	public int updateOrder(OrderDeliveryVO orderDeliveryVO) {
+		return orderDAO.updateOrder(orderDeliveryVO);
+	}
+
+	@Override
+	public int countOrderByDeliveryNo(OrderDeliveryVO orderDeliveryVO) {
+		return orderDAO.countOrderByDeliveryNo(orderDeliveryVO);
+	}
+
+	@Override
+	public List<OrderDeliveryAllVO> selectByDeliveryNo(Map<String, Object> map) {
+		return orderDAO.selectByDeliveryNo(map);
+	}
+
+
+	// 박권순 끝
+	// 박권순 끝
+	// 박권순 끝
+	// 박권순 끝
+
+	@Override
 	public OrderViewVO selectUsersOrderView(int usersNo) {
 		return orderDAO.selectUsersOrderView(usersNo);
 	}
@@ -48,6 +77,24 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.insertPointList(map);
 	}
 
+	public int updateUserPoint(UserVO userVo) {
+		return orderDAO.updateUserPoint(userVo);
+	}
+
+	public int updatePaymentDate(int orderNo) {
+		return orderDAO.updatePaymentDate(orderNo);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -63,10 +110,48 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.adminSelectTotalRecord(searchVo);
 	}
 
+	@Override
+	public AdminOrderDetailVO adminSelectOrderDetail(int orderNo) {
+		return orderDAO.adminSelectOrderDetail(orderNo);
+	}
+
+	@Override
+	@Transactional	// 트랜잭션 관리하는 어노테이션
+	public int adminOrderStatusUpdateMulti(List<OrderVO> list) {
+		int cnt = 0;
+		
+		try {
+			for(OrderVO vo : list) {
+				int orderNo = vo.getNo();
+				if(orderNo != 0) {	// 체크박스에 체크한 경우만 삭제처리
+					cnt = orderDAO.adminOrderStatusUpdate(orderNo);
+				}
+			}
+		} catch (RuntimeException e) {
+			//선언적 트랜잭션에서는 런타임 예외가 발생하면 롤백한다.
+			//원래 @Transactional이거 쓰면 try-catch없어야 알아서 다 하는데 
+			//try-catch문을 쓰면 명시적으로 rollback처리를 해줘야함
+			//try-catch문을 쓴 이유는 cnt = -1; 때문임
+			//컨트롤러에서 cnt의 결과로 예외처리를 해야하기 때문임.
+			e.printStackTrace();
+			cnt = -1;
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		
+		return cnt;
+	}
+
+	@Override
+	public int adminOrderStatusUpdate(int orderNo) {
+		return orderDAO.adminOrderStatusUpdate(orderNo);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> adminSelectAll() {
+		return orderDAO.adminSelectAll();
+	}
+
 	
-
-
-	
-
 	//지효가 만든거 끝
 }

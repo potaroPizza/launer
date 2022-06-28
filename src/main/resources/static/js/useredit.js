@@ -15,7 +15,11 @@ function execZipcode() {
             }
         }).open();
     }
-
+	function validate_hp(hp){
+	var pattern = new RegExp(/([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})/);
+	return pattern.test(hp);
+}
+	
 
 	$(function(){
 		$('form[name=usereditfrm]').submit(function(){
@@ -33,6 +37,5 @@ function execZipcode() {
 				return false;
 			}
 		});
-		
 		
 	});

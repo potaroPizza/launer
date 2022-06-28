@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user"%>
 
 <t:wrapper>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,6 +7,8 @@
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<link rel="stylesheet" href="<c:url value="/css/user/login.css"/>"/>
 	
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="<c:url value="/js/login_kakao.js"/>" type="text/javascript" text="javascript"></script>
 <script src="<c:url value="/js/login.js"/>" type="text/javascript" text="javascript"></script>
 <div id="login_wrap">
 	<div class="login_subwrap">
@@ -99,8 +101,8 @@
 							</div>
 						</div>
 					</div>
-			</fieldset>
-		</form>
+				</fieldset>
+			</form>
+		</div>
 	</div>
-</div>
 </t:wrapper>

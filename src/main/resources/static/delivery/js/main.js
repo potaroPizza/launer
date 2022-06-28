@@ -1,15 +1,20 @@
 $(function() {
-    const $listPart = $("#list-part");
+    /*const $listPart = $("#list-part");
+    const $mapPart = $("#map");
 
     $("#list-box").click(() => {
         if($listPart.hasClass("active")) {
             $listPart.removeClass("active");
             $listPart.addClass("non-active");
+            $mapPart.css("height", "90%");
+            relayout();
         }else{
             $listPart.removeClass("non-active");
             $listPart.addClass("active");
+            $mapPart.css("height", "60%");
+            relayout();
         }
-    });
+    });*/
 
     /*let vh = window.innerHeight * 0.01
     document.documentElement.style.setProperty('--vh', `${vh}px`)

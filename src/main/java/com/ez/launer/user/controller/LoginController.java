@@ -3,10 +3,13 @@ package com.ez.launer.user.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
+import com.ez.launer.user.model.KakaoAPI;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/user")
@@ -29,12 +34,17 @@ public class LoginController {
 	
 	private final UserService userService;
 	
+	@Autowired
+    private KakaoAPI kakao;
+	
 	@GetMapping("/login")
 	public String login_get() {
+
 		logger.info("로그인 화면");
 		
 		return "/user/login";
 	}
+
 	@PostMapping("/login")
 	public String login_post(@ModelAttribute UserVO vo,
 			@RequestParam(required = false) String saveEmail, 
@@ -81,6 +91,29 @@ public class LoginController {
 		return "/common/message";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/login_kakao")
+	public String kakaoLogin(@RequestParam ("code")String code,HttpSession session) {
+		
+		//accessToken 발급받기
+		String access_Token = kakao.getAccessToken(code);
+		logger.info("controller access_token ={} " , access_Token);
+		
+		//user email과 name 받아오기 
+		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+		
+		//받아온 email,name => 세션에 저장
+		if (userInfo.get("email") != null) {
+			session.setAttribute("email", userInfo.get("email"));
+			session.setAttribute("name", userInfo.get("name"));
+			session.setAttribute("access_Token", access_Token);
+		}
+		
+		
+		 return "/user/login";
+	
+	}
+	
 	@GetMapping("/findId")
 	public void findId() {
 		logger.info("아이디 찾기 화면");
@@ -92,4 +125,5 @@ public class LoginController {
 		logger.info("비밀번호 찾기 화면");
 
 	}
+	
 }

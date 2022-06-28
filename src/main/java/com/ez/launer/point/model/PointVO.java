@@ -1,4 +1,4 @@
-package com.ez.launer.point;
+package com.ez.launer.point.model;
 
 import lombok.Data;
 

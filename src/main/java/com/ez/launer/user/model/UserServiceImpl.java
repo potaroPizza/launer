@@ -111,6 +111,8 @@ public class UserServiceImpl implements UserService{
 			
 		}*/
 //		vo.getAddress();
+		
+		
 		vo.setOfficeNo(1);
 		
 		return userDao.updateUserAddress(vo);

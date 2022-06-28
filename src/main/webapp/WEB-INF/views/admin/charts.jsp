@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <t:head>
 </t:head>
@@ -76,11 +79,20 @@ juqery가 hicharts보다 위에 선언되어야함
 
 <script type="text/javascript">
 	$(function () {
+		Highcharts.setOptions({
+			lang: {
+				thousandsSep: ','
+			}
+		});
+		
 		lineChart();
 		barChart();
 		pieChart();
 		
-		
+		$('#revenueChart').on("change", function(){
+			//$('input[name=revenueChart]').val($(this).val());
+			$('form[name=frmCharts]').submit();
+		});
 	});
 	
 	function lineChart(){
@@ -90,7 +102,7 @@ juqery가 hicharts보다 위에 선언되어야함
 		
 	    Highcharts.chart('containerLine', {
 	        title: {
-	            text: '신규가입자 및 총 방문자 수',
+	            text: '사용자 수',
 	            x: -20 //center
 	        },
 	        subtitle: {
@@ -121,11 +133,14 @@ juqery가 hicharts보다 위에 선언되어야함
 	            borderWidth: 0
 	        },
 	        series: [{
-	            name: '신규가입자',
+	            name: '신규 가입자',
 	            data: [3, 62, 157, 233, 580, 1049, null, null, null, null, null, null]
 	        }, {
 	            name: '사이트 방문자',
 	            data: [42, 168, 580, 1024, 3303, 5237, null, null, null, null, null, null]
+	        }, {
+	            name: '누적 가입자',
+	            data: [3, 65, 250, 500, 1080, 2129, null, null, null, null, null, null]
 	        }]
 	    });
 	}
@@ -137,7 +152,12 @@ juqery가 hicharts보다 위에 선언되어야함
 				type : 'column'
 			},
 			title : {
-				text: '월별 총 수입',
+				<c:if test="${ofn != 0}">
+					text: '${ofName}의 월별 수입',
+				</c:if>
+				<c:if test="${ofn == 0}">
+					text: '전체 월별 총 수입',
+				</c:if>
 	            x: -20 //center
 			},
 			subtitle : {
@@ -162,9 +182,17 @@ juqery가 hicharts보다 위에 선언되어야함
 				enabled : false
 			},
 			series : [ {
-				name : "매출액(백만원)",
+				name : "매출액(원)",
 				colorByPoint : true,
-				data : [ {
+				data : [
+					<c:forEach var="rcMap" items="${rcm}">
+					{
+						name : "${rcMap['MONTH']}월",
+						y : ${rcMap['SUM']},
+					}, 
+					</c:forEach>
+				]
+				/* data : [ {
 					name : "1월",
 					y : 2.3,
 				}, {
@@ -200,7 +228,7 @@ juqery가 hicharts보다 위에 선언되어야함
 				}, {
 					name : "12월",
 					y : null,
-				} ]
+				} ] */
 			} ]
 			
 			});
@@ -215,7 +243,7 @@ juqery가 hicharts보다 위에 선언되어야함
 		        type: 'pie'
 		    },
 		    title: {
-		        text: '카테고리별 매출 통계',
+		        text: '카테고리별 주문 비율',
 		        x: -20 //center
 		    },
 		    subtitle : {
@@ -297,44 +325,70 @@ juqery가 hicharts보다 위에 선언되어야함
 	                .
 	            </div> -->
 	        </div>
-	        
+	        <form name="frmCharts" method="post"
+	        	action="<c:url value='/admin/charts'/>">
 	        <div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
 	               사용자 통계
+	               
+					&nbsp; 기간별
+					<select name="userChart">
+						<option value="1">최근 2주</option>
+						<option value="2022">2022년</option>
+					</select>
 	            </div>
 	            <div class="card-body">
 		            <!-- 라인 차트 -->
 					<div id="containerLine"></div>
 				</div>
-	            <div class="card-footer small text-muted">Updated at 22-06-16 08:35 PM</div>
+	            <div class="card-footer small text-muted">Updated at Now</div>
 	        </div>
 
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-chart-bar me-1"></i>
                     매출 통계
+                    
+                    &nbsp; <span style="margin-left: 15px">지점 선택</span>
+					<select name="revenueChart" id="revenueChart">
+						<option value="0"
+							<c:if test="${ofn == 0}">
+									selected
+            				</c:if>
+						>전체</option>
+						<option value="1"
+							<c:if test="${ofn == 1}">
+									selected
+            				</c:if>
+						>종로지점</option>
+					</select>
                 </div>
                 <div class="card-body">
 	                <!-- 바 차트 -->
 	                <div id="containerBar"></div>
                 </div>
-                <div class="card-footer small text-muted">Updated at 22-06-16 08:35 PM</div>
+                <div class="card-footer small text-muted">Updated at Now</div>
             </div>
             
              <div class="card mb-4">
                 <div class="card-header">
                 	<i class="fas fa-chart-pie me-1"></i>
-                    카테고리별 매출 통계
+                    카테고리별 주문 비율
+                    
+                    &nbsp;
+					<select name="categoryChart">
+						<option value="1">전체</option>
+					</select>
                 </div>
                 <div class="card-body">
 	                <!-- 도넛 차트 -->
 	                <div id="containerPie"></div>
                 </div>
-             	<div class="card-footer small text-muted">Updated at 22-06-16 08:35 PM</div>
+             	<div class="card-footer small text-muted">Updated at Now</div>
 			</div>
-
-	        </div>
+			</form>
+		</div>
 	</main>
 
 </t:wrapper>

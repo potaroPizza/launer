@@ -8,5 +8,8 @@
         where NO = #{no}
     </select>
 
-
+    <insert id="insertDeliveryAmount" parameterType="map">
+        insert into DELIVERY_AMOUNT(no, order_no, delivery_driver_no, amount)
+        values (DELIVERY_AMOUNT_SEQ.nextval, #{orderNo}, #{deliveryNo}, #{pay})
+    </insert>
 </mapper>

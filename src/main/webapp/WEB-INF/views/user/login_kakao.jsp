@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>orderComplete.jsp</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>${result }</h1>
+
 </body>
 </html>

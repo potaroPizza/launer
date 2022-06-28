@@ -34,10 +34,10 @@ public interface ConstUtil {
 
 
 	//주문상태 상수(정상수)
-	int BEFORE_PICKUP = 1;
-	int COMPLE_PICKUP = 2;
-	int WASHING_STEP = 3;
-	int WATING_DELIVERY = 4;
-	int DELIVERY_PROGRESS = 5;
-	int COMPLETION = 6;
+	int BEFORE_PICKUP = 1;	//수거전
+	int COMPLE_PICKUP = 2;	//수거완료
+	int WASHING_STEP = 3;	//세탁중
+	int WATING_DELIVERY = 4;	//배송대기
+	int DELIVERY_PROGRESS = 5;	//배송중
+	int COMPLETION = 6;	//완료
 }

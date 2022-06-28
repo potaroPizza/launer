@@ -27,9 +27,12 @@
 
             let map;
 
-            window.onload = function () {
-                curUpdate();
-                viewList(groupNo);
+
+            //map 생성
+            //map 생성
+            //map 생성
+            //map 생성
+            function createMap() {
                 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapOption = {
                         center: defaultPoint, // 지도의 중심좌표
@@ -39,17 +42,17 @@
                 map = new kakao.maps.Map(mapContainer, mapOption);
 
 
-                var polygonPath = [
+                const polygonPath = [
                     <c:set var = "c" value="0"/>
                     <c:forEach var="i" items="${polygon}">
-                        <c:set var = "c" value="${c + 1}"/>
-                        new kakao.maps.LatLng(${i[0]}, ${i[1]})
-                        <c:if test="${fn:length(polygon) != c}">,</c:if>
+                    <c:set var = "c" value="${c + 1}"/>
+                    new kakao.maps.LatLng(${i[0]}, ${i[1]})
+                    <c:if test="${fn:length(polygon) != c}">,</c:if>
                     </c:forEach>
                 ];
 
                 // 지도에 표시할 다각형을 생성합니다
-                var polygon = new kakao.maps.Polygon({
+                const polygon = new kakao.maps.Polygon({
                     path: polygonPath, // 그려질 다각형의 좌표 배열입니다
                     strokeWeight: 3, // 선의 두께입니다
                     strokeColor: '#39DE2A', // 선의 색깔입니다
@@ -64,12 +67,20 @@
                 polygon.setMap(map);
             }
 
+
+            window.onload = function () {
+                curUpdate();
+                createMap();
+                listEvent();
+                slideTog();
+            }
+
             //위치 초기화
             //위치 초기화
             //위치 초기화
             //위치 초기화
-            function panTo() {
-                map.panTo(defaultPoint);
+            function panTo(dP) {
+                map.panTo(dP);
             }
             //지도 관련
             //지도 관련
@@ -83,101 +94,67 @@
             //지도 마커 관련
             //지도 마커 관련
             //지도 마커 관련
-            const MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
-                MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
-                OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
-                OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
-                OVER_MARKER_WIDTH = 40, // 오버 마커의 너비
-                OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
-                OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
-                OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
-                SPRITE_MARKER_URL = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png', // 스프라이트 마커 이미지 URL
-                SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
-                SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
-                SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
+            const basicImageSrc = 'http://localhost:9095/launer/images/basic_marker.png'; // 마커이미지의 주소입니다
+            const clickImageSrc = 'http://localhost:9095/launer/images/click_marker.png';
+            const imageSize = new kakao.maps.Size(40, 40);     // 마커이미지의 크기입니다.
 
-            let markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
-                markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
-                overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
-                overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
-                spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
 
-            /*let positions = [  // 마커의 위치
-                    new kakao.maps.LatLng(37.5768086518, 126.989058671)
-                ],
-                selectedMarker = null; // 클릭한 마커를 담을 변수*/
-
+            const markerImage = new kakao.maps.MarkerImage(basicImageSrc, imageSize);
+            const clickImage = new kakao.maps.MarkerImage(clickImageSrc, imageSize);
 
             function markerFor(positions) {      //이게 맞나?
                 // 지도 위에 마커를 표시합니다
                 for (let i = 0, len = positions.length; i < len; i++) {
-                    let gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
-                        originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
-                        overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
-                        normalOrigin = new kakao.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
-                        clickOrigin = new kakao.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
-                        overOrigin = new kakao.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
-
-                    // 마커를 생성하고 지도위에 표시합니다
-                    addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
+                    addMarker(positions[i], i);
                 }
             }
 
-
-            // 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
-            function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
-                // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
-                var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
-                    overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
-                    clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
-
-                // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+            function addMarker(position, index) {
                 var marker = new kakao.maps.Marker({
                     map: map,
-                    position: position
-                });
-
-                /*// 마커에 mouseover 이벤트를 등록합니다
-                kakao.maps.event.addListener(marker, 'mouseover', function() {
-
-                    // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
-                    // 마커의 이미지를 오버 이미지로 변경합니다
-                    if (!selectedMarker || selectedMarker !== marker) {
-                        marker.setImage(overImage);
-                    }
-                });*/
-
-                // 마커에 mouseout 이벤트를 등록합니다
-                kakao.maps.event.addListener(marker, 'mouseout', function() {
-
-                    // 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
-                    // 마커의 이미지를 기본 이미지로 변경합니다
-                    /*if (!selectedMarker || selectedMarker !== marker) {
-                        marker.setImage(normalImage);
-                    }*/
+                    position: position,
+                    image: markerImage
                 });
 
                 // 마커에 click 이벤트를 등록합니다
                 kakao.maps.event.addListener(marker, 'click', function() {
-                    // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
-                    // 마커의 이미지를 클릭 이미지로 변경합니다
-                    /*if (!selectedMarker || selectedMarker !== marker) {
-
+                    if (!selectedMarker || selectedMarker !== marker) {
                         // 클릭된 마커 객체가 null이 아니면
                         // 클릭된 마커의 이미지를 기본 이미지로 변경하고
-                        !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
-
+                        !!selectedMarker && selectedMarker.setImage(markerImage);
                         // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
                         marker.setImage(clickImage);
-                    }*/
 
+                        let orderData = positionDataNo[index].orderNo;
+
+
+                        //orderList에서 orderNo를 찾음
+                        let inputFind = $("#order-scroll-box input[value=" + orderData + "]").parent().parent().parent();
+                        // let paddT = (inputFind.innerHeight() - inputFind.height()) / 2;
+                        console.log(inputFind.position().top);
+
+                        $("#orders-list").animate({
+                            scrollTop: inputFind.position().top
+                        }, 300, () => {
+                            let i = 0;
+                            inputFind.toggleClass("marker-focus");
+                            const markerListEvent = setInterval(() => {
+                                if(i < 3) {
+                                    inputFind.toggleClass("marker-focus");
+                                    i++;
+                                }else {
+                                    clearInterval(markerListEvent);
+                                }
+                            }, 280);
+                        });
+                        // $findList.css("background", "red");
+                    }
+
+                    panTo(position);
                     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-                    //selectedMarker = marker;
+                    selectedMarker = marker;
                 });
             }
-
-
-
 
             // MakrerImage 객체를 생성하여 반환하는 함수입니다
             function createMarkerImage(markerSize, offset, spriteOrigin) {
@@ -193,78 +170,129 @@
 
                 return markerImage;
             }
+            let positions = []; // 마커의 위치
+            let positionDataNo = [];    //마커에 대한 orderNO (객체로 넣으면 고쳐야할 부분이 많아져 변수로 따로 지정)
+            let selectedMarker = null; // 클릭한 마커를 담을 변수
+            let bounds;
+
+            function setBounds() {
+                map.setBounds(bounds);
+            }
             //지도 마커 관련
             //지도 마커 관련
             //지도 마커 관련
+
+
+            //전부 초기화하는 함수
+            function cleanList() {
+                $("#order-scroll-box").html("");
+                positions = [];
+                totalPage = 0;
+                currentPage = 0;
+                dbCur = 0;
+
+                createMap();
+                curUpdate();
+                // slideTog();
+                // listEvent();
+            }
 
 
             let currentPage = 0;
             let dbCur = 0;
-            let lastPage = 0;   //마지막 페이지
+            let totalPage = 0;   //마지막 페이지
             let groupNo = 1;    //수거 : 1, 배송 : 2
+            let totalRecord = 0;
 
             //currentPage 변수와 input value 업데이트 해주는 함수
             function curUpdate() {
                 currentPage++;
                 $("#paging-form input[name=currentPage]").val(currentPage);
-                console.log(currentPage);
+                console.log("현재페이지 증감 : currentPage++ = " + currentPage);
                 viewList(groupNo);
             }
 
             function viewList(group) {
-                let uriType = group === 1 ? "/listP" : "/listD";
-                console.log("<c:url value='/delivery'/>" + uriType);
+                const formSet = $("#paging-form");
+                if(group === 1) {
+                    formSet.find("input[name=orderStatusNo]").val(1);
+                    formSet.find("input[name=listType]").val("PICKUP_DRIVER");
+                }else if(group === 2) {
+                    formSet.find("input[name=orderStatusNo]").val(4);
+                    formSet.find("input[name=listType]").val("DELIVERY_DRIVER");
+                }
 
-                let pagingData = $("#paging-form input[name=currentPage]").serialize();
+                let listData = formSet.serialize();
                 $.ajax({
-                    url: "<c:url value='/delivery'/>" + uriType,
+                    url: "<c:url value='/delivery/list'/>",
                     method: "POST",
-                    data: pagingData,
+                    data: listData,
                     dataType: "JSON",
                     success: (res) => {
                         let listElement = "";
-                        let positions = []; // 마커의 위치
 
                         dbCur = res.dbCur;
-                        lastPage = res.lastPage;
+                        totalPage = res.totalPage;
+                        totalRecord = res.totalRecord;
+
                         console.log("dbCur = " + dbCur);
-                        console.log("lastPage = " + lastPage);
-                        $.each(res.listMap, (idx, item) => {
-                            console.log(item);
-                            let titleStr = "";
-                            for(let i = 0; i < item.orderDetails.length; i++) {
-                                titleStr += item.orderDetails[i].CATEGORY_NAME;
-                                if(i !== item.orderDetails.length - 1) titleStr += ", ";
-                            }
-                            let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
+                        console.log("currentPage = " + currentPage);
+                        console.log("totalPage = " + totalPage);
+                        console.log("totalRecord = " + totalRecord);
 
-                            listElement +=
-                                "<div class='order-box'>" +
-                                "<h3>" + titleStr +"</h3>" +
-                                "<div class='order-text-box'>" +
-                                "<div class='left'>" +
-                                "<div class='order-text-list'>" +
-                                "<p>신청자 <strong>" + item.orderOfficeView.NAME + "</strong></p>" +
-                                "<p>수량 <strong>" + item.orderOfficeView.SUM + "</strong></p>" +
-                                "<p>수당 <strong>" + pay.toLocaleString('ko-KR') + " 원</strong></p>" +
-                                "</div>" +
-                                "<div class='order-text-list'>" +
-                                "<p>위치 <strong>" + item.orderOfficeView.ADDRESS +"</strong></p>" +
-                                "</div>" +
-                                "</div>" +
-                                "<div class='right'>" +
-                                "<button onclick='addList(" + item.orderOfficeView.NO + ")'>수거하기</button>" +
-                                "</div>" +
-                                "</div>" +
-                                "</div>";
+                        $(".total-recode strong").text(totalRecord);
 
-                            positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
-                        });
+                        if(Array.isArray(res.listMap) && res.listMap.length === 0) {
+                            panTo(defaultPoint);
+                            listElement += "<h1 style='text-align: center; padding: 20px 0;'>리스트가 없습니다.</h1>";
+                        }else {
+                            $.each(res.listMap, (idx, item) => {
+                                console.log(item);
+                                let titleStr = "";
+                                for(let i = 0; i < item.orderDetails.length; i++) {
+                                    titleStr += item.orderDetails[i].CATEGORY_NAME;
+                                    if(i !== item.orderDetails.length - 1) titleStr += ", ";
+                                }
+                                let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
 
-                        console.log(positions);
-                        $("#orders-list").append(listElement);
+                                listElement +=
+                                    "<div class='order-box' onclick='markerPositon(" + item.orderOfficeView.LON_X + ", " +  item.orderOfficeView.LAT_Y + ")'>" +
+                                    "<div class='timer-box'></div>" +
+                                    "<h3>" + titleStr +"</h3>" +
+                                    "<div class='order-text-box clearfix'>" +
+                                    "<div class='left'>" +
+                                    "<div class='order-text-list'>" +
+                                    "<p>신청자 <strong>" + item.orderOfficeView.NAME + "</strong></p>" +
+                                    "<p>수량 <strong>" + item.orderOfficeView.SUM + "</strong></p>" +
+                                    "<p>수당 <strong>" + pay.toLocaleString('ko-KR') + " 원</strong></p>" +
+                                    "</div>" +
+                                    "<div class='order-text-list'>" +
+                                    "<p>위치 <strong>" + item.orderOfficeView.ADDRESS +"</strong></p>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "<div class='right'>" +
+                                    "<button onclick='addList(1," + item.orderOfficeView.NO + ", this)'>수거하기</button>" +
+                                    "<input type='hidden' value='" + item.orderOfficeView.NO + "'/>" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
 
-                        markerFor(positions);
+                                /*let testEle = [
+                                    new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y),
+                                    {orderNo : item.orderOfficeView.NO}
+                                ];*/
+                                // console.log(testEle);
+                                positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
+                                positionDataNo.push({orderNo : item.orderOfficeView.NO});
+                            });
+                            console.log(positions);
+                            markerFor(positions);
+                            bounds = new kakao.maps.LatLngBounds();
+                            for (let i = 0; i < positions.length; i++) bounds.extend(positions[i]);
+                            panTo(bounds);
+                        }
+
+                        $("#order-scroll-box").append(listElement);
                     },
                     error: (xhr, status, error) => {
                         alert("error : " + error);
@@ -272,36 +300,158 @@
                 });
             }
 
-            //스크롤 끝일 때 이벤트 호출
-            //스크롤 끝일 때 이벤트 호출
-            //스크롤 끝일 때 이벤트 호출
-            //스크롤 끝일 때 이벤트 호출
-            $(() => {
+
+            //탭, 리스트 관련 함수
+            function listEvent() {
+                //스크롤 끝일 때 이벤트 호출
+                //스크롤 끝일 때 이벤트 호출
+                //스크롤 끝일 때 이벤트 호출
+                //스크롤 끝일 때 이벤트 호출
                 $("#orders-list").scroll(() => {
                     let scrollBody = $("#orders-list");
-                    if((scrollBody[0].scrollHeight - scrollBody.scrollTop()) === scrollBody.outerHeight()) {
-                        if(currentPage !== lastPage && (dbCur + 1) !== currentPage) {
+                    //console.log(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) +", " + scrollBody.outerHeight());
+                    if(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) <= scrollBody.outerHeight()) {
+                        if(currentPage <= totalPage && totalPage !== 0) {
+                            console.log("리스트 업데이트, totalPage= "+ totalPage + ", currentPage=" + currentPage);
                             curUpdate();
                         }
                     }
                 });
-            });
+
+                //탭 클릭 시 리스트 전환
+                //탭 클릭 시 리스트 전환
+                //탭 클릭 시 리스트 전환
+                //탭 클릭 시 리스트 전환
+                $("#order-tab-box div").click((e) => {
+                    let $tabElement = $(e.target);
+                    let $groupText = $tabElement.text();
+                    console.log($groupText);
+                    //수거 : 1, 배송 : 2
+
+                    if($tabElement.hasClass("on")) {
+                        $("#orders-list").animate({
+                            scrollTop: 0
+                        }, 200, "swing");
+                    }else {
+                        $("#order-tab-box div").removeClass("on");
+                        $tabElement.addClass("on");
+                        groupNo = $groupText === '수거' ? 1 : '배송' ? 2 : 0;
+                        console.log("탭 타입 : " + groupNo);
+                        cleanList();
+                        // viewList(groupNo);
+                    }
+                });
+            }
+
+            function slideTog() {
+                const $listPart = $("#list-part");
+                const $mapPart = $("#map");
+
+                $("#list-box").click(() => {
+                    if($listPart.hasClass("active")) {
+                        $listPart.removeClass("active");
+                        $listPart.addClass("non-active");
+                        resizeMap("non-active");
+                    }else{
+                        $listPart.removeClass("non-active");
+                        $listPart.addClass("active");
+                        resizeMap("active");
+                    }
+                });
+            }
+
+            function resizeMap(chk) {
+                var mapContainer = document.getElementById('map');
+
+                if(chk === "active") {
+                    mapContainer.style.height = '60%';
+                }else {
+                    mapContainer.style.height = '90%';
+                }
+                setTimeout(() => {
+                    map.relayout();
+                }, 600);
+            }
 
 
-            function pagingList() {
+            //리스트 클릭 시 해당 리스트의 마커로 모션이동
+            function markerPositon(LAT_Y, LON_X) {
+                let thisPoint = new kakao.maps.LatLng(LAT_Y, LON_X);
+                panTo(thisPoint);
+            }
 
+
+            let countAdd = 0;
+
+            function addList(chk, orderNo, element) {
+                let thisElement = $(element);
+                let thisParentElement = $(element).parent().parent().parent();
+                let addListAttr;
+
+                if (chk === 0) {
+                    addListAttr = "addList(1, " + orderNo + ", this)";
+                    thisElement.attr("onclick", addListAttr).toggleClass("on").text("수거하기");
+                    thisParentElement.toggleClass("timer");
+                    countAdd = 0;
+                    clearTimeout(addSetTime);
+                } else {
+                    if (countAdd === 0) {
+                        addListAttr = "addList(0, " + orderNo + ", this)";
+                        thisElement.attr("onclick", addListAttr).toggleClass("on").text("취소");
+                        thisParentElement.toggleClass("timer");
+                        countAdd++;
+                        setTimeAddList(orderNo, thisParentElement);
+                    }else{alert("진행중인 항목이 있습니다.");}
+                }
+            }
+
+            let addSetTime;
+            function setTimeAddList(orderNo, element) {
+                let thisGroupNo = groupNo;
+                addSetTime = setTimeout(() => {
+                    console.log(thisGroupNo);
+                    $.ajax({
+                        url: "<c:url value="/delivery/addList"/>",
+                        data: {
+                            groupNo : thisGroupNo,
+                            orderNo : orderNo
+                        },
+                        type: "POST",
+                        success: (res) => {
+                            if(res === "추가 성공") {
+                                element.animate({
+                                    left: "200%"
+                                }, 100, () => {
+                                    setTimeout(() => {
+                                        $(element).remove();
+                                    }, 400);
+                                });
+                            }else {
+                                alert(res);
+                            }
+                        },
+                        error: (xhr, status, error) => {
+                            alert("error : " + error);
+                        }
+                    });
+                }, 4000);
             }
         </script>
         <div class="zone-box">
             <h3><strong>${deliveryName}</strong> 기사님</h3>
             <p>
-                <button onclick="panTo()"><strong>${officeVO.officeName}</strong></button>
+                <button onclick="panTo(defaultPoint)"><strong>${officeVO.officeName}</strong></button>
                 <a href="#"><i class="fa-solid fa-gear"></i></a>
             </p>
+        </div>
+        <div class="total-recode">
+            전체 <strong></strong> 건
         </div>
         <div id="list-part" class="main-width">
             <form id="paging-form">
                 <input type="hidden" name="currentPage" value=""/>
+                <input type="hidden" name="orderStatusNo" value=""/>    <%--배송상태 : 수거전 1, 배송대기 4--%>
+                <input type="hidden" name="listType" value=""/>     <%--리스트 유형 : 픽업 PICKUP_DRIVER, 배송 DELIVERY_DRIVER--%>
             </form>
             <div id="list-box">
                 <div class="line"></div>
@@ -311,6 +461,7 @@
                 <div class="delivery-tab">배송</div>
             </div>
             <div id="orders-list">
+                <div id="order-scroll-box">
                 <%--<div class="order-box">
                     <h3>상품명</h3>
                     <div class="order-text-box">
@@ -328,7 +479,7 @@
                         </div>
                     </div>
                 </div>--%>
-
+                </div>
             </div>
         </div>
     </div>

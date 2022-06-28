@@ -48,10 +48,25 @@ a {color: #000; text-decoration: none;}
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  .margin-fixed-margin{
+    height: 80px;
+  }
+  #confirmWrapforScss{
+	@import "./partials/user/orderConfirm.scss";
+	 .orderInfo-goOrder{
+    align-items: center;
+    justify-content: center;
+  	}
+  }
 
-	#main-wrap{
-  		@import './partials/main.scss';
-	}
+  #orderWrapper{
+	padding: 41px;
+    @import "./partials/user/orderMake.scss";
+  }
+
+  #main-wrap{
+    @import './partials/main.scss';
+  }
   #useredit_wrapper {
     width:1200px;
     margin: 0 auto;
@@ -85,7 +100,16 @@ a {color: #000; text-decoration: none;}
   #join_wrap {
     @import "./partials/user/join.scss";
   }
+  #payment-wrap {
+    padding: 30px 0;
+    .orderPaymentWrapper {
+      margin: 0 auto;
+    }
+  }
+
 }
+
+
 
 .delivery-section {
   @import "./partials/delivery/delivery-fixed.scss";

@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.laundryService.order.model.OrderDAO">
+	<!--박권순 시작-->
+	<!--박권순 시작-->
+	<!--박권순 시작-->
+	<!--박권순 시작-->
     <!--주문 상세 리스트  조회-->
     <select id="selectOrderDetails" parameterType="int" resultType="hashMap">
         select * from ORDER_DETAIL_VIEW
@@ -17,7 +21,9 @@
             (
                 select * from ORDERS_OFFICENO_VIEW
                 where OFFICE_NO = #{officeNo}
-                  and ORDER_STATUS_NO = #{orderStatusNo} and ${listType} is null
+                  and ORDER_STATUS_NO = #{orderStatusNo}
+                  and ${listType} is null
+                  and PAYMENT_DATE is not null
             ) A
         ) B
         where RNUM > #{firstRecordIndex}
@@ -30,7 +36,9 @@
     <select id="orderCount" parameterType="orderListSearchVo" resultType="int">
         select count(*) from ORDERS_OFFICENO_VIEW
         where OFFICE_NO = #{officeNo}
-          and ORDER_STATUS_NO = #{orderStatusNo} and ${listType} is null
+          and ORDER_STATUS_NO = #{orderStatusNo}
+          and ${listType} is null
+		  and PAYMENT_DATE is not null
     </select>
 
 
@@ -58,6 +66,63 @@
                     javaType="ArrayList" ofType="map" select="selectOrderDetails">
         </collection>
     </resultMap>
+
+	<!-- 수거/배송리스트를 내 할일로 업데이트 하기 이전에 해당 리스트가 유효한 리스트인지 확인 -->
+	<!-- 수거/배송리스트 => 내 할일로 업데이트 -->
+	<update id="updateOrder" parameterType="orderDeliveryVO">
+		update ORDERS
+		set ORDER_STATUS_NO = #{orderStatusNo}, ${typeStatus} = #{deliveryNo}
+		where NO = #{no} and ${typeStatus} is null
+	</update>
+
+	<!-- 배송기사의 내 할일(수거/배송) 개수 찾기 -->
+	<select id="countOrderByDeliveryNo" parameterType="orderDeliveryVO" resultType="int">
+		select count(*) from ORDERS
+		where ${typeStatus} = #{deliveryNo} and ORDER_STATUS_NO = #{orderStatusNo}
+	</select>
+
+	<!-- 내 할일(수거/배송) 리스트 찾기-->
+	<select id="selectByDeliveryNo" parameterType="map" resultMap="orderAllByDeliveryNo">
+		select * from ORDERS_OFFICENO_VIEW
+		where OFFICE_NO = #{officeNo}
+		  and ORDER_STATUS_NO = #{orderStatusNo}
+		  and ${typeStatus} = #{deliveryNo}
+	</select>
+
+	<resultMap id="orderAllByDeliveryNo" type="OrderDeliveryAllVO">
+		<association property="orderOfficeView" column="no" javaType="map">
+			<id column="no" jdbcType="BIGINT" property="NO"/>
+			<result column="name" jdbcType="VARCHAR" property="NAME"/>
+			<result column="users_no" jdbcType="BIGINT" property="USERS_NO"/>
+			<result column="users_address_no" jdbcType="BIGINT" property="USERS_ADDRESS_NO"/>
+			<result column="order_status_no" jdbcType="BIGINT" property="ORDER_STATUS_NO"/>
+			<result column="payment_date" jdbcType="TIMESTAMP" property="PAYMENT_DATE"/>
+			<result column="pickup_driver" jdbcType="VARCHAR" property="PICKUP_DRIVER"/>
+			<result column="delivery_driver" jdbcType="VARCHAR" property="DELIVERY_DRIVER"/>
+			<result column="office_no" jdbcType="BIGINT" property="OFFICE_NO"/>
+			<result column="total_price" jdbcType="BIGINT" property="TOTAL_PRICE"/>
+			<result column="order_request" jdbcType="VARCHAR" property="ORDER_REQUEST"/>
+			<result column="lat_y" jdbcType="DOUBLE" property="LAT_Y"/>
+			<result column="lon_x" jdbcType="DOUBLE" property="LON_X"/>
+			<result column="address" jdbcType="VARCHAR" property="ADDRESS"/>
+			<result column="address_detail" jdbcType="VARCHAR" property="ADDRESS_DETAIL"/>
+			<result column="sum" jdbcType="BIGINT" property="SUM"/>
+		</association>
+		<collection property="orderDetails" column="no"
+					javaType="ArrayList" ofType="map" select="selectOrderDetails">
+		</collection>
+	</resultMap>
+
+
+	<update id="updateOrderStatus" parameterType="map">
+		update ORDERS
+		set ORDER_STATUS_NO = #{orderStatusNo}
+		where NO = #{orderNo}
+	</update>
+	<!--박권순 마지막-->
+	<!--박권순 마지막-->
+	<!--박권순 마지막-->
+	<!--박권순 마지막-->
     
   
     <select id="selectUsersOrderView" parameterType="int" resultType="orderViewVo">
@@ -78,6 +143,11 @@
     
     
 	<!-- 지효가 만든거 시작 -->
+	<select id="adminSelectAll" resultType="map">
+		select * from adminOrderListView
+	</select>
+	
+	<!-- 주문관리 리스트 검색시 사용하는 조건절 -->
 	<sql id="adminOrderListWhere">
 		where REGDATE >= #{startDay}
 		<![CDATA[
@@ -94,6 +164,7 @@
 		</if>
 	</sql>
 	
+	<!-- 주문관리 리스트 검색 쿼리 -->
     <select id="adminSelectOrderList" parameterType="orderSearchVo" 
     	resultType="map">
     	select *
@@ -112,10 +183,49 @@
 		]]>
     </select>
     
+    <!-- 주문관리 리스트 검색에 필요한 총 레코드 수 조회 -->
     <select id="adminSelectTotalRecord" parameterType="orderSearchVo" resultType="int">
 		select count(*) from adminOrderListView
 		<include refid="adminOrderListWhere"></include>
 	</select>
+	
+	<!-- 주문관리 - 주문상세 조회하는 쿼리 -->
+	<select id="adminOrderDetailView2" parameterType="int" resultType="map">
+		select * from adminOrderDetailView2
+		where orderNo = #{orderNo}
+	</select>
+	
+	<resultMap type="AdminOrderDetailVO" id="adminOrderDetailResultMap">
+		<association property="adminOrderDetailVo" column="orderNo" javaType="map">
+			<id column="orderNo" jdbcType="BIGINT" property="orderNo"/>
+			<result column="userEmail" jdbcType="VARCHAR" property="userEmail"/>
+			<result column="officeName" jdbcType="VARCHAR" property="officeName"/>
+			<result column="status" jdbcType="VARCHAR" property="status"/>
+			<result column="regdate" jdbcType="TIMESTAMP" property="regdate"/>
+			<result column="address" jdbcType="VARCHAR" property="address"/>
+			<result column="pickupDriver" jdbcType="VARCHAR" property="pickupDriver"/>
+			<result column="deliveryDriver" jdbcType="VARCHAR" property="deliveryDriver"/>
+			<result column="paymentNo" jdbcType="BIGINT" property="paymentNo"/>
+			<result column="paymentDate" jdbcType="TIMESTAMP" property="paymentDate"/>
+		</association>
+		
+		<collection property="adminOrderDetailList" column="orderNo"
+			javaType="ArrayList" ofType="map" select="adminOrderDetailView2">	
+		</collection>
+	</resultMap>
+	
+	<select id="adminSelectOrderDetail" parameterType="int" 
+		resultMap="adminOrderDetailResultMap">
+		select * from adminOrderDetailView
+		where orderNo = #{orderNo}
+	</select>
+	
+	<!-- 주문상태 : 세탁중 => 배송대기 처리 -->
+	<update id="adminOrderStatusUpdate" parameterType="int">
+		update orders
+		set ORDER_STATUS_NO = 4
+		where NO = #{orderNo}
+	</update>
 	<!-- 지효가 만든거 끝 -->
 	
 	<select id="selectRecentOrderNo" parameterType="int" resultType="int">
@@ -144,6 +254,19 @@
 			insert into point_list (no,users_no,order_no,point)
 			values (#{no}, #{usersNo},#{orderNo},#{point})
 	</insert>
+	
+	<update id="updateUserPoint" parameterType="userVo">
+		update users
+		set point = #{point}
+		where no= #{no}
+	</update>
+	
+	<update id="updatePaymentDate" parameterType ="int">
+		update orders
+		set payment_date = sysdate
+		where no = #{no}
+	</update> 
+	
 	
 	
 	

@@ -22,12 +22,13 @@
 				},
 				dataType: 'json',
 				success: function(res){
+					var no = res.no;
 					var title = res.title
 					var content = res.content.replace(/\n/g,"<br>")
 					var regdate = res.regdateStr
 					var htmls = "";
-					alert(title);
-					alert(content);
+					//alert(title);
+					//alert(content);
 				/*
 					var info = "제목 : " + res.title + "<br>"
 						+ "내용 : " + res.content + "<br>";
@@ -39,6 +40,7 @@
 					htmls += '<div class="row" class="contentRow" style="padding: 10px;">';
 					htmls += '	<div class="col-xl-2"></div>';
 					htmls += '	<div class="col-xl-8" style="height: 200px; padding: 10px; border: 1px solid #333;">';
+					htmls += '		<input type="hidden" class="noticeNo" name="noticeNo" value="' + no +'"/>';
 					htmls += '		<label for="exampleFormControlTextarea1" class="form-label">';
 					htmls += regdate + '</label>';
 					htmls += '<button type="button" class="btn-close" aria-label="Close" style="float: right"></button>';
@@ -53,6 +55,25 @@
                     htmls += '</div>';
                     htmls += '</div>';
 					$('#div1').prepend(htmls);
+				},
+				error: function(xhr, status, error){
+					alert("error : " + error);
+				}
+			});
+		});
+		
+		$(document).on('click', '.btn-close', function(){
+		//$('.btn-close').click(function(){
+			$.ajax({
+				url: "<c:url value='/admin/deleteNotice'/>",
+				type: 'GET',
+				data: {
+					no: $('.noticeNo').val(),
+				},
+				dataType: 'json',
+				success: function(res){
+					var no = res.no
+					$('.btn-close:eq(0)').closest('.row').remove();
 				},
 				error: function(xhr, status, error){
 					alert("error : " + error);
@@ -113,6 +134,7 @@
 		<div class="row" class="contentRow" style="padding: 10px;">
 			<div class="col-xl-2"></div>
 			<div class="col-xl-8" style="height: 200px; padding: 10px; border: 1px solid #333;">
+				<input type="hidden" class="noticeNo" name="noticeNo" value="${vo.no}"/>
 				<label for="exampleFormControlTextarea1" class="form-label">
 					<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm"/> </label>
 				<button type="button" class="btn-close" aria-label="Close" style="float: right"></button>
