@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,7 +42,7 @@ public class KakaoLoginController {
 	
 	@ResponseBody
 	@RequestMapping("/requestToken")
-	public String kakaoLogin(@RequestParam ("code")String code,Model model) {
+	public String kakaoLogin_post(@RequestParam ("code")String code,Model model) {
 		
 		logger.info("카카오로그인컨트롤러");
 		
@@ -63,13 +65,14 @@ public class KakaoLoginController {
 		String socialInfo = "";
 		UserVO userVo = new UserVO();
 		
+		String url ="/user/login", msg ="로그인처리 실패";
+		
 		if(count > 0) { //존재하면 social_login_host 받아서 model 저장
 			socialInfo = userService.getSocialInfo(email);
 			logger.info("socialInfo={}",socialInfo);
-			model.addAttribute("socialInfo",socialInfo);
+			msg =socialInfo + " 로 로그인되었습니다";
 			
 		}else {
-			
 			// 존재 X => 회원정보 insert
 			if (userInfo.get("email") != null) {
 				
@@ -82,10 +85,22 @@ public class KakaoLoginController {
 			}	
 			int cnt = userService.insertKakaoUser(userVo);
 			logger.info("카카오 회원가입결과={}",cnt);
-		}
-		model.addAttribute("userVo", userVo);
-		return "/user/kakaoLogin/db";
+			url ="/";
+			msg =name+ "님, 회원가입되었습니다";
+		} //if
+		
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "/common/message";
 	}
+
+	/*
+	 * @GetMapping("/requestToken") public String kakaoLogin_get() {
+	 * 
+	 * return "/"; }
+	 */
 	
 	
 }
