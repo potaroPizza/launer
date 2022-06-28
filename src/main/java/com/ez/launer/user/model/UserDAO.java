@@ -1,6 +1,7 @@
 package com.ez.launer.user.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,5 +19,7 @@ public interface UserDAO {
 	
 	/* 한서현 */
 	int insertKakaoUser(UserVO userVo);
-	
+	int accIsExist(String email);
+	Map<String, Object> getEmailInfo(String email);
+	String getSocialInfo (String email);
 }
