@@ -24,7 +24,7 @@
             <li><span class="sub-btn">마이페이지</span>
                 <ul class="sub-nav">
                     <li><a href="#">내 정보</a></li>
-                    <li><a href="#">내 수입</a></li>
+                    <li><a href="<c:url value="/delivery/income"/>">내 수입</a></li>
                 </ul>
             </li>
         </ul>

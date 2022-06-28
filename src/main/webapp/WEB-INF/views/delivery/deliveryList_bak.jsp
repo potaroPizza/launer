@@ -13,8 +13,60 @@
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <script type="text/javascript">
         const groupNo = ${groupNo};
+        /*function mapDraw(element, aaa, bbb) {
+            if($(element).hasClass("on")) {
+                let clearMap = document.getElementById('deliveryList').getElementsByClassName('detail-map on');
+                for(let i = 0; i < clearMap.length; i++) clearMap[i].classList.remove('on');
+                $(".text-box").removeClass("on");
+                $(".detail-map").html("");
+            }else {
+                $(".text-box").removeClass("on");
+                $(element).addClass("on");
+                $(".detail-map").html("");
 
-        window.onload = () => markerSet(${officeVO.latY}, ${officeVO.lonX});
+                $(element.parentNode).find(".detail-map").html("<div id='map'></div>");
+                /!*let clearMap = document.getElementById('deliveryList').getElementsByClassName('detail-map on');
+                for(let i = 0; i < clearMap.length; i++) clearMap[i].classList.remove('on');*!/
+
+                let mapCon = document.getElementById("map");
+                // element.parentNode.getElementsByClassName('detail-map')[0].classList.toggle('on');
+
+
+
+                /!*$(".text-box").removeClass("on");
+                $(element).addClass("on");
+
+                let clearMap = document.getElementById('deliveryList').getElementsByClassName('detail-map on');
+                for(let i = 0; i < clearMap.length; i++) clearMap[i].classList.remove('on');
+
+                let mapCon = element.parentNode.getElementsByClassName('detail-map')[0];
+                mapCon.classList.toggle('on');*!/
+
+                let mapContainer = document.getElementById("map"), // 지도를 표시할 div
+                    mapOption = {
+                        center: new kakao.maps.LatLng(aaa, bbb), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+                // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+                let map = new kakao.maps.Map(mapContainer, mapOption);
+
+                // 마커가 표시될 위치입니다
+                let markerPosition = new kakao.maps.LatLng(aaa, bbb);
+
+                // 마커를 생성합니다
+                let marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+            }
+        }*/
+
+        window.onload = () => {
+            markerSet(${officeVO.latY}, ${officeVO.lonX});
+        }
+
 
 
         function markerSet(x, y) {
@@ -42,10 +94,13 @@
             marker.setMap(map);
         }
 
-        function processing(formData, element) {
+
+        function clearEvent(element, orderNo) {
+            const $formData = setForm(element, orderNo);
+
             $.ajax({
                 url: "<c:url value='/delivery/process'/>",
-                data: formData.serialize(),
+                data: $formData.serialize(),
                 method: "POST",
                 success: (res) => {
                     console.log("ajax 응답 : " + JSON.stringify(res));
@@ -63,36 +118,35 @@
         }
 
 
-        function clearEvent(element, orderNo) {
-            const $formData = setForm(element, orderNo, "clear");
-
-            processing($formData, element);
-        }
-
-
         //취소
         function cancellation(element, orderNo) {
-            const $formData = setForm(element, orderNo, "remove");
+            let dataForm = {
+                orderNo,
+                groupNo
+            }
 
-            processing($formData, element);
+            $.ajax({
+                url: "<c:url value='/delivery/return/process'/>",
+                data: dataForm,
+                method: "POST",
+                success: (res) => {
+                    console.log("ajax 응답 : " + JSON.stringify(res));
+                    if(res === "성공") {
+
+                    }
+                },
+                error: (xhr, status, error) => alert("error : " + error)
+            });
         }
 
 
 
         //form의 input을 설정
-        function setForm(element, orderNo, type) {
+        function setForm(element, orderNo) {
             const $formData = $("form[name=process-form]");
             let pay = $(element).parent().parent().find("input[name=payValue]").val();
             $formData.find("input[name=orderNo]").val(orderNo).end().find("input[name=pay]").val(pay);
 
-            let resultStatus;
-            if(type === "clear") {  //완료 처리버튼일 경우
-                resultStatus = groupNo === 1 ? 3 : groupNo === 2 ? 6 : 0;
-            }else if(type === "remove") {
-                resultStatus = groupNo === 1 ? 1 : groupNo === 2 ? 4 : 0;
-            }
-
-            $formData.find("input[name=orderStatusNo]").val(resultStatus);
             return $formData;
         }
 
