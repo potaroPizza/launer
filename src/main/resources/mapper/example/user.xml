@@ -2,6 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.user.model.UserDAO">
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="userVo">
+		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+			select users_seq.nextval from dual
+		</selectKey>
+		insert into users(no,user_code,name,email,pwd,hp,start_date,point)
+		values(#{no},#{userCode},#{name},#{email},#{pwd},#{hp},sysdate,#{point})
+	</insert>
+	<!-- 가입시 주소 입력 -->
+	<insert id="insertAddress" parameterType="userAddressVo">
+		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+			select users_address_seq.nextval from dual
+		</selectKey>
+		insert into users_address(no, address, address_detail, zipcode)
+		values(no, #{address}, #{addressDetail}, #{zipcode})
+	</insert>
+	<!-- 이메일 중복 확인 -->
+	<select parameterType="String" id="chkEmail" resultType="int">
+		select count(*) from users where Email=#{email} 
+	</select>
+	<!-- 휴대전화 번호 중복 확인 -->
+	<select parameterType="String" id="chkHp" resultType="int">
+		select count(*) from users where HP=#{hp}
+	</select>
+	<!-- 로그인 -->
+	<select parameterType="string" id="selectByEmail" resultType="userVo">
+		select * from users where email=#{email} 
+	</select>
 	<!-- 회원 정보 조회 -->
 	<select id="selectById" parameterType="int" resultType="userVo">
 		select * from users where no = #{no}
@@ -45,12 +73,5 @@
 		set pwd=#{pwd}
 		where no=#{no}
 	</update>
-
-	<insert id="insertUser" parameterType="userVo">
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			select USERS_SEQ.nextval from DUAL;
-		</selectKey>
-	</insert>
 	
-
 </mapper>

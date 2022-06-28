@@ -21,6 +21,49 @@ public class UserServiceImpl implements UserService{
 	private final OfficeDAO officeDao;
 
 	@Override
+	public int insertUser(UserAllVO vo) {
+		return userDao.insertUser(vo);
+	}
+	
+	@Override
+	public int insertAddress(UserAllVO vo) {
+		return userDao.insertAddress(vo);
+	}
+	
+	@Override
+	public int chkEmail(String email) {
+		int count=userDao.chkEmail(email);
+		
+		int result=0;
+		if(count>0) {
+			result=UserService.UNUSABLE_EMAIL;
+		}else {
+			result=UserService.USABLE_EMAIL;			
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int chkHp(String hp) {
+		int count=userDao.chkHp(hp);
+		
+		int result=0;
+		if(count>0) {
+			result=UserService.UNUSABLE_HP;
+		}else {
+			result=UserService.USABLE_HP;			
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public UserVO selectByEmail(String email) {
+		return userDao.selectByEmail(email);
+	}
+	
+	@Override
 	public UserVO selectById(int no) {
 		return userDao.selectById(no);
 	}
@@ -42,7 +85,7 @@ public class UserServiceImpl implements UserService{
 				result=UserService.DISAGREE_PWD;
 			}
 		}else {
-			result=UserService.NONE_USERID;
+			result=UserService.NONE_USEREMAIL;
 		}
 		
 
@@ -78,11 +121,6 @@ public class UserServiceImpl implements UserService{
 		return userDao.editPwd(vo);
 	}
 
-
-
-
-
-
-
+	
 }
 

@@ -51,16 +51,16 @@ input, select, textarea {
 	#login_header .login_backBtn {
 		display: inline-block;
 	    margin: 10px;
-	    padding-left: 10px;
-	    width: 61px;
-	    height: 21px;
+	    padding-left: 15px;
+	    width: 80px;
+	    height: 25px;
 	    text-align: center;
-	    line-height: 21px;
-	    background: url(../../images/login_backbtn.png) no-repeat 6px;
-	    background-size: auto 8px;
+	    line-height: 25px;
+	    background: url(../../images/login_backbtn.png) no-repeat 10px;
+	    background-size: auto 12px;
 	    border: 1px solid #efefef;
     	border-radius: 30px;
-	    font-size: 11px;
+	    font-size: 15px;
 	    color: #222;
 	    box-sizing: border-box;
     	cursor: pointer;
@@ -97,7 +97,7 @@ input, select, textarea {
 	    overflow: hidden;
 	    margin-bottom: 10px;
 	}
-	#login_body .inputIdPwd #member_id {
+	#login_body .inputIdPwd #member_email {
 		border-bottom: 1px solid #e1e1e1;
 	}
 	#login_body .inputIdPwd input {
