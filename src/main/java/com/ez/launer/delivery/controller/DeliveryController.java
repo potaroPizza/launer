@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -271,7 +272,7 @@ public class DeliveryController {
         return message;
     }
 
-    //내 할일 페이지 취소 버튼 ajax
+    /*//내 할일 페이지 취소 버튼 ajax
     @PostMapping("/return/process")
     @ResponseBody
     public Map<String, Object> returnProcess(@RequestParam(defaultValue = "0") int orderNo,
@@ -291,11 +292,61 @@ public class DeliveryController {
         map.put("result", 1);
 
         return map;
-    }
+    }*/
 
     @RequestMapping("/income")
-    public String deliveryIncome() {
+    public String deliveryIncome(HttpSession session, Model model) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
         logger.info("배송기사 - 내 수입 페이지");
+
+        //deliveryNo로 배달기사 정보 전체 조회
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+
+        model.addAttribute("deliveryName", deliveryVO.getName());
         return "/delivery/income";
+    }
+
+
+    @RequestMapping("/income/mylist")
+    @ResponseBody
+//    public Map<String, Object> mylist(HttpSession session) {
+    public Map<String, Object> mylist(@RequestParam Map<String, Object> map, HttpSession session) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+
+        logger.info("배송기사 - 내 수입 / 리스트 ajax, 파라미터 paramMap={}", map);
+
+        PaginationInfo pagingInfo = new PaginationInfo();
+        pagingInfo.setBlockSize(5);
+        pagingInfo.setRecordCountPerPage(4);
+        pagingInfo.setCurrentPage(Integer.parseInt((String) map.get("currentPage")));
+
+        map.put("firstRecordIndex", pagingInfo.getFirstRecordIndex());
+        map.put("recordCountPerPage", 4);
+        map.put("deliveryNo", deliveryNo);
+        logger.info("페이징 작업 후 map={}", map);
+
+        List<Map<String, Object>> list = deliveryDriverService.amountByDeliveryNo(map);
+        logger.info("내 수입 / 리스트 조회결과 list.size={}", list.size());
+
+        Map<String, Object> recode = deliveryDriverService.amountAllRecode(map);
+        int totalRecord = Integer.parseInt(String.valueOf(recode.get("COUNT")));
+        logger.info("내 수입 / 리스트 세부항목(전체개수, 총 수입) recode={}", recode);
+        logger.info("totalRecord={}", totalRecord);
+
+        pagingInfo.setTotalRecord(totalRecord);
+
+        Map<String, Object> resList = new HashMap<>();
+        resList.put("jsonList", list);
+        resList.put("recode", recode);
+        resList.put("pagingInfo", pagingInfo);
+
+        /*select * from DELIVERY_AMOUNT_DETAIL_VIEW
+        where DELIVERY_DRIVER_NO = #{deliveryNo}
+        and ${typeList} = #{deliveryNo}
+        and REGDATE between to_date(#{startDate}) and to_date(#{endDate}) + 1
+        order by REGDATE <if test="desc == 1">desc</if>*/
+
+        return resList;
     }
 }

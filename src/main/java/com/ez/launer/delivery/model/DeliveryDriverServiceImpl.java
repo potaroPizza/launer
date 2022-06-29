@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -33,6 +34,7 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService{
     public int insertDeliveryAmount(Map<String, Object> map) {
         int result = 0;
         int type = Integer.parseInt((String)map.get("orderStatusNo"));
+        map.put("no", 0);
 
         try {
             result = orderDAO.updateOrderStatus(map);
@@ -47,5 +49,15 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService{
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return result;
+    }
+
+    @Override
+    public List<Map<String, Object>> amountByDeliveryNo(Map<String, Object> map) {
+        return deliveryDriverDAO.amountByDeliveryNo(map);
+    }
+
+    @Override
+    public Map<String, Object> amountAllRecode(Map<String, Object> map) {
+        return deliveryDriverDAO.amountAllRecode(map);
     }
 }
