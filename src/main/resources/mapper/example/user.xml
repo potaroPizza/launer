@@ -111,6 +111,10 @@
 		from users
 		where email = #{email}
 	</select>
+	<select id="selectByEmail" parameterType="string" resultType ="userVo">
+		select * from users
+		where email = #{email}
+	</select>
 	
 	
 	

@@ -40,8 +40,7 @@ public class KakaoLoginController {
 	
 	@RequestMapping(value = "/requestToken")
 	public String kakaoLoginRequestToken(@RequestParam ("code")String code,Model model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletRequest request) {
 		
 		logger.info("카카오로그인컨트롤러 code ={}",code );
 		model.addAttribute("code",code);
@@ -89,7 +88,7 @@ public class KakaoLoginController {
 			int cnt = userService.insertKakaoUser(userVo);
 			logger.info("카카오 회원가입결과={}",cnt);
 			url ="/";
-			msg =name+ "님, 회원가입되었습니다";
+			msg =name+ "님, 회원가입을 축하드립니다";
 		} //if
 		
 		
@@ -97,14 +96,21 @@ public class KakaoLoginController {
 		HttpSession session=request.getSession();
 		session.setAttribute("no", userVo.getNo());
 		session.setAttribute("email", userVo.getEmail());
+		session.setAttribute("access_Token",access_Token); //로그아웃때 필요한 accessToken
+		
 
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		
 		return "common/message";
 	}
-
-		
-
-
+	
+	@RequestMapping(value="/logout")
+	public String logout(HttpSession session) {
+	    kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+	    session.removeAttribute("access_Token");
+	    session.removeAttribute("no");
+	    session.removeAttribute("email");
+	    return "/";
+	}
 }
