@@ -47,7 +47,7 @@
 		where no=#{no}
 	</update>
 	
-	<!-- 비밀번호 체크 -->
+	<!-- 회원정보 수정 비밀번호 체크 -->
 	<select id="selectPwd" parameterType="int" resultType="String">
 		select pwd from users
 		where no=#{no} and out_date is null

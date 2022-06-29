@@ -3,54 +3,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
-<style>
-</style>
 <t:wrapper>
-	<script type="text/javascript">
-window.onload = function() {
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
+<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript"></script>
+<script type="text/javascript" src="<c:url value='/js/mypoint.js'/>"></script>
 	
-	const pointRow = document.querySelectorAll(".mypoint_table-row");
-	const pointColor =  document.querySelectorAll(".point_cal");
-	
-	pointRow.forEach((item, idx) => {
-		let exp = item.childNodes[7].innerText.charAt(0);
-		let exp2 = item.childNodes[7].innerText;
-		
-		let resText = "";
-		let resText2 ="+"
-		if(exp === "-") {
-			resText = "포인트 사용";
-			//pointRow[idx].childNodes[5].style.color="red";
-			$(item).find(".mypoint_col-3").css("color", "#FF0000");
-			$(item).find(".mypoint_col-4").css("color", "#FF0000");
-		}else {
-			resText = "포인트 적립";
-			//pointRow[idx].childNodes[5].style.color="green";
-			pointRow[idx].childNodes[7].innerText = resText2+item.childNodes[7].innerText;
-			$(item).find(".mypoint_col-3").css("color", "#01DF3A");
-			$(item).find(".mypoint_col-4").css("color", "#01DF3A");
-		}
-		pointRow[idx].childNodes[5].innerText = resText; 
-		
-	})
-	
-}
-	function pageFunc(curPage){
-		$('input[name=currentPage]').val(curPage);
-		$('form[name=frmPage]').submit();
-	}
-</script>
-	<form name="frmPage" method="post"
-		action="<c:url value='/mypage/mypoint'/>">
+	<form name="frmPage" method="post" action="<c:url value='/mypage/mypoint'/>">
 		<input type="hidden" class="currentPage" name="currentPage">
 	</form>
 
@@ -62,8 +20,8 @@ window.onload = function() {
 		<div class="mypoint_container1">
 			<ul class="mypoint_table1">
 				<li class="mypoint_table1-row">
-					<div class="mypoint_col1-1">${vo.name}님의포인트</div>
-					<div class="mypoint_col1-2">${vo.point}P</div>
+					<div class="mypoint_col1-1">${vo.name} 님의 포인트</div>
+					<div class="mypoint_col1-2"><fmt:formatNumber value="${vo.point}" pattern="#,###,###,###"></fmt:formatNumber> P</div>
 				</li>
 			</ul>
 		</div>

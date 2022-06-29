@@ -27,7 +27,6 @@ import com.ez.launer.payment.model.PaymentDetailAllVO;
 import com.ez.launer.payment.model.PaymentHistoryAllVO;
 import com.ez.launer.payment.model.PaymentHistoryViewVO;
 import com.ez.launer.payment.model.PaymentService;
-import com.ez.launer.point.model.PointDetailAllVO;
 import com.ez.launer.point.model.PointService;
 import com.ez.launer.user.model.UserAllVO;
 import com.ez.launer.user.model.UserService;
@@ -87,8 +86,8 @@ public class MypageController {
 		UserVO vo= userService.selectById(no);
 		logger.info("회원 정보 조회 결과, vo={}",vo);
 		
-		List<PointDetailAllVO> list = pointService.selectPointHistory(no);
-		logger.info("포인트 내역 조회, list={}",list);
+		//List<PointDetailAllVO> list = pointService.selectPointHistory(no);
+		//logger.info("포인트 내역 조회, list={}",list);
 		
 		List<Map<String, Object>> searchList=pointService.PointSelectList(searchVo);
 		logger.info("포인트 내역 조회 페이징, searchList={}",searchList);
@@ -99,7 +98,7 @@ public class MypageController {
 		pagingInfo.setTotalRecord(totalRecord);
 
 		model.addAttribute("vo",vo);
-		model.addAttribute("list", list);
+		//model.addAttribute("list", list);
 		model.addAttribute("searchList", searchList);
 		model.addAttribute("pagingInfo", pagingInfo);
 
@@ -161,7 +160,7 @@ public class MypageController {
 		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("회원정보 수정 - 비밀번호 확인 결과, result ={}", result);
 
-		if(result==userService.LOGIN_OK) {
+		if(result==UserService.LOGIN_OK) {
 			int cnt = userService.updateUserHp(vo);
 			logger.info("회원정보 수정 결과, cnt ={}", cnt);
 			int cnt2 = userService.updateUserAddress(vo);
@@ -172,7 +171,7 @@ public class MypageController {
 				msg="회원정보를 수정하였습니다.";
 			}else { msg="회원정보 수정 실패"; }
 
-		}else if(result==userService.DISAGREE_PWD) {
+		}else if(result==UserService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";			
 		}
 
@@ -371,7 +370,7 @@ public class MypageController {
 		
 		
 		
-		model.addAttribute(vo);
+		model.addAttribute("vo",vo);
 		model.addAttribute("list", list);
 		
 		return "/mypage/detailedPaymentHistory";

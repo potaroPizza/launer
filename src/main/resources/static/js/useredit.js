@@ -1,3 +1,12 @@
+/**useredit.jsp  회원정보 수정페이지 
+ * 
+ */
+ function isPassword(asValue) {
+	var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+ 
+	return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
+}
+
 function execZipcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -22,7 +31,7 @@ function execZipcode() {
 	
 
 	$(function(){
-		$('btnuseredit').submit(function(){
+		$('form[name=usereditfrm]').submit(function(){
 			if($("#pwd").val().length<1) {
 				alert("비밀번호를 입력하세요");
 				$("#pwd").focus();
@@ -39,3 +48,22 @@ function execZipcode() {
 		});
 		
 	});
+	
+	$(function(){		
+			$('#hp').keyup(function(){
+				if(!validate_hp($('#hp').val())){
+					$('.error_next_box').eq(3).text("전화번호 형식이 맞지 않습니다.").css("color","red");
+				}else{
+					$('.error_next_box').eq(3).text("")
+				}
+			
+			})
+			$('#pwd').keyup(function(){
+				if(!isPassword($('#pwd').val())){
+					$('.error_next_box').eq(1).text("비밀번호를 입력해주세요.").css("color","red");
+				}else{
+					$('.error_next_box').eq(1).text("")
+				}
+			
+			})
+		});

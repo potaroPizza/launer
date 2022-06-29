@@ -44,7 +44,7 @@ h3 {
 }
 
 
-.box {
+.editPwd_box {
   display: block;
   width: 100%;
   height: 51px;
@@ -55,7 +55,7 @@ h3 {
   border-radius: 7px;
 }
 
-.int {
+.editPwd_int {
   display: block;
   position: relative;
   width: 100%;
@@ -65,7 +65,7 @@ h3 {
 }
 
 
-.box.int_pass {
+.editPwd_box.int_pass {
   padding-right: 40px;
 }
 
@@ -90,16 +90,29 @@ h3 {
   margin-top: 9px;
   font-size: 12px;
   color: red;
-  display: none;
 }
 
-#alertTxt {
+#editPwd_alertTxt {
   position: absolute;
   top: 19px;
   right: 38px;
   font-size: 12px;
   color: red;
   display: none;
+}
+#editPwd_alertTxt2 {
+  position: absolute;
+  top: 19px;
+  right: 38px;
+  font-size: 12px;
+  color: red;
+}
+#editPwd_alertTxt3 {
+  position: absolute;
+  top: 19px;
+  right: 38px;
+  font-size: 12px;
+  color: red;
 }
 
 
