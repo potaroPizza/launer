@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ez.launer.user.model.KakaoAPI;
 import com.ez.launer.user.model.UserService;
@@ -29,10 +30,8 @@ public class KakaoLoginController {
 	
 	private static final Logger logger
 	 = LoggerFactory.getLogger(KakaoLoginController.class);
-	
-	
-	@Autowired
-    private KakaoAPI kakao;
+
+    private final KakaoAPI kakao;
 	private final UserService userService;
 	
 	
@@ -40,12 +39,12 @@ public class KakaoLoginController {
 	
 //한서현 카카오로그인
 	
-	@ResponseBody
-	@RequestMapping("/requestToken")
-	public String kakaoLogin_post(@RequestParam ("code")String code,Model model) {
+	@RequestMapping(value = "/requestToken")
+	public String kakaoLoginRequestToken(@RequestParam ("code")String code,Model model) {
 		
-		logger.info("카카오로그인컨트롤러");
-		
+		logger.info("카카오로그인컨트롤러 code ={}",code );
+		model.addAttribute("code",code);
+
 		//accessToken 발급받기
 		String access_Token = kakao.getAccessToken(code);
 		logger.info("controller access_token ={} " , access_Token);
@@ -71,6 +70,8 @@ public class KakaoLoginController {
 			socialInfo = userService.getSocialInfo(email);
 			logger.info("socialInfo={}",socialInfo);
 			msg =socialInfo + " 로 로그인되었습니다";
+			url = "/";
+
 			
 		}else {
 			// 존재 X => 회원정보 insert
@@ -92,14 +93,10 @@ public class KakaoLoginController {
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		
-		return "/common/message";
+		return "common/message";
 	}
 
-	/*
-	 * @GetMapping("/requestToken") public String kakaoLogin_get() {
-	 * 
-	 * return "/"; }
-	 */
-	
-	
+		
+
+
 }
