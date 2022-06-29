@@ -147,10 +147,6 @@ public class UserServiceImpl implements UserService{
 		return userDao.accIsExist(email);
 	}
 
-	public String getSocialInfo(String email) {
-		
-		return userDao.getSocialInfo(email);
-	}
 
 }
 

@@ -21,7 +21,6 @@ public class KakaoAPI {
     
 	//카카오 auth url 접근하여 발급받은 인가 code를 주고 access token 을 발급받는 메서드
 	//카카오에서 post 방식으로 RestApiKey 와 redirectUri 를 제출하라고 해서 json / gson 이용
-	
     public String getAccessToken (String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
@@ -79,9 +78,11 @@ public class KakaoAPI {
         return access_Token;
     }
     
+    
+    //발급받은 accessToken 으로 kakao계정정보 받아오는 메서드
     public HashMap<String, Object> getUserInfo (String access_Token) {
         
-        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+        //요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
@@ -89,7 +90,7 @@ public class KakaoAPI {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             
-            //    요청에 필요한 Header에 포함될 내용
+            //요청에 필요한 Header에 포함될 내용
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
             
             int responseCode = conn.getResponseCode();
@@ -129,4 +130,35 @@ public class KakaoAPI {
         
         return userInfo;
     }
+    
+    
+    //kakaoLogout
+    public void kakaoLogout(String access_Token) {
+        String reqURL = "https://kapi.kakao.com/v1/user/logout";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+            
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+            
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            
+            String result = "";
+            String line = "";
+            
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println(result);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    
+    
 }
