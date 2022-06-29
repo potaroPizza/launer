@@ -112,10 +112,6 @@
 		where email = #{email}
 	</select>
 	
-	<select id="getSocialInfo" parameterType ="string" resultType ="string">
-		select social_login_host from users
-		where email = #{email}
-	</select>
 	
 	
 	
