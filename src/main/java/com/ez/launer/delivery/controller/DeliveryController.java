@@ -251,7 +251,7 @@ public class DeliveryController {
     }
 
 
-    // 내 수거/배송 항목 두개가 하나의 핸들러를 바라보게
+    // 내 수거/배송 항목 두개가 하나의 핸들러를 바라보게(취소하는 것도 바라보게)
     @PostMapping("/process")
     @ResponseBody
     public String processing(@RequestParam Map<String, Object> map, HttpSession session) {
@@ -291,5 +291,11 @@ public class DeliveryController {
         map.put("result", 1);
 
         return map;
+    }
+
+    @RequestMapping("/income")
+    public String deliveryIncome() {
+        logger.info("배송기사 - 내 수입 페이지");
+        return "/delivery/income";
     }
 }
