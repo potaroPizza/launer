@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -50,8 +51,7 @@ public class MypageController {
 	@GetMapping("/") 
 	public String mypage_get(HttpSession session, 
 			Model model) { 
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		logger.info("마이페이지 화면, 파라미터 userid={}", no);
 
 		UserVO vo= userService.selectById(no);
@@ -66,8 +66,7 @@ public class MypageController {
 	@RequestMapping("/mypoint")
 	public String mypoint(HttpSession session, @ModelAttribute PointSearchVO searchVo,
 			Model model) {
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		logger.info("마이페이지 포인트 화면, 파라미터 userid={}", no);
 		
 		UserVO vo= userService.selectById(no);
@@ -110,8 +109,7 @@ public class MypageController {
 	@GetMapping("/myinfo")
 	public String myinfo(HttpSession session, 
 			Model model) {
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		logger.info("마이페이지 내정보 화면, 파라미터 userid={}", no);
 
 		HashMap<String, Object> map= userService.selectByIdAddress(no);
@@ -125,8 +123,7 @@ public class MypageController {
 	@GetMapping("/useredit") 
 	public String edit_get(HttpSession session, 
 			Model model) { 
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		logger.info("회원정보 수정 화면, 파라미터 userid={}", no);
 
 		HashMap<String, Object> map= userService.selectByIdAddress(no);
@@ -141,8 +138,7 @@ public class MypageController {
 	@PostMapping("/useredit")
 	public String edit_post(@ModelAttribute UserAllVO vo,
 			HttpSession session, Model model) {
-		int no=1000;
-		//		String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 
 		vo.setNo(no);
 		logger.info("회원정보 수정, UserAllVO={}", vo);
@@ -187,8 +183,7 @@ public class MypageController {
 	@GetMapping("/editPwd")
 	public String editPwd_get(HttpSession session,
 			Model model) {
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		logger.info("비밀번호 변경 화면, 파라미터 userid={}", no);
 
 		UserVO vo= userService.selectById(no);
@@ -202,8 +197,7 @@ public class MypageController {
 	@PostMapping("/editPwd")
 	public String editPwd_post(@ModelAttribute UserVO vo, @RequestParam String newPwd,
 			HttpSession session, Model model) {
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		vo.setNo(no);
 		logger.info("비밀번호 변경, vo={} ,파라미터 newPwd={}",vo,newPwd);
 
@@ -237,8 +231,7 @@ public class MypageController {
 	@GetMapping("/withdraw")
 	public String userdelete_get(HttpSession session, Model model) {
 		logger.info("회원 탈퇴 화면");
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		logger.info("회원탈퇴 화면, 파라미터 no={}", no);
 
 		UserVO vo= userService.selectById(no);
@@ -253,9 +246,8 @@ public class MypageController {
 	public String userdelete_post(@RequestParam String pwd,
 			HttpSession session, HttpServletResponse response,
 			Model model) {
-		int no=1000;
-
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
+		String email=(String)session.getAttribute("email");
 		logger.info("회원 탈퇴 처리, 파라미터 no={}, pwd={}",no,pwd);
 
 		int result=userService.checkLogin(no, pwd);
@@ -267,14 +259,15 @@ public class MypageController {
 			if(cnt>0) {
 				msg="회원탈퇴 처리가 되었습니다.";
 				url="/mypage/signout";
-				/*
-				  session.invalidate();
-
-				  Cookie ck = new Cookie("ckUserid", userid);
+				
+				  Cookie ck = new Cookie("chkUseremail", email);
 				   ck.setPath("/"); 
 				   ck.setMaxAge(0);
 				  response.addCookie(ck);
-				 */
+				  session.removeAttribute("no");
+				  session.removeAttribute("name");
+				  session.removeAttribute("email");
+				 
 			}else {
 				msg="회원탈퇴 실패";				
 			}
@@ -282,11 +275,11 @@ public class MypageController {
 			msg="비밀번호가 일치하지 않습니다.";
 		}
 
-		//3
+		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 
-		//4
+		
 		return "/common/message";
 	}
 
@@ -295,8 +288,7 @@ public class MypageController {
 	@RequestMapping("/paymentdetails")
 	public String paymentdetails(HttpSession session,@ModelAttribute PaymentSearchVO searchVo, Model model) {
 		
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		logger.info("마이페이지 결제내역 화면, 파라미터 userid={}", no);
 		
 		if(searchVo.getCountPerPage() == 0) {	
@@ -348,8 +340,7 @@ public class MypageController {
 	
 	@RequestMapping("/detailedPaymentHistory")
 	public String detailedPaymentHistory(HttpSession session, @RequestParam(defaultValue = "0") int orderNo, Model model) {
-		int no=1000;
-		//String userid=(String)session.getAttribute("userid");
+		int no=(int)session.getAttribute("no");
 		
 		logger.info("마이페이지 주문내역 상세 화면, 파라미터 userid={},orderNo={}",no,orderNo);
 		

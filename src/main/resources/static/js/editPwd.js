@@ -14,27 +14,27 @@
 			if($('#editPwd_pwd').val().length<1){
 				alert('비밀번호를 입력하세요.');
 				$('#editPwd_pwd').focus();
-				event.preventDefault();
+				return false;
 			}else if($('#editPwd_newPwd').val().length<1){
 				alert('새 비밀번호를 입력하세요.');
 				$('#editPwd_newPwd').focus();
-				event.preventDefault();
+				return false;
 			}else if($('#editPwd_pwd').val()==$('#editPwd_newPwd').val()){
 				alert('동일한 비밀번호로 변경할 수 없습니다.');
 				$('#editPwd_newPwd2').focus();
-				event.preventDefault();
+				return false;
 			}else if($('#editPwd_newPwd2').val().length<1){
 				alert('새 비밀번호를 입력하세요.');
 				$('#editPwd_newPwd2').focus();
-				event.preventDefault();
+				return false;
 			}else if($('#editPwd_newPwd').val()!=$('#editPwd_newPwd2').val()){
 				alert('새 비밀번호가 일치하지 않습니다.');
 				$('#editPwd_newPwd2').focus();
-				event.preventDefault();
+				return false;
 			}else if(!isPassword($("#editPwd_newPwd").val())){
 				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
 				$('#editPwd_newPwd').focus();
-				event.preventDefault();
+				return false;
 			}
 			});
 		});
