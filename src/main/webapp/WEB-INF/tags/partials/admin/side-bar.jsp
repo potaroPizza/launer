@@ -39,6 +39,6 @@
     </div>
     <div class="side-bar-footer">
         <small>현재 로그인된 아이디:</small><br>
-        본사 관리자님
+        ${sessionScope.adminName}님
     </div>
 </div>

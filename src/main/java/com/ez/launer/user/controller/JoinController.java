@@ -15,6 +15,15 @@ import com.ez.launer.user.model.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+
+/*
+* 일반 유저 회원가입
+* [1] USERS	테이블에 insert
+* [2] USER_ADDRESS 테이블에 USER_NO를 참조 insert
+*
+*
+* */
+
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor

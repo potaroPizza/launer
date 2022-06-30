@@ -62,6 +62,7 @@ public class LoginController {
 			HttpSession session=request.getSession();
 			session.setAttribute("email", vo.getEmail());
 			session.setAttribute("name", uVo.getName());
+			session.setAttribute("no", uVo.getNo());
 			
 			Cookie ck = new Cookie("chkUseremail", vo.getEmail());
 			ck.setPath("/");
