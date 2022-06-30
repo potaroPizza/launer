@@ -9,9 +9,24 @@
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
+/*  	$(window).load(function () {
+		 var isAddressExist = $('#isAddressExist').val();
+		 	alert(isAddressExist);
+		 if(isAddressExist<1){
+		 	alert("주소 등록 후에 이용할 수 있는 서비스입니다");
+		 	location.href = "<c:url value='/mypage/useredit'/>";
+		 }
+	});  */
 
 
     $(function () {
+    	var isAddressExist = $('#isAddressExist').val();
+	 	alert(isAddressExist);
+	 	 if(isAddressExist<1){
+			 	alert("주소 등록 후에 이용할 수 있는 서비스입니다");
+			 	location.href = "<c:url value='/mypage/useredit'/>";
+	 	 }
+    	
         $('#orderBtn').click(function () {
         	
         /* 	if(!$('#flexCheckDefault').is(':checked')){
@@ -186,10 +201,18 @@
             });
         });
     });
+    
+    function pageMove(){
+    	alert("로그아웃");
+    	location.href = "<c:url value="/user/kakaoLogin/logout"/>";
+    	
+    }
+    
 </script>
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <div class="margin-top-fixed" style ="height: 100px;"></div>
 <div id="orderWrapper">
+<input type ="hidden" name ="isAddressExist" value ="${isAddressExist }" id ="isAddressExist">
     <p id ="nim_p">
         <span id ="nim">${userVo.name}  님</span> 수거요청
     </p>
@@ -197,7 +220,10 @@
         <div class="orderInfo-address">
             <div>
                 <div>수거/배송 주소</div>
-                <span id="orderInfo-address-edit"><a href="<c:url value="/mypage/useredit"/>">&nbsp;&nbsp;수정&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i></a></span>
+                <span id="orderInfo-address-edit"><a href="<c:url value="/mypage/useredit"/>">&nbsp;&nbsp;수정&nbsp;
+	                <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+	                <button onclick="pageMove()" >로그아웃</button>
+                </span>
                
               	 <div class="orderInfo-address-myaddress">
                     <span id = "orderAddress">${map['ADDRESS']} &nbsp; ${map['ADDRESS_DETAIL']}</span><br> 

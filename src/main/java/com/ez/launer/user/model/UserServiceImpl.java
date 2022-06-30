@@ -165,25 +165,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.accIsExist(email);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
+	@Override
+	public int isAddressExist(int no) {
+		return userDao.isAddressExist(no);
+	}
 
 
 

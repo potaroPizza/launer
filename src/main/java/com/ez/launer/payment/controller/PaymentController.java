@@ -7,17 +7,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ez.launer.laundryService.order.model.OrderService;
+import com.ez.launer.laundryService.order.model.SmsAPI;
 import com.ez.launer.payment.model.PaymentService;
 import com.ez.launer.payment.model.PaymentVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 @RequestMapping("/laundryService/payment")
@@ -29,6 +30,7 @@ public class PaymentController {
 	private final PaymentService paymentService;
 	private final UserService userService;
 	private final OrderService orderService;
+	private final SmsAPI smsApi;
 	
 	@GetMapping("/orderPayment")
 	public void orderPayment_get() {
@@ -37,7 +39,10 @@ public class PaymentController {
 	
 	//결제요청
 	@GetMapping("/requestPayment")
-	public String requestPayment_post(Model model, int orderNo,int payPrice,int userPoint, RedirectAttributes reAttr) {
+	public String requestPayment_post(Model model, int orderNo,int payPrice, int savePoint,int userPoint, RedirectAttributes reAttr,
+			HttpSession session) {
+		int no = (int) session.getAttribute("no");
+		
 		logger.info("fk주문번호={}",orderNo);
 		logger.info("결제금액={}",payPrice);
 		logger.info("userPoint={}",userPoint);
@@ -49,6 +54,20 @@ public class PaymentController {
 		int result = paymentService.insertPaymentDetail(paymentVo);
 		logger.info("결제성공여부 result={}",result);
 		
+		if(result>0) {
+			
+			try {
+				UserVO userVo = userService.selectById(no);
+				String hp = userVo.getHp();
+				String name = userVo.getName();
+				smsApi.sendSms(hp,orderNo,name,payPrice,savePoint);
+				logger.info("sms 전송완료");
+			} catch (CoolsmsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		//orders 테이블 paymentDate null => sysdate
 		int rs = orderService.updatePaymentDate(orderNo);
 		logger.info("결제일(date)update rs={}",rs);
@@ -57,12 +76,14 @@ public class PaymentController {
 		reAttr.addAttribute("paymentCode", paymentVo.getPaymentCode());
 		reAttr.addAttribute("paymentStatus", rs);
 		
+	
+		
 		return "/launer/laundryService/payment/orderPayment";
 	}
 	
 	//결제 실패 시
 	@GetMapping("/paymentFailed")
-	public String paymentFailed_get(Model model,int orderNo, int payPrice, int userPoint, HttpSession session) {
+	public String paymentFailed_get(Model model,int savePoint,int orderNo, int payPrice, int userPoint, HttpSession session) {
 		int no =1000;
 		//(String) session.getAttribute("userid");
 
