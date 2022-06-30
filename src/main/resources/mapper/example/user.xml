@@ -41,6 +41,46 @@
    <select id="selectById" parameterType="int" resultType="userVo">
       select * from users where no=#{no}
    </select>
+
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="userVo" >
+		<selectKey order="BEFORE" keyProperty="no" resultType="int">
+			select users_seq.nextval from dual 
+		</selectKey>
+			insert into users(no,user_code,name,email,pwd,hp,start_date,point)
+			values(#{no},#{userCode},#{name},#{email},#{pwd},#{hp},sysdate,#{point}) 
+	</insert>
+	<!-- 가입시 주소 입력 -->
+	<insert id="insertAddress" parameterType="userAddressVo" >
+		<selectKey order="BEFORE" keyProperty="addressNo" resultType="int">
+			select users_address_seq.nextval from dual 
+		</selectKey>
+		insert into users_address(no, address, address_detail, zipcode)
+		values(no, #{address}, #{addressDetail}, #{zipcode})
+
+		insert into USERS_ADDRESS(no, users_no, office_no, address, address_detail, zipcode, lon_x, lat_y, entermethod)
+		values ()
+	</insert>
+	<!-- 이메일 중복 확인 -->
+	<select id="chkEmail" parameterType="String"  resultType="int">
+		select count(*) from users where Email=#{email} 
+	</select>
+	<!-- 휴대전화 번호 중복 확인 -->
+	<select id="chkHp" parameterType="String"  resultType="int">
+		select count(*) from users where HP=#{hp} 
+	</select>
+	<!-- 로그인 -->
+	<select id="selectByEmail" parameterType="String"  resultType="userVo">
+		select * from users where email=#{email} 
+	</select>
+	<select id="selectPwd2" parameterType="String" resultType="String">
+		select pwd from users
+		where email=#{email} and out_date is null
+	</select>
+	<!-- 회원 정보 조회 -->
+	<select id="selectById" parameterType="int" resultType="userVo">
+      select * from users where no=#{no}
+   </select>
    <!-- 회원 정보 조회 주소테이블 조인 -->
    <select id="selectByIdAddress" parameterType="int" resultType="hashMap">
       select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
@@ -80,9 +120,56 @@
       set pwd=#{pwd}
       where no=#{no}
    </update>
+	<!-- 회원 정보 조회 주소테이블 조인 -->
+	<select id="selectByIdAddress" parameterType="int" resultType="hashMap">
+		select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
+		from users u, users_address a
+		where u.no=a.users_no
+		and u.no=#{no}
+	</select>
+	<!-- 회원 탈퇴처리 -->
+	<update id="deleteUser" parameterType="int">
+		update users set out_date=sysdate
+		where no=#{no}
+	</update>
+	
+	<!-- 비밀번호 체크 -->
+	<select id="selectPwd" parameterType="int" resultType="String">
+		select pwd from users
+		where no=#{no} and out_date is null
+	</select>
+	<!-- 회원정보 수정 (전화번호)  -->
+	<update id="updateUserHp" parameterType="userVo">
+		update users
+		set hp=#{hp} where no=#{no}
+	</update>
+	<!-- 회원정보 수정(주소) -->
+	<update id="updateUserAddress" parameterType="userAddressVo">
+		update users_address
+		set address=#{address}, 
+			address_detail=#{addressDetail}, 
+			entermethod=#{entermethod}, 
+			zipcode=#{zipcode},
+			office_no = #{officeNo}
+		where users_no=#{no}
+	</update>
+	<!-- 비밀번호 변경처리 -->
+	<update id="editPwd" parameterType="userVo">
+		update users 
+		set pwd=#{pwd}
+		where no=#{no}
+	</update>
 
-
-
+	<select id="selectUser" parameterType="int"
+		resultType="userVo">	/*1:유저, 3~4:관리자*/
+		select * from USERS
+		<if test="no == 1">
+			where USER_CODE = #{no}
+		</if>
+		<if test="no != 1">
+			where USER_CODE >= #{no}
+		</if>
+	</select>
    <select id="selectUser" parameterType="int"
       resultType="userVo">   /*1:유저, 3~4:관리자*/
       select * from USERS
@@ -98,27 +185,10 @@
       select * from DELIVERY_DRIVER
    </select>
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<select id="selectDeliveryUser">
+		select * from DELIVERY_DRIVER
+	</select>
+
 	
 	
 	
@@ -147,17 +217,17 @@
 	<select id ="isAddressExist" parameterType="int" resultType ="int">	
 		select count(*) from users_address where users_no = #{no}
 	</select>
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 
 </mapper>
