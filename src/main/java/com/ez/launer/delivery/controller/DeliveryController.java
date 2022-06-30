@@ -368,39 +368,59 @@ public class DeliveryController {
 
     @PostMapping("/income/excel/download")
     public void excelDownload(@RequestParam Map<String, Object> map,
+                              HttpSession session,
                               HttpServletResponse response) throws IOException {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
         logger.info("엑셀 다운로드, 파라미터 map={}", map);
+
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+
+        map.put("deliveryNo", deliveryNo);
+        List<Map<String, Object>> list = deliveryDriverService.selectListAll(map);
+        logger.info("리스트 조회 결과 list={}", list);
 
         Workbook wb = new XSSFWorkbook();
         Sheet sheet = wb.createSheet("첫번째 시트");
         Row row = null;
         Cell cell = null;
+
         int rowNum = 0;
+
+        String[] header = {"번호", "주문번호", "수입", "완료일시", "주소"};
 
         // Header
         row = sheet.createRow(rowNum++);
-        cell = row.createCell(0);
-        cell.setCellValue("번호");
-        cell = row.createCell(1);
-        cell.setCellValue("이름");
-        cell = row.createCell(2);
-        cell.setCellValue("제목");
+        for(int i = 0; i < header.length; i++) {
+            cell = row.createCell(i);
+            cell.setCellValue(header[i]);
+        };
 
         // Body
-        for (int i=0; i<3; i++) {
+        for (Map<String, Object> selectMap : list) {
+            int i = 0;
+
             row = sheet.createRow(rowNum++);
-            cell = row.createCell(0);
-            cell.setCellValue(i);
-            cell = row.createCell(1);
-            cell.setCellValue(i+"_name");
-            cell = row.createCell(2);
-            cell.setCellValue(i+"_title");
-        }
+            cell = row.createCell(i++);
+            cell.setCellValue(String.valueOf(selectMap.get("NO")));
+            cell = row.createCell(i++);
+            cell.setCellValue(String.valueOf(selectMap.get("ORDER_NO")));
+            cell = row.createCell(i++);
+            cell.setCellValue(String.valueOf(selectMap.get("AMOUNT")));
+            cell = row.createCell(i++);
+            cell.setCellValue(String.valueOf(selectMap.get("REGDATE")));
+            cell = row.createCell(i);
+            cell.setCellValue(String.valueOf(selectMap.get("ADDRESS")));
+        };
+
 
         // 컨텐츠 타입과 파일명 지정
+        String fileName = deliveryVO.getName() + "_" + map.get("startDate") + "~" + map.get("endDate");
+
         response.setContentType("ms-vnd/excel");
+        response.setCharacterEncoding("UTF-8");
 //        response.setHeader("Content-Disposition", "attachment;filename=example.xls");
-        response.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ".xlsx");
 
         // Excel File Output
         wb.write(response.getOutputStream());

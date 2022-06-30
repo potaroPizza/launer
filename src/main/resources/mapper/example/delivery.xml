@@ -46,4 +46,13 @@
 			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
     </select>
+
+    <!--엑셀에 들어갈 정보(전체)-->
+    <select id="selectListAll" parameterType="map" resultType="hashmap">
+        select * from DELIVERY_AMOUNT_DETAIL_VIEW
+        where DELIVERY_DRIVER_NO = #{deliveryNo}
+            and ${typeList} = #{deliveryNo}
+            and REGDATE between to_date(#{startDate}) and to_date(#{endDate}) + 1
+        order by REGDATE <if test="desc == null">desc</if>
+    </select>
 </mapper>
