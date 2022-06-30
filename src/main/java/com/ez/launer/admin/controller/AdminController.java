@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -27,7 +29,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -42,6 +46,8 @@ import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.laundryService.order.model.OrderVO;
 import com.ez.launer.notice.model.NoticeService;
 import com.ez.launer.notice.model.NoticeVO;
+import com.ez.launer.user.model.UserService;
+import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -56,6 +62,7 @@ public class AdminController {
 	private final NoticeService noticeService;
 	private final OrderService orderService;
 	private final AdminChartsService chartsService;
+	private final UserService userService;
 	
 	
 	@RequestMapping("/")
@@ -369,7 +376,49 @@ public class AdminController {
 	}
 	
 	
+	@GetMapping("/adminLogin")
+	public String adminLogin_get() {
+		logger.info("관리자 로그인 페이지");
+		
+		return "/admin/adminLogin";
+	}
 	
+	@PostMapping("/adminLogin")
+	public String adminLogin_post(@ModelAttribute UserVO vo,
+			HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+		logger.info("관리자 로그인 처리, 파라미터 vo={}", vo);
+		
+		int result = userService.checkLogin(vo.getNo(), vo.getPwd());
+		logger.info("로그인 처리 결과 result={}", result);
+		
+		UserVO resultVo = userService.selectUser(vo.getNo());
+		int userCode = resultVo.getUserCode();
+		
+		String msg="로그인 처리 실패", url="/admin/adminLogin";
+		if(result == UserService.LOGIN_OK && (userCode == 3 || userCode == 4)) {
+			//회원정보 조회
+			logger.info("로그인 처리-회원정보 조회결과 vo={}", resultVo);
+			
+			//[1] session에 저장
+			HttpSession session = request.getSession();
+			session.setAttribute("adminEmail", resultVo.getEmail());
+			session.setAttribute("adminName", resultVo.getName());
+			session.setAttribute("adminCode", resultVo.getUserCode());
+			
+			msg = resultVo.getName() +"님 로그인되었습니다.";
+			url="/admin/";
+		} else if(result == UserService.DISAGREE_PWD) {
+			msg="비밀번호가 일치하지 않습니다.";
+		} else if(result == UserService.NONE_USEREMAIL || (userCode != 3 || userCode != 4)) {
+			msg="해당 이메일이 존재하지 않습니다.";			
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+	}
 	
 	
 	

@@ -147,6 +147,33 @@ public class UserServiceImpl implements UserService{
 		return userDao.accIsExist(email);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 정지효 */
+	@Override
+	public UserVO selectUser(int no) {
+		return userDao.selectUser(no);
+	}
+	
+	
+	
+	
+	
+
 
 }
 

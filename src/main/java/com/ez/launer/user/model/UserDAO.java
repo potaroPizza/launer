@@ -26,4 +26,23 @@ public interface UserDAO {
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	Map<String, Object> getEmailInfo(String email);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 정지효 */
+	UserVO selectUser(int no);
 }

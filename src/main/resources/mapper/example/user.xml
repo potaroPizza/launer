@@ -52,7 +52,8 @@
 		</selectKey>
 	</insert>
 
-	<select id="selectUser" parameterType="int">	/*1:유저, 3~4:관리자*/
+	<select id="selectUser" parameterType="int"
+		resultType="userVo">	/*1:유저, 3~4:관리자*/
 		select * from USERS
 		<if test="no == 1">
 			where USER_CODE = #{no}
