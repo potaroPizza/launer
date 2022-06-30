@@ -22,6 +22,7 @@
 		<div class="paymentdetails_date_wrap">
 			<div class="paymentdetails_date">
 				<form name="frm1" method="post" action="<c:url value='/mypage/paymentdetails'/>">
+					<input type="button" value="1주일" class="btn btn-outline-dark" id="btDay7">
 					<input type="button" value="1개월" class="btn btn-outline-dark" id="btMonth1">
 					<input type="button" value="3개월" class="btn btn-outline-dark" id="btMonth3">
 					<input type="button" value="6개월" class="btn btn-outline-dark" id="btMonth6">
@@ -71,18 +72,17 @@
 							<div class="paymentdetails_col-1" data-label="주문번호">${vo.paymentViewVO.orderNo}</div>
 							<div class="paymentdetails_col-2" data-label="상품명">
 								<c:if test="${fn: length(title)>8}"><%-- ${fn:substringBefore(title,",")} --%>
-								<a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${fn:substring(title,0,title.indexOf(',',title.indexOf(',')+1))} 외...</a>
+								<a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${fn:substring(title,0,title.indexOf(',',title.indexOf(',')+1))} 등...</a>
 								</c:if>
 						
 			            <c:if test="${fn: length(title)<=8}">
 			                  <a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${title}</a>           
 			            </c:if>
 							</div>
-							<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber></div>
+							<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber>원</div>
 							<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${vo.paymentViewVO.regdate}" pattern="yyyy-MM-dd" /></div>
 							<div class="paymentdetails_col-5" data-label="상태">${vo.paymentViewVO.status}</div>
 
-								
 						</li>
 					</c:forEach>
 				</c:if>

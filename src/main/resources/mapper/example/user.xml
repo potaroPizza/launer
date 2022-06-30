@@ -39,7 +39,7 @@
 			office_no = #{officeNo}
 		where users_no=#{no}
 	</update>
-	<!-- 비밀번호 변경처리 -->
+	<!-- 회원정보 수정 비밀번호 변경처리 -->
 	<update id="editPwd" parameterType="userVo">
 		update users 
 		set pwd=#{pwd}

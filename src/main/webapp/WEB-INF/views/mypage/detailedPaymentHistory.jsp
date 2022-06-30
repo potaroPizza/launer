@@ -38,6 +38,7 @@
 				총 금액 &nbsp;&nbsp;&nbsp;&nbsp;<span><fmt:formatNumber value="${list[0].paymentHistoryViewVO.totalPrice}" pattern="#,###,###,###"></fmt:formatNumber> 원</span>
 			</p>
 		</div>
+		<hr>
 		<section class="detailedPaymentHistory-section">
 			<div class="detailedPaymentHistory-container">
 				<div class="detailedPaymentHistory-row">

@@ -66,4 +66,18 @@ function execZipcode() {
 				}
 			
 			})
+			$('#addressDetail').keyup(function(){
+				if($('#addressDetail').val()==""){
+					$('.error_next_box').eq(6).text("상세주소를 입력해주세요.").css("color","red");
+				}else{
+					$('.error_next_box').eq(6).text("")
+				}
+			})
+			$('#entermethod').keyup(function(){
+				if($('#entermethod').val()==""){
+					$('.error_next_box').eq(7).text("공동현관 출입방법을 입력해주세요.").css("color","red");
+				}else{
+					$('.error_next_box').eq(7).text("")
+				}
+			})
 		});

@@ -38,10 +38,11 @@
 					<div class="mypoint_col-4">포인트</div>
 				</li>
 				<c:if test="${empty searchList }">
+				<li class="mypoint_table-row">
 					<div class="mypoint_col-1" data-label="날짜"></div>
-					<div class="mypoint_col-2" data-label="주문번호"></div>
-					<div class="mypoint_col-3" data-label="내역">이용 내역이 없습니다.</div>
+					<div class="mypoint_col-2" data-label="주문번호"> 이용 내역이 없습니다.</div>
 					<div class="mypoint_col-4" data-label="포인트"></div>
+				</li>	
 				</c:if>
 				<c:if test="${!empty searchList }">
 					<c:forEach var="map" items="${searchList }">

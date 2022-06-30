@@ -70,6 +70,9 @@ public class MypageController {
 		//String userid=(String)session.getAttribute("userid");
 		logger.info("마이페이지 포인트 화면, 파라미터 userid={}", no);
 		
+		UserVO vo= userService.selectById(no);
+		logger.info("회원 정보 조회 결과, vo={}",vo);
+		
 		if(searchVo.getCountPerPage() == 0) {	
 			searchVo.setCountPerPage(5);
 		}
@@ -81,10 +84,9 @@ public class MypageController {
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		searchVo.setRecordCountPerPage(searchVo.getCountPerPage());
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		searchVo.setUsersNo(no);
 		
 		
-		UserVO vo= userService.selectById(no);
-		logger.info("회원 정보 조회 결과, vo={}",vo);
 		
 		//List<PointDetailAllVO> list = pointService.selectPointHistory(no);
 		//logger.info("포인트 내역 조회, list={}",list);
@@ -317,6 +319,7 @@ public class MypageController {
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		searchVo.setRecordCountPerPage(searchVo.getCountPerPage());
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		searchVo.setUsersNo(no);
 		
 		
 		UserVO vo= userService.selectById(no);

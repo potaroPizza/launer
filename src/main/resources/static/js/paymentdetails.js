@@ -18,6 +18,9 @@
 	});
 	$(function(){
 		
+		$('#btDay7').click(function(){
+        	$.setDate(7, 'D');	
+        });
 		$('#btMonth1').click(function(){
         	$.setDate(1, 'M');	
         });

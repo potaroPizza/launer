@@ -27,7 +27,7 @@
 				alert('새 비밀번호를 입력하세요.');
 				$('#editPwd_newPwd2').focus();
 				event.preventDefault();
-			}else if($('#newPwd').val()!=$('#newPwd2').val()){
+			}else if($('#editPwd_newPwd').val()!=$('#editPwd_newPwd2').val()){
 				alert('새 비밀번호가 일치하지 않습니다.');
 				$('#editPwd_newPwd2').focus();
 				event.preventDefault();
