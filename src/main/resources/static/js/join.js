@@ -69,6 +69,24 @@ $(function(){
 	
 });
 
+	function execZipcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = '';
+
+                if (data.userSelectedType === 'R') { // 도로명 주소
+                    addr = data.roadAddress;
+                } else { // 지번주소
+                    addr = data.jibunAddress;
+                }
+
+                document.getElementById('zipcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                document.getElementById("addressDetail").focus();
+            }
+        }).open();
+    }
+
 	function validate_email(email){
 	var pattern = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 	return pattern.test(email);
