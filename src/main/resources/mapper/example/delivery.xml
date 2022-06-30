@@ -9,7 +9,41 @@
     </select>
 
     <insert id="insertDeliveryAmount" parameterType="map">
+        <selectKey keyProperty="no" resultType="int" order="BEFORE">
+            select DELIVERY_AMOUNT_SEQ.nextval from DUAL
+        </selectKey>
+
         insert into DELIVERY_AMOUNT(no, order_no, delivery_driver_no, amount)
-        values (DELIVERY_AMOUNT_SEQ.nextval, #{orderNo}, #{deliveryNo}, #{pay})
+        values (#{no}, #{orderNo}, #{deliveryNo}, #{pay})
     </insert>
+
+    <!--조건에 따른 배송기사 전체 수입 / 전체 레코드개수-->
+    <select id="amountAllRecode" parameterType="map" resultType="map">
+        select count(*) as count, sum(AMOUNT) as sum from DELIVERY_AMOUNT_DETAIL_VIEW
+        where DELIVERY_DRIVER_NO = #{deliveryNo}
+            and ${typeList} = #{deliveryNo}
+            and REGDATE between to_date(#{startDate}) and to_date(#{endDate}) + 1
+        order by REGDATE <if test="desc == null">desc</if>
+    </select>
+
+    <!--배송기사의 수입 관련 정보-->
+    <select id="amountByDeliveryNo" parameterType="map" resultType="hashmap">
+        select *
+        from
+        (
+            select rownum as RNUM, A.*
+            from
+                (
+                select * from DELIVERY_AMOUNT_DETAIL_VIEW
+                where DELIVERY_DRIVER_NO = #{deliveryNo}
+                    and ${typeList} = #{deliveryNo}
+                    and REGDATE between to_date(#{startDate}) and to_date(#{endDate}) + 1
+                order by REGDATE <if test="desc == null">desc</if>
+            ) A
+        )
+        where RNUM > #{firstRecordIndex}
+        <![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+    </select>
 </mapper>
