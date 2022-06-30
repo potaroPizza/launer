@@ -48,19 +48,19 @@
                 </a>
             </h1>
             <div id="header-right">
-                <c:if test="${!empty userid}">
-                    <a href="#">
+                <c:if test="${!empty sessionScope.email}">
+                    <a href="<c:url value="/user/logout"/>">
                         <div class="line"></div>
                         <span>LOG OUT</span>
                         <div class="hover-text">로그아웃</div>
                     </a>
-                    <a href="${pageContext.request.contextPath}/mypage/mypage">
+                    <a href="${pageContext.request.contextPath}/mypage/">
                         <div class="line"></div>
                         <span>MY PAGE</span>
                         <div class="hover-text">내 정보</div>
                     </a>
                 </c:if>
-                <c:if test="${empty userid}">
+                <c:if test="${empty sessionScope.email}">
                 <a href="<c:url value='/user/login'/>">
                     <div class="line"></div>
                     <span>LOGIN</span>

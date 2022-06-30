@@ -387,30 +387,37 @@ public class AdminController {
 	public String adminLogin_post(@ModelAttribute UserVO vo,
 			HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		logger.info("관리자 로그인 처리, 파라미터 vo={}", vo);
+		logger.info("관리자 로그인 처리, 파라미터 email={}, pwd={}",
+				vo.getEmail(), vo.getPwd());
 		
-		int result = userService.checkLogin(vo.getNo(), vo.getPwd());
-		logger.info("로그인 처리 결과 result={}", result);
-		
-		UserVO resultVo = userService.selectUser(vo.getNo());
-		int userCode = resultVo.getUserCode();
-		
-		String msg="로그인 처리 실패", url="/admin/adminLogin";
-		if(result == UserService.LOGIN_OK && (userCode == 3 || userCode == 4)) {
-			//회원정보 조회
-			logger.info("로그인 처리-회원정보 조회결과 vo={}", resultVo);
+		int result = userService.loginChk(vo.getEmail(), vo.getPwd());
+		logger.info("관리자 로그인 처리 결과 result={}", result);
 			
-			//[1] session에 저장
-			HttpSession session = request.getSession();
-			session.setAttribute("adminEmail", resultVo.getEmail());
-			session.setAttribute("adminName", resultVo.getName());
-			session.setAttribute("adminCode", resultVo.getUserCode());
+		String msg="관리자 로그인 처리 실패", url="/admin/adminLogin";
+		
+		if(result == UserService.LOGIN_OK) {
+			UserVO uVo = userService.selectByEmail(vo.getEmail());
+			logger.info("관리자 로그인 처리-회원정보 조회결과 vo={}", uVo);
 			
-			msg = resultVo.getName() +"님 로그인되었습니다.";
-			url="/admin/";
+			int userCode = uVo.getUserCode();
+			
+			if(userCode == 1 || userCode == 2) {
+				msg="해당 이메일이 존재하지 않습니다.";
+			} else {
+				//[1] session에 저장
+				HttpSession session = request.getSession();
+				session.setAttribute("adminEmail", uVo.getEmail());
+				session.setAttribute("adminName", uVo.getName());
+				session.setAttribute("adminCode", uVo.getUserCode());
+				
+				msg = uVo.getName() +"님 로그인되었습니다.";
+				url="/admin/";
+				
+				logger.info("!!!{}", session.getAttribute("adminEmail"));
+			}
 		} else if(result == UserService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";
-		} else if(result == UserService.NONE_USEREMAIL || (userCode != 3 || userCode != 4)) {
+		} else if(result == UserService.NONE_USEREMAIL) {
 			msg="해당 이메일이 존재하지 않습니다.";			
 		}
 		
@@ -418,6 +425,18 @@ public class AdminController {
 		model.addAttribute("url", url);
 		
 		return "/common/message";
+	}
+	
+	@RequestMapping("/adminLogout")
+	public String logout(HttpSession session) {
+		logger.info("관리자 로그아웃 처리");
+		
+		//session.invalidate();	// 세션 소멸, 근데 이거하면 관리자 세션이 있을경우 같이 제거되므로 바꿔야함
+		session.removeAttribute("adminEmail");
+		session.removeAttribute("adminName");
+		session.removeAttribute("adminCode");
+		
+		return "redirect:/admin/";
 	}
 	
 	

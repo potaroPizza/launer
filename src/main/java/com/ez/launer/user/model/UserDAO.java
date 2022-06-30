@@ -12,6 +12,7 @@ public interface UserDAO {
 	public int chkEmail(String email);
 	public int chkHp(String hp);
 	UserVO selectByEmail(String email);
+	String selectPwd2(String email);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);
@@ -35,14 +36,5 @@ public interface UserDAO {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	/* 정지효 */
-	UserVO selectUser(int no);
+
 }

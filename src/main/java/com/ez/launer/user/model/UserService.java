@@ -23,6 +23,7 @@ public interface UserService {
 	public int chkEmail(String email);
 	public int chkHp(String hp);
 	UserVO selectByEmail(String email);
+	public int loginChk(String email, String pwd);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);
@@ -41,17 +42,5 @@ public interface UserService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/* 정지효 */
-	UserVO selectUser(int no);
+
 }

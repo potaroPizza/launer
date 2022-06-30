@@ -12,6 +12,10 @@
 	type="text/javascript" text="javascript"></script>
 <script type="text/javascript">
 $(window, document, undefined).ready(function() {
+	
+	$('#loginBtn').click(function(){
+		$('form[name=loginFrm]').submit();
+	});
 
 	  $('input').blur(function() {
 	    var $this = $(this);
@@ -321,16 +325,16 @@ footer img:focus, footer a:focus {
 		<form method="post" name="loginFrm"
 			action="<c:url value='/admin/adminLogin'/>">
 			<div class="group">
-				<input type="text"/><span class="highlight"></span>
+				<input type="text" name="email"/><span class="highlight"></span>
 				<span class="bar"></span> 
 				<label>아이디(Email)</label>
 			</div>
 			<div class="group">
-				<input type="email"><span class="highlight"></span>
+				<input type="email" name="pwd"><span class="highlight"></span>
 				<span class="bar"></span>
 				<label>비밀번호</label>
 			</div>
-			<button type="button" class="button buttonBlue">
+			<button type="button" class="button buttonBlue" id="loginBtn">
 				로그인
 				<div class="ripples buttonRipples">
 					<span class="ripplesCircle"></span>
