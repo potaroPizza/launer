@@ -34,10 +34,10 @@
 									<p>러너에 접속하셔서 간편한 세탁생활을 즐겨보세요!</p>
 									<div id="memberLogin" class="login_contents">
 										<div class="inputIdPwd">
-											<input id="member_email" name="member_id" 
-												placeholder="이메일" value="" type="text">
-											<input id="member_pwd" name="member_pwd" 
-												placeholder="비밀번호" value="" type="text">
+											<input id="member_email" name="email" 
+												placeholder="이메일" type="text">
+											<input id="member_pwd" name="pwd" 
+												placeholder="비밀번호" type="text">
 										</div>
 										<div class="loginCheckBox">
 											<input type="checkbox" name="saveEmail" id="saveEmail"
@@ -79,10 +79,10 @@
 									</p>
 									<div id="memberLogin" class="login_contents">
 										<div class="inputIdPwd">
-											<input id="member_email" name="member_id" 
-												placeholder="이메일" value="" type="text">
+											<input id="member_email" name="member_email" 
+												placeholder="이메일" type="text">
 											<input id="member_pwd" name="member_pwd" 
-												placeholder="비밀번호" value="" type="text">
+												placeholder="비밀번호" type="text">
 										</div>
 										<div class="loginCheckBox">
 											<input type="checkbox" name="saveEmail" id="saveEmail"

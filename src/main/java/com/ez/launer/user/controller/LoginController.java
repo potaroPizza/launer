@@ -45,36 +45,22 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String login_post(@ModelAttribute UserVO vo,
-			@RequestParam(required = false) String saveEmail, 
+	public String login_post(@ModelAttribute UserVO vo, 
 			HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		logger.info("로그인 처리, 파라미터 vo={}, chkSaveEmail={}", vo, saveEmail);
+		logger.info("로그인 처리, 파라미터 vo={}", vo);
 		
-		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
+		int result=userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);
 		
 		String msg="로그인 처리 실패", url="/user/login";
 		if(result==UserService.LOGIN_OK) {
-			//회원정보 조회
 			UserVO uVo=userService.selectByEmail(vo.getEmail());
-			logger.info("로그인 처리-회원정보 조회결과 memVo={}", uVo);
+			logger.info("로그인 처리-회원정보 조회결과 uVo={}", uVo);
 			
-			//[1] session에 저장
 			HttpSession session=request.getSession();
-			session.setAttribute("useremail", vo.getEmail());
-			session.setAttribute("userName", uVo.getName());
-			
-			//[2] 쿠키에 저장
-			Cookie ck = new Cookie("ckUseremail", vo.getEmail());
-			ck.setPath("/");
-			if(saveEmail!=null) {  //아이디 저장하기 체크한 경우
-				ck.setMaxAge(1000*24*60*60);
-				response.addCookie(ck);
-			}else {
-				ck.setMaxAge(0);  //쿠키 제거
-				response.addCookie(ck);				
-			}
+			session.setAttribute("email", vo.getEmail());
+			session.setAttribute("pwd", uVo.getName());
 			
 			msg=uVo.getName() +"님 로그인되었습니다.";
 			url="/";
