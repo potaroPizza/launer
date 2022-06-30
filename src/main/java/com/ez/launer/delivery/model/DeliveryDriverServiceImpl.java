@@ -21,14 +21,26 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService{
     /*
     * [1] ORDER table 업데이트(status 컬럼)
     * [2] DELIVERY_AMOUNT insert
+    *
+    * 취소를 할 경우..?
+    * ORDER_STATUS_NO가 1(수거전)또는 , 4(배송대기)로 변경, PICKUP_DRIVER,
+    * 이걸 구별하기 위해서는 groupNo에 따라 1, 4로 바뀌면됨
+    * 이건 JS를 이용해서 해주자
+    *
+    * Map의 orderStatusNo가 1또는 4일 경우 취소로 if걸어준다
     * */
     @Override
     public int insertDeliveryAmount(Map<String, Object> map) {
         int result = 0;
+        int type = Integer.parseInt((String)map.get("orderStatusNo"));
 
         try {
-            int cnt = orderDAO.updateOrderStatus(map);
-            if(cnt > 0) result = deliveryDriverDAO.insertDeliveryAmount(map);
+            result = orderDAO.updateOrderStatus(map);
+
+            if(result > 0) {
+                if(type != 1 && type != 4)
+                    result = deliveryDriverDAO.insertDeliveryAmount(map);
+            }
         } catch(RuntimeException e) {
             e.printStackTrace();
             result = -1;

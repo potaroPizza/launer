@@ -2,6 +2,7 @@ package com.ez.launer.user.model;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,5 +125,28 @@ public class UserServiceImpl implements UserService{
 	}
 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 한서현 */
+	@Override
+	public int insertKakaoUser(UserVO userVo) {
+		return userDao.insertKakaoUser(userVo);
+	}
+
+	@Override
+	public int accIsExist(String email) {
+		return userDao.accIsExist(email);
+	}
+
+
 }
 

@@ -426,9 +426,8 @@
                                         $(element).remove();
                                     }, 400);
                                 });
-                            }else {
-                                alert(res);
-                            }
+                            }else {alert(res);}
+                            countAdd = 0;
                         },
                         error: (xhr, status, error) => {
                             alert("error : " + error);
