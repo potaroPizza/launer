@@ -91,30 +91,7 @@
 	<select id="selectDeliveryUser">
 		select * from DELIVERY_DRIVER
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -127,8 +104,8 @@
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			select USERS_SEQ.nextval from dual
 		</selectKey>
-		insert into users (no,user_code,name,email,pwd,SOCIAL_LOGIN_KEY,SOCIAL_LOGIN_HOST,HP,LAST_ACCESS_DATE,START_DATE,POINT)
-		values(users_seq.nextval,1,#{name},#{email},#{pwd},#{socialLoginKey},'KAKAO','없음',sysdate,sysdate,0)
+		insert into users (no,user_code,name,email,SOCIAL_LOGIN_KEY,SOCIAL_LOGIN_HOST,LAST_ACCESS_DATE,START_DATE,POINT)
+		values(users_seq.nextval,1,#{name},#{email},#{socialLoginKey},'KAKAO',sysdate,sysdate,0)
 	</insert>
 	
 	<!-- db존재여부 check -->
@@ -137,21 +114,17 @@
 		from users
 		where email = #{email}
 	</select>
+
 	
-	<select id="getSocialInfo" parameterType ="string" resultType ="string">
-		select social_login_host from users
-		where email = #{email}
-	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

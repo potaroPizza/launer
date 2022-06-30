@@ -27,5 +27,4 @@ public interface UserDAO {
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	Map<String, Object> getEmailInfo(String email);
-	String getSocialInfo (String email);
 }
