@@ -192,13 +192,16 @@
 
   .download-part{
     margin-top: 80px;
-    background: #236D44;
-    border-radius: 10px;
-    padding:20px;
     text-align: center;
+    overflow: hidden;
     button{
+      &:active{background: #15482c;}
+      background: #236D44;
       color: #fff;
+      border-radius: 10px;
+      padding:20px;
       font-size: 40px;
+      width: 100%;
     }
   }
 }

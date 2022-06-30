@@ -270,7 +270,8 @@
 				</div>
 				<div class="center">
 					<input type="submit" id="wr_submit" value="회원가입">
-					<input type="reset" id="wr_reset" value="취소">
+					<input type="reset" id="wr_reset" 
+						onclick="history.go(-1);return false;" value="취소">
 				</div>
 			</fieldset>
 		</form>

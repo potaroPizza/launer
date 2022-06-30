@@ -196,6 +196,21 @@
         function pagingClear() {
             currentPage = 1;
         }
+
+
+
+
+
+
+
+
+        function excelDownload() {
+            let formData = $("form[name=searchForm]").serialize();
+            let form = $(".download-part form[name=excel-form]")
+
+            form.prop("action", "<c:url value="/delivery/income/excel/download"/>?" + formData);
+            form.submit();
+        }
     </script>
     <div class="fixed-margin-top"></div>
     <div id="delivery-income-wrap">
@@ -310,7 +325,9 @@
                 </div>--%>
             </div>
             <div class="download-part">
-                <button><i class="fa-solid fa-download"></i></button>
+                <form name="excel-form" method="post" action="">
+                    <button onclick="excelDownload()"><i class="fa-solid fa-download"></i></button>
+                </form>
             </div>
         </div>
     </div>

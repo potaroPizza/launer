@@ -62,7 +62,7 @@
             });
         }
 
-
+        //완료
         function clearEvent(element, orderNo) {
             const $formData = setForm(element, orderNo, "clear");
 
