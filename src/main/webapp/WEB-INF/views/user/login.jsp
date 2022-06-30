@@ -35,13 +35,14 @@
 									<div id="memberLogin" class="login_contents">
 										<div class="inputIdPwd">
 											<input id="member_email" name="email" 
-												placeholder="이메일" type="text">
+												placeholder="이메일" type="text"
+												value="${cookie.chkUseremail.value }">
 											<input id="member_pwd" name="pwd" 
 												placeholder="비밀번호" type="text">
 										</div>
 										<div class="loginCheckBox">
-											<input type="checkbox" name="saveEmail" id="saveEmail"
-												<c:if test="${!empty cookie.ckUseremail }">
+											<input type="checkbox" name="saveUseremail" id="saveEmail"
+												<c:if test="${!empty cookie.chkUseremail }">
 													checked="checked"
 												</c:if>
 											>
