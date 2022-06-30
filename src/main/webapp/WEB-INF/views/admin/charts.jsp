@@ -102,7 +102,7 @@ juqery가 hicharts보다 위에 선언되어야함
 		
 	    Highcharts.chart('containerLine', {
 	        title: {
-	            text: '사용자 수',
+	            text: '사용자 통계',
 	            x: -20 //center
 	        },
 	        subtitle: {
@@ -110,12 +110,13 @@ juqery가 hicharts보다 위에 선언되어야함
 	            x: -20
 	        },
 	        xAxis: {
-	            categories: ['1월', '2월', '3월', '4월', '5월', '6월',
-	                '7월', '8월', '9월', '10월', '11월', '12월']
+	        	type : 'category'
+	            /* categories: ['1월', '2월', '3월', '4월', '5월', '6월',
+	                '7월', '8월', '9월', '10월', '11월', '12월'] */
 	        },
 	        yAxis: {
 	            title: {
-	                text: 'Headcount'
+	                text: 'Count'
 	            },
 	            plotLines: [{
 	                value: 0,
@@ -134,13 +135,37 @@ juqery가 hicharts보다 위에 선언되어야함
 	        },
 	        series: [{
 	            name: '신규 가입자',
-	            data: [3, 62, 157, 233, 580, 1049, null, null, null, null, null, null]
-	        }, {
+	            data: /* [3, 62, 157, 233, 580, 1049, null, null, null, null, null, null] */
+	            	[
+						<c:forEach var="juMap" items="${jum}">
+						{
+							name : "${juMap['MONTH']}월",
+							y : ${juMap['JOINCOUNT']},
+						}, 
+						</c:forEach>
+					]
+	        },/*  {
 	            name: '사이트 방문자',
-	            data: [42, 168, 580, 1024, 3303, 5237, null, null, null, null, null, null]
-	        }, {
+	            data:   [42, 168, 580, 1024, 3303, 5237, null, null, null, null, null, null]  
+					[
+						<c:forEach var="vuMap" items="${vum}">
+						{
+							name : "${vuMap['']}월",
+							y : ${vuMap['']},
+						}, 
+						</c:forEach>
+					]
+	        }, */ {
 	            name: '누적 가입자',
-	            data: [3, 65, 250, 500, 1080, 2129, null, null, null, null, null, null]
+	            data: /* [3, 65, 250, 500, 1080, 2129, null, null, null, null, null, null] */
+	            	[
+						<c:forEach var="uuMap" items="${uum}">
+						{
+							name : "${uuMap['MONTH']}월",
+							y : ${uuMap['JOINCOUNT']},
+						}, 
+						</c:forEach>
+					]
 	        }]
 	    });
 	}
@@ -167,8 +192,11 @@ juqery가 hicharts보다 위에 선언되어야함
 			accessibility : {
 				announceNewData : {
 					enabled : true
-				}
+				},
 			},
+			tooltip: {
+	            valueSuffix: '원'
+	        },
 			xAxis : {
 				type : 'category'
 			},
@@ -271,7 +299,7 @@ juqery가 hicharts보다 위에 선언되어야함
 		    series: [{
 		        name: 'Brands',
 		        colorByPoint: true,
-		        data: [{
+		        data: [/* {
 		            name: 'Chrome',
 		            y: 61.41,
 		            sliced: true,
@@ -300,7 +328,14 @@ juqery가 hicharts보다 위에 선언되어야함
 		        }, {
 		            name: 'Other',
 		            y: 2.61
-		        }]
+		        } */
+			        <c:forEach var="ccMap" items="${ccm}">
+					{
+						name : "${ccMap['CATEGORYNAME']}",
+						y : ${ccMap['SUM']},
+					}, 
+					</c:forEach>
+		        ]
 		    }]
 		});
 	}

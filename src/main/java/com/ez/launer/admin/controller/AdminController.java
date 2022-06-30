@@ -321,22 +321,23 @@ public class AdminController {
 		List<Map<String, Object>> ccm = null;
 		
 		if(vo.getUserChart() == null) {	// 첫 화면 세팅
-			vo.setUserChart("1");
+			vo.setUserChart("2022");
 			vo.setRevenueChart("0");
 			vo.setCategoryChart("1");
 		}
 		
 		if(vo.getUserChart() != null && !vo.getUserChart().isEmpty()) {
-			if(vo.getUserChart().equals("1")) {	// 최근 2주
-				vum = chartsService.selectVisitByDay();
-				jum = chartsService.selectJoinByDay();
-				uum = chartsService.selectUsersByDay();
-			} else if(vo.getUserChart().equals("2022")) {	// 2022년
+//			if(vo.getUserChart().equals("1")) {	// 최근 2주
+//				vum = chartsService.selectVisitByDay();
+//				jum = chartsService.selectJoinByDay();
+//				uum = chartsService.selectUsersByDay();
+//			} else if(vo.getUserChart().equals("2022")) {	
+				// 2022년
 				vum = chartsService.selectVisitByMonth();
 				jum = chartsService.selectjoinByMonth();
 				uum = chartsService.selectUsersByMonth();
 			}
-		}
+//		}
 		
 		if(vo.getRevenueChart() != null && !vo.getRevenueChart().isEmpty()) {
 			int officeNo = Integer.parseInt(vo.getRevenueChart());
@@ -347,19 +348,22 @@ public class AdminController {
 			ccm = chartsService.selectAdminCategory();
 		}
 		
-		logger.info("통계 페이지 rcm={}", rcm);
+		logger.info("통계 페이지 vum={}", vum);
+		logger.info("통계 페이지 jum={}", jum);
+		logger.info("통계 페이지 uum={}", uum);
+		logger.info("통계 페이지 ccm={}", ccm);
 		
-		model.addAttribute("vum", vum);
-		model.addAttribute("jum", jum);
-		model.addAttribute("uum", uum);
-		model.addAttribute("rcm", rcm);
+		model.addAttribute("vum", vum);	// 방문자 수
+		model.addAttribute("jum", jum);	// 신규 가입자 수
+		model.addAttribute("uum", uum);	// 누적 가입자 수
+		model.addAttribute("rcm", rcm);	// 월별 매출
 		if(!vo.getRevenueChart().equals("0")) {
 			model.addAttribute("ofn", rcm.get(0).get("OFFICENO"));
 			model.addAttribute("ofName", rcm.get(0).get("OFFICENAME"));
 		} else {
 			model.addAttribute("ofn", 0);
 		}
-		model.addAttribute("ccm", ccm);
+		model.addAttribute("ccm", ccm);	// 카테고리 별 주문 수
 		
 		return "/admin/charts";
 	}

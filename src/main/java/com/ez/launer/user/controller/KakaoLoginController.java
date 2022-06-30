@@ -106,11 +106,17 @@ public class KakaoLoginController {
 	}
 	
 	@RequestMapping(value="/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, Model model) {
 	    kakao.kakaoLogout((String)session.getAttribute("access_Token"));
 	    session.removeAttribute("access_Token");
 	    session.removeAttribute("no");
 	    session.removeAttribute("email");
-	    return "/";
+	    
+	    String url = "/", msg ="로그아웃되었습니다";
+	    
+	    model.addAttribute("url",url);
+	    model.addAttribute("msg",msg);
+	    
+	    return "common/message";
 	}
 }

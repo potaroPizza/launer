@@ -55,6 +55,8 @@ public class OrderController {
 	}
 	
 	
+	
+	
 	@RequestMapping("/orderMakeSelect")
 	public String cgSelect(@RequestParam int categoryGroup, Model model) {
 		logger.info("카테고리그룹 별 조회 파라미터 groupName={}",categoryGroup);
@@ -68,22 +70,38 @@ public class OrderController {
 	}
 	
 	
+	
+	
 	@GetMapping("/orderMake")
 	public String orderMake_get(HttpSession session,Model model) {
 		logger.info("수거요청화면");
-		int no = 1000; //(String) session.getAttribute("userid");
-		
+		int no = (int) session.getAttribute("no");
 		UserVO userVo = userService.selectById(no);
 		
-		HashMap<String, Object> map = userService.selectByIdAddress(no);
-		logger.info("회원 정보 조회 결과, map={}",map);
+		int isAddressExist = userService.isAddressExist(no);
+		logger.info("주소등록여부 isAddressExist={}",isAddressExist);
 		
-		
-		model.addAttribute("userVo",userVo);
-		model.addAttribute("map" ,map);
-		return "/laundryService/order/orderMake";
-		
+		String result ="";
+		if(isAddressExist<1) {
+			String url = "/mypage/useredit", msg ="주소를 등록해주세요";
+			
+			model.addAttribute(url, msg);
+			result = "/common/message";
+			
+			
+		}else  {
+			HashMap<String, Object> map = userService.selectByIdAddress(no);
+			logger.info("회원 정보 조회 결과, map={}",map);
+			
+			
+			model.addAttribute("userVo",userVo);
+			model.addAttribute("map" ,map);
+			result = "/laundryService/order/orderMake";
+		}
+		return result;
 	}
+	
+	
 	
 	
 

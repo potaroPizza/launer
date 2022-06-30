@@ -36,4 +36,5 @@ public interface UserService {
 	/* 한서현 */
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
+	int isAddressExist(int no);
 }
