@@ -12,11 +12,14 @@
 	</insert>
 	<!-- 가입시 주소 입력 -->
 	<insert id="insertAddress" parameterType="userAddressVo" >
-		<selectKey order="BEFORE" keyProperty="no" resultType="int">
+		<selectKey order="BEFORE" keyProperty="addressNo" resultType="int">
 			select users_address_seq.nextval from dual 
 		</selectKey>
 		insert into users_address(no, address, address_detail, zipcode)
-		values(no, #{address}, #{addressDetail}, #{zipcode}) 
+		values(no, #{address}, #{addressDetail}, #{zipcode})
+
+		insert into USERS_ADDRESS(no, users_no, office_no, address, address_detail, zipcode, lon_x, lat_y, entermethod)
+		values ()
 	</insert>
 	<!-- 이메일 중복 확인 -->
 	<select id="chkEmail" parameterType="String"  resultType="int">
