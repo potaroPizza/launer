@@ -116,7 +116,7 @@
 		where email = #{email}
 	</select>
 	<select id ="isAddressExist" parameterType="int" resultType ="int">	
-		select count(*) from users_address where no = #{no}
+		select count(*) from users_address where users_no = #{no}
 	</select>
 	
 	

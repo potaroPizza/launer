@@ -9,9 +9,24 @@
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
+/*  	$(window).load(function () {
+		 var isAddressExist = $('#isAddressExist').val();
+		 	alert(isAddressExist);
+		 if(isAddressExist<1){
+		 	alert("주소 등록 후에 이용할 수 있는 서비스입니다");
+		 	location.href = "<c:url value='/mypage/useredit'/>";
+		 }
+	});  */
 
 
     $(function () {
+    	var isAddressExist = $('#isAddressExist').val();
+	 	alert(isAddressExist);
+	 	 if(isAddressExist<1){
+			 	alert("주소 등록 후에 이용할 수 있는 서비스입니다");
+			 	location.href = "<c:url value='/mypage/useredit'/>";
+	 	 }
+    	
         $('#orderBtn').click(function () {
         	
         /* 	if(!$('#flexCheckDefault').is(':checked')){
@@ -197,6 +212,7 @@
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <div class="margin-top-fixed" style ="height: 100px;"></div>
 <div id="orderWrapper">
+<input type ="hidden" name ="isAddressExist" value ="${isAddressExist }" id ="isAddressExist">
     <p id ="nim_p">
         <span id ="nim">${userVo.name}  님</span> 수거요청
     </p>
