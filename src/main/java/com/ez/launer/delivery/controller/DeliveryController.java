@@ -12,6 +12,11 @@ import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.bcel.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +24,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -348,5 +355,55 @@ public class DeliveryController {
         order by REGDATE <if test="desc == 1">desc</if>*/
 
         return resList;
+    }
+
+
+
+
+
+
+
+
+
+
+    @PostMapping("/income/excel/download")
+    public void excelDownload(@RequestParam Map<String, Object> map,
+                              HttpServletResponse response) throws IOException {
+        logger.info("엑셀 다운로드, 파라미터 map={}", map);
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell = row.createCell(1);
+        cell.setCellValue("이름");
+        cell = row.createCell(2);
+        cell.setCellValue("제목");
+
+        // Body
+        for (int i=0; i<3; i++) {
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(i);
+            cell = row.createCell(1);
+            cell.setCellValue(i+"_name");
+            cell = row.createCell(2);
+            cell.setCellValue(i+"_title");
+        }
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+//        response.setHeader("Content-Disposition", "attachment;filename=example.xls");
+        response.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
     }
 }
