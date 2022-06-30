@@ -65,6 +65,24 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
+	public int loginChk(String email, String pwd) {
+		String dbPwd = userDao.selectPwd2(email);
+		
+		int result=0;
+		if(dbPwd !=null && !dbPwd.isEmpty()) {
+			if(dbPwd.equals(pwd)) {
+				result=UserService.LOGIN_OK;
+			}else {
+				result=UserService.DISAGREE_PWD;				
+			}
+		}else {
+			result=UserService.NONE_USEREMAIL;
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public UserVO selectById(int no) {
 		return userDao.selectById(no);
 	}
@@ -146,6 +164,7 @@ public class UserServiceImpl implements UserService{
 	public int accIsExist(String email) {
 		return userDao.accIsExist(email);
 	}
+
 
 
 }
