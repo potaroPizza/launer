@@ -10,6 +10,8 @@
 
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" >="javascript"></script>
 <script src="<c:url value="/js/join.js"/>" type="text/javascript" text="javascript"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <div id="join_wrap">
 	<div class="join_form">
 		<form name="joinfrm" method="post"
@@ -44,7 +46,7 @@
 					<div>
 						<label for="zipcode">우편번호</label>
 						<input type="text" name="zipcode" id="zipcode">&nbsp;
-						<input	type="Button" value="우편번호 찾기" id="btnZipcode" title="새창열림"><br />
+						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()"><br />
 						<label for="adress">주소</label>
 						<input type="text" name="address" id="address"><br />
 						<label for="adressDetail">상세주소</label>

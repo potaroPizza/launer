@@ -45,10 +45,11 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String login_post(@ModelAttribute UserVO vo, 
+	public String login_post(@ModelAttribute UserVO vo,
+			@RequestParam(required = false) String saveUseremail,
 			HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		logger.info("로그인 처리, 파라미터 vo={}", vo);
+		logger.info("로그인 처리, 파라미터 vo={}, saveUseremail={}", vo, saveUseremail);
 		
 		int result=userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);
@@ -60,7 +61,17 @@ public class LoginController {
 			
 			HttpSession session=request.getSession();
 			session.setAttribute("email", vo.getEmail());
-			session.setAttribute("pwd", uVo.getName());
+			session.setAttribute("name", uVo.getName());
+			
+			Cookie ck = new Cookie("chkUseremail", vo.getEmail());
+			ck.setPath("/");
+			if(saveUseremail!=null) {  //아이디 저장하기 체크한 경우
+				ck.setMaxAge(1000*24*60*60);
+				response.addCookie(ck);
+			}else {
+				ck.setMaxAge(0);  //쿠키 제거
+				response.addCookie(ck);				
+			}
 			
 			msg=uVo.getName() +"님 로그인되었습니다.";
 			url="/";
