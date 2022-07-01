@@ -201,12 +201,7 @@
             });
         });
     });
-    
-    function pageMove(){
-    	alert("로그아웃");
-    	location.href = "<c:url value="/user/kakaoLogin/logout"/>";
-    	
-    }
+   
     
 </script>
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
@@ -222,7 +217,6 @@
                 <div>수거/배송 주소</div>
                 <span id="orderInfo-address-edit"><a href="<c:url value="/mypage/useredit"/>">&nbsp;&nbsp;수정&nbsp;
 	                <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-	                <button onclick="pageMove()" >로그아웃</button>
                 </span>
                
               	 <div class="orderInfo-address-myaddress">
