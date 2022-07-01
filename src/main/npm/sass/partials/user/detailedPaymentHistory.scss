@@ -1,3 +1,6 @@
+/*
+주문내역 상세 페이지
+*/
 &{
 	margin: 0 auto;
 	width: 1200px;
@@ -57,6 +60,8 @@
 	-webkit-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
 	-moz-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
 	box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
+	margin-bottom: 150px;
+	text-align:center;
 }
 
 .detailedPaymentHistory-table thead.thead-primary {
@@ -69,10 +74,12 @@
 	font-size: 15px;
 	font-weight: 500;
 	color: white;
+	
 }
 
 .detailedPaymentHistory-table tbody tr {
 	margin-bottom: 10px;
+	text-align:center;
 }
 
 .detailedPaymentHistory-table tbody th, .detailedPaymentHistory-table tbody td
@@ -96,6 +103,7 @@
 	font-size:17px;
 	font-weight:bold;
 	display: block;
+	margin-bottom: 5px;
 }
 
 .detailedPaymentHistory-table tbody td .detailedPaymentHistory-explain span:last-child {
@@ -104,7 +112,22 @@
 }
 
 .detailedPaymentHistory-table tbody td {
-	font-size: 13px;
+	font-size: 15px;
 	color: black;
 	font-weight: bold;
+}
+#detailedPaymentHistory_col1{
+	width:15%;
+}
+#detailedPaymentHistory_col2{
+	width:40%;
+}
+#detailedPaymentHistory_col3{
+	width:15%;
+}
+#detailedPaymentHistory_col4{
+	width:15%;
+}
+#detailedPaymentHistory_col5{
+	width:15%;
 }

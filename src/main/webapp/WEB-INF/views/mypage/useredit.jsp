@@ -1,15 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:wrapper>
-<script type="text/javascript"
-	src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<style>
-
-</style>
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/useredit.js'/>"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  
     <!-- wrapper -->
     <div id="useredit_wrapper">
@@ -19,8 +15,7 @@
 				<p>내 정보 수정</p>
 			</div>	
             <!-- content-->
-            <form method="post" name="usereditfrm"
-				action="<c:url value='/mypage/useredit'/>">
+            <form method="post" name="usereditfrm" action="<c:url value='/mypage/useredit'/>">
             <div id="useredit_content">
 
                 <!-- ID -->
@@ -105,6 +100,5 @@
             <!-- content-->
     </div>
         <!-- wrapper -->
-<script type="text/javascript"
-	src="<c:url value='/js/useredit.js'/>"></script>
+
 </t:wrapper>

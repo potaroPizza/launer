@@ -57,12 +57,13 @@
 	
 	<!-- 결제내역 리스트 검색시 사용하는 조건절 -->
 	<sql id="selectPaymentListWhere">
-		where REGDATE >= #{startDay}
+		and REGDATE >= #{startDay}
 		<![CDATA[
 			and REGDATE < to_date(#{endDay})+1 
 		]]>
 	</sql>
-	<!-- 결제내역 리스트 -->
+	
+	<!-- 결제내역 리스트 페이징 -->
     <select id="selectPaymentList" parameterType="paymentSearchVo" 
     	resultMap="paymentHistoryAll">
     	select *
@@ -71,7 +72,7 @@
 		    select rownum as RNUM, A.*
 		    from
 		    (
-				select * from payment_detail_view 
+				select * from payment_detail_view where users_no=#{usersNo} 
 				<include refid="selectPaymentListWhere"></include>
 				order by regdate desc
 		    )A
@@ -82,9 +83,9 @@
 		]]>
     </select>
     
-    <!-- 결제내역 리스트 검색에 필요한 총 레코드 수 조회 -->
+    <!-- 결제내역 검색 패이징 총 레코드 수 조회 -->
     <select id="paymentSelectTotalRecord" parameterType="paymentSearchVo" resultType="int">
-		select count(*) from payment_detail_view 
+		select count(*) from payment_detail_view where users_no=#{usersNo} 
 		<include refid="selectPaymentListWhere"></include>
 	</select>
 	
