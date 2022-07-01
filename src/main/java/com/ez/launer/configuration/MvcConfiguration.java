@@ -1,5 +1,6 @@
 package com.ez.launer.configuration;
 
+import com.ez.launer.controller.AdminLoginInterceptor;
 import com.ez.launer.controller.DeliveryInterceptor;
 import com.ez.launer.controller.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,10 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(new LoginInterceptor())
 				.addPathPatterns("/laundryService/**")
 				.addPathPatterns("/mypage/**");
+		
+		registry.addInterceptor(new AdminLoginInterceptor())
+		.addPathPatterns("/admin/**")
+		.excludePathPatterns("/admin/adminLogin");
 
 
 		/*registry.addInterceptor(new DeliveryInterceptor())

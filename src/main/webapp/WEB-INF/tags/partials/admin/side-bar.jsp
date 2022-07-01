@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -39,6 +39,11 @@
     </div>
     <div class="side-bar-footer">
         <small>현재 로그인된 아이디:</small><br>
-        ${sessionScope.adminName}님
+        <c:if test="${!empty sessionScope.adminName}">
+        	${sessionScope.adminName}님
+        </c:if>
+        <c:if test="${empty sessionScope.adminName}">
+        	
+        </c:if>
     </div>
 </div>
