@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.launer.notice.model.NoticeDAO">
+    <select id="selectTopTen" resultType="noticeVo">
+    	select * 
+		from
+		(
+		    select * from notice
+		    order by regdate desc
+		)
+		<![CDATA[
+		where rownum <= 10
+		]]>
+    </select>
+    
+    <select id="selectAll" resultType="noticeVo">
+    	select * from notice
+    	order by no desc
+    </select>
+    
+    <insert id="insertNotice" parameterType="noticeVo">
+    	<selectKey resultType="int" keyProperty="no" order="BEFORE">
+    		select notice_seq.nextval from dual
+    	</selectKey>
+    	
+    	insert into notice(NO, USERS_NO, TITLE, CONTENT)
+		values(#{no}, #{usersNo}, #{title}, #{content})
+    </insert>
+    
+    <delete id="deleteNotice" parameterType="int">
+    	delete from notice
+    	where no = #{no}
+    </delete>
+</mapper>

@@ -1,0 +1,169 @@
+/*
+기존 CSS 파일을 scss로 바꾸고 여기서 하나의 파일로 묶어버림
+
+기존 css는 .a 안에 .b가 있을 경우
+.a .b {}로 써야하지만,
+
+sass는 .a { .b{} }가능 함
+
+.admin-page {
+    @import '.admin-dashboard.scss';
+    @import '.admin-user.scss';
+}
+admin에서 만사용하는 css 분리 가능
+*/
+
+//그냥 css파일 쓰는 것을 partials 폴더 안에 scss 파일로 쓰고 import만 추가하면 app.css로 자동으로 묶임
+
+@import './partials/variable.scss';
+@import './partials/mixin.scss';
+@import './partials/animation.scss';
+@import './partials/bootstrap.scss';
+@import './partials/global.scss';
+@import './partials/jquery-ui.scss';
+@import './partials/reset.scss';
+@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700&display=swap';
+
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+a {color: #000; text-decoration: none;}
+.clearfix::after, .clearfix::before {content: ""; display: block; line-height: 0;}
+.clearfix::after {clear: both;}
+.fixed-margin-top{width: 100%; height: 60px;}
+
+.web-page {
+  @import './partials/main_fixed_wrap.scss';
+  @import "./partials/userfooter.scss";
+  font-family: 'Noto Sans KR', sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  .margin-fixed-margin{
+    height: 80px;
+  }
+  #confirmWrapforScss{
+	@import "./partials/user/orderConfirm.scss";
+	 .orderInfo-goOrder{
+    align-items: center;
+    justify-content: center;
+  	}
+  }
+
+  #orderWrapper{
+	padding: 41px;
+    @import "./partials/user/orderMake.scss";
+  }
+
+  #main-wrap{
+    @import './partials/main.scss';
+  }
+  #useredit_wrapper {
+    width:1200px;
+    margin: 0 auto;
+
+    @import './partials/user/useredit.scss';
+  	}
+  #mypoint_wrap{
+	@import "./partials/user/mypoint.scss";
+	}
+  #paymentdetails_wrap{
+	@import "./partials/user/paymentdetails.scss";	
+	}	
+  #detailedPaymentHistory_wrap{
+	@import "./partials/user/detailedPaymentHistory.scss";	
+	}	
+  #signOut-wrap{
+	@import "./partials/user/signout.scss";	
+	}	
+  #mypage_wrap{
+	@import "./partials/user/mypage.scss";	
+	}	
+  #withdraw-wrap{
+	@import "./partials/user/withdraw.scss";	
+	}	
+  #myinfo_wrap{
+	@import "./partials/user/myinfo.scss";	
+	}
+  #editPwd_wrapper{
+	@import "./partials/user/editPwd.scss";	
+	}
+  #join_wrap {
+    @import "./partials/user/join.scss";
+  }
+  #payment-wrap {
+    padding: 30px 0;
+    .orderPaymentWrapper {
+      margin: 0 auto;
+    }
+  }
+
+}
+
+
+
+.delivery-section {
+  @import "./partials/delivery/delivery-fixed.scss";
+
+  #title{
+    font-size: 20pt;
+    strong{
+      font-weight: 600;
+    }
+  }
+
+  #delivery-main{
+    @import "./partials/delivery/main.scss";
+    overflow-y: hidden;
+  }
+  #deliveryList{
+    padding: 20px;
+    @import "./partials/delivery/deliveryList.scss";
+  }
+
+  #delivery-income-wrap{
+    padding: 20px;
+    @import "./partials/delivery/delivery-income.scss";
+  }
+}
+
+.admin-page {
+    @import "./partials/admin/global.scss";
+    @import "./partials/admin/header.scss";
+    @import "./partials/admin/side-bar.scss";
+    @import "./partials/admin/footer.scss";
+    @import "./partials/admin/styles.scss";
+    .admin-index{
+		@import "./partials/admin/index.scss";
+	}
+}
+//위에처럼 쓰면 그냥 일반 CSS처럼 쓰는것
+
+//아래처럼 쓰면 좀더 구조화해서 중복 방지 및 자식 css를 활용하기 편함 + 공부해야함
+/*
+.admin-page {
+    @import './partials/admin/dashboard.scss';
+}
+
+.web-page {
+    .order-section {
+        
+    }
+    @import './partials/user/order.scss';
+}
+*/
+.title-font {
+    //color: #F00;
+    @include mobile {
+        color: blue;
+    }
+}

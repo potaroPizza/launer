@@ -1,100 +1,98 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ include file="../inc/top.jsp"%>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
-<style>
-.mypoint_wrap {
-	margin: 0 auto;
-	width: 1200px;
-}
-.mypoint_top{
-	width:100%;
-	height:100px;
-}
-.mypoint_title {
-	font-size: 25px;
-	font-weight: bold;
-	margin-bottom: 30px;
-}
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-.mypoint_details {
-	font-size: 25px;
-	font-weight: bold;
-	margin-bottom: 50px;
-}
+<t:wrapper>
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
+<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript"></script>
+<script type="text/javascript" src="<c:url value='/js/mypoint.js'/>"></script>
+	
+	<form name="frmPage" method="post" action="<c:url value='/mypage/mypoint'/>">
+		<input type="hidden" class="currentPage" name="currentPage">
+	</form>
 
-.mypoint_point {
-	margin-left: 120px;
-	margin-bottom: 150px;
-	font-size: 20px;
-}
-
-.mypoint_point span {
-	font-size: 20px;
-	font-weight: bold;
-}
-
-.mypoint_table {
-	width: 1000px;
-	margin: 0 auto;
-	margin-bottom: 50px;
-	font-size: 20px;
-}
-
-.mypoint_notification {
-	margin-bottom: 50px;
-}
-.mypoint_notification li{
-	color: gray;
-}
-
-.mypoint_back {
-	text-align: center;
-}
-</style>
-<body>
-
-	<div class="mypoint_wrap">
+	<div id="mypoint_wrap">
 		<div class="mypoint_top"></div>
 		<div class="mypoint_title">
 			<p>포인트</p>
 		</div>
-		<div class="mypoint_point">
-			<p>
-				잔여 러너 포인트 <span>5000p</span>
-			</p>
+		<div class="mypoint_container1">
+			<ul class="mypoint_table1">
+				<li class="mypoint_table1-row">
+					<div class="mypoint_col1-1">${vo.name} 님의 포인트</div>
+					<div class="mypoint_col1-2"><fmt:formatNumber value="${vo.point}" pattern="#,###,###,###"></fmt:formatNumber> P</div>
+				</li>
+			</ul>
 		</div>
+
 		<div class="mypoint_details">
 			<p>포인트 이용내역</p>
 		</div>
-		<table class="mypoint_table">
-			<thead>
-				<tr>
-					<th scope="col">구분</th>
-					<th scope="col">일자</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">가입기념 지급</th>
-					<td>22/01/01</td>
-					<td>+999000p</td>
-				</tr>
-				<tr>
-					<th scope="row">세탁서비스 이용</th>
-					<td>22/01/03</td>
-					<td>-2000p</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="mypoint_container">
+			<ul class="mypoint_table">
+				<li class="mypoint_table-header">
+					<div class="mypoint_col-1">날짜</div>
+					<div class="mypoint_col-2">주문번호</div>
+					<div class="mypoint_col-3">내역</div>
+					<div class="mypoint_col-4">포인트</div>
+				</li>
+				<c:if test="${empty searchList }">
+				<li class="mypoint_table-row">
+					<div class="mypoint_col-1" data-label="날짜"></div>
+					<div class="mypoint_col-2" data-label="주문번호"> 이용 내역이 없습니다.</div>
+					<div class="mypoint_col-4" data-label="포인트"></div>
+				</li>	
+				</c:if>
+				<c:if test="${!empty searchList }">
+					<c:forEach var="map" items="${searchList }">
+						<li class="mypoint_table-row">
+							<div class="mypoint_col-1" data-label="날짜">
+								<fmt:formatDate value="${map['REGDATE']}" pattern="yyyy-MM-dd" />
+							</div>
+							<div class="mypoint_col-2" data-label="주문번호" id="point_order_no">${map['ORDER_NO']}</div>
+							<div class="mypoint_col-3" data-label="내역" id="point_detail"></div>
+							<div class="mypoint_col-4" data-label="포인트" id="point_cal">
+								<fmt:formatNumber value="${map['POINT']}" pattern="#,###"></fmt:formatNumber>
+								P
+							</div>
+						</li>
+
+					</c:forEach>
+				</c:if>
+
+			</ul>
+		</div>
+		<div class="mypoint_paging">
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					<c:if test="${pagingInfo.firstPage>1 }">
+						<li class="page-item"><a class="page-link" href="#"
+							aria-label="Previous"
+							onclick="pageFunc(${pagingInfo.firstPage-1})"> <span
+								aria-hidden="true">&laquo;</span>
+						</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${pagingInfo.firstPage }"
+						end="${pagingInfo.lastPage }">
+						<c:if test="${i==pagingInfo.currentPage }">
+							<li class="page-item"><a class="page-link" href="#"
+								style="color: white; background: #849EC2; font-weight: bold">${i}</a></li>
+						</c:if>
+						<c:if test="${i!=pagingInfo.currentPage }">
+							<li class="page-item"><a class="page-link" href="#"
+								onclick="pageFunc(${i})">${i}</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+						<li class="page-item"><a class="page-link" href="#"
+							onclick="pageFunc(${pagingInfo.lastPage+1})" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</c:if>
+				</ul>
+			</nav>
+		</div>
 
 		<div class="mypoint_notification">
 			<p>포인트 이용 유의사항</p>
@@ -103,9 +101,5 @@
 				<li>회원 탈퇴시 보유하신 포인트 모두 소멸됩니다.</li>
 			</ul>
 		</div>
-		<div class="mypoint_back">
-		<button type="button" class="btn btn-dark" onclick="location.href='/launer/mypage/mypage'">이전</button>
-		</div>
 	</div>
-</body>
-</html>
+</t:wrapper>

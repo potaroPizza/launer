@@ -71,7 +71,7 @@ input:focus {outline: none;}
 
 .submitDiv {width: 117px;margin: auto;}
 
-#shortPoint {
+span.shortPoint {
     color: red;
     margin-left:368px;
 }
