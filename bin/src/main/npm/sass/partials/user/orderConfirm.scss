@@ -1,0 +1,254 @@
+.spaceDiv {
+    width: 210px;
+}
+
+&{
+		margin: 0 auto;
+    	width: 1200px;
+	}
+
+input:focus {outline: none;}
+
+.orderConfirm-input {
+    border: none;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-bottom: 0px;
+    -webkit-user-modify: read-only;
+}
+
+
+.orderConfirm-wrapper {
+    width: 750px;
+    /*border: 1px solid black;*/
+    padding: 30px;
+    /*margin: 10px;*/
+    margin: 0 auto;
+    box-shadow:  37px 37px 73px #d9d9d9,
+        -37px -37px 73px #ffffff;
+    border-radius: 30px;
+}
+
+/* .orderConfirm-wrapper {
+    margin: 34px;
+    margin-left: 80px;
+    margin-right: 80px;
+} */
+
+.orderConfirm-inform > p {
+    font-size: 29px;
+    font-weight: bold;
+}
+
+.orderNormalP {margin-bottom: 36px;color: blue;}
+
+.orderConfirm-user {width: 500px;margin-top: 50px;margin-bottom: 50px;margin-left: 100px;}
+
+.orderConfirm-input {
+    font-size: 19px;
+}
+
+.orderConfirm-user label {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.orderConfirm-user div {
+    display: inline-block;
+    padding: 10px;
+}
+
+.orderConfirm-finalInfo {
+    width: 800px;
+    margin-top: 50px;
+    margin-bottom: 42px;
+    margin-left: 104px;
+}
+
+.orderConfirm-finalInfo-div label {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.orderConfirm-finalInfo div {
+    display: inline-block;
+    padding: 6px;
+}
+
+.submitDiv {width: 117px;margin: auto;}
+
+span.shortPoint {
+    color: red;
+    margin-left:368px;
+}
+
+
+.user-address-method label {font-weight: normal;font-size: 14px;color: #bababa;}
+
+input#entherMethod {
+    font-size: 16px;
+    color: #bababa;
+}
+
+.orderInfo-tac {
+    width: 300px;
+    margin: auto;
+    text-align: center;
+    height: 93px;
+}
+
+span#orderDisagree {
+    margin-right: 2px;
+    margin-top: 11px;
+    display: inline-block;
+}
+
+span#orderDisagree {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: red;
+}
+
+span#orderAgree {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #19b919;
+}
+
+.margin-top-fixed {
+    height: 29px;
+}
+
+
+.justify-content-center {
+    justify-content: left;
+}
+
+
+.orderInfo-goOrder{
+    align-items: center;
+    justify-content: center;
+  }
+
+  .orderBtn {
+    width: 140px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    }
+  
+  .orderBtn:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+  
+  .orderConfirm-finalInfo div:nth-child(2) {
+    height: 72px;
+}
+
+td input {
+        width: 139px;
+    text-align: center;
+    font-size: 18px;
+    border: none;
+}
+thead {
+    font-size: 24px;
+}
+
+table.orderConfirm-clothing-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    display: table-cell;
+    vertical-align: middle;
+
+}
+
+tr {
+    text-align: center;
+    vertical-align: middle;
+    height: 34px;
+}
+.orderTableDiv {
+    height: 26px;
+}
+
+
+.orderConfirm-inform > p {
+    margin-bottom: 27px;
+}
+  
+input#addressDetail {
+    DISPLAY: inherit;
+}
+
+
+input#orderRequest {
+        height: 77px;
+    border-radius: 12px;
+    width: 250px;
+    margin-left: 10px;
+}
+
+.orderInfo-request {
+    margin-top: 38px;
+}
+
+
+.orderInfo-request > div {
+    font-size: 19px;
+    font-weight: bold;
+}
+  
+  
+  thead {font-weight: bold;}
+  
+  input#buyingPrice {
+    width: 293px;
+}
+
+input#savePoint {
+    border: none;
+    width: 91px;
+}
+  .orderBtn:hover {
+    background-color: #7292b1;
+    box-shadow: 0px 15px 20px rgb(110 135 129 / 40%);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+  
+  .orderInfo-goOrder {
+    text-align: center;
+}
+input#insertPointBtn {
+    background: #e3e6ea;
+    border: 0.1px solid black;
+    height: 28px;
+    margin-left: 5px;
+    border-radius: 6px;
+}
+span#shortPoint {
+    float: right;
+    margin-right: 209px;
+    margin-top: 5px;
+    color: red;
+    font-weight: bold;
+}
