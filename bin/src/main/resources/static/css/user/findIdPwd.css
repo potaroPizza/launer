@@ -1,0 +1,123 @@
+@charset "UTF-8";
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, img {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    font-weight: 400;
+    -webkit-font-smoothing: auto;
+    font-size: 12px;
+    color: #666;
+}
+input, select, textarea {
+    font-size: 100%;
+    color: #353535;
+    vertical-align: middle;
+}
+
+#findIdPwd_wrap{
+	width: 100%;
+	background: rgb(244, 244, 244);
+	display: flex;
+}
+	
+	#findIdPwd_wrap ul{
+		font-size:15px;
+	}
+	#findIdPwd_wrap li{
+		padding: 2px;
+	}
+	
+	#findIdPwd_wrap .findIdPwdsubWrap {
+		width: 800px;
+		margin: auto;
+		margin-top:70px;
+	}
+	
+	
+	#findIdPwd_wrap .titleArea {
+		margin:0;
+		text-align: center;
+	}
+	#findIdPwd_wrap .titleArea h2 {
+	    text-align: center;
+	    font-size: 34px;
+	    color: #222;
+	    margin-bottom: 100px;
+	    font-weight: bold;
+	    line-height: 20px;
+	    cursor: pointer;
+	}
+	#findIdPwd_wrap .findIdPwdsubWrap {
+		padding: 49px 0 39px;
+		margin-left: auto;
+    	margin-right: auto;
+    	color: #404040;
+	}
+	.findIdPwdsubWrap #findIdPwdbox{
+	    width: 375px;
+    	margin: 0 auto;
+	}
+	#findIdPwdbox p{
+		margin: 10px 0 0;
+	}
+	
+	#findIdPwdbox strong{
+		display: inline-block;
+	    margin: 0 0 5px;
+	    padding: 0 4px 0 4px;
+	    width: 125px;
+    	font-weight: normal;
+	}
+	#findIdPwdbox input[type=text], #findIdPwdbox input[type=password]{
+		height: 28px;
+    	line-height: 28px;
+    	padding: 2px 4px;
+	    border: 1px solid #ebebeb;
+	    font-size: 12px;
+	}
+	#findIdPwdbox .memberType select{
+		width: 236px;
+    	height: 34px;
+    	padding: 0 4px;
+    	border: 0;
+	}
+	#findIdPwdbox .checkRadio input[type=radio]{
+		width: 13px;
+    	height: 13px;
+    	border: 0;
+	}
+	#findIdPwdbox .checkRadio input[type=radio] + label{
+		margin: 0 15px 0 2px;
+	}
+	
+	#findIdPwdbox #name{
+		width: 226px;
+	}
+	
+	#findIdPwdbox #hp{
+		width: 226px;
+	}
+	#findIdPwdbox #email{
+		width: 226px;
+	}
+	
+	#findIdPwdbox .findIdPwdBtnWrap{
+		padding: 40px 0 10px;
+	}
+	.findIdPwdBtnWrap .findIdPwdBtn{
+		padding: 0;
+	    display: inline-block;
+	    width: 100%;
+	    height: 45px;
+	    line-height: 45px;
+	    text-align: center;
+	    border: 1px;
+	    border-radius: 5px;
+	    box-sizing: border-box;
+	    background: #31363d;
+	    font-weight: 700;
+    	font-size: 15px;
+    	color: #fff;
+	    cursor: pointer;
+	}

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.launer.payment.model.PaymentDAO">
+
+	<insert id="insertPaymentDetail" parameterType="paymentVo">
+		<selectKey keyProperty ="no" resultType ="int" order="BEFORE">
+			select PAYMENT_DETAIL_SEQ.nextval from dual
+		</selectKey>
+			insert into payment_detail(no,order_no,payment_code,pay_price,payment_state,payment_method)
+			values(#{no},#{orderNo},#{paymentCode},#{payPrice},'OK','CARD')
+	</insert>
+
+  	<!--회원 결제 내역  조회-->
+	<!--박권순 수정-->
+    <select id="selectPaymentDetail" parameterType="int" resultMap="paymentHistoryAll">
+	<!--<select id="selectPaymentDetail" parameterType="paymentSearchVo" resultMap="paymentHistoryAll">-->
+	    select * from payment_detail_view
+		where users_no=#{usersNo} order by regdate desc
+		<!--select *
+			from
+			(
+				select rownum as RNUM, A.*
+				from
+				(
+					select * from payment_detail_view
+					<include refid="selectPaymentListWhere"></include>
+					order by regdate desc
+				)A
+			)
+		where RNUM > #{firstRecordIndex}
+		<![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>-->
+    </select>
+    
+   <!--결제내역 리스트 1:N 조회-->
+   <select id="selectOrderDetails" parameterType="int" resultType="hashMap">
+       select * from ORDER_DETAIL_VIEW
+       where ORDER_NO = #{orderNo}
+   </select>
+
+   <resultMap type="PaymentDetailAllVO" id="paymentHistoryAll">
+        <association property="paymentViewVO" column="order_no" javaType="PaymentViewVO">
+            <id column="order_no" jdbcType="BIGINT" property="orderNo"/>
+            <result column="users_no" jdbcType="BIGINT" property="usersNo"/>
+            <result column="status_no" jdbcType="BIGINT" property="statusNo"/>
+            <result column="regdate" jdbcType="TIMESTAMP" property="regdate"/>
+            <result column="total_price" jdbcType="BIGINT" property="totalPrice"/>
+            <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+            <result column="status" jdbcType="VARCHAR" property="status"/>
+        </association>
+        <collection property="paymentDetails" column="order_no"
+                    javaType="ArrayList" ofType="map" select="selectOrderDetails">
+        </collection>
+	</resultMap>
+	
+	<!-- 결제내역 리스트 검색시 사용하는 조건절 -->
+	<sql id="selectPaymentListWhere">
+		and REGDATE >= #{startDay}
+		<![CDATA[
+			and REGDATE < to_date(#{endDay})+1 
+		]]>
+	</sql>
+	
+	<!-- 결제내역 리스트 페이징 -->
+    <select id="selectPaymentList" parameterType="paymentSearchVo" 
+    	resultMap="paymentHistoryAll">
+    	select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+				select * from payment_detail_view where users_no=#{usersNo} 
+				<include refid="selectPaymentListWhere"></include>
+				order by regdate desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+    </select>
+    
+    <!-- 결제내역 검색 패이징 총 레코드 수 조회 -->
+    <select id="paymentSelectTotalRecord" parameterType="paymentSearchVo" resultType="int">
+		select count(*) from payment_detail_view where users_no=#{usersNo} 
+		<include refid="selectPaymentListWhere"></include>
+	</select>
+	
+	<!-- 상세 주문내역 리스트 조회하기 -->
+	<select id="selectPaymentHistoryList" parameterType="paymentHistoryViewVO" resultMap="paymentHistoryDetail">
+		select * from payment_histroy_view
+		where users_no=#{usersNo} and order_no=#{orderNo}
+    </select>
+    
+    <!--주문내역 1:N 조회-->
+   <select id="selectOrderDetailss" parameterType="int" resultType="hashMap">
+       select * from ORDER_DETAIL_VIEW	
+       where ORDER_NO = #{orderNo}
+   </select>
+   
+   <resultMap type="PaymentHistoryAllVO" id="paymentHistoryDetail">
+        <association property="paymentHistoryViewVO" column="order_no" javaType="PaymentHistoryViewVO">
+            <id column="order_no" jdbcType="BIGINT" property="orderNo"/>
+            <result column="users_no" jdbcType="BIGINT" property="usersNo"/>
+            <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+            <result column="price" jdbcType="BIGINT" property="price"/>
+            <result column="total_price" jdbcType="BIGINT" property="totalPrice"/>
+            <result column="regdate" jdbcType="TIMESTAMP" property="regdate"/>
+            <result column="order_status_no" jdbcType="BIGINT" property="orderStatusNo"/>
+            <result column="status" jdbcType="VARCHAR" property="status"/>
+            <result column="address" jdbcType="VARCHAR" property="address"/>
+            <result column="address_detail" jdbcType="VARCHAR" property="addressDetail"/>
+            <result column="entermethod" jdbcType="VARCHAR" property="entermethod"/>
+            <result column="order_request" jdbcType="VARCHAR" property="orderRequest"/>
+            <result column="imgurl" jdbcType="VARCHAR" property="imgurl"/>
+        </association>
+        <collection property="paymentHistory" column="order_no"
+                    javaType="ArrayList" ofType="map" select="selectOrderDetailss">
+        </collection>
+	</resultMap>
+
+
+</mapper>

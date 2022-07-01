@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.launer.point.model.PointDAO">
+    <!--회원 포인트 내역  조회-->
+    <select id="selectPointHistory" parameterType="int" resultMap="pointHistoryAll">
+        select * from point_history_view
+	    where users_no =#{usersNo} order by regdate desc
+    </select>
+    
+    <!--주문 상세 리스트  조회-->
+    <select id="selectOrderDetails" parameterType="int" resultType="hashMap">
+        select * from ORDER_DETAIL_VIEW
+        where ORDER_NO = #{orderNo}
+    </select>
+    <!-- 1:N -->
+   <resultMap type="PointDetailAllVO" id="pointHistoryAll">
+        <association property="pointViewVO" column="order_no" javaType="PointViewVO">
+            <id column="point_no" jdbcType="BIGINT" property="pointNo"/>
+            <result column="users_no" jdbcType="BIGINT" property="usersNo"/>
+            <result column="order_no" jdbcType="BIGINT" property="orderNo"/>
+            <result column="regdate" jdbcType="TIMESTAMP" property="regdate"/>
+            <result column="total_price" jdbcType="BIGINT" property="totalPrice"/>
+            <result column="point" jdbcType="BIGINT" property="point"/>
+        </association>
+        <collection property="orderDetails" column="order_no"
+                    javaType="ArrayList" ofType="map" select="selectOrderDetails">
+        </collection>
+	</resultMap>
+	<!-- 페이징 처리 레코드 조회수 -->
+	<select id="PointSelectTotalRecord" parameterType="PointSearchVo" resultType="int">
+		select count(*) from point_history_view where users_no =#{usersNo}
+	</select>
+	<!-- 포인트 내역 페이징 처리 -->
+	<select id="PointSelectList" parameterType="PointSearchVo" 
+    	resultType="map">
+    	select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+				select * from point_history_view where users_no =#{usersNo} order by regdate desc
+		    )A
+		)
+		where RNUM > #{firstRecordIndex} 
+		<![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+    </select>
+	
+</mapper>
