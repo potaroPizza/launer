@@ -43,22 +43,17 @@ $(function () {
 		}
 		
 		//입력포인트 != number
-		if(isNaN(insertPoint)==true || insertPoint == null){
-		
+		if(isNaN(insertPoint)==true || insertPoint==0){
 			alert("포인트가 올바르지 않습니다.");
 			event.preventDefault();
 			return false;
 		}
-		
 		//포인트 사용가능 최소주문금액=10000
-		if(buyingPrice <= 10000){
+		if(buyingPrice < 10000){
 			alert("10,000원 이상 구매시 포인트 사용가능합니다");
 			event.preventDefault();
 			return false;
 		}
-		
-		
-		
 		//검사가 끝나면 파라미터 usePoint set
 		alert("입력포인트 "+insertPoint+"p");
 		usePoint = insertPoint;
@@ -74,7 +69,7 @@ $(function () {
 	 $('#orderBtn').click(function () {
 		 
 		 	if(!$('#flexCheckDefault').is(':checked')){
-    			alert('약관에 동의해주세요.');
+    			alert('필수안내사항을 확인해주세요.');
     			event.preventDefault();
     			$('#staticBackdrop').modal("show");
     			event.preventDefault();
@@ -168,8 +163,10 @@ $(function () {
 
 					<div class="user-address">
 						<label for="address">주소 : </label> 
-						<input type="text" name="address" id="address" class="orderConfirm-input" value="${map['ADDRESS'] }" readonly>
-						<input type="text" name="addressDetail" id="addressDetail" class="orderConfirm-input" value=" ${map['ADDRESS_DETAIL']}" readonly>
+						
+						<span style ="font-size:18px">${map['ADDRESS'] } &nbsp;${map['ADDRESS_DETAIL']}</span>
+						<input type="hidden" name="address" id="address" class="orderConfirm-input" value="${map['ADDRESS'] }" readonly>
+						<input type="hidden" name="addressDetail" id="addressDetail" class="orderConfirm-input" value=" ${map['ADDRESS_DETAIL']}" readonly>
 					</div>
 					<div class="user-address-method">
 						<label for="entherMethod">현관출입방법 : </label> <input type="text"
@@ -179,7 +176,7 @@ $(function () {
 					
 					
 					<div class="orderInfo-request">
-						 <div><i class="fa-solid fa-circle-info"></i>&nbsp;세탁요청사항</div>
+						 <div><i class="fa-solid fa-circle-info" style="color : green"></i>&nbsp;세탁요청사항</div>
 					 	
 						 <input type="text" name="orderRequest" id="orderRequest">  
 					</div>
@@ -253,8 +250,8 @@ $(function () {
 					<hr>
 					<div class="orderConfirm-finalInfo">
 						<div class="orderConfirm-finalInfo-div">
-							<label for="buyingPrice">상품금액 : </label> 
-							<span><fmt:formatNumber value="${paramPrice }" pattern="#,###" />원</span>
+							<label for="buyingPrice" >상품금액 : </label> 
+							<span style="font-size:19px"><fmt:formatNumber value="${paramPrice }" pattern="#,###" />원</span>
 							<input type="hidden"
 								name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
 								value="${paramPrice }" readonly>
@@ -270,7 +267,8 @@ $(function () {
 							<label for="">포인트사용 : </label> 
 							<input type="text" name="insertPoint" id="insertPoint"> 
 							<input type="hidden" name="usePoint" id="usePoint"> 
-							<input type="button" value="사용" id="insertPointBtn">&nbsp; 
+							<button type="button" class="btn btn-secondary" id ="insertPointBtn">사용</button>&nbsp; 
+							<!-- <input type="button" value="사용" id="insertPointBtn"> -->
 							<span>보유포인트 : </span><span id="havePoint">${userVo.point }</span><span>p</span><br>
 							<input type="hidden" name="paramPoint" id="havePoint2"
 								value="${userVo.point }"> <span id="shortPoint">보유포인트보다
@@ -289,7 +287,7 @@ $(function () {
 						<!-- 약관동의버튼 -->
 						<button type="button" class="btn btn-primary"
 							data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-							이용약관</button>
+							안내사항</button>
 				
 						<!-- 약관동의 모달 -->
 						<div class="modal fade" id="staticBackdrop"
@@ -298,31 +296,30 @@ $(function () {
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="staticBackdropLabel">수거신청 약관</h5>
+										<h5 class="modal-title" id="staticBackdropLabel">서비스가능지역을 반드시 확인해주세요</h5>
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
-									<div class="modal-body">Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit. Etiam metus justo, molestie quis
-										tincidunt in, dignissim eu orci. Nullam malesuada nunc ut
-										accumsan posuere. Susp endisse efficitur sapien nulla, non
-										consequat tellus dapibus et. Sed porta rutrum elit, eget
-										imperdiet orci sollicitudin at. Morbi at imperdiet velit. Duis
-										tincidunt luctus dui, commodo vehicula ipsum cursus sit amet.
-										Class aptent taciti sociosqu ad litora torquent per conubia
-										nostra, per inceptos himenaeos. Morbi vestibulum fermentum
-										lacus et pellentesque. In feugiat ligula mollis rhoncus
-										lacinia. Vivamus pulvinar orci ac auctor tristique. In eget
-										massa enim. Donec vitae orci in tellus bibendum tempus. Aenean
-										vehicula enim quis metus aliquet, at consectetur quam
-										sagittis. Aenean nulla dui, varius et nisi id, fringilla
-										vestibulum purus.</div>
+									<div class="modal-body"><div style ="font-weight:bold;font-size:1.5em;margin-bottom:20px">[서비스 불가 지역 안내]</div>
+									<span style ="color:red;text-align:center"> 서비스 지역 내이나 <br>아직 배송 밀도가 낮아 진출하지 못한 일부 지역이 있습니다.<br> 빠른 시일내에 런특권이 될 수 있도록 노력하겠습니다.</span>
+										<br>
+										<span style ="text-align:center;line-height:23px">
+										<br>
+										강서구 과해동·공항동·오곡동·오쇠동 <br>
+										성남시 수정구 고등동·시흥동·신촌동 <br>
+										하남시 미사동·천현동·감북동·춘군동·초이동<br>
+										고양시 구산동·법곳동·산황동·사리현동·문봉동·지영동·성석동·설문동·고양동·관산동·효자동<br>
+										부천시 오정동·대장동<br>
+										군포시 대야동·속달동<br>
+										남양주시 수동면·조안면<br>
+										용인시 처인구</span>
+									
+									</div>
 									<div class="modal-footer">
 										<div class="form-check">
 											<input class="form-check-input" type="checkbox" value=""
 												id="flexCheckDefault"> <label
-												class="form-check-label" for="flexCheckDefault"> 위
-												약관에 동의합니다 </label>
+												class="form-check-label" for="flexCheckDefault"> 안내사항을 확인하였습니다 </label>
 										</div>
 										&nbsp;
 										<button type="button" class="btn btn-secondary"
@@ -336,11 +333,11 @@ $(function () {
 
 
 						<span id="orderAgree">&nbsp;<i
-							class="fas fa-solid fas fa-check"></i>동의
+							class="fas fa-solid fas fa-check"></i>확인
 						</span> <br>
 						<div class="sp1"></div>
 						<span id="orderDisagree">&nbsp;<i
-							class="fas fa-solid fas fa-exclamation"></i>&nbsp;약관동의해주세요
+							class="fas fa-solid fas fa-exclamation"></i>&nbsp;안내사항을 확인해주세요
 						</span>
 					</div>
 				</div>

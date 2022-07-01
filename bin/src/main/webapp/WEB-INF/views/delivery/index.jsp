@@ -133,6 +133,17 @@
                         // let paddT = (inputFind.innerHeight() - inputFind.height()) / 2;
                         console.log(inputFind);
 
+
+                        const $listPart = $("#list-part");
+                        const $mapPart = $("#map");
+
+                        if(!$listPart.hasClass("active")) {
+                            $listPart.removeClass("non-active");
+                            $listPart.addClass("active");
+                            resizeMap("active");
+                        }
+
+
                         $("#orders-list").animate({
                             scrollTop: inputFind.position().top
                         }, 300, () => {
