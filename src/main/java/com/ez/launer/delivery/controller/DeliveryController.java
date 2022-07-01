@@ -75,6 +75,7 @@ public class DeliveryController {
     @GetMapping("/pickup")
     public String pickupList(HttpSession session, Model model) {
         logger.info("내 수거목록 리스트");
+        String temp = "한개만 만들기";
 
         int deliveryNo = (int) session.getAttribute("deliveryNo");
         logger.info("배송기사 메인 페이지, 기사 no={}", deliveryNo);
