@@ -43,18 +43,15 @@ public class JoinController {
 	@PostMapping("/join")
 	public String join_post(@ModelAttribute UserAllVO vo, Model model) {
 		logger.info("회원가입 처리, 파라미터 vo={}", vo);
-	
-		String address=vo.getAddress(); 
-		String addressDetail=vo.getAddressDetail();
 
-		vo.setAddress(address); 
-		vo.setAddressDetail(addressDetail);
-		
 		int cnt=userService.insertUser(vo);
 		logger.info("회원가입 결과, cnt={}", cnt);
+		
+		int cnt2=userService.insertAddress(vo);
+		logger.info("주소입력 결과, cnt={}", cnt2);
 
 		String msg="회원가입 실패", url="/user/join";
-		if(cnt>0) {
+		if(cnt>0 && cnt2>0) {
 			msg="회원가입되었습니다.";
 			url="/";
 		}
