@@ -161,7 +161,7 @@ span#orderAgree {
 }
 
 td input {
-        width: 139px;
+        width: 79px;
     text-align: center;
     font-size: 18px;
     border: none;
@@ -251,4 +251,9 @@ span#shortPoint {
     margin-top: 5px;
     color: red;
     font-weight: bold;
+}
+button#insertPointBtn {
+    height: 34;
+    margin-bottom: 6;
+    padding-bottom: 30px;
 }

@@ -9,50 +9,34 @@
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
-/*  	$(window).load(function () {
-		 var isAddressExist = $('#isAddressExist').val();
-		 	alert(isAddressExist);
-		 if(isAddressExist<1){
-		 	alert("주소 등록 후에 이용할 수 있는 서비스입니다");
-		 	location.href = "<c:url value='/mypage/useredit'/>";
-		 }
-	});  */
-
-
     $(function () {
     	var isAddressExist = $('#isAddressExist').val();
-	 	alert(isAddressExist);
+    	console.log("주소등록여부:"+isAddressExist);
 	 	 if(isAddressExist<1){
 			 	alert("주소 등록 후에 이용할 수 있는 서비스입니다");
 			 	location.href = "<c:url value='/mypage/useredit'/>";
 	 	 }
+	 	 
+	 	 var enterMethod =  $('#enterMethod').text();
+	 	 console.log("현관출입여부 : "+enterMethod);
+	 	 if(enterMethod.length<2){
+	 		enterMethod = "없음";
+	 		$('#enterMethod').text(enterMethod);
+	 	 }
+	 	 
     	
+	 	 //주문하기 클릭했을 때 
         $('#orderBtn').click(function () {
-        	
-        /* 	if(!$('#flexCheckDefault').is(':checked')){
-    			alert('약관에 동의해주세요.');
-    			event.preventDefault();
-    			$('#staticBackdrop').modal("show");
-    			event.preventDefault();
-    			return false;
-    		}
- */	
-    		
-        	
             if ($("input[name=itemName]").length < 1) {
                 alert("상품을 선택해주세요");
                 event.preventDefault();
                 return false;
             }
-
-
 			let dataArr = [];
 			
 			let dataList = $(".testForm");
 			console.log(dataList);
-			
-			
-			
+		
 			var param_string ="";
 			$.each(dataList, (idx, item) => {
 				
@@ -62,14 +46,6 @@
 				let price = item.childNodes[2].defaultValue;
 				let qty = item.childNodes[3].value;
 				let sum = item.childNodes[4].defaultValue;
-				
-
-				/* dataArr[idx] = {
-					"no": no,
-					"qty": qty,
-					"sum": sum
-				}; */
-				
 				param_string+=
 					no +","+name+","+price+","+ qty + "," + sum + "|"
 			});
@@ -79,9 +55,6 @@
 			
 			$('form[name=frm]').attr('action',"<c:url value='/laundryService/order/orderConfirm'/>");
 			$('form[name=frm]').attr('method','post');
-			//$('form[name=frm]').submit();
-			
-
         });
 
         
@@ -110,14 +83,11 @@
         });
         $(document).on('mouseout', '#xWrap', function () {
         	$(this).css('background','');
-
         });
         
 
-
         $(document).on('mouseover', '.order-item-Div div[name=testForm] #delBtn', function () {
             $(this).css("background", 'red');
-
         });
 
         $(document).on('change', '#order-num', function () {
@@ -137,12 +107,12 @@
                 const intTotalPrice = Number(totalPriceMake[i]);
                 sum += intTotalPrice;
             }
-
             $("#totalPriceMake").attr("value", sum);
         });
 
         var totalpriceInput = 0;
-        //추가 버튼을 누르면 option value 에 저장된 no 컨트롤러로 던져서 clothing_category 테이블의 VO 가져옴 => div 에 input 으로 정보를 뿌려줌
+        //추가 버튼을 누르면 option value 에 저장된 no 컨트롤러로 던져서 clothing_category 테이블의 VO 가져옴
+        //=> div 에 input 으로 정보를 뿌려줌
         $('#orderAddBtn').click(function () {
             var itemNo = $('#order-item').val();
 
@@ -220,9 +190,9 @@
                 </span>
                
               	 <div class="orderInfo-address-myaddress">
-                    <span id = "orderAddress">${map['ADDRESS']} &nbsp; ${map['ADDRESS_DETAIL']}</span><br> 
+                    <span id = "orderAddress">${map['ADDRESS']} &nbsp;${map['ADDRESS_DETAIL']}</span><br> 
                     <div id = "orderAddressDetail" >
-                    <span class="orderInfo-address-myaddress-enter"> 현관출입방법 : ${map['ENTERMETHOD']}</span>
+                    <span class="orderInfo-address-myaddress-enter"> 현관출입방법 :<span class="orderInfo-address-myaddress-enter" id="enterMethod"> ${map['ENTERMETHOD']}</span></span>
                         </div>
                 </div>
             </div>
