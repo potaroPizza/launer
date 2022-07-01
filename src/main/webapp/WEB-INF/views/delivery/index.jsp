@@ -153,9 +153,7 @@
                                 if(i < 3) {
                                     inputFind.toggleClass("marker-focus");
                                     i++;
-                                }else {
-                                    clearInterval(markerListEvent);
-                                }
+                                }else {clearInterval(markerListEvent);}
                             }, 280);
                         });
                         // $findList.css("background", "red");
