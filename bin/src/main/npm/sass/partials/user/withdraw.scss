@@ -1,0 +1,85 @@
+/*
+회원 탈퇴  페이지
+*/
+
+&{
+		margin: 0 auto;
+    	width: 1200px;
+	}
+.withdraw-top{
+		height:80px;	
+		width:100%;
+	}
+	.withdraw-explain{
+		height:auto;
+		padding:25px 20px;
+		font-size:10px;
+		color:gray;
+		margin-left:150px;
+		margin-right:150px;
+		margin-bottom:20px;
+			
+	}
+	
+	p > span{
+		color:#ff3b3b;
+	}
+	
+	.withdraw-explain li > p{
+		font-size:14px;
+		margin: 8px 0px 8px 0px; 
+		line-height: 120%;
+	}
+	
+	.withdraw-explain ul{
+		padding-left:20px;
+	}
+	.withdraw-explain> p{
+		font-weight:bold;
+		color:#4C4747;
+		font-size:16px !important;
+	}
+	form > p{
+		margin-top:30px;
+		text-align: center;
+	    font-weight: bold;
+	    color:#4C4747;
+		font-size:16px; 
+	}
+	
+	.inputBx{
+	    
+	    height:170px;
+	    text-align: center;
+	    margin-left:150px;
+		margin-right:150px;
+	    padding:20px 0;
+	}
+	
+	.inputText{
+	    box-shadow: 0.2px 0.2px 0.2px 0.2px grey inset;
+	    margin:20px 0;
+	    border-radius: 6px;
+	}
+	
+	.mypage_withdraw_btn{
+		text-align:center;
+		margin-top:20px;
+		margin-bottom: 70px
+	}
+	.btnWrap{
+		text-align: center;
+	}
+	
+	#chk{
+		margin-bottom:15px;
+	}	
+	
+	.section-title{
+	    margin-bottom: 60px;
+	}
+	
+	.withdraw-title{
+		margin-left: 150px;
+		margin-bottom: 60px;
+	}

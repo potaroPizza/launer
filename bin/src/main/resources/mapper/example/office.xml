@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.launer.office.model.OfficeDAO">
+    <!--지점넘버를 통하여 지점정보 조회-->
+    <select id="selectByNo" parameterType="int" resultType="officeVo">
+        select * from OFFICE
+        where NO = #{no}
+    </select>
+    
+    <!--지점 전체 조회-->
+    <select id="selectAll" resultType="officeVo">
+    	select * from OFFICE;
+    </select>
+</mapper>
