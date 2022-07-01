@@ -21,8 +21,9 @@ $(function(){
 				var orderNo = $('#orderNo').val();
 				var payPrice = $('#payPrice').val();
 				var userPoint = $('#userPoint').val();
+				var savePoint =$('#savePoint').val();
 				
-				console.log(userPoint);
+				console.log(savePoint);
 				
 				if(userPoint<0 || userPoint==null){
 					userPoint = 0;
@@ -61,7 +62,8 @@ $(function(){
 		            		data:{
 		            			"orderNo" : orderNo,
 		            			"payPrice" :payPrice,
-		            			"userPoint" : userPoint
+		            			"userPoint" : userPoint,
+		            			"savePoint" : savePoint,
 		            		},
 		            	});
 		            } else {
@@ -71,7 +73,7 @@ $(function(){
 		            alert(msg);
 		            //alert창 확인 후 이동할 url 설정
 		            if(paymentResult){
-		           	  document.location.href="/launer/laundryService/order/orderMake"; //결제 성공 시 이동할 url
+		           	  document.location.href="/launer"; //결제 성공 시 이동할 url
 		            }else {
 		            	$.ajax({
 		                	type:'get',
@@ -79,7 +81,8 @@ $(function(){
 		            		data:{
 		            			"orderNo" : orderNo,
 		            			"payPrice" :payPrice,
-		            			"userPoint" : userPoint
+		            			"userPoint" : userPoint,
+		            			"savePoint" : savePoint,
 		            		},
 		            	});
 		            	
@@ -100,6 +103,7 @@ $(function(){
 		<input type="hidden" id="email" class="div" value="${email }" name="email">
 		<input type="hidden" id="name" class="div" value="${name }" name="name">
 		<input type="hidden" id="userPoint" class="div" value="${userPoint}" name="userPoint">
+		<input type="hidden" id="savePoint" class="div" value="${savePoint }" name="savePoint"> 
 		</div>
 	</div>
 </t:wrapper>
