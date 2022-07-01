@@ -59,13 +59,20 @@
 
 				if(count > 0) {
 					var items = $('input[type=checkbox]:checked').parent().siblings('.tdStatus').text();
+					alert(items);
 					var str = items.split(" ");
+					alert(str);
 					var bool = true;
 					str.forEach(function(item, index){
-						if(item !== "수거전"){
-							bool = false;
+						alert(item);
+						if(index != $('input[type=checkbox]:checked').length){
+							if(item !== "세탁중"){
+								bool = false;
+							}
 						}
+						
 					});
+					console.log(bool);
 					if(!bool){
 						alert("세탁중인 상태의 주문만 배송대기 처리할 수 있습니다.");
 						return false;
@@ -202,8 +209,8 @@
 	action="<c:url value='/admin/orders'/>">
 	<input type="text" class="startDay" name="startDay" value="${orderSearchVO.startDay}">
 	<input type="text" class="endDay" name="endDay" value="${orderSearchVO.endDay}">
-	<input type="text" class="officeName" name="officeName" value="${orderSearchVO.officeName}">
-	<input type="text" class="orderStatus" name="orderStatus" value="${orderSearchVO.orderStatus}">
+	<input type="text" class="officeNo" name="officeNo" value="${orderSearchVO.officeNo}">
+	<input type="text" class="statusNo" name="statusNo" value="${orderSearchVO.statusNo}">
 	<input type="text" class="userEmail" name="userEmail" value="${orderSearchVO.userEmail}">
 	<input type="text" class="currentPage" name="currentPage">	
 	<input type="text" class="countPerPage" name="countPerPage" value="${orderSearchVO.countPerPage}">
@@ -344,6 +351,7 @@
 								<td>
 									<input type="checkbox" name="orderItems[${i}].no"
 										value="${map['ORDERNO']}">
+										<c:set var="i" value="${i+1}"/>
 								</td>
 								<td>${map['ORDERNO']}</td>
 								<td>${map['USEREMAIL']}</td>

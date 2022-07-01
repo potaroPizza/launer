@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -27,10 +29,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.launer.admin.model.AdminChartsService;
+import com.ez.launer.admin.model.AdminChartsVO;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.OrderSearchVO;
 import com.ez.launer.common.PaginationInfo;
@@ -40,6 +46,8 @@ import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.laundryService.order.model.OrderVO;
 import com.ez.launer.notice.model.NoticeService;
 import com.ez.launer.notice.model.NoticeVO;
+import com.ez.launer.user.model.UserService;
+import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,6 +61,8 @@ public class AdminController {
 	
 	private final NoticeService noticeService;
 	private final OrderService orderService;
+	private final AdminChartsService chartsService;
+	private final UserService userService;
 	
 	
 	@RequestMapping("/")
@@ -307,10 +317,151 @@ public class AdminController {
 	
 	//통계 관련 핸들러
 	@RequestMapping("/charts")
-	public String charts() {
-		logger.info("통계 페이지");
+	public String charts(@ModelAttribute AdminChartsVO vo,
+			Model model) {
+		logger.info("통계 페이지 officeNo={}", vo.getRevenueChart());
+		
+		List<Map<String, Object>> vum = null;
+		List<Map<String, Object>> jum = null;
+		List<Map<String, Object>> uum = null;
+		List<Map<String, Object>> rcm = null;
+		List<Map<String, Object>> ccm = null;
+		
+		if(vo.getUserChart() == null) {	// 첫 화면 세팅
+			vo.setUserChart("2022");
+			vo.setRevenueChart("0");
+			vo.setCategoryChart("1");
+		}
+		
+		if(vo.getUserChart() != null && !vo.getUserChart().isEmpty()) {
+//			if(vo.getUserChart().equals("1")) {	// 최근 2주
+//				vum = chartsService.selectVisitByDay();
+//				jum = chartsService.selectJoinByDay();
+//				uum = chartsService.selectUsersByDay();
+//			} else if(vo.getUserChart().equals("2022")) {	
+				// 2022년
+				vum = chartsService.selectVisitByMonth();
+				jum = chartsService.selectjoinByMonth();
+				uum = chartsService.selectUsersByMonth();
+			}
+//		}
+		
+		if(vo.getRevenueChart() != null && !vo.getRevenueChart().isEmpty()) {
+			int officeNo = Integer.parseInt(vo.getRevenueChart());
+			rcm = chartsService.selectRevenueByMonth(officeNo);
+		}
+
+		if(vo.getCategoryChart() != null && !vo.getCategoryChart().isEmpty()) {
+			ccm = chartsService.selectAdminCategory();
+		}
+		
+		logger.info("통계 페이지 vum={}", vum);
+		logger.info("통계 페이지 jum={}", jum);
+		logger.info("통계 페이지 uum={}", uum);
+		logger.info("통계 페이지 ccm={}", ccm);
+		
+		model.addAttribute("vum", vum);	// 방문자 수
+		model.addAttribute("jum", jum);	// 신규 가입자 수
+		model.addAttribute("uum", uum);	// 누적 가입자 수
+		model.addAttribute("rcm", rcm);	// 월별 매출
+		if(!vo.getRevenueChart().equals("0")) {
+			model.addAttribute("ofn", rcm.get(0).get("OFFICENO"));
+			model.addAttribute("ofName", rcm.get(0).get("OFFICENAME"));
+		} else {
+			model.addAttribute("ofn", 0);
+		}
+		model.addAttribute("ccm", ccm);	// 카테고리 별 주문 수
 		
 		return "/admin/charts";
 	}
+	
+	
+	@GetMapping("/adminLogin")
+	public String adminLogin_get() {
+		logger.info("관리자 로그인 페이지");
+		
+		return "/admin/adminLogin";
+	}
+	
+	@PostMapping("/adminLogin")
+	public String adminLogin_post(@ModelAttribute UserVO vo,
+			HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+		logger.info("관리자 로그인 처리, 파라미터 email={}, pwd={}",
+				vo.getEmail(), vo.getPwd());
+		
+		int result = userService.loginChk(vo.getEmail(), vo.getPwd());
+		logger.info("관리자 로그인 처리 결과 result={}", result);
+			
+		String msg="관리자 로그인 처리 실패", url="/admin/adminLogin";
+		
+		if(result == UserService.LOGIN_OK) {
+			UserVO uVo = userService.selectByEmail(vo.getEmail());
+			logger.info("관리자 로그인 처리-회원정보 조회결과 vo={}", uVo);
+			
+			int userCode = uVo.getUserCode();
+			
+			if(userCode == 1 || userCode == 2) {
+				msg="해당 이메일이 존재하지 않습니다.";
+			} else {
+				//[1] session에 저장
+				HttpSession session = request.getSession();
+				session.setAttribute("adminEmail", uVo.getEmail());
+				session.setAttribute("adminName", uVo.getName());
+				session.setAttribute("adminCode", uVo.getUserCode());
+				
+				msg = uVo.getName() +"님 로그인되었습니다.";
+				url="/admin/";
+				
+				logger.info("!!!{}", session.getAttribute("adminEmail"));
+			}
+		} else if(result == UserService.DISAGREE_PWD) {
+			msg="비밀번호가 일치하지 않습니다.";
+		} else if(result == UserService.NONE_USEREMAIL) {
+			msg="해당 이메일이 존재하지 않습니다.";			
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+	}
+	
+	@RequestMapping("/adminLogout")
+	public String logout(HttpSession session) {
+		logger.info("관리자 로그아웃 처리");
+		
+		//session.invalidate();	// 세션 소멸, 근데 이거하면 관리자 세션이 있을경우 같이 제거되므로 바꿔야함
+		session.removeAttribute("adminEmail");
+		session.removeAttribute("adminName");
+		session.removeAttribute("adminCode");
+		
+		return "redirect:/admin/";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

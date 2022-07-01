@@ -12,6 +12,11 @@ import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.bcel.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +24,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +101,7 @@ public class DeliveryController {
         findListMap.put("deliveryNo", deliveryVO.getNo());
 
         List<OrderDeliveryAllVO> list = orderService.selectByDeliveryNo(findListMap);
-        logger.info("내 할일(수거목록) 조회결과 list.size={}", list.size());
+        logger.info("내 할일(수거목록) 조회결과 list={}", list);
 
         model.addAttribute("deliveryName", deliveryVO.getName());
         model.addAttribute("officeVO", officeVO);
@@ -104,15 +112,42 @@ public class DeliveryController {
         return "/delivery/deliveryList";
     }
 
-    @GetMapping("/return")
-    public String deliveryList(Model model) {
+    @GetMapping("/pass")
+    public String deliveryList(HttpSession session, Model model) {
         logger.info("내 배송목록 리스트");
 
-        Map<String, Object> info = new HashMap<>();
-        info.put("name", "홍홍홍");
-        info.put("title", "배송목록");
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        logger.info("배송기사 메인 페이지, 기사 no={}", deliveryNo);
 
-        model.addAttribute("deliveryInfo", info);
+        //deliveryNo로 배달기사 정보 전체 조회
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+
+        OfficeVO officeVO = officeService.selectByNo(deliveryVO.getOfficeNo());
+        logger.info("지점정보 조회 officeVO={}", officeVO);
+
+        // 해당 기사의 수거목록 개수
+        OrderDeliveryVO orderDeliveryVO = new OrderDeliveryVO();
+        orderDeliveryVO.setTypeStatus("DELIVERY_DRIVER");
+        orderDeliveryVO.setDeliveryNo(deliveryNo);
+        orderDeliveryVO.setOrderStatusNo(ConstUtil.DELIVERY_PROGRESS);
+        int countList = orderService.countOrderByDeliveryNo(orderDeliveryVO);
+
+        // 해당 기사의 수거목록 가져오기
+        Map<String, Object> findListMap = new HashMap<>();
+        findListMap.put("officeNo", deliveryVO.getOfficeNo());
+        findListMap.put("orderStatusNo", ConstUtil.DELIVERY_PROGRESS);
+        findListMap.put("typeStatus", "DELIVERY_DRIVER");
+        findListMap.put("deliveryNo", deliveryVO.getNo());
+
+        List<OrderDeliveryAllVO> list = orderService.selectByDeliveryNo(findListMap);
+        logger.info("내 할일(배송목록) 조회결과 list={}", list);
+
+        model.addAttribute("deliveryName", deliveryVO.getName());
+        model.addAttribute("officeVO", officeVO);
+        model.addAttribute("groupNo", 2);
+        model.addAttribute("countList", countList);
+        model.addAttribute("list", list);
 
         return "/delivery/deliveryList";
     }
@@ -221,5 +256,174 @@ public class DeliveryController {
         }
 
         return res;
+    }
+
+
+    // 내 수거/배송 항목 두개가 하나의 핸들러를 바라보게(취소하는 것도 바라보게)
+    @PostMapping("/process")
+    @ResponseBody
+    public String processing(@RequestParam Map<String, Object> map, HttpSession session) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        map.put("deliveryNo", deliveryNo);
+
+        logger.info("내 할일 프로세싱 처리, 파라미터 map={}", map);
+        logger.info("접속자 : {}", deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryNo={}", deliveryNo);
+
+        int cnt = deliveryDriverService.insertDeliveryAmount(map);
+        logger.info("내 할일 프로세싱 처리 결과 cnt={}", cnt);
+
+        String message = "실패";
+        if(cnt > 0) message = "성공";
+
+        return message;
+    }
+
+    /*//내 할일 페이지 취소 버튼 ajax
+    @PostMapping("/return/process")
+    @ResponseBody
+    public Map<String, Object> returnProcess(@RequestParam(defaultValue = "0") int orderNo,
+                                          @RequestParam(defaultValue = "0") int groupNo,
+                                          HttpSession session) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        logger.info("내 할일 프로세싱 취소, 파라미터 orderNo={}, groupNo={}", orderNo, groupNo);
+        logger.info("접속자 : {}", deliveryNo);
+
+        //deliveryNo로 배달기사 정보 전체 조회
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryNo={}", deliveryNo);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderNo", orderNo);
+        map.put("groupNo", groupNo);
+        map.put("result", 1);
+
+        return map;
+    }*/
+
+    @RequestMapping("/income")
+    public String deliveryIncome(HttpSession session, Model model) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        logger.info("배송기사 - 내 수입 페이지");
+
+        //deliveryNo로 배달기사 정보 전체 조회
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+
+        model.addAttribute("deliveryName", deliveryVO.getName());
+        return "/delivery/income";
+    }
+
+
+    @RequestMapping("/income/mylist")
+    @ResponseBody
+//    public Map<String, Object> mylist(HttpSession session) {
+    public Map<String, Object> mylist(@RequestParam Map<String, Object> map, HttpSession session) {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+
+        logger.info("배송기사 - 내 수입 / 리스트 ajax, 파라미터 paramMap={}", map);
+
+        PaginationInfo pagingInfo = new PaginationInfo();
+        pagingInfo.setBlockSize(5);
+        pagingInfo.setRecordCountPerPage(4);
+        pagingInfo.setCurrentPage(Integer.parseInt((String) map.get("currentPage")));
+
+        map.put("firstRecordIndex", pagingInfo.getFirstRecordIndex());
+        map.put("recordCountPerPage", 4);
+        map.put("deliveryNo", deliveryNo);
+        logger.info("페이징 작업 후 map={}", map);
+
+        List<Map<String, Object>> list = deliveryDriverService.amountByDeliveryNo(map);
+        logger.info("내 수입 / 리스트 조회결과 list.size={}", list.size());
+
+        Map<String, Object> recode = deliveryDriverService.amountAllRecode(map);
+        int totalRecord = Integer.parseInt(String.valueOf(recode.get("COUNT")));
+        logger.info("내 수입 / 리스트 세부항목(전체개수, 총 수입) recode={}", recode);
+        logger.info("totalRecord={}", totalRecord);
+
+        pagingInfo.setTotalRecord(totalRecord);
+
+        Map<String, Object> resList = new HashMap<>();
+        resList.put("jsonList", list);
+        resList.put("recode", recode);
+        resList.put("pagingInfo", pagingInfo);
+
+        /*select * from DELIVERY_AMOUNT_DETAIL_VIEW
+        where DELIVERY_DRIVER_NO = #{deliveryNo}
+        and ${typeList} = #{deliveryNo}
+        and REGDATE between to_date(#{startDate}) and to_date(#{endDate}) + 1
+        order by REGDATE <if test="desc == 1">desc</if>*/
+
+        return resList;
+    }
+
+
+
+
+
+
+
+
+
+
+    @PostMapping("/income/excel/download")
+    public void excelDownload(@RequestParam Map<String, Object> map,
+                              HttpSession session,
+                              HttpServletResponse response) throws IOException {
+        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        logger.info("엑셀 다운로드, 파라미터 map={}", map);
+
+        DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+
+        map.put("deliveryNo", deliveryNo);
+        List<Map<String, Object>> list = deliveryDriverService.selectListAll(map);
+        logger.info("리스트 조회 결과 list={}", list);
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+
+        int rowNum = 0;
+
+        String[] header = {"번호", "주문번호", "수입", "완료일시", "주소"};
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        for(int i = 0; i < header.length; i++) {
+            cell = row.createCell(i);
+            cell.setCellValue(header[i]);
+        };
+
+        // Body
+        for (Map<String, Object> selectMap : list) {
+            int i = 0;
+
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(i++);
+            cell.setCellValue(String.valueOf(selectMap.get("NO")));
+            cell = row.createCell(i++);
+            cell.setCellValue(String.valueOf(selectMap.get("ORDER_NO")));
+            cell = row.createCell(i++);
+            cell.setCellValue(String.valueOf(selectMap.get("AMOUNT")));
+            cell = row.createCell(i++);
+            cell.setCellValue(String.valueOf(selectMap.get("REGDATE")));
+            cell = row.createCell(i);
+            cell.setCellValue(String.valueOf(selectMap.get("ADDRESS")));
+        };
+
+
+        // 컨텐츠 타입과 파일명 지정
+        String fileName = deliveryVO.getName() + "_" + map.get("startDate") + "~" + map.get("endDate");
+
+        response.setContentType("ms-vnd/excel");
+        response.setCharacterEncoding("UTF-8");
+//        response.setHeader("Content-Disposition", "attachment;filename=example.xls");
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ".xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
     }
 }

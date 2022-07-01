@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <t:head>
 </t:head>
@@ -76,11 +79,20 @@ juqery가 hicharts보다 위에 선언되어야함
 
 <script type="text/javascript">
 	$(function () {
+		Highcharts.setOptions({
+			lang: {
+				thousandsSep: ','
+			}
+		});
+		
 		lineChart();
 		barChart();
 		pieChart();
 		
-		
+		$('#revenueChart').on("change", function(){
+			//$('input[name=revenueChart]').val($(this).val());
+			$('form[name=frmCharts]').submit();
+		});
 	});
 	
 	function lineChart(){
@@ -90,7 +102,7 @@ juqery가 hicharts보다 위에 선언되어야함
 		
 	    Highcharts.chart('containerLine', {
 	        title: {
-	            text: '사용자 수',
+	            text: '사용자 통계',
 	            x: -20 //center
 	        },
 	        subtitle: {
@@ -98,12 +110,13 @@ juqery가 hicharts보다 위에 선언되어야함
 	            x: -20
 	        },
 	        xAxis: {
-	            categories: ['1월', '2월', '3월', '4월', '5월', '6월',
-	                '7월', '8월', '9월', '10월', '11월', '12월']
+	        	type : 'category'
+	            /* categories: ['1월', '2월', '3월', '4월', '5월', '6월',
+	                '7월', '8월', '9월', '10월', '11월', '12월'] */
 	        },
 	        yAxis: {
 	            title: {
-	                text: 'Headcount'
+	                text: 'Count'
 	            },
 	            plotLines: [{
 	                value: 0,
@@ -122,13 +135,37 @@ juqery가 hicharts보다 위에 선언되어야함
 	        },
 	        series: [{
 	            name: '신규 가입자',
-	            data: [3, 62, 157, 233, 580, 1049, null, null, null, null, null, null]
-	        }, {
+	            data: /* [3, 62, 157, 233, 580, 1049, null, null, null, null, null, null] */
+	            	[
+						<c:forEach var="juMap" items="${jum}">
+						{
+							name : "${juMap['MONTH']}월",
+							y : ${juMap['JOINCOUNT']},
+						}, 
+						</c:forEach>
+					]
+	        },/*  {
 	            name: '사이트 방문자',
-	            data: [42, 168, 580, 1024, 3303, 5237, null, null, null, null, null, null]
-	        }, {
+	            data:   [42, 168, 580, 1024, 3303, 5237, null, null, null, null, null, null]  
+					[
+						<c:forEach var="vuMap" items="${vum}">
+						{
+							name : "${vuMap['']}월",
+							y : ${vuMap['']},
+						}, 
+						</c:forEach>
+					]
+	        }, */ {
 	            name: '누적 가입자',
-	            data: [3, 65, 250, 500, 1080, 2129, null, null, null, null, null, null]
+	            data: /* [3, 65, 250, 500, 1080, 2129, null, null, null, null, null, null] */
+	            	[
+						<c:forEach var="uuMap" items="${uum}">
+						{
+							name : "${uuMap['MONTH']}월",
+							y : ${uuMap['JOINCOUNT']},
+						}, 
+						</c:forEach>
+					]
 	        }]
 	    });
 	}
@@ -140,7 +177,12 @@ juqery가 hicharts보다 위에 선언되어야함
 				type : 'column'
 			},
 			title : {
-				text: '월별 총 수입',
+				<c:if test="${ofn != 0}">
+					text: '${ofName}의 월별 수입',
+				</c:if>
+				<c:if test="${ofn == 0}">
+					text: '전체 월별 총 수입',
+				</c:if>
 	            x: -20 //center
 			},
 			subtitle : {
@@ -150,8 +192,11 @@ juqery가 hicharts보다 위에 선언되어야함
 			accessibility : {
 				announceNewData : {
 					enabled : true
-				}
+				},
 			},
+			tooltip: {
+	            valueSuffix: '원'
+	        },
 			xAxis : {
 				type : 'category'
 			},
@@ -165,9 +210,17 @@ juqery가 hicharts보다 위에 선언되어야함
 				enabled : false
 			},
 			series : [ {
-				name : "매출액(백만원)",
+				name : "매출액(원)",
 				colorByPoint : true,
-				data : [ {
+				data : [
+					<c:forEach var="rcMap" items="${rcm}">
+					{
+						name : "${rcMap['MONTH']}월",
+						y : ${rcMap['SUM']},
+					}, 
+					</c:forEach>
+				]
+				/* data : [ {
 					name : "1월",
 					y : 2.3,
 				}, {
@@ -203,7 +256,7 @@ juqery가 hicharts보다 위에 선언되어야함
 				}, {
 					name : "12월",
 					y : null,
-				} ]
+				} ] */
 			} ]
 			
 			});
@@ -246,7 +299,7 @@ juqery가 hicharts보다 위에 선언되어야함
 		    series: [{
 		        name: 'Brands',
 		        colorByPoint: true,
-		        data: [{
+		        data: [/* {
 		            name: 'Chrome',
 		            y: 61.41,
 		            sliced: true,
@@ -275,7 +328,14 @@ juqery가 hicharts보다 위에 선언되어야함
 		        }, {
 		            name: 'Other',
 		            y: 2.61
-		        }]
+		        } */
+			        <c:forEach var="ccMap" items="${ccm}">
+					{
+						name : "${ccMap['CATEGORYNAME']}",
+						y : ${ccMap['SUM']},
+					}, 
+					</c:forEach>
+		        ]
 		    }]
 		});
 	}
@@ -325,10 +385,18 @@ juqery가 hicharts보다 위에 선언되어야함
                     <i class="fas fa-chart-bar me-1"></i>
                     매출 통계
                     
-                    &nbsp; 기간별
-					<select name="revenueChart">
-						<option value="1">최근 2주</option>
-						<option value="2022">2022년</option>
+                    &nbsp; <span style="margin-left: 15px">지점 선택</span>
+					<select name="revenueChart" id="revenueChart">
+						<option value="0"
+							<c:if test="${ofn == 0}">
+									selected
+            				</c:if>
+						>전체</option>
+						<option value="1"
+							<c:if test="${ofn == 1}">
+									selected
+            				</c:if>
+						>종로지점</option>
 					</select>
                 </div>
                 <div class="card-body">
@@ -346,9 +414,6 @@ juqery가 hicharts보다 위에 선언되어야함
                     &nbsp;
 					<select name="categoryChart">
 						<option value="1">전체</option>
-						<option value="2">서비스 종류별</option>
-						<option value="3">생활빨래</option>
-						<option value="4">개별클리닝</option>
 					</select>
                 </div>
                 <div class="card-body">

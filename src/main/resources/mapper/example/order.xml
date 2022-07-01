@@ -112,6 +112,26 @@
 					javaType="ArrayList" ofType="map" select="selectOrderDetails">
 		</collection>
 	</resultMap>
+
+
+	<update id="updateOrderStatus" parameterType="map">
+		update ORDERS
+		<choose>
+			<when test="orderStatusNo == 1 or orderStatusNo == 4">
+				set ORDER_STATUS_NO = #{orderStatusNo},
+				<if test="orderStatusNo == 1">
+					PICKUP_DRIVER = null
+				</if>
+				<if test="orderStatusNo == 4">
+					DELIVERY_DRIVER = null
+				</if>
+			</when>
+			<otherwise>
+				set ORDER_STATUS_NO = #{orderStatusNo}
+			</otherwise>
+		</choose>
+		where NO = #{orderNo}
+	</update>
 	<!--박권순 마지막-->
 	<!--박권순 마지막-->
 	<!--박권순 마지막-->

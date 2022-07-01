@@ -23,4 +23,11 @@ public class IndexController {
 
         return "/index";
     }
+
+    @RequestMapping("user/logout")
+    public String logOut(HttpSession session) {
+        session.setAttribute("email", null);
+
+        return "index";
+    }
 }

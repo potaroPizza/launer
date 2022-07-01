@@ -126,12 +126,12 @@
                         marker.setImage(clickImage);
 
                         let orderData = positionDataNo[index].orderNo;
-
+                        console.log(orderData);
 
                         //orderList에서 orderNo를 찾음
                         let inputFind = $("#order-scroll-box input[value=" + orderData + "]").parent().parent().parent();
                         // let paddT = (inputFind.innerHeight() - inputFind.height()) / 2;
-                        console.log(inputFind.position().top);
+                        console.log(inputFind);
 
                         $("#orders-list").animate({
                             scrollTop: inputFind.position().top
@@ -187,6 +187,7 @@
             function cleanList() {
                 $("#order-scroll-box").html("");
                 positions = [];
+                positionDataNo = [];
                 totalPage = 0;
                 currentPage = 0;
                 dbCur = 0;
@@ -426,9 +427,8 @@
                                         $(element).remove();
                                     }, 400);
                                 });
-                            }else {
-                                alert(res);
-                            }
+                            }else {alert(res);}
+                            countAdd = 0;
                         },
                         error: (xhr, status, error) => {
                             alert("error : " + error);

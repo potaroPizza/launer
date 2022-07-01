@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>paymentComplete.jsp</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>${paymentCode }</h1>
+
 </body>
 </html>

@@ -23,10 +23,12 @@ import com.ez.launer.laundryService.order.model.OrderDetailVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.laundryService.order.model.OrderVO;
 import com.ez.launer.laundryService.order.model.OrderViewVO;
+import com.ez.launer.laundryService.order.model.SmsAPI;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
 import lombok.RequiredArgsConstructor;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 @RequestMapping("/laundryService/order")
@@ -53,7 +55,7 @@ public class OrderController {
 		return vo;
 		
 	}
-	
+
 	
 	@RequestMapping("/orderMakeSelect")
 	public String cgSelect(@RequestParam int categoryGroup, Model model) {
@@ -68,22 +70,31 @@ public class OrderController {
 	}
 	
 	
+
+	
 	@GetMapping("/orderMake")
 	public String orderMake_get(HttpSession session,Model model) {
-		logger.info("수거요청화면");
-		int no = 1000; //(String) session.getAttribute("userid");
+		int no = (int) session.getAttribute("no");
+		logger.info("수거요청화면, no ={}",no);
 		
 		UserVO userVo = userService.selectById(no);
 		
+		
+		int isAddressExist = userService.isAddressExist(no);
+		logger.info("주소등록여부 isAddressExist={}",isAddressExist);
+
 		HashMap<String, Object> map = userService.selectByIdAddress(no);
+		logger.info("주소없음");
 		logger.info("회원 정보 조회 결과, map={}",map);
-		
-		
+
 		model.addAttribute("userVo",userVo);
 		model.addAttribute("map" ,map);
-		return "/laundryService/order/orderMake";
+		model.addAttribute("isAddressExist",isAddressExist);
 		
+		return "/laundryService/order/orderMake";
 	}
+	
+	
 	
 	
 
@@ -91,7 +102,7 @@ public class OrderController {
 	public String orderConfirm_post(@RequestParam String param, Model model, HttpSession session) {
 		logger.info("결제전 최종확인 화면, param_string 파라미터 = {}",param);
 		//회원정보 불러오기
-		int no = 1000; //(String) session.getAttribute("userid");
+		int no = (int) session.getAttribute("no");
 		logger.info("결제전 최종확인 화면, 파라미터 userid ={}", no);
 		
 		UserVO vo = userService.selectById(no);
@@ -144,13 +155,13 @@ public class OrderController {
 	
 	
 	@PostMapping("/orderComplete")
-	public String orderConfirmed_post(@RequestParam int totalPrice,@RequestParam String param,
+	public String orderConfirmed_post(HttpSession session,  @RequestParam int totalPrice,@RequestParam String param,
 			Model model, @RequestParam (defaultValue = "없음", required = false)String orderRequest,
 			@RequestParam (defaultValue="0")int usePoint,@RequestParam int savePoint, @RequestParam (defaultValue = "0", required = false)int paramPoint) {
 		logger.info("totalPrice={}",totalPrice);
 		logger.info("param={}",param);
 		logger.info("paramPoint={}",paramPoint);
-		int no = 1000; //추후 session 으로 변경
+		int no = (int) session.getAttribute("no");
 
 		//orders 테이블 insert
 		OrderViewVO orderViewVo = new OrderViewVO();
@@ -230,6 +241,9 @@ public class OrderController {
 
 		//users테이블 point update
 		UserVO userVo = userService.selectById(no);	
+		String name = userVo.getName();
+		String hp = userVo.getHp();
+		
 		
 		int userPoint = userVo.getPoint(); //변경 전 point 저장
 		logger.info("결제 전 포인트={}",userPoint);
@@ -246,6 +260,7 @@ public class OrderController {
 		model.addAttribute("payPrice", totalPrice); //결제할 금액
 		model.addAttribute("orderNO", orderNO); //fk 주문번호
 		model.addAttribute("userPoint", paramPoint);//결제취소대비한 결제 전 포인트
+		model.addAttribute("savePoint", savePoint);//문자용 적립포인트
 		return "/laundryService/payment/orderPayment";
 	}
 }

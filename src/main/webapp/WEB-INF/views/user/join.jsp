@@ -9,69 +9,220 @@
 	<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
 
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" >="javascript"></script>
+<!--<script src="<c:url value="/js/join.js"/>" type="text/javascript" text="javascript"></script>  -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	const classNo = ${classNo};
+	console.log(classNo);
+
+	$(function(){
+		$('form[name=joinfrm]').submit(function(){
+			if($.trim($('#name').val()) == ""){
+				alert("이름을 입력해 주세요.");
+				$('#name').focus();
+				event.preventDefault();
+			}else if(!validate_email($("#email").val())) {
+				alert("이메일 형식에 맞게 입력해 주세요");
+				$("#email").focus();
+				event.preventDefault();
+			}else if($('#chkEmail').val()!='Y'){
+				alert("이메일 중복확인해야 합니다");
+				$("#btnChkEmail").focus();
+				event.preventDefault();
+			}else if($("#pwd").val().length<1) {
+				alert("비밀번호를 입력하세요");
+				$("#pwd").focus();
+				event.preventDefault();
+			}else if(!validate_pwd($("#pwd").val())) {
+				alert("8자 이상의 문자와 특수문자를 포함한 비밀번호가 필요합니다");
+				$("#pwd").focus();
+				event.preventDefault();
+			}else if($("#pwd").val()!=$("#pwd2").val()) {
+				alert("비밀번호가 일치하지 않습니다.");
+				$("#pwd2").focus();
+				event.preventDefault();
+			}else if(!validate_hp($('#hp').val())){
+				alert("전화번호는 숫자만 가능합니다");
+				$("#hp").focus();
+				event.preventDefault();
+			}else if(classNo === 2) {
+				if(!validate_acNum($("#acNum").val())) {
+					alert("계좌번호 형식에 맞게 입력해 주세요");
+					$("#acNum").focus();
+					event.preventDefault();
+				}
+			}else if(!$('#agreechk').is(':checked')){
+				alert('약관에 동의해야 회원가입을 진행할 수 있습니다.');
+				$('#agreechk').focus();
+				event.preventDefault();
+			}else if(!$('#privacychk').is(':checked')){
+				alert('개인정보 수집에 동의해야 회원가입을 진행할 수 있습니다.');
+				$('#privacychk').focus();
+				event.preventDefault();
+			}else if(!$('#privacychk2').is(':checked')){
+				alert('개인정보 제공에 동의해야 회원가입을 진행할 수 있습니다.');
+				$('#privacychk2').focus();
+				event.preventDefault();
+			}
+		});
+
+		$('#btnChkEmail').click(function(){
+			var ctxPath="/launer";
+			var email=$('#email').val();
+
+			window.open(ctxPath+"/user/checkEmail?email="+email,"emailcheck",
+					"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+		});
+
+		$('#btnChkHp').click(function(){
+			var ctxPath="/launer";
+			var hp=$('#hp').val();
+
+			window.open(ctxPath+"/user/checkHp?hp="+hp,"Hpcheck",
+					"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+		});
+
+		$('input[name="agreeAllchk"]').click(function() {
+			$("input[type=checkbox]").prop("checked", this.checked);
+		});
+
+	});
+	
+	function execZipcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = '';
+
+                if (data.userSelectedType === 'R') { // 도로명 주소
+                    addr = data.roadAddress;
+                } else { // 지번주소
+                    addr = data.jibunAddress;
+                }
+
+                document.getElementById('zipcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                document.getElementById("addressDetail").focus();
+            }
+        }).open();
+    }
+
+	function validate_email(email){
+		var pattern = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+		return pattern.test(email);
+	}
+	function validate_pwd(pwd){
+		var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/);
+		return pattern.test(pwd);
+	}
+	function validate_acNum(acNum){
+		var pattern = new RegExp(/^(\d{1,})(-(\d{1,})){1,}$/);
+		return pattern.test(acNum);
+	}
+	function validate_hp(hp){
+		var pattern = new RegExp(/^[0-9]*$/g);
+		return pattern.test(hp); ; //정규식과 일치하면 true
+		/* 정규식 /^[0-9]*$/g
+		0 에서 9사이의 숫자로 시작하거나 끝나야 한다는 의미 (^는 시작, $는 끝을 의미)
+		닫기 대괄호(]) 뒤의 * 기호는 0번 이상 반복
+		*/
+	}
+
+	window.onload = () => {
+		let actionUrl = ""
+		if(classNo === 1) actionUrl = '<c:url value='/user/join'/>';
+		else if(classNo === 2) actionUrl = '<c:url value='/delivery/join'/>';
+
+		document.querySelector("form[name=joinfrm]").action = actionUrl;
+	}
+</script>
 <div id="join_wrap">
 	<div class="join_form">
-		<form name="joinfrm" method="post" 
-			action="${classNo == 1 ? "<c:url value='/user/join'/>" : "<c:url value='/delivery/join'/>"}" >
+		<form name="joinfrm" method="post"
+			action="" >
 			<fieldset>
+			<!-- 배달기사 로그인은 제목 다르게 -->
 				<h3 align="center">${classNo == 1 ? "러너" : "배달기사"} 회원 가입</h3>
 				<div class="namebox">
 					<label for="name">회원 이름</label> 
-					<input type="text" name="name"
-						id="name" style="ime-mode: active">
+					<input type="text" name="name" id="name" style="ime-mode: active">
+					<input type="text" name="userCode" id="userCode" value="${classNo == 1 ? 1 : 2}" readonly>
 				</div>
 				<div>
-					<label for="email1">이메일</label> <input type="text" name="email1"
-						id="email1" title="이메일주소 앞자리">@ 
-					<select name="email2"
-						id="email2" title="이메일주소 뒷자리">
-						<option value="naver.com">naver.com</option>
-						<option value="hanmail.net">hanmail.net</option>
-						<option value="nate.com">nate.com</option>
-						<option value="gmail.com">gmail.com</option>
-						<option value="etc">직접입력</option>
-					</select> 
-					<input type="text" name="email3" id="email3"
-						title="직접입력인 경우 이메일주소 뒷자리" 
-						style="visibility: hidden">
-					<input type="button" value="중복 확인" id="btnChkId">
+					<label for="email">이메일</label>
+					<input type="text" name="email" id="email">
+					<input type="button" value="중복 확인" id="btnChkEmail">
+					<input type="text" name="chkEmail" id="chkEmail" disabled>
 				</div>
 				<div>
-					<label for="pwd">비밀번호</label> <input type="Password" name="pwd"
-						id="pwd">
+					<label for="pwd">비밀번호</label> 
+					<input type="Password" name="pwd" 
+						id="pwd" placeholder="8자 이상의 문자,특수문자 포함">
 				</div>
 				<div>
-					<label for="pwd2">비밀번호 확인</label> <input type="Password"
-						name="pwd2" id="pwd2">
+					<label for="pwd2">비밀번호 확인</label> 
+					<input type="Password" name="pwd2" id="pwd2">
+					<input type="text" name="point" id="point" 
+						value="${classNo == 1 ? 5000 : null}" readonly>
 				</div>
+				<!-- 일반회원 가입시 주소 입력 폼-->
 				<c:if test="${classNo == 1}">
 					<div>
-						<label for="zipcode">주소</label>
-						<input type="text" name="zipcode"
-							   id="zipcode" ReadOnly title="우편번호" class="width_80">
-						<input	type="Button" value="우편번호 찾기" id="btnZipcode" title="새창열림"><br />
-						<span class="sp1">&nbsp;</span>
-						<input type="text" name="address"
-							   ReadOnly title="주소" class="width_350"><br /> <span
-							class="sp1">&nbsp;</span>
-						<input type="text" name="addressDetail"
-							   title="상세주소" class="width_350">
+						<label for="zipcode">우편번호</label>
+						<input type="text" name="zipcode" id="zipcode">&nbsp;
+						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()"><br />
+						<label for="adress">주소</label>
+						<input type="text" name="address" id="address"><br />
+						<label for="adressDetail">상세주소</label>
+						<input type="text" name="addressDetail" id="addressDetail">
+					</div>
+				</c:if>
+				<!-- 배달기사 가입시 지점, 계좌 입력 폼-->
+				<c:if test="${classNo == 2}">
+					<div>
+						<label for="office">지점선택</label>
+						<select name="office" id="office">
+							<option value="강남지점">강남지점</option>
+							<option value="강동지점">강동지점</option>
+							<option value="강북지점">강북지점</option>
+							<option value="강서지점">강서지점</option>
+							<option value="관악지점">관악지점</option>
+							<option value="광진지점">광진지점</option>
+							<option value="노원지점">노원지점</option>
+							<option value="동대문지점">동대문지점</option>
+							<option value="서대문지점">서대문지점</option>
+							<option value="송파지점">송파지점</option>
+							<option value="양천지점">양천지점</option>
+							<option value="용산지점">용산지점</option>
+							<option value="종로지점">종로지점</option>
+							<option value="중랑지점">중랑지점</option>
+						</select>
+					</div>
+					<div>
+						<label for="acHolder">계좌주</label>
+						<input type="text" name="acHolder" id="acHolder"><br />
+						<label for="bank">은행-계좌번호</label>
+						<select name="bank" id="bank">
+							<option value="국민은행">국민은행</option>
+							<option value="기업은행">기업은행</option>
+							<option value="NH농협은행">NH농협은행</option>
+							<option value="NH농협은행">NH농협은행</option>
+							<option value="신한은행">신한은행</option>
+							<option value="우리은행">우리은행</option>
+							<option value="카카오뱅크">카카오뱅크</option>
+							<option value="토스뱅크">토스뱅크</option>
+							<option value="하나은행">하나은행</option>
+							<option value="한국씨티은행">한국씨티은행</option>
+							<option value="SC제일은행">SC제일은행</option>
+						</select>
+						<input type="text" name="acNum" placeholder="-를 제외하고 입력해주세요" class="width_350">
 					</div>
 				</c:if>
 				<div class="hpbox">
-					<label for="hp1">핸드폰</label>&nbsp;<select name="hp1" id="hp1"
-						title="휴대폰 앞자리">
-						<option value="010">010</option>
-						<option value="011">011</option>
-						<option value="016">016</option>
-						<option value="017">017</option>
-						<option value="018">018</option>
-						<option value="019">019</option>
-					</select> - <input type="text" name="hp2" id="hp2" maxlength="4"
-						title="휴대폰 가운데자리" class="width_80">- 
-					<input type="text"
-						name="hp3" id="hp3" maxlength="4" title="휴대폰 뒷자리" class="width_80">
-					<input type="button" value="중복 확인" id="btnChkId">
+					<label for="hp">휴대전화</label>
+					<input type="text" name="hp" id="hp" maxlength="11" 
+						placeholder="-를 제외하고 입력해주세요">&nbsp;
+					<input type="button" value="중복 확인" id="btnChkHp">
+					<input type="text" name="chkHp" id="chkHp" disabled>
 				</div>
 				<div class="divTerms">
 				  	<h5>러너 이용약관</h5>
@@ -218,8 +369,8 @@
 						- 보존 기간 : 1년
 					</div>
 					<div>
-			   		<label class="label2" for="agreechk">동의함</label>
-				  	<input type="checkbox" name="agreechk" id="agreechk" class="checkbox"/>
+			   		<label class="label2" for="privacychk">동의함</label>
+				  	<input type="checkbox" name="privacychk" id="privacychk" class="checkbox"/>
 					</div>
 					<h5>제 3자 개인정보 제공 동의</h5>
 					<div class="scroll">
@@ -236,15 +387,16 @@
 						   거부하실 경우 홈페이지내 서비스 이용 제한으로 회원가입이 불가합니다.
 					</div>
 					<div>
-				   		<label class="label2" for="agreechk">동의함</label>
-					  	<input type="checkbox" name="agreechk" id="agreechk" class="checkbox"/>
+				   		<label class="label2" for="privacychk2">동의함</label>
+					  	<input type="checkbox" name="privacychk2" id="privacychk2" class="checkbox"/>
 					  	<label class="label3" for="agreeAllchk">전체 동의</label>
 						<input type="checkbox" name="agreeAllchk" id="agreeAllchk" class="checkbox"/>
 					</div>
 				</div>
 				<div class="center">
 					<input type="submit" id="wr_submit" value="회원가입">
-					<input type="reset" id="wr_reset" value="취소">
+					<input type="reset" id="wr_reset" 
+						onclick="history.go(-1);return false;" value="취소">
 				</div>
 			</fieldset>
 		</form>

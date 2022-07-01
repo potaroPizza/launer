@@ -3,45 +3,51 @@
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.admin.model.AdminChartsDAO">
 	<!-- 홈페이지 방문자 수 (로그인 횟수) -->
-	<select id="selectVisitByDay" resultType="map">
+	<!-- <select id="selectVisitByDay" resultType="map">
 		select count(*) as visitCount,
 			TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM-dd') as regadte 
 		from today
 		where LAST_ACCESS_DATE >= SYSDATE-15
 		group by TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM-dd')
-	</select>
+	</select> -->
 	
 	<select id="selectVisitByMonth" resultType="map">
 		select count(*) as visitCount,
-			TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM') as regadte 
+			TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM') as regadte,
+			TO_CHAR(LAST_ACCESS_DATE, 'MM') as month
 		from today
 		where TO_CHAR(LAST_ACCESS_DATE, 'yyyy') = '2022'
-		group by TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM')
+		group by TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM'), TO_CHAR(LAST_ACCESS_DATE, 'MM')
 	</select>
 	
 	
 	<!-- 신규 가입자 수 -->
-	<select id="selectJoinByDay" resultType="map">
-		select count(*) as joinCount,
-			TO_CHAR(START_DATE, 'yyyy-MM-dd') as startDate 
-		from Users
-		where START_DATE >= SYSDATE-15
-			and USER_CODE = 1
-		group by TO_CHAR(START_DATE, 'yyyy-MM-dd')
-	</select>
+	<!-- <select id="selectJoinByDay" resultType="map">
+		select a.*
+		from (
+			select count(*) as joinCount,
+				TO_CHAR(START_DATE, 'yyyy-MM-dd') as startDate 
+			from Users
+			where START_DATE >= SYSDATE-15
+				and USER_CODE = 1
+			group by TO_CHAR(START_DATE, 'yyyy-MM-dd')
+		)a
+		order by startDate
+	</select> -->
 	
 	<select id="selectjoinByMonth" resultType="map">
 		select count(*) as joinCount,
-			TO_CHAR(START_DATE, 'yyyy-MM') as startDate 
+			TO_CHAR(START_DATE, 'yyyy-MM') as startDate,
+			TO_CHAR(START_DATE, 'MM') as month 
 		from Users
 		where TO_CHAR(START_DATE, 'yyyy') = '2022'
 			and USER_CODE = 1
-		group by TO_CHAR(START_DATE, 'yyyy-MM')
+		group by TO_CHAR(START_DATE, 'yyyy-MM'), TO_CHAR(START_DATE, 'MM')
 	</select>
 	
 	
 	<!-- 누적 가입자 수 -->
-	<select id="selectUsersByDay" resultType="map">
+	<!-- <select id="selectUsersByDay" resultType="map">
 		select a.joinCount, a.startDate, sum(a.joinCount) over(order by a.joinCount) as sum
 		from (
 		    select count(*) as joinCount,
@@ -51,37 +57,56 @@
 		        and USER_CODE = 1
 		    group by TO_CHAR(START_DATE, 'yyyy-MM-dd')
 		)a
-	</select>
+	</select> -->
 	
 	<select id="selectUsersByMonth" resultType="map">
-		select a.joinCount, a.startDate, sum(a.joinCount) over(order by a.joinCount) as sum
+		select a.joinCount, a.startDate, a.month,
+			sum(a.joinCount) over(order by a.joinCount) as sum
 		from (
 		    select count(*) as joinCount,
-		        TO_CHAR(START_DATE, 'yyyy-MM') as startDate 
+		        TO_CHAR(START_DATE, 'yyyy-MM') as startDate,
+		        TO_CHAR(START_DATE, 'MM') as month 
 		    from Users
 		    where TO_CHAR(START_DATE, 'yyyy') = '2022'
 		        and USER_CODE = 1
-		    group by TO_CHAR(START_DATE, 'yyyy-MM')
+		    group by TO_CHAR(START_DATE, 'yyyy-MM'), TO_CHAR(START_DATE, 'MM')
 		)a
 	</select>
 	
 	
 	<!-- 총 매출 -->
-	<select id="selectRevenueByDay" resultType="map">
+	<!-- <select id="selectRevenueByDay" resultType="map">
 		select sum(pay_price) as sum, TO_CHAR(payment_date, 'yyyy-MM-dd') as paymentDate 
 		from payment_detail
 		where payment_date >= SYSDATE-15
 		group by TO_CHAR(payment_date, 'yyyy-MM-dd');
-	</select>
+		
+	</select> -->
 	
-	<select id="selectRevenueByMonth" resultType="map">
-		select sum(pay_price) as sum, TO_CHAR(payment_date, 'yyyy-MM') as paymentDate 
-		from payment_detail
+	<select id="selectRevenueByMonth" parameterType="int" resultType="map">
+		select sum(pay_price) as sum, TO_CHAR(payment_date, 'yyyy-MM') as paymentDate,
+			TO_CHAR(a.payment_date, 'MM') as month
+			<if test="officeNo != 0">
+				, b.officeNo as officeNo, b.officeName as officeName
+			</if>
+		from payment_detail a join adminOrderListView b
+		on a.order_no = b.orderNo
 		where TO_CHAR(payment_date, 'yyyy') = '2022'
-		group by TO_CHAR(payment_date, 'yyyy-MM');
+		<if test="officeNo != 0">
+			and officeNo = #{officeNo}
+		</if>
+		group by TO_CHAR(payment_date, 'yyyy-MM'), TO_CHAR(payment_date, 'MM')
+			<if test="officeNo != 0">
+				, officeNo, officeName
+			</if>
 	</select>
 	
 	
 	<!-- 카테고리 통계 -->
+	<select id="selectAdminCategory"  resultType="map">
+		select categoryNo, categoryName, sum(quan) as sum 
+		from adminCharCategoryView
+		group by categoryNo, categoryName
+	</select>
 	
 </mapper>
