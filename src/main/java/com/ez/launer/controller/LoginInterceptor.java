@@ -22,15 +22,15 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 
-		String userid = (String) request.getSession().getAttribute("userid");
-		logger.info("userid = {}", userid);
+		String email = (String) request.getSession().getAttribute("email");
+		logger.info("email = {}", email);
 
-		if(userid == null || userid.isEmpty()) {
+		if(email == null || email.isEmpty()) {
 			response.setContentType("text/html; charset = UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script type='text/javascript'>");
 			out.print("alert('먼저 로그인하세요.');");
-			out.print("location.href = '" + request.getContextPath() + "/login/login';");
+			out.print("location.href = '" + request.getContextPath() + "/user/login';");
 			out.print("</script>");
 
 			return false;

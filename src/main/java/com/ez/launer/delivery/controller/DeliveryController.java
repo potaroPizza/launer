@@ -44,7 +44,7 @@ public class DeliveryController {
 
     @GetMapping("/")
     public String deliveryMain(HttpSession session, Model model) {
-        session.setAttribute("deliveryNo", 1000);   //임시
+//        session.setAttribute("deliveryNo", 1000);   //임시
 
         int deliveryNo = (int) session.getAttribute("deliveryNo");
         logger.info("배송기사 메인 페이지, 기사 no={}", deliveryNo);
