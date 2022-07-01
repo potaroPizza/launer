@@ -25,10 +25,19 @@ public class UserServiceImpl implements UserService{
 	public int insertUser(UserAllVO vo) {
 		return userDao.insertUser(vo);
 	}
-	
 	@Override
 	public int insertAddress(UserAllVO vo) {
 		return userDao.insertAddress(vo);
+	}
+	
+	@Override
+	public int insertDriver(DriverAllVO vo) {
+		return userDao.insertDriver(vo);
+	}
+	
+	@Override
+	public int insertAccount(DriverAllVO vo) {
+		return userDao.insertAccount(vo);
 	}
 	
 	@Override
@@ -169,6 +178,7 @@ public class UserServiceImpl implements UserService{
 	public int isAddressExist(int no) {
 		return userDao.isAddressExist(no);
 	}
+
 
 
 
