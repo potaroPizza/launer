@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.user.model.UserDAO">
-   <!-- 회원가입 -->
+   <!-- 일반 회원가입 -->
    <insert id="insertUser" parameterType="userAllVo" >
       <selectKey order="BEFORE" keyProperty="no" resultType="int">
          select users_seq.nextval from dual
@@ -17,6 +17,22 @@
       </selectKey>
       insert into users_address(no, users_no, address, address_detail, zipcode)
       values(#{addressNo}, #{no}, #{address}, #{addressDetail}, #{zipcode})
+   </insert>
+   <!-- 배송기사 회원가입 -->
+   <insert id="insertDriver" parameterType="driverAllVo" >
+      <selectKey order="BEFORE" keyProperty="no" resultType="int">
+         select delivery_driver_seq.nextval from dual
+      </selectKey>
+         insert into delivery_driver(no,user_class_no,name,email,pwd,hp,start_date)
+         values(#{no},#{userCode},#{name},#{email},#{pwd},#{hp},sysdate,#{point}) 
+   </insert>
+   <!-- 가입시 계좌 정보 입력 -->
+   <insert id="insertAccount" parameterType="driverAllVo" >
+      <selectKey order="BEFORE" keyProperty="accInfoNo" resultType="int">
+         select account_infromation_seq.nextval from dual 
+      </selectKey>
+      insert into users_address(no, delivery_driver_no, bank, account_number, account_holder)
+      values(#{accInfoNo}, #{no}, #{bank}, #{accNum}, #{accHolder})
    </insert>
    <!-- 이메일 중복 확인 -->
    <select id="chkEmail" parameterType="String"  resultType="int">

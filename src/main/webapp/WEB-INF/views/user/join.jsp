@@ -86,8 +86,8 @@
 						</select>
 					</div>
 					<div>
-						<label for="acHolder">계좌주</label>
-						<input type="text" name="acHolder" id="acHolder"><br />
+						<label for="accHolder">계좌주</label>
+						<input type="text" name="accHolder" id="acHolder"><br />
 						<label for="bank">은행-계좌번호</label>
 						<select name="bank" id="bank">
 							<option value="국민은행">국민은행</option>
@@ -102,7 +102,7 @@
 							<option value="한국씨티은행">한국씨티은행</option>
 							<option value="SC제일은행">SC제일은행</option>
 						</select>
-						<input type="text" name="acNum" placeholder="-를 제외하고 입력해주세요" class="width_350">
+						<input type="text" name="accNum" placeholder="-를 제외하고 입력해주세요" class="width_350">
 					</div>
 				</c:if>
 				<div class="hpbox">
