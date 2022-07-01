@@ -22,15 +22,16 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 
-		String userid = (String) request.getSession().getAttribute("userid");
-		logger.info("userid = {}", userid);
+		String adminEmail = (String) request.getSession().getAttribute("adminEmail");
+		logger.info("adminEmail = {}", adminEmail);
 
-		if(userid == null || userid.isEmpty()) {
+		if(adminEmail == null || adminEmail.isEmpty()) {
 			response.setContentType("text/html; charset = UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script type='text/javascript'>");
-			out.print("alert('먼저 로그인하세요.');");
-			out.print("location.href = '" + request.getContextPath() + "/login/login';");
+			out.print("alert('관리자 페이지를 이용하시려면"
+					+ "\\n먼저 로그인 해주세요');");
+			out.print("location.href = '" + request.getContextPath() + "/admin/adminLogin';");
 			out.print("</script>");
 
 			return false;

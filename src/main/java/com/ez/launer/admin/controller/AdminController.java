@@ -436,7 +436,7 @@ public class AdminController {
 		session.removeAttribute("adminName");
 		session.removeAttribute("adminCode");
 		
-		return "redirect:/admin/";
+		return "redirect:/admin/adminLogin";
 	}
 	
 	
