@@ -97,10 +97,10 @@ function validate_pwd(pwd){
 	var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/);
 	return pattern.test(pwd);
 }
-function validate_acNum(acNum){
-	var pattern = new RegExp(/^(\d{1,})(-(\d{1,})){1,}$/);
-	return pattern.test(acNum);
-}
+// function validate_acNum(acNum){
+// 	var pattern = new RegExp(/^(\d{1,})(-(\d{1,})){1,}$/);
+// 	return pattern.test(acNum);
+// }
 function validate_hp(hp){
 	var pattern = new RegExp(/^[0-9]*$/g);
 	return pattern.test(hp); //정규식과 일치하면 true
