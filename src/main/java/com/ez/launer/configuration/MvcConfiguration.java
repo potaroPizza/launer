@@ -1,5 +1,6 @@
 package com.ez.launer.configuration;
 
+import com.ez.launer.controller.DeliveryInterceptor;
 import com.ez.launer.controller.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +14,13 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 레지스트리에 인터셉터 등록
-//		registry.addInterceptor(new LoginInterceptor())
-//				.addPathPatterns("/laundryService/**");
-		//=> 작성한 특성 url에만 LoginInterceptor를 적용하겠다는 뜻
+		registry.addInterceptor(new LoginInterceptor())
+				.addPathPatterns("/laundryService/**")
+				.addPathPatterns("/mypage/**");
+
+
+		/*registry.addInterceptor(new DeliveryInterceptor())
+				.addPathPatterns("/delivery/**");*/
 
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")
