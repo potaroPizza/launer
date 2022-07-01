@@ -1,49 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <t:wrapper>
-<style>
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/editPwd.js'/>"></script>
 
-</style>
-<script type="text/javascript">
-function isPassword(asValue) {
-	var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
- 
-	return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
-}
-
-	$(function(){
-		$('form[name=editPwdfrm]').submit(function(){
-		
-			if($('#pwd').val().length<1){
-				alert('비밀번호를 입력하세요.');
-				$('#pwd').focus();
-				event.preventDefault();
-			}else if($('#newPwd').val().length<1){
-				alert('새 비밀번호를 입력하세요.');
-				$('#newPwd').focus();
-				event.preventDefault();
-			}else if($('#pwd').val()==$('#newPwd').val()){
-				alert('동일한 비밀번호로 변경할 수 없습니다.');
-				$('#newPwd2').focus();
-				event.preventDefault();
-			}else if($('#newPwd2').val().length<1){
-				alert('새 비밀번호를 입력하세요.');
-				$('#newPwd2').focus();
-				event.preventDefault();
-			}else if($('#newPwd').val()!=$('#newPwd2').val()){
-				alert('새 비밀번호가 일치하지 않습니다.');
-				$('#newPwd2').focus();
-				event.preventDefault();
-			}else if(!isPassword($("#newPwd").val())){
-				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
-				$('#newPwd').focus();
-				event.preventDefault();
-			}
-			});
-		});
-</script>
 	<!-- wrapper -->
 	<div id="editPwd_wrapper">
 
@@ -73,10 +35,10 @@ function isPassword(asValue) {
 					<h3 class="editPwd_title">
 						<label for="pwd">현재 비밀번호</label>
 					</h3>
-					<span class="box int_pass"> 
-					<input type="password" id="pwd"
-						name="pwd" class="int" maxlength="20"> 
-					<span id="alertTxt">사용불가</span>
+					<span class="editPwd_box int_pass"> 
+					<input type="password" id="editPwd_pwd"
+						name="pwd" class="editPwd_int" maxlength="16"> 
+					<span id="editPwd_alertTxt">사용불가</span>
 						<img src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
 					</span> <span class="error_next_box"></span>
 				</div>
@@ -84,10 +46,10 @@ function isPassword(asValue) {
 					<h3 class="editPwd_title">
 						<label for="newPwd">새 비밀번호</label>
 					</h3>
-					<span class="box int_pass"> 
-					<input type="password" id="newPwd"
-						name="newPwd" class="int" maxlength="20"> 
-					<span id="alertTxt">사용불가</span>
+					<span class="editPwd_box int_pass"> 
+					<input type="password" id="editPwd_newPwd"
+						name="newPwd" class="editPwd_int" maxlength="16"> 
+					<span id="editPwd_alertTxt2"></span>
 						<img src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
 					</span> <span class="error_next_box"></span>
 				</div>
@@ -95,9 +57,11 @@ function isPassword(asValue) {
 					<h3 class="editPwd_title">
 						<label for="newPwd2">새 비밀번호 확인</label>
 					</h3>
-					<span class="box int_pass"> 
-					<input type="password" id="newPwd2"
-						name="newPwd2" class="int" maxlength="20"> <span id="alertTxt">사용불가</span>
+					<span class="editPwd_box int_pass"> 
+					<input type="password" id="editPwd_newPwd2"
+						name="newPwd2" class="editPwd_int" maxlength="20"> 
+						<span id="editPwd_alertTxt3"></span>
+						
 						<img src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
 					</span> <span class="error_next_box"></span>
 				</div>

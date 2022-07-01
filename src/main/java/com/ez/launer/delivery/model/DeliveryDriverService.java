@@ -8,4 +8,5 @@ public interface DeliveryDriverService {
     int insertDeliveryAmount(Map<String, Object> map);
     List<Map<String, Object>> amountByDeliveryNo(Map<String, Object> map);
     Map<String, Object> amountAllRecode(Map<String, Object> map);
+    List<Map<String, Object>> selectListAll(Map<String, Object> map);
 }

@@ -27,11 +27,11 @@
                     javaType="ArrayList" ofType="map" select="selectOrderDetails">
         </collection>
 	</resultMap>
-	<!-- 페이징 처리 -->
+	<!-- 페이징 처리 레코드 조회수 -->
 	<select id="PointSelectTotalRecord" parameterType="PointSearchVo" resultType="int">
-		select count(*) from point_history_view
+		select count(*) from point_history_view where users_no =#{usersNo}
 	</select>
-	<!-- 페이징 처리 -->
+	<!-- 포인트 내역 페이징 처리 -->
 	<select id="PointSelectList" parameterType="PointSearchVo" 
     	resultType="map">
     	select *
@@ -40,7 +40,7 @@
 		    select rownum as RNUM, A.*
 		    from
 		    (
-				select * from point_history_view order by regdate desc
+				select * from point_history_view where users_no =#{usersNo} order by regdate desc
 		    )A
 		)
 		where RNUM > #{firstRecordIndex} 

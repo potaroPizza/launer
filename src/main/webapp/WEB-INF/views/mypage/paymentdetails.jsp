@@ -5,86 +5,14 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <t:wrapper>
-<script type="text/javascript">
-	$(function(){
-		$("#startDay").datepicker({
-			dateFormat:'yy-mm-dd',
-			changeYear:true,
-			dayNamesMin:['일','월','화','수','목','금','토'],
-			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-		});
-		$("#endDay").datepicker({
-			dateFormat:'yy-mm-dd',
-			changeYear:true,
-			dayNamesMin:['일','월','화','수','목','금','토'],
-			monthNames:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-		});
-	});
-	$(function(){
-		
-		$('#btMonth1').click(function(){
-        	$.setDate(1, 'M');	
-        });
-        
-        $('#btMonth3').click(function(){
-        	$.setDate(3, 'M');
-        });
-        
-        $('#btMonth6').click(function(){
-        	$.setDate(6, 'M');
-        });
-        $("#paysubmit").click(function(){
-			if($("#startDay").val().length<1){
-				alert("검색할 결제 시작일을 입력하세요");
-				$("#startDay").focus();
-				return false;
-			}
-			if($("#endDay").val().length<1){
-				alert("검색할 결제 종료일을 입력하세요");
-				$("#endDay").focus();
-				return false;
-			}
-		});
-        $.setDate = function(term, type){
-    		
-    		var str=$('#endDay').val().split('-');
-    		var d = new Date(str[0], str[1]-1, str[2]);
-    		if(type=="D"){
-    			d.setDate(d.getDate()-term);	
-    		}else if(type=='M'){
-    			d.setMonth(d.getMonth()-term);
-    		}
-    		
-    		$('#startDay').val($.findDate(d));
-    	}	
-    	
-    	$.findDate = function(date){
-    	     return date.getFullYear()+"-" + $.formatDate(date.getMonth()+1) +"-"
-             	+ $.formatDate(date.getDate());
-       	}
-       
-    	$.formatDate = function(d){
-    		if(d<10) 
-    			d="0" + d;
-    		
-    		return d;
-    	}
-	});
-	
-	function pageFunc(curPage){
-		$('input[name=currentPage]').val(curPage);
-		$('form[name=frmPage]').submit();
-	}
-</script>
-<style>
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
+<script type="text/javascript" src="<c:url value='/js/paymentdetails.js'/>"></script>
 
-</style>
 	<form name="frmPage" method="post"
 		action="<c:url value='/mypage/paymentdetails'/>">
 		<input type="hidden" class="startDay" name="startDay" value="${paymentSearchVO.startDay}">
 		<input type="hidden" class="endDay" name="endDay" value="${paymentSearchVO.endDay}">
 		<input type="hidden" class="currentPage" name="currentPage">	
-		<input type="hidden" class="countPerPage" name="countPerPage" value="${paymentSearchVO.countPerPage}">
 	</form>
 	<div id="paymentdetails_wrap">
 		<div class="paymentdetails_top"></div>
@@ -94,6 +22,7 @@
 		<div class="paymentdetails_date_wrap">
 			<div class="paymentdetails_date">
 				<form name="frm1" method="post" action="<c:url value='/mypage/paymentdetails'/>">
+					<input type="button" value="1주일" class="btn btn-outline-dark" id="btDay7">
 					<input type="button" value="1개월" class="btn btn-outline-dark" id="btMonth1">
 					<input type="button" value="3개월" class="btn btn-outline-dark" id="btMonth3">
 					<input type="button" value="6개월" class="btn btn-outline-dark" id="btMonth6">
@@ -117,7 +46,6 @@
 					<div class="paymentdetails_col-5">상태</div>
 				</li>
 				
-<%--				<c:if test="${empty paymentList }">--%>
 				<c:if test="${empty list }">
 				<li class="paymentdetails_table-row"> 
 					<div class="paymentdetails_col-1" data-label="주문번호"></div>
@@ -127,9 +55,7 @@
 					<div class="paymentdetails_col-5" data-label="상태"></div>
 				</li>
 				</c:if>
-<%--				<c:if test="${!empty paymentList }">--%>
 				<c:if test="${!empty list }">
-<%--					<c:forEach var="map" items="${paymentList }">--%>
 					<c:forEach var="vo" items="${list }">
 						<li class="paymentdetails_table-row">
 							<c:set var="title" value=""/>
@@ -143,22 +69,20 @@
 								</c:if>
 								<c:set var="titleCnt" value="${titleCnt + 1}"/>
 							</c:forEach>
-							<%-- <div class="paymentdetails_col-1" data-label="주문번호">${PaymentViewVO.paymentViewVO.orderNo}</div> --%>
 							<div class="paymentdetails_col-1" data-label="주문번호">${vo.paymentViewVO.orderNo}</div>
 							<div class="paymentdetails_col-2" data-label="상품명">
-								<c:if test="${fn: length(title)>20}">
-								<a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${fn:substringBefore(title,",")} 외...</a>
+								<c:if test="${fn: length(title)>8}"><%-- ${fn:substringBefore(title,",")} --%>
+								<a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${fn:substring(title,0,title.indexOf(',',title.indexOf(',')+1))} 등...</a>
 								</c:if>
 						
-			            <c:if test="${fn: length(title)<=20}">
+			            <c:if test="${fn: length(title)<=8}">
 			                  <a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${title}</a>           
 			            </c:if>
 							</div>
-							<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber></div>
+							<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber>원</div>
 							<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${vo.paymentViewVO.regdate}" pattern="yyyy-MM-dd" /></div>
 							<div class="paymentdetails_col-5" data-label="상태">${vo.paymentViewVO.status}</div>
 
-								
 						</li>
 					</c:forEach>
 				</c:if>

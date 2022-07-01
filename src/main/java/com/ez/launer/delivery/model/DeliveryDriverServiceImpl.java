@@ -60,4 +60,9 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService{
     public Map<String, Object> amountAllRecode(Map<String, Object> map) {
         return deliveryDriverDAO.amountAllRecode(map);
     }
+
+    @Override
+    public List<Map<String, Object>> selectListAll(Map<String, Object> map) {
+        return deliveryDriverDAO.selectListAll(map);
+    }
 }

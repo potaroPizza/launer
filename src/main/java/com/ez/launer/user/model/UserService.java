@@ -16,7 +16,7 @@ public interface UserService {
 	//로그인 체크시 사용하는 상수
 	public static final int LOGIN_OK=1; //로그인 성공
 	public static final int DISAGREE_PWD=2; //비밀번호 불일치
-	public static final int NONE_USEREMAIL=3;	// 아이디 존재하지 않음
+	public static final int NONE_USEREMAIL=3;// 아이디 존재하지 않음
 	
 	public int insertUser(UserAllVO vo);
 	public int insertAddress(UserAllVO vo);
@@ -37,10 +37,5 @@ public interface UserService {
 	/* 한서현 */
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
-	
-	
-	
-	
-	
-
+	int isAddressExist(int no);
 }

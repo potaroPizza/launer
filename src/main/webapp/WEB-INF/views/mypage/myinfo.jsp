@@ -4,10 +4,8 @@
 
 <t:wrapper>
 <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>"/>
-<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
-	<style>
+<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" ></script>
 
-</style>
 	<div id="myinfo_wrap">
 		<div class="myinfo_top"></div>
 		<div class="myinfo_title_wrap">
