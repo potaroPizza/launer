@@ -1,3 +1,7 @@
+.spaceDiv {
+    width: 210px;
+}
+
 &{
 		margin: 0 auto;
     	width: 1200px;
@@ -157,9 +161,9 @@ span#orderAgree {
 }
 
 td input {
-        width: 171px;
+        width: 139px;
     text-align: center;
-    font-size: 21px;
+    font-size: 18px;
     border: none;
 }
 thead {
@@ -240,4 +244,11 @@ input#insertPointBtn {
     height: 28px;
     margin-left: 5px;
     border-radius: 6px;
+}
+span#shortPoint {
+    float: right;
+    margin-right: 209px;
+    margin-top: 5px;
+    color: red;
+    font-weight: bold;
 }

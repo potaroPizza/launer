@@ -201,7 +201,8 @@ $(function () {
 								<th scope="col">상품번호</th>
 								<th scope="col">상품명</th>
 								<th scope="col">금액</th>
-								<th scope="col">수량 / 총금액</th>
+								<th scope="col">수량</th>
+								<th scope="col">총금액</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -227,10 +228,16 @@ $(function () {
 											class="paramInput" value="${map['categoryNo'] }"></td>
 										<td><input type="text" name="name" class="tdInput"
 											value="${map['name'] }"></td>
-										<td><input type="text" name="price" class="paramInput"
+										<td>
+										<span><fmt:formatNumber value="${map['price'] }" pattern="#,###" /></span>
+										<input type="hidden" name="price" class="paramInput"
 											value="${map['price'] }"></td>
 										<td><input type="text" name="quan" class="paramInput"
-											value="${map['quan'] }"> <input type="text"
+											value="${map['quan'] }">
+										</td>
+										<td>
+										<span><fmt:formatNumber value="${map['sum'] }" pattern="#,###" /></span>
+										<input type="hidden"
 											name="sum" class="paramInput" value="${map['sum'] }">
 										</td>
 									</tr>
@@ -246,13 +253,17 @@ $(function () {
 					<hr>
 					<div class="orderConfirm-finalInfo">
 						<div class="orderConfirm-finalInfo-div">
-							<label for="buyingPrice">상품금액 : </label> <input type="text"
+							<label for="buyingPrice">상품금액 : </label> 
+							<span><fmt:formatNumber value="${paramPrice }" pattern="#,###" />원</span>
+							<input type="hidden"
 								name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
 								value="${paramPrice }" readonly>
 							<fmt:parseNumber 
 								var="readyPoint" value="${paramPrice/100 }" integerOnly="true"/>
-
-							<span class="">적립예정포인트:</span><input type="text" id="savePoint"
+							<div class ="spaceDiv"></div>
+							<span class ="insertPointSpan">적립예정포인트:</span>
+							<span><fmt:formatNumber value="${readyPoint }" pattern="#,###" />p</span>
+							<input type="hidden" id="savePoint"
 								name="savePoint" value="${readyPoint }">
 						</div>
 						<div class="orderConfirm-finalInfo-div">

@@ -25,9 +25,16 @@ public class IndexController {
     }
 
     @RequestMapping("user/logout")
-    public String logOut(HttpSession session) {
+    public String logOut(HttpSession session,Model model) {
         session.setAttribute("email", null);
-
-        return "index";
+        session.setAttribute("no", null);
+        session.setAttribute("access_Token", null);
+        
+        String url = "/", msg ="로그아웃되었습니다";
+        
+        model.addAttribute("url",url);
+	    model.addAttribute("msg",msg);
+        
+        return "common/message";
     }
 }
