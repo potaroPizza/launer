@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <t:wrapper>
 <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>"/>
@@ -44,8 +44,10 @@
 
 		</div>
 		<div class="myinfo_withdrawbtn">
+			<c:if test="${map['SOCIAL_LOGIN_KEY']==null}">
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='/launer/mypage/editPwd'">비밀번호 변경</button>
+			</c:if>
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='/launer/mypage/withdraw'">회원 탈퇴</button>
 		</div>
