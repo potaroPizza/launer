@@ -1,5 +1,7 @@
 package com.ez.launer.user.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserAllVO;
 import com.ez.launer.user.model.UserService;
 
@@ -23,6 +26,7 @@ public class JoinController {
 	=LoggerFactory.getLogger(JoinController.class);
 	
 	private final UserService userService;
+	private final SHA256Encryption sha256;
 	
 	@GetMapping("/join")
 	public void join_get(Model model) {
@@ -33,9 +37,17 @@ public class JoinController {
 	
 	@PostMapping("/join")
 	public String join_post(@ModelAttribute UserAllVO vo, 
-							@RequestParam String entermethod2, Model model) {
+							@RequestParam String entermethod2, Model model) throws NoSuchAlgorithmException {
 		logger.info("일반회원가입 처리, 파라미터 vo={}", vo);
 		
+		//비밀번호 암호화
+		String pwd = vo.getPwd();
+		logger.info("암호화 전 pwd ={}",pwd);
+		
+		String encryptedPwd = sha256.encrypt(pwd);
+		vo.setPwd(encryptedPwd);
+		logger.info("암호화 후 encryptedPwd={}",vo.getPwd());
+
 		String entermethod=vo.getEntermethod();
 		if(entermethod==null || entermethod.isEmpty()) {
 			entermethod=entermethod2;
