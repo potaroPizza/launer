@@ -97,11 +97,11 @@
                         <div class="text">
                             <div class="first">
                                 <div class="element">
-                                    <div class="icon"></div>
+                                    <div class="icon"><img style="width:230; height:160;" alt="비대면 세탁" src="${pageContext.request.contextPath}/images/test1.png"></div>
                                     <span class="sub-text">비대면 세탁</span>
                                 </div>
                                 <div class="element">
-                                    <div class="icon"></div>
+                                    <div class="icon"><img style="width:230; height:160;" alt="비대면 세탁" src="${pageContext.request.contextPath}/images/test2.png"></div>
                                     <span class="sub-text">신속한 배송</span>
                                 </div>
                                 <div class="element">
