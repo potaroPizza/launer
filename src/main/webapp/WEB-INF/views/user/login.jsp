@@ -8,7 +8,9 @@
 	<link rel="stylesheet" href="<c:url value="/css/user/login.css"/>"/>
 	
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script src="<c:url value="/js/login_kakao.js"/>" type="text/javascript" text="javascript"></script>
+<script src="<c:url value="/js/login-naver.js"/>" type="text/javascript" text="javascript"></script>
 <script src="<c:url value="/js/login.js"/>" type="text/javascript" text="javascript"></script>
 <div id="login_wrap">
 	<div class="login_subwrap">
@@ -59,9 +61,20 @@
 									<div class="login_Or">또는</div>
 									<div id="snslogin">
 										<ul class="snsloginbox">
-											<li class="btn_naver">
-												<a>네이버로 로그인</a>
+											<li id="naver_id_login" class="btn_naver">
+												<a href="https://nid.naver.com/oauth2.0/authorize?
+													response_type=code&
+													client_id=sA1wXjzUVJ_q15yX5Z3k&
+													redirect_uri=http://localhost:9095/launer/user/login/naver/auth&
+													state=STATE_STRING">네이버로 로그인</a>
 											</li>
+											<%--<li id="naver_id_login2" class="btn_naver">
+												<a href="https://nid.naver.com/oauth2.0/token?
+												grant_type=delete&
+												client_id=sA1wXjzUVJ_q15yX5Z3k&
+												client_secret=LzHF30VRtz&
+												access_token=AAAAOYRctodcmpdIdNo0mzZt8tW8KL3ZhDjiCZbDXT8GqkZ5MIoaiV6yWDfIo0idQd6z12ELOl8FxL5l24DJd2IDhsw">테스트</a>
+											</li>--%>
 											<li class="btn_kakao">
 												<a href="https://kauth.kakao.com/oauth/authorize?
 											client_id=17794c6c3763c9ee2f66e9d03e0b9c5b

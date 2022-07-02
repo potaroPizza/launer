@@ -231,10 +231,11 @@ public class UserServiceImpl implements UserService{
 	public int insertAddressOnlyPart(UserAddressVO addressVo) {
 		return userDao.insertAddressOnlyPart(addressVo);
 	}
-	
-	
 
-
+	@Override
+	public int insertSnsUser(UserVO userVO) {
+		return userDao.insertSnsUser(userVO);
+	}
 
 
 }

@@ -45,4 +45,9 @@ public interface UserService {
 	int accIsExist(String email);
 	int isAddressExist(int no);
 	int insertAddressOnlyPart(UserAddressVO addressVo);
+
+
+
+	/* 박권순 */
+	int insertSnsUser(UserVO userVO);
 }
