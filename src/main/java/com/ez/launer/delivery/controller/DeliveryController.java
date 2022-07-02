@@ -1,8 +1,34 @@
 package com.ez.launer.delivery.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.MapPolygon;
 import com.ez.launer.common.PaginationInfo;
+import com.ez.launer.delivery.model.DeliveryDriverAllVO;
 import com.ez.launer.delivery.model.DeliveryDriverService;
 import com.ez.launer.delivery.model.DeliveryDriverVO;
 import com.ez.launer.delivery.model.OrderListSearchVO;
@@ -11,26 +37,9 @@ import com.ez.launer.laundryService.order.model.OrderDeliveryVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
-import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.tomcat.util.bcel.Const;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import com.ez.launer.user.model.UserService;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/delivery")
@@ -41,6 +50,7 @@ public class DeliveryController {
     private final DeliveryDriverService deliveryDriverService;
     private final OfficeService officeService;
     private final OrderService orderService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String deliveryMain(HttpSession session, Model model) {
@@ -427,4 +437,138 @@ public class DeliveryController {
         wb.write(response.getOutputStream());
         wb.close();
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    
+    
+    //
+    @GetMapping("/useredit") 
+	public String editDelivery_get(HttpSession session, 
+			Model model) { 
+		
+		/* int deliveryNo = (int) session.getAttribute("deliveryNo"); */
+    	int deliveryNo=2000;
+		logger.info("배송기사 정보 수정 화면, 파라미터 deliveryNo={}", deliveryNo);
+
+		HashMap<String, Object> map= deliveryDriverService.selectByEdit(deliveryNo);
+		logger.info("배송기사 정보 조회 결과, map={}",map);
+		
+
+		model.addAttribute("map",map);
+
+		return "/mypage/useredit";
+
+	}
+
+	@PostMapping("/useredit")
+	public String editDelivery_post(@ModelAttribute DeliveryDriverAllVO vo,
+			HttpSession session, Model model) {
+		/* int deliveryNo = (int) session.getAttribute("deliveryNo"); */
+		int deliveryNo=2000;
+		vo.setNo(deliveryNo);
+		logger.info("배달기사정보 수정, DeliveryDriverAllVO={}", vo);
+
+		String hp=vo.getHp();
+		String officeName=vo.getOfficeName();
+		String bank=vo.getBank();
+		String accountHolder=vo.getAccountHolder();
+		int accountNum=vo.getAccountNumber();
+		
+		vo.setHp(hp);
+		vo.setOfficeName(officeName);
+		vo.setBank(bank);
+		vo.setAccountHolder(accountHolder);
+		vo.setAccountNumber(accountNum);
+
+
+		String msg="비밀번호 확인 실패", url="/mypage/useredit";
+		int result=deliveryDriverService.checkLogin(vo.getNo(), vo.getPwd());
+		logger.info("배달기사정보 수정 - 비밀번호 확인 결과, result ={}", result);
+
+		if(result==deliveryDriverService.LOGIN_OK) {
+			int cnt = deliveryDriverService.updateDeliveryHp(vo);
+			logger.info("배송기사정보 수정 결과, cnt ={}", cnt);
+			int cnt2 = deliveryDriverService.updateAccountInfo(vo);
+			logger.info("배송기사정보 수정 결과, cnt2={} ", cnt2);
+
+
+			if(cnt>0 && cnt2>0) { 
+				msg="배송기사 정보를 수정하였습니다.";
+			}else { msg="배송기사정보 수정 실패"; }
+
+		}else if(result==deliveryDriverService.DISAGREE_PWD) {
+			msg="비밀번호가 일치하지 않습니다.";			
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+
+	}
+	
+	
+	@GetMapping("/deliverywithdraw")
+	public String Deliverydelete_get(HttpSession session, Model model) {
+		logger.info("배송기사 탈퇴 화면");
+		int deliveryNo = (int) session.getAttribute("deliveryNo");
+		logger.info("배송기사 탈퇴 화면, 파라미터 no={}", deliveryNo);
+
+		DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+		logger.info(" 배송기사 조회 결과, deliveryVO={}",deliveryVO);
+
+		model.addAttribute("deliveryVO",deliveryVO);
+
+		return "/mypage/withdraw";
+	}
+
+	@PostMapping("/deliveryWithdraw")
+	public String Deliverydelete_post(@RequestParam String pwd,
+			HttpSession session, HttpServletResponse response,
+			Model model) {
+		int deliveryNo = (int) session.getAttribute("deliveryNo");
+		String email=(String)session.getAttribute("email");
+		logger.info("배송기사 탈퇴 처리, 파라미터 deliveryNo={}, pwd={}",deliveryNo,pwd);
+
+		int result=deliveryDriverService.checkLogin(deliveryNo, pwd);
+		logger.info("배송기사 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
+
+		String msg="비밀번호 체크 실패",url="/mypage/withdraw";
+		if(result == deliveryDriverService.LOGIN_OK) {
+			int cnt=deliveryDriverService.deleteDelivery(deliveryNo);
+			if(cnt>0) {
+				msg="회원탈퇴 처리가 되었습니다.";
+				url="/mypage/signout";
+				
+				  Cookie ck = new Cookie("chkUseremail", email);
+				   ck.setPath("/"); 
+				   ck.setMaxAge(0);
+				  response.addCookie(ck);
+				  session.removeAttribute("deliveryNo");
+				  session.removeAttribute("name");
+				  session.removeAttribute("email");
+				 
+			}else {
+				msg="회원탈퇴 실패";				
+			}
+		}else if(result==deliveryDriverService.DISAGREE_PWD) {
+			msg="비밀번호가 일치하지 않습니다.";
+		}
+
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		
+		return "/common/message";
+	}
+    
 }

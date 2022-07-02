@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이메일 중복 확인</title>
+<title>배송기사 이메일 중복 확인</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/user/join.css'/>"/>
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#btUse').click(function(){
 			$(opener.document).find('#email').val('${param.email}');
-			$(opener.document).find('#chkEmail').val('Y');
+			$(opener.document).find('#chkDmail').val('Y');
 			
 			self.close();
 		});
@@ -20,7 +20,7 @@
 </head>
 <body>
 	<h2>이메일 중복 검사</h2>
-	<form name="frmEmail" method="post" action="<c:url value='/user/checkEmail'/>">
+	<form name="frmEmail" method="post" action="<c:url value='/delivery/checkDmail'/>">
 		<input type="text" name="email" id="email" 
 			title="이메일 입력" value="${param.email}">
 		<input type="submit"  id="submit" value="이메일 확인">

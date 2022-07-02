@@ -42,7 +42,7 @@
 				$("#pwd2").focus();
 				event.preventDefault();
 			}else if(!validate_hp($('#hp').val())){
-				alert("전화번호는 숫자만 가능합니다");
+				alert("전화번호는 양식에 맞게 입력해 주세요");
 				$("#hp").focus();
 				event.preventDefault();
 			}else if(classNo === 2) {
@@ -119,7 +119,7 @@
 		return pattern.test(acNum);
 	}
 	function validate_hp(hp){
-		var pattern = new RegExp(/^[0-9]*$/g);
+		var pattern = new RegExp(/^([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})$/);
 		return pattern.test(hp); ; //정규식과 일치하면 true
 		/* 정규식 /^[0-9]*$/g
 		0 에서 9사이의 숫자로 시작하거나 끝나야 한다는 의미 (^는 시작, $는 끝을 의미)

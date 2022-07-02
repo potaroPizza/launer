@@ -2,24 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.user.model.UserDAO">
-   <!-- 회원가입 -->
-   <insert id="insertUser" parameterType="userVo" >
+   <!-- 일반 회원가입 -->
+   <insert id="insertUser" parameterType="userAllVo" >
       <selectKey order="BEFORE" keyProperty="no" resultType="int">
-         select users_seq.nextval from dual 
+         select users_seq.nextval from dual
       </selectKey>
          insert into users(no,user_code,name,email,pwd,hp,start_date,point)
          values(#{no},#{userCode},#{name},#{email},#{pwd},#{hp},sysdate,#{point}) 
    </insert>
    <!-- 가입시 주소 입력 -->
-   <insert id="insertAddress" parameterType="userAddressVo" >
+   <insert id="insertAddress" parameterType="userAllVo" >
       <selectKey order="BEFORE" keyProperty="addressNo" resultType="int">
          select users_address_seq.nextval from dual 
       </selectKey>
-      insert into users_address(no, address, address_detail, zipcode)
-      values(no, #{address}, #{addressDetail}, #{zipcode})
+      insert into users_address(no, users_no, address, address_detail, zipcode,entermethod)
+      values(#{addressNo}, #{no}, #{address}, #{addressDetail}, #{zipcode}, #{entermethod})
+   </insert>
+   <!-- 배송기사 회원가입 -->
+   <insert id="insertDriver" parameterType="driverAllVo" >
+      <selectKey order="BEFORE" keyProperty="no" resultType="int">
+         select delivery_driver_seq.nextval from dual
+      </selectKey>
+         insert into delivery_driver(no,users_class_no,office_no, name,email,pwd,hp,start_date)
+         values(#{no},#{userCode},1,#{name},#{email},#{pwd},#{hp},sysdate) 
+   </insert>
+   <!-- 가입시 계좌 정보 입력 -->
+   <insert id="insertAccount" parameterType="driverAllVo" >
+      <selectKey order="BEFORE" keyProperty="accInfoNo" resultType="int">
+         select account_info_seq.nextval from dual 
+      </selectKey>
+      insert into account_information(no, delivery_driver_no, bank, account_number, account_holder)
+      values(#{accInfoNo}, #{no}, #{bank}, #{accNum}, #{accHolder})
 
-      insert into USERS_ADDRESS(no, users_no, office_no, address, address_detail, zipcode, lon_x, lat_y, entermethod)
-      values ()
    </insert>
    <!-- 이메일 중복 확인 -->
    <select id="chkEmail" parameterType="String"  resultType="int">
@@ -29,12 +43,28 @@
    <select id="chkHp" parameterType="String"  resultType="int">
       select count(*) from users where HP=#{hp} 
    </select>
-   <!-- 로그인 -->
+   <!-- 배달기사 이메일 중복 확인 -->
+   <select id="chkDmail" parameterType="String"  resultType="int">
+      select count(*) from delivery_driver where Email=#{email} 
+   </select>
+   <!-- 배달기사 휴대전화 번호 중복 확인 -->
+   <select id="chkDhp" parameterType="String"  resultType="int">
+      select count(*) from delivery_driver where HP=#{hp} 
+   </select>
+   <!-- 일반회원 로그인 -->
    <select id="selectByEmail" parameterType="String"  resultType="userVo">
-      select * from users where email=#{email} 
+      select * from users where email=#{email}
    </select>
    <select id="selectPwd2" parameterType="String" resultType="String">
       select pwd from users
+      where email=#{email} and out_date is null
+   </select>
+   <!-- 배달기사 로그인 -->
+   <select id="selectByDmail" parameterType="String"  resultType="driverAllVo">
+      select * from delivery_driver where email=#{email} 
+   </select>
+   <select id="selectPwd3" parameterType="String" resultType="String">
+      select pwd from delivery_driver
       where email=#{email} and out_date is null
    </select>
    <!-- 회원 정보 조회 -->
@@ -44,9 +74,9 @@
    <!-- 회원 정보 조회 주소테이블 조인 -->
    <select id="selectByIdAddress" parameterType="int" resultType="hashMap">
       select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
-      from users u, users_address a
-      where u.no=a.users_no
-      and u.no=#{no}
+      from users u full outer join users_address a
+	  on u.no=a.users_no
+      where u.no=#{no}
    </select>
    <!-- 회원 탈퇴처리 -->
    <update id="deleteUser" parameterType="int">
@@ -127,6 +157,14 @@
 	<select id ="isAddressExist" parameterType="int" resultType ="int">	
 		select count(*) from users_address where users_no = #{no}
 	</select>
+	<insert id="insertAddressOnlyPart" parameterType="userAddressVo">
+		<selectKey order="BEFORE" keyProperty="no" resultType ="int">
+		select users_address_seq.nextval from dual
+		</selectKey>
+			insert into users_address(no,users_no)
+			values(#{no}, #{usersNo})
+	</insert>
+	
 
 	
 

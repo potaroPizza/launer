@@ -22,8 +22,14 @@ public interface UserService {
 	public int insertAddress(UserAllVO vo);
 	public int chkEmail(String email);
 	public int chkHp(String hp);
+	public int insertDriver(DriverAllVO vo);
+	public int insertAccount(DriverAllVO vo);
+	public int chkDmail(String email);
+	public int chkDhp(String hp);
 	UserVO selectByEmail(String email);
 	public int loginChk(String email, String pwd);
+	DriverAllVO selectByDmail(String email);
+	public int dloginChk(String email, String pwd);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);
@@ -38,4 +44,5 @@ public interface UserService {
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	int isAddressExist(int no);
+	int insertAddressOnlyPart(UserAddressVO addressVo);
 }
