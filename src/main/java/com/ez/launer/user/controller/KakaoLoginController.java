@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.launer.user.model.KakaoAPI;
+import com.ez.launer.user.model.UserAddressVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -84,8 +85,18 @@ public class KakaoLoginController {
 				userVo.setPwd(socialLoginKey); 
 				userVo.setSocialLoginKey(socialLoginKey);
 				logger.info("미가입회원 userVo ={}",userVo);
-			}	
+			}
+			//users insert
 			int cnt = userService.insertKakaoUser(userVo);
+			
+			//users_address insert
+			UserVO vo= userService.selectByEmail(email);
+			UserAddressVO addressvo = new UserAddressVO();
+			addressvo.setUsersNo(vo.getNo());
+			
+			int addressCnt = userService.insertAddressOnlyPart(addressvo);
+			logger.info("userAddress result ={}",addressCnt);
+			
 			logger.info("카카오 회원가입결과={}",cnt);
 			url ="/";
 			msg =name+ "님, 회원가입을 축하드립니다";

@@ -24,14 +24,28 @@ $(function(){
 			alert("비밀번호가 일치하지 않습니다.");
 			$("#pwd2").focus();
 			event.preventDefault();
+		}else if(classNo === 1) {
+			if($("#addressDetail").val().length<1) {
+				alert("상세주소를 입력하세요");
+				$("#addressDetail").focus();
+				event.preventDefault();
+			}
 		}else if(!validate_hp($('#hp').val())){
 			alert("전화번호는 숫자만 가능합니다");
 			$("#hp").focus();
 			event.preventDefault();
 		}else if(classNo === 2) {
-			if(!validate_acNum($("#acNum").val())) {
-				alert("계좌번호 형식에 맞게 입력해 주세요");
-				$("#acNum").focus();
+			if($("#accHolder").val().length<1) {
+				alert("계좌주 성명을 입력하세요");
+				$("#accHolder").focus();
+				event.preventDefault();
+			}else if($("#accNum").val().length<1) {
+				alert("계좌번호를 입력하세요");
+				$("#accNum").focus();
+				event.preventDefault();
+			}else if(!validate_accNum($("#accNum").val())) {
+				alert("계좌번호는 숫자만 입력 가능합니다");
+				$("#accNum").focus();
 				event.preventDefault();
 			}
 		}else if(!$('#agreechk').is(':checked')){
@@ -56,12 +70,26 @@ $(function(){
 		window.open(ctxPath+"/user/checkEmail?email="+email,"emailcheck",
 			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
 	});
+	$('#btnChkDmail').click(function(){
+		var ctxPath="/launer";
+		var email=$('#email').val();
+
+		window.open(ctxPath+"/delivery/checkDmail?email="+email,"Dmailcheck",
+			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+	});
 
 	$('#btnChkHp').click(function(){
 		var ctxPath="/launer";
 		var hp=$('#hp').val();
 
 		window.open(ctxPath+"/user/checkHp?hp="+hp,"Hpcheck",
+			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+	});
+	$('#btnChkDhp').click(function(){
+		var ctxPath="/launer";
+		var hp=$('#hp').val();
+
+		window.open(ctxPath+"/delivery/checkDhp?hp="+hp,"Dhpcheck",
 			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
 	});
 
@@ -97,12 +125,12 @@ function validate_pwd(pwd){
 	var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/);
 	return pattern.test(pwd);
 }
-// function validate_acNum(acNum){
-// 	var pattern = new RegExp(/^(\d{1,})(-(\d{1,})){1,}$/);
-// 	return pattern.test(acNum);
-// }
-function validate_hp(hp){
+function validate_accNum(accNum){
 	var pattern = new RegExp(/^[0-9]*$/g);
+	return pattern.test(accNum);
+}
+function validate_hp(hp){
+	var pattern = new RegExp(/^([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})$/);
 	return pattern.test(hp); //정규식과 일치하면 true
 	/* 정규식 /^[0-9]*$/g
     0 에서 9사이의 숫자로 시작하거나 끝나야 한다는 의미 (^는 시작, $는 끝을 의미)

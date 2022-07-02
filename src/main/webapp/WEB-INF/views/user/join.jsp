@@ -8,19 +8,19 @@
 	<link rel="stylesheet" href="<c:url value="/css/user/join.css"/>" />
 	<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
 
-	<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" >="javascript"></script>
-	<script>
-		const classNo = ${classNo};
-		console.log(classNo);
+<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" >="javascript"></script>
+<script>
+	const classNo = ${classNo};
+	console.log(classNo);
 
-		window.onload = () => {
-			let actionUrl = ""
-			if(classNo === 1) actionUrl = '<c:url value='/user/join'/>';
-			else if(classNo === 2) actionUrl = '<c:url value='/delivery/join'/>';
+	window.onload = () => {
+		let actionUrl = ""
+		if(classNo === 1) actionUrl = '<c:url value='/user/join'/>';
+		else if(classNo === 2) actionUrl = '<c:url value='/delivery/join'/>';
 
-			document.querySelector("form[name=joinfrm]").action = actionUrl;
-		}
-	</script>
+		document.querySelector("form[name=joinfrm]").action = actionUrl;
+	}
+</script>
 <script src="<c:url value="/js/join.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <div id="join_wrap">
@@ -38,8 +38,14 @@
 				<div>
 					<label for="email">이메일</label>
 					<input type="text" name="email" id="email">
-					<input type="button" value="중복 확인" id="btnChkEmail">
-					<input type="text" name="chkEmail" id="chkEmail" disabled>
+					<c:if test="${classNo == 1}">
+						<input type="button" value="중복 확인" id="btnChkEmail">
+						<input type="text" name="chkEmail" id="chkEmail" disabled>
+					</c:if>
+					<c:if test="${classNo == 2}">
+						<input type="button" value="중복 확인" id="btnChkDmail">
+						<input type="text" name="chkDmail" id="chkDmail" disabled>
+					</c:if>
 				</div>
 				<div>
 					<label for="pwd">비밀번호</label> 
@@ -49,19 +55,23 @@
 				<div>
 					<label for="pwd2">비밀번호 확인</label> 
 					<input type="Password" name="pwd2" id="pwd2">
-					<input type="text" name="point" id="point" 
-						value="${classNo == 1 ? 5000 : null}" readonly>
 				</div>
 				<!-- 일반회원 가입시 주소 입력 폼-->
 				<c:if test="${classNo == 1}">
 					<div>
 						<label for="zipcode">우편번호</label>
 						<input type="text" name="zipcode" id="zipcode">&nbsp;
-						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()"><br />
+						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()">
+						<input type="text" name="point" id="point" value= 5000 readonly><br />
 						<label for="adress">주소</label>
-						<input type="text" name="address" id="address"><br />
+						<input type="text" name="address" id="address">
+						<input type="text" name="officeNo" id="OfficeNo" value=0 readonly><br />
 						<label for="adressDetail">상세주소</label>
-						<input type="text" name="addressDetail" id="addressDetail">
+						<input type="text" name="addressDetail" id="addressDetail"><br />
+						<label for="entermethod">공동현관 출입방법</label>
+						<input type="text" name="entermethod" id="entermethod"
+							placeholder="입력하지 않을시 '없음'으로 입력됩니다">
+						<input type="text" name="entermethod2" id="entermethod2" value="없음" readonly>
 					</div>
 				</c:if>
 				<!-- 배달기사 가입시 지점, 계좌 입력 폼-->
@@ -84,10 +94,11 @@
 							<option value="종로지점">종로지점</option>
 							<option value="중랑지점">중랑지점</option>
 						</select>
+						<input type="text" name="officeNo" id="OfficeNo" value="" readonly>
 					</div>
 					<div>
 						<label for="accHolder">계좌주</label>
-						<input type="text" name="accHolder" id="acHolder"><br />
+						<input type="text" name="accHolder" id="accHolder"><br />
 						<label for="bank">은행-계좌번호</label>
 						<select name="bank" id="bank">
 							<option value="국민은행">국민은행</option>
@@ -102,15 +113,22 @@
 							<option value="한국씨티은행">한국씨티은행</option>
 							<option value="SC제일은행">SC제일은행</option>
 						</select>
-						<input type="text" name="accNum" placeholder="-를 제외하고 입력해주세요" class="width_350">
+						<input type="text" name="accNum" id="accNum" 
+							placeholder="-를 제외하고 입력해주세요" class="width_350">
 					</div>
 				</c:if>
 				<div class="hpbox">
 					<label for="hp">휴대전화</label>
 					<input type="text" name="hp" id="hp" maxlength="11" 
 						placeholder="-를 제외하고 입력해주세요">&nbsp;
-					<input type="button" value="중복 확인" id="btnChkHp">
-					<input type="text" name="chkHp" id="chkHp" disabled>
+					<c:if test="${classNo == 1}">
+						<input type="button" value="중복 확인" id="btnChkHp">
+						<input type="text" name="chkHp" id="chkHp" disabled>
+					</c:if>
+					<c:if test="${classNo == 2}">
+						<input type="button" value="중복 확인" id="btnChkDhp">
+						<input type="text" name="chkDhp" id="chkDhp" disabled>
+					</c:if>
 				</div>
 				<div class="divTerms">
 				  	<h5>러너 이용약관</h5>
