@@ -24,6 +24,12 @@ $(function(){
 			alert("비밀번호가 일치하지 않습니다.");
 			$("#pwd2").focus();
 			event.preventDefault();
+		}else if(classNo === 1) {
+			if($("#addressDetail").val().length<1) {
+				alert("상세주소를 입력하세요");
+				$("#addressDetail").focus();
+				event.preventDefault();
+			}
 		}else if(!validate_hp($('#hp').val())){
 			alert("전화번호는 숫자만 가능합니다");
 			$("#hp").focus();

@@ -17,6 +17,8 @@ public interface UserDAO {
 	public int chkDhp(String hp);
 	UserVO selectByEmail(String email);
 	String selectPwd2(String email);
+	DriverAllVO selectByDmail(String email);
+	String selectPwd3(String email);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);

@@ -55,19 +55,23 @@
 				<div>
 					<label for="pwd2">비밀번호 확인</label> 
 					<input type="Password" name="pwd2" id="pwd2">
-					<input type="text" name="point" id="point" 
-						value="${classNo == 1 ? 5000 : null}" readonly>
 				</div>
 				<!-- 일반회원 가입시 주소 입력 폼-->
 				<c:if test="${classNo == 1}">
 					<div>
 						<label for="zipcode">우편번호</label>
 						<input type="text" name="zipcode" id="zipcode">&nbsp;
-						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()"><br />
+						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()">
+						<input type="text" name="point" id="point" value= 5000 readonly><br />
 						<label for="adress">주소</label>
-						<input type="text" name="address" id="address"><br />
+						<input type="text" name="address" id="address">
+						<input type="text" name="officeNo" id="OfficeNo" value=0 readonly><br />
 						<label for="adressDetail">상세주소</label>
-						<input type="text" name="addressDetail" id="addressDetail">
+						<input type="text" name="addressDetail" id="addressDetail"><br />
+						<label for="entermethod">공동현관 출입방법</label>
+						<input type="text" name="entermethod" id="entermethod"
+							placeholder="입력하지 않을시 '없음'으로 입력됩니다">
+						<input type="text" name="entermethod2" id="entermethod2" value="없음" readonly>
 					</div>
 				</c:if>
 				<!-- 배달기사 가입시 지점, 계좌 입력 폼-->
@@ -90,6 +94,7 @@
 							<option value="종로지점">종로지점</option>
 							<option value="중랑지점">중랑지점</option>
 						</select>
+						<input type="text" name="officeNo" id="OfficeNo" value="" readonly>
 					</div>
 					<div>
 						<label for="accHolder">계좌주</label>
