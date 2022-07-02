@@ -1,16 +1,22 @@
 package com.ez.launer.delivery.model;
 
-import com.ez.launer.laundryService.order.model.OrderDAO;
-import lombok.RequiredArgsConstructor;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.List;
-import java.util.Map;
+import com.ez.launer.laundryService.order.model.OrderDAO;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class DeliveryDriverServiceImpl implements DeliveryDriverService{
+	private static final Logger logger = LoggerFactory.getLogger(DeliveryDriverServiceImpl.class);
     private final DeliveryDriverDAO deliveryDriverDAO;
     private final OrderDAO orderDAO;
 
@@ -65,4 +71,48 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService{
     public List<Map<String, Object>> selectListAll(Map<String, Object> map) {
         return deliveryDriverDAO.selectListAll(map);
     }
+
+    
+    
+    //
+	@Override
+	public HashMap<String, Object> selectByEdit(int no) {
+		return deliveryDriverDAO.selectByEdit(no);
+	}
+
+	@Override
+	public int editPwd(DeliveryDriverVO vo) {
+		return deliveryDriverDAO.editPwd(vo);
+	}
+
+	@Override
+	public int checkLogin(int no, String pwd) {
+		String dbPwd = deliveryDriverDAO.selectPwd(no);
+		int result=0;
+		logger.info("결과 리턴 dbPwd={}", dbPwd);
+		if(dbPwd != null && !dbPwd.isEmpty()) {
+			if(dbPwd.equals(pwd)) {
+				result=DeliveryDriverService.LOGIN_OK;
+			}else {
+				result=DeliveryDriverService.DISAGREE_PWD;
+			}
+		}else {
+			result=DeliveryDriverService.NONE_USEREMAIL;
+		}
+
+		logger.info("결과 리턴 result={}", result);
+		return result;
+	}
+
+	@Override
+	public int updateDeliveryHp(DeliveryDriverAllVO vo) {
+		return deliveryDriverDAO.updateDeliveryHp(vo);
+	}
+
+	@Override
+	public int updateAccountInfo(DeliveryDriverAllVO vo) {
+		return deliveryDriverDAO.updateAccountInfo(vo);
+	}
+
+	
 }
