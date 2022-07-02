@@ -68,9 +68,13 @@
 		font-weight: bold; 
 		margin-left: 35%;
 		}
-	.join_form #name, #accHolder{
+	.join_form #name, #accHolder, #entermethod2{
 		ime-mode: active;
 		width: 100px;
+		}
+	.join_form #entermethod{
+		ime-mode: active;
+		width: 300px;
 		}
 	.join_form input[type="text"], .join_form input[type="password"]{
 		width: 200px;
