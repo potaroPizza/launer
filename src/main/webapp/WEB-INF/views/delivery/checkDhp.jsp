@@ -11,7 +11,7 @@
 	$(function(){
 		$('#btUse').click(function(){
 			$(opener.document).find('#hp').val('${param.hp}');
-			$(opener.document).find('#chkHp').val('Y');
+			$(opener.document).find('#chkDhp').val('Y');
 			
 			self.close();
 		});
@@ -20,8 +20,7 @@
 </head>
 <body>
 	<h2>휴대전화 번호 중복 검사</h2>
-	<form name="frmEmail" method="post" 
-		action="<c:url value='/user/checkHp'/>">
+	<form name="frmEmail" method="post" action="<c:url value='/delivery/checkDhp'/>">
 		<input type="text" name="hp" id="hp" 
 			title="휴대전화 번호 입력" placeholder="-를 제외하고 입력해주세요" value="${param.hp}">
 		<input type="submit"  id="submit" value="확인">

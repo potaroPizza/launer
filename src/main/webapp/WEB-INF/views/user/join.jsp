@@ -8,19 +8,19 @@
 	<link rel="stylesheet" href="<c:url value="/css/user/join.css"/>" />
 	<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
 
-	<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" >="javascript"></script>
-	<script>
-		const classNo = ${classNo};
-		console.log(classNo);
+<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" >="javascript"></script>
+<script>
+	const classNo = ${classNo};
+	console.log(classNo);
 
-		window.onload = () => {
-			let actionUrl = ""
-			if(classNo === 1) actionUrl = '<c:url value='/user/join'/>';
-			else if(classNo === 2) actionUrl = '<c:url value='/delivery/join'/>';
+	window.onload = () => {
+		let actionUrl = ""
+		if(classNo === 1) actionUrl = '<c:url value='/user/join'/>';
+		else if(classNo === 2) actionUrl = '<c:url value='/delivery/join'/>';
 
-			document.querySelector("form[name=joinfrm]").action = actionUrl;
-		}
-	</script>
+		document.querySelector("form[name=joinfrm]").action = actionUrl;
+	}
+</script>
 <script src="<c:url value="/js/join.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <div id="join_wrap">
@@ -38,8 +38,14 @@
 				<div>
 					<label for="email">이메일</label>
 					<input type="text" name="email" id="email">
-					<input type="button" value="중복 확인" id="btnChkEmail">
-					<input type="text" name="chkEmail" id="chkEmail" disabled>
+					<c:if test="${classNo == 1}">
+						<input type="button" value="중복 확인" id="btnChkEmail">
+						<input type="text" name="chkEmail" id="chkEmail" disabled>
+					</c:if>
+					<c:if test="${classNo == 2}">
+						<input type="button" value="중복 확인" id="btnChkDmail">
+						<input type="text" name="chkDmail" id="chkDmail" disabled>
+					</c:if>
 				</div>
 				<div>
 					<label for="pwd">비밀번호</label> 
@@ -110,8 +116,14 @@
 					<label for="hp">휴대전화</label>
 					<input type="text" name="hp" id="hp" maxlength="11" 
 						placeholder="-를 제외하고 입력해주세요">&nbsp;
-					<input type="button" value="중복 확인" id="btnChkHp">
-					<input type="text" name="chkHp" id="chkHp" disabled>
+					<c:if test="${classNo == 1}">
+						<input type="button" value="중복 확인" id="btnChkHp">
+						<input type="text" name="chkHp" id="chkHp" disabled>
+					</c:if>
+					<c:if test="${classNo == 2}">
+						<input type="button" value="중복 확인" id="btnChkDhp">
+						<input type="text" name="chkDhp" id="chkDhp" disabled>
+					</c:if>
 				</div>
 				<div class="divTerms">
 				  	<h5>러너 이용약관</h5>

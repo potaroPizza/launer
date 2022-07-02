@@ -24,6 +24,8 @@ public interface UserService {
 	public int chkHp(String hp);
 	public int insertDriver(DriverAllVO vo);
 	public int insertAccount(DriverAllVO vo);
+	public int chkDmail(String email);
+	public int chkDhp(String hp);
 	UserVO selectByEmail(String email);
 	public int loginChk(String email, String pwd);
 	UserVO selectById(int no);

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.launer.user.model.DriverAllVO;
 import com.ez.launer.user.model.UserService;
@@ -24,7 +25,7 @@ public class DeliveryJoinController {
     
     @GetMapping("/join")
     public String register(Model model) {
-        logger.info("회원가입 화면");
+        logger.info("배송기사 회원가입 화면");
 
         model.addAttribute("classNo", 2);
         return "/user/join";
@@ -51,5 +52,40 @@ public class DeliveryJoinController {
 		
 		return "/common/message";
     }
+    
+    @RequestMapping("/checkDmail")
+	public String checkEmail(@RequestParam String email, Model model) {
+		logger.info("배송기사 이메일 중복확인, 파라미터 email={}", email);
+
+		int result=0;
+		if(email!=null && !email.isEmpty()) {		
+			result=userService.chkDmail(email);
+	
+			logger.info("배송기사 이메일 중복확인 결과, result={}", result);
+		}
+
+		model.addAttribute("result", result);
+		model.addAttribute("USABLE_EMAIL", userService.USABLE_EMAIL);
+		model.addAttribute("UNUSABLE_EMAIL", userService.UNUSABLE_EMAIL);
+
+		return "/delivery/checkDmail";
+	}
+	@RequestMapping("/checkDhp")
+	public String checkHp(@RequestParam String hp, Model model) {
+		logger.info("배송기사 휴대전화 번호 중복확인, 파라미터 hp={}", hp);
+		
+		int result=0;
+		if(hp!=null && !hp.isEmpty()) {		
+			result=userService.chkDhp(hp);
+			
+			logger.info("배송기사 휴대전화 번호 중복확인 결과, result={}", result);
+		}
+		
+		model.addAttribute("result", result);
+		model.addAttribute("USABLE_HP", userService.USABLE_HP);
+		model.addAttribute("UNUSABLE_HP", userService.UNUSABLE_HP);
+		
+		return "/delivery/checkDhp";
+	}
 
 }

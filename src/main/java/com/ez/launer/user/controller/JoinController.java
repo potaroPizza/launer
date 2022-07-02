@@ -26,7 +26,7 @@ public class JoinController {
 	
 	@GetMapping("/join")
 	public void join_get(Model model) {
-		logger.info("회원가입 화면");
+		logger.info("일반회원가입 화면");
 
 		model.addAttribute("classNo", 1);
 	}
