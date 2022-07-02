@@ -111,7 +111,6 @@ public class KakaoAPI {
             
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
             
             //id = 앱과 연결된 사용자 회원번호 ex) 2316363390 
             
@@ -158,7 +157,29 @@ public class KakaoAPI {
             e.printStackTrace();
         }
     }
-
     
-    
+    public void unlink(String access_Token) {
+	    String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+	    try {
+	        URL url = new URL(reqURL);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        conn.setRequestMethod("POST");
+	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+	        
+	        int responseCode = conn.getResponseCode();
+	        System.out.println("responseCode : " + responseCode);
+	        
+	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        
+	        String result = "";
+	        String line = "";
+	        
+	        while ((line = br.readLine()) != null) {
+	            result += line;
+	        }
+	        System.out.println(result);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
 }

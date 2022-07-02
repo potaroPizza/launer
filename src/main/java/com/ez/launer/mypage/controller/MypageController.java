@@ -1,5 +1,6 @@
 package com.ez.launer.mypage.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,6 +30,8 @@ import com.ez.launer.payment.model.PaymentHistoryAllVO;
 import com.ez.launer.payment.model.PaymentHistoryViewVO;
 import com.ez.launer.payment.model.PaymentService;
 import com.ez.launer.point.model.PointService;
+import com.ez.launer.user.model.KakaoAPI;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserAllVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
@@ -46,6 +49,8 @@ public class MypageController {
 	private final UserService userService;
 	private final PointService pointService;
 	private final PaymentService paymentService;
+	private final KakaoAPI kakaoApi;
+	private final SHA256Encryption sha256;
 
 
 	@GetMapping("/") 
@@ -140,7 +145,7 @@ public class MypageController {
 
 	@PostMapping("/useredit")
 	public String edit_post(@ModelAttribute UserAllVO vo,
-			HttpSession session, Model model) {
+			HttpSession session, Model model) throws NoSuchAlgorithmException {
 		int no=(int)session.getAttribute("no");
 
 		vo.setNo(no);
@@ -160,6 +165,9 @@ public class MypageController {
 
 
 		String msg="비밀번호 확인 실패", url="/mypage/useredit";
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
+		
 		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("회원정보 수정 - 비밀번호 확인 결과, result ={}", result);
 
@@ -242,17 +250,20 @@ public class MypageController {
 
 	@PostMapping("/editPwd")
 	public String editPwd_post(@ModelAttribute UserVO vo, @RequestParam String newPwd,
-			HttpSession session, Model model) {
+			HttpSession session, Model model) throws NoSuchAlgorithmException {
 		int no=(int)session.getAttribute("no");
 		vo.setNo(no);
 		logger.info("비밀번호 변경, vo={} ,파라미터 newPwd={}",vo,newPwd);
 
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
+		
 		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("비밀번호 변경 처리, 비밀번호 조회 결과 result={}", result);
 		
-		
-		vo.setPwd(newPwd);
-		logger.info("변경된 비밀번호, newPwd={}",newPwd);
+		String encNewPwd = sha256.encrypt(newPwd);
+		vo.setPwd(encNewPwd);
+		logger.info("변경된 암호화된 비밀번호, encNewPwd={}",encNewPwd);
 		String msg="비밀번호 확인 실패",url="/mypage/editPwd";
 		if(result == userService.LOGIN_OK) {
 			int cnt=userService.editPwd(vo);
@@ -333,28 +344,46 @@ public class MypageController {
 			HttpSession session, HttpServletResponse response,
 			Model model) {
 		int no=(int)session.getAttribute("no");
-		String email=(String)session.getAttribute("email");
-		logger.info("회원 탈퇴 처리, 파라미터 no={}",no);
-		
 		
 		String msg="",url="";
-			int cnt=userService.deleteUser(no);
-			if(cnt>0) {
-				msg="회원탈퇴 처리가 되었습니다.";
-				url="/mypage/signout";
-				
-				Cookie ck = new Cookie("chkUseremail", email);
-				ck.setPath("/"); 
-				ck.setMaxAge(0);
-				response.addCookie(ck);
-				session.removeAttribute("no");
-				session.removeAttribute("name");
-				session.removeAttribute("email");
-				
-			}else {
-				msg="회원탈퇴 실패";				
-			}
+		int cnt =0;
 		
+		//카카오 회원탈퇴
+		String access_Token = (String)session.getAttribute("access_Token");
+		logger.info("access_Token={}",access_Token);
+		
+		if(access_Token!=null) {
+			
+			cnt = userService.deleteUser(no);
+			kakaoApi.unlink(access_Token);
+			logger.info("카카오 회원탈퇴완료");
+			msg ="회원탈퇴 처리가 되었습니다.";
+			url ="/mypage/signout";
+			
+			session.removeAttribute("no");
+			session.removeAttribute("access_Token");
+			session.removeAttribute("email");
+		}else {
+			String email=(String)session.getAttribute("email");
+			logger.info("회원 탈퇴 처리, 파라미터 no={}",no);
+
+				cnt=userService.deleteUser(no);
+				if(cnt>0) {
+					msg="회원탈퇴 처리가 되었습니다.";
+					url="/mypage/signout";
+					
+					Cookie ck = new Cookie("chkUseremail", email);
+					ck.setPath("/"); 
+					ck.setMaxAge(0);
+					response.addCookie(ck);
+					session.removeAttribute("no");
+					session.removeAttribute("name");
+					session.removeAttribute("email");
+					
+				}else {
+					msg="회원탈퇴 실패";				
+				}
+		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
