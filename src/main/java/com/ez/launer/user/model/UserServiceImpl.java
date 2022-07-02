@@ -29,6 +29,30 @@ public class UserServiceImpl implements UserService{
 	public int insertAddress(UserAllVO vo) {
 		return userDao.insertAddress(vo);
 	}
+	@Override
+	public int chkEmail(String email) {
+		int count=userDao.chkEmail(email);
+		
+		int result=0;
+		if(count>0) {
+			result=UserService.UNUSABLE_EMAIL;
+		}else {
+			result=UserService.USABLE_EMAIL;			
+		}	
+		return result;
+	}
+	@Override
+	public int chkHp(String hp) {
+		int count=userDao.chkHp(hp);
+		
+		int result=0;
+		if(count>0) {
+			result=UserService.UNUSABLE_HP;
+		}else {
+			result=UserService.USABLE_HP;			
+		}	
+		return result;
+	}
 	
 	@Override
 	public int insertDriver(DriverAllVO vo) {
@@ -39,32 +63,28 @@ public class UserServiceImpl implements UserService{
 	public int insertAccount(DriverAllVO vo) {
 		return userDao.insertAccount(vo);
 	}
-	
 	@Override
-	public int chkEmail(String email) {
-		int count=userDao.chkEmail(email);
+	public int chkDmail(String email) {
+		int count=userDao.chkDmail(email);
 		
 		int result=0;
 		if(count>0) {
 			result=UserService.UNUSABLE_EMAIL;
 		}else {
 			result=UserService.USABLE_EMAIL;			
-		}
-		
+		}	
 		return result;
 	}
-	
 	@Override
-	public int chkHp(String hp) {
-		int count=userDao.chkHp(hp);
+	public int chkDhp(String hp) {
+		int count=userDao.chkDhp(hp);
 		
 		int result=0;
 		if(count>0) {
 			result=UserService.UNUSABLE_HP;
 		}else {
 			result=UserService.USABLE_HP;			
-		}
-		
+		}	
 		return result;
 	}
 	

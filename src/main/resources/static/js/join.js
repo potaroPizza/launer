@@ -64,12 +64,26 @@ $(function(){
 		window.open(ctxPath+"/user/checkEmail?email="+email,"emailcheck",
 			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
 	});
+	$('#btnChkDmail').click(function(){
+		var ctxPath="/launer";
+		var email=$('#email').val();
+
+		window.open(ctxPath+"/delivery/checkDmail?email="+email,"Dmailcheck",
+			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+	});
 
 	$('#btnChkHp').click(function(){
 		var ctxPath="/launer";
 		var hp=$('#hp').val();
 
 		window.open(ctxPath+"/user/checkHp?hp="+hp,"Hpcheck",
+			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+	});
+	$('#btnChkDhp').click(function(){
+		var ctxPath="/launer";
+		var hp=$('#hp').val();
+
+		window.open(ctxPath+"/delivery/checkDhp?hp="+hp,"Dhpcheck",
 			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
 	});
 

@@ -13,6 +13,8 @@ public interface UserDAO {
 	public int chkHp(String hp);
 	public int insertDriver(DriverAllVO vo);
 	public int insertAccount(DriverAllVO vo);
+	public int chkDmail(String email);
+	public int chkDhp(String hp);
 	UserVO selectByEmail(String email);
 	String selectPwd2(String email);
 	UserVO selectById(int no);
