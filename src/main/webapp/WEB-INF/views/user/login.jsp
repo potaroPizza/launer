@@ -73,7 +73,7 @@
 												grant_type=delete&
 												client_id=sA1wXjzUVJ_q15yX5Z3k&
 												client_secret=LzHF30VRtz&
-												access_token=ACCESS_TOKEN">테스트</a>
+												access_token=AAAAOYRctodcmpdIdNo0mzZt8tW8KL3ZhDjiCZbDXT8GqkZ5MIoaiV6yWDfIo0idQd6z12ELOl8FxL5l24DJd2IDhsw">테스트</a>
 											</li>--%>
 											<li class="btn_kakao">
 												<a href="https://kauth.kakao.com/oauth/authorize?

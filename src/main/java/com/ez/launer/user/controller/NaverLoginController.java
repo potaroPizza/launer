@@ -1,8 +1,12 @@
 package com.ez.launer.user.controller;
 
+import com.ez.launer.user.model.UserAddressVO;
+import com.ez.launer.user.model.UserService;
+import com.ez.launer.user.model.UserVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +28,13 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/user/login/naver")
 public class NaverLoginController {
     private static final Logger logger = LoggerFactory.getLogger(NaverLoginController.class);
+
+    private final UserService userService;
+
     private final String CLIENT_ID = "sA1wXjzUVJ_q15yX5Z3k";
     private final String CLIENT_SECRET = "LzHF30VRtz";
 
@@ -93,8 +101,7 @@ public class NaverLoginController {
         JsonNode jsonNode = objectMapper.readTree(responseBody);
 
         /*Long id = jsonNode.get("response").get("id").asLong();
-        String nickname = jsonNode.get("response").get("nickname").asText();
-        String profileImage = jsonNode.get("response").get("profile_image").asText();*/
+        String nickname = jsonNode.get("response").get("nickname").asText();*/
         JsonNode jsonResponse = jsonNode.get("response");
 
         /*return NaverUserInfoDto.builder()
@@ -108,8 +115,8 @@ public class NaverLoginController {
 
 
     @RequestMapping("/auth")
-    @ResponseBody
-    public String authNaver(@RequestParam String code, @RequestParam String state)
+    public String authNaver(@RequestParam String code, @RequestParam String state,
+                            HttpSession session, Model model)
             throws JsonProcessingException {
         logger.info("code : {}", code);
 
@@ -117,9 +124,65 @@ public class NaverLoginController {
         logger.info("accessToken : {}", accessToken);
 
         JsonNode json = getNaverUserInfo(accessToken);
-
         logger.info("json : {}", json);
 
-        return "code : " + code;
+        String id = json.get("id").asText();
+        String name = json.get("name").asText();
+        String email = json.get("email").asText();
+        String mobile = json.get("mobile").asText();
+        logger.info("id={}, name={}, email={}, mobile={}", id, name, email, mobile);
+
+
+
+        //db존재여부 check
+        int count = userService.accIsExist(email);
+        logger.info("count(*) = {}",count);
+
+        UserVO userVO = new UserVO();
+        String socialInfo = "";
+
+        String url ="/user/login", msg ="로그인처리 실패";
+
+        if(count > 0) { //존재하면 social_login_host 받아서 model 저장
+            userVO = userService.selectByEmail(email);
+//            logger.info("socialInfo={}",socialInfo);
+            msg =userVO.getSocialLoginHost() + " 로 로그인되었습니다";
+            url = "/";
+        }else {
+            // 존재 X => 회원정보 insert
+            userVO.setName(name);
+            userVO.setEmail(email);
+            userVO.setSocialLoginKey(id);
+            userVO.setHp(mobile);
+            userVO.setSocialLoginHost("NAVER");
+            logger.info("미가입회원 userVO={}", userVO);
+
+            //users insert
+            int cnt = userService.insertSnsUser(userVO);
+
+            //users_address insert
+            UserVO vo= userService.selectByEmail(email);
+            UserAddressVO addressvo = new UserAddressVO();
+            addressvo.setUsersNo(vo.getNo());
+
+            int addressCnt = userService.insertAddressOnlyPart(addressvo);
+            logger.info("userAddress result ={}",addressCnt);
+
+            logger.info("네이버 회원가입결과={}",cnt);
+            url = "/";
+            msg = name + "님, 회원가입을 축하드립니다";
+        } //if
+
+
+        //session 저장
+        session.setAttribute("no", userVO.getNo());
+        session.setAttribute("email", userVO.getEmail());
+        session.setAttribute("access_Token",accessToken); //로그아웃때 필요한 accessToken
+
+
+        model.addAttribute("msg",msg);
+        model.addAttribute("url",url);
+
+        return "/common/message";
     }
 }

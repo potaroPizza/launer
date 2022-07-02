@@ -164,13 +164,29 @@
 			insert into users_address(no,users_no)
 			values(#{no}, #{usersNo})
 	</insert>
-	
-
-	
 
 
 
 
+
+
+   <!--박권순 시작-->
+   <!--박권순 시작-->
+   <!--박권순 시작-->
+   <!--박권순 시작-->
+   <insert id="insertSnsUser">
+      <selectKey keyProperty="no" resultType="int" order="BEFORE">
+         select USERS_SEQ.nextval from dual
+      </selectKey>
+      insert into USERS (NO, NAME, EMAIL, SOCIAL_LOGIN_KEY, SOCIAL_LOGIN_HOST, HP, LAST_ACCESS_DATE,
+                         START_DATE)
+      values (#{no}, #{name}, #{email}, #{socialLoginKey}, #{socialLoginHost}, #{hp}, sysdate, sysdate)
+   </insert>
+
+   <!--박권순 끝-->
+   <!--박권순 끝-->
+   <!--박권순 끝-->
+   <!--박권순 끝-->
 
 
 
