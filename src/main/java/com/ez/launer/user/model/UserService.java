@@ -42,4 +42,5 @@ public interface UserService {
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	int isAddressExist(int no);
+	int insertAddressOnlyPart(UserAddressVO addressVo);
 }
