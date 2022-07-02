@@ -328,6 +328,38 @@ public class MypageController {
 		
 		return "/common/message";
 	}
+	@PostMapping("/withdrawSocial")
+	public String userdeleteSocial_post(
+			HttpSession session, HttpServletResponse response,
+			Model model) {
+		int no=(int)session.getAttribute("no");
+		String email=(String)session.getAttribute("email");
+		logger.info("회원 탈퇴 처리, 파라미터 no={}",no);
+		
+		
+		String msg="",url="";
+			int cnt=userService.deleteUser(no);
+			if(cnt>0) {
+				msg="회원탈퇴 처리가 되었습니다.";
+				url="/mypage/signout";
+				
+				Cookie ck = new Cookie("chkUseremail", email);
+				ck.setPath("/"); 
+				ck.setMaxAge(0);
+				response.addCookie(ck);
+				session.removeAttribute("no");
+				session.removeAttribute("name");
+				session.removeAttribute("email");
+				
+			}else {
+				msg="회원탈퇴 실패";				
+			}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+	}
 
 
 

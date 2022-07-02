@@ -53,7 +53,7 @@
    </select>
    <!-- 일반회원 로그인 -->
    <select id="selectByEmail" parameterType="String"  resultType="userVo">
-      select * from users where email=#{email} 
+      select * from users where email=#{email}
    </select>
    <select id="selectPwd2" parameterType="String" resultType="String">
       select pwd from users

@@ -9,11 +9,11 @@
  
     <div id="useredit_wrapper">
      <!-- 일반 회원 사용자 폼 -->   	
+		<c:if test="${map['SOCIAL_LOGIN_KEY']==null}">
         <div id="useredit_top"></div>
 			<div id="useredit_sub">
 				<p>내 정보 수정</p>
 			</div>	
-		<c:if test="${map['SOCIAL_LOGIN_KEY']==null}">
             <!-- content-->
             <form method="post" name="usereditfrm" action="<c:url value='/mypage/useredit'/>">
             <div id="useredit_content">
