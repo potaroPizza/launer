@@ -19,5 +19,5 @@ public class DriverAllVO {
 	private int accInfoNo;
 	private String bank;
 	private int accNum;
-	private int accHolder;
+	private String accHolder;
 }
