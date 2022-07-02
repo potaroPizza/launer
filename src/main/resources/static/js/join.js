@@ -29,9 +29,17 @@ $(function(){
 			$("#hp").focus();
 			event.preventDefault();
 		}else if(classNo === 2) {
-			if(!validate_acNum($("#acNum").val())) {
-				alert("계좌번호 형식에 맞게 입력해 주세요");
-				$("#acNum").focus();
+			if($("#accHolder").val().length<1) {
+				alert("계좌주 성명을 입력하세요");
+				$("#accHolder").focus();
+				event.preventDefault();
+			}else if($("#accNum").val().length<1) {
+				alert("계좌번호를 입력하세요");
+				$("#accNum").focus();
+				event.preventDefault();
+			}else if(!validate_accNum($("#accNum").val())) {
+				alert("계좌번호는 숫자만 입력 가능합니다");
+				$("#accNum").focus();
 				event.preventDefault();
 			}
 		}else if(!$('#agreechk').is(':checked')){
@@ -97,12 +105,12 @@ function validate_pwd(pwd){
 	var pattern = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/);
 	return pattern.test(pwd);
 }
-// function validate_acNum(acNum){
-// 	var pattern = new RegExp(/^(\d{1,})(-(\d{1,})){1,}$/);
-// 	return pattern.test(acNum);
-// }
-function validate_hp(hp){
+function validate_accNum(accNum){
 	var pattern = new RegExp(/^[0-9]*$/g);
+	return pattern.test(accNum);
+}
+function validate_hp(hp){
+	var pattern = new RegExp(/^([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})$/);
 	return pattern.test(hp); //정규식과 일치하면 true
 	/* 정규식 /^[0-9]*$/g
     0 에서 9사이의 숫자로 시작하거나 끝나야 한다는 의미 (^는 시작, $는 끝을 의미)
