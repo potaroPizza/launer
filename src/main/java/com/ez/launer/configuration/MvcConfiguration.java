@@ -1,6 +1,7 @@
 package com.ez.launer.configuration;
 
 import com.ez.launer.controller.AdminLoginInterceptor;
+
 import com.ez.launer.controller.DeliveryInterceptor;
 import com.ez.launer.controller.LoginInterceptor;
 import org.springframework.context.annotation.Bean;

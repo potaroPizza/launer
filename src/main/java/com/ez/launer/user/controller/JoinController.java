@@ -10,19 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.launer.user.model.DriverAllVO;
 import com.ez.launer.user.model.UserAllVO;
 import com.ez.launer.user.model.UserService;
 
 import lombok.RequiredArgsConstructor;
-
-
-/*
-* 일반 유저 회원가입
-* [1] USERS	테이블에 insert
-* [2] USER_ADDRESS 테이블에 USER_NO를 참조 insert
-*
-*
-* */
 
 @Controller
 @RequestMapping("/user")
@@ -42,26 +34,39 @@ public class JoinController {
 	
 	@PostMapping("/join")
 	public String join_post(@ModelAttribute UserAllVO vo, Model model) {
-		logger.info("회원가입 처리, 파라미터 vo={}", vo);
-	
-		String address=vo.getAddress(); 
-		String addressDetail=vo.getAddressDetail();
+		logger.info("일반회원가입 처리, 파라미터 vo={}", vo);
 
-		vo.setAddress(address); 
-		vo.setAddressDetail(addressDetail);
-		
 		int cnt=userService.insertUser(vo);
-		logger.info("회원가입 결과, cnt={}", cnt);
-
+		logger.info("일반회원가입 결과, cnt={}", cnt);
+		int cnt2=userService.insertAddress(vo);
+		logger.info("주소입력 결과, cnt2={}", cnt2);
+		
 		String msg="회원가입 실패", url="/user/join";
-		if(cnt>0) {
+		if(cnt>0 && cnt2>0) {
 			msg="회원가입되었습니다.";
 			url="/";
 		}
-
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
+		
+		/*
+		logger.info("배송기사 회원가입 처리, 파라미터 vo={}", dVo);
+		
+		int cnt3=userService.insertDriver(dVo);
+		logger.info("배송기사 회원가입 결과, cnt3={}", cnt3);
+		
+		int cnt4=userService.insertAccount(dVo);
+		logger.info("주소입력 결과, cnt4={}", cnt4);
 
+		String msg2="회원가입 실패", url2="/delivery/join";
+		if(cnt>0 && cnt2>0) {
+			msg2="회원가입되었습니다.";
+			url2="/";
+		}
+
+		model.addAttribute("msg2", msg2);
+		model.addAttribute("url2", url2);
+		*/
 		return "/common/message";
 	}
 	

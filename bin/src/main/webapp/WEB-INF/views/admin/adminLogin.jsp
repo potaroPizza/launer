@@ -303,7 +303,7 @@ footer a:hover {
 }
 
 footer img {
-	width: 80px;
+	width: 200px;
 	transition: all .2s ease;
 }
 
@@ -342,8 +342,8 @@ footer img:focus, footer a:focus {
 			</button>
 		</form>
 		<footer>
-			<a href="http://www.polymer-project.org/" target="_blank"><img
-				src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>
+			<a href="http://www.polymer-project.org/" target="_blank">
+				<img src="<c:url value="/images/logo_4.svg"/>"></a>
 			<p>
 				관리자 아이디 비밀번호 분실시, 본사로 연락 바랍니다. <a href="#"
 					target="_blank">02-123-4567</a>
