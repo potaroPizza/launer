@@ -28,6 +28,8 @@ public interface UserService {
 	public int chkDhp(String hp);
 	UserVO selectByEmail(String email);
 	public int loginChk(String email, String pwd);
+	DriverAllVO selectByDmail(String email);
+	public int dloginChk(String email, String pwd);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);

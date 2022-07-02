@@ -32,9 +32,16 @@ public class JoinController {
 	}
 	
 	@PostMapping("/join")
-	public String join_post(@ModelAttribute UserAllVO vo, Model model) {
+	public String join_post(@ModelAttribute UserAllVO vo, 
+							@RequestParam String entermethod2, Model model) {
 		logger.info("일반회원가입 처리, 파라미터 vo={}", vo);
-
+		
+		String entermethod=vo.getEntermethod();
+		if(entermethod==null || entermethod.isEmpty()) {
+			entermethod=entermethod2;
+		}
+		vo.setEntermethod(entermethod);
+		
 		int cnt=userService.insertUser(vo);
 		logger.info("일반회원가입 결과, cnt={}", cnt);
 		int cnt2=userService.insertAddress(vo);

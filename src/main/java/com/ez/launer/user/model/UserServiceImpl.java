@@ -20,7 +20,8 @@ public class UserServiceImpl implements UserService{
 
 	private final UserDAO userDao;
 	private final OfficeDAO officeDao;
-
+	
+	// 일반회원가입
 	@Override
 	public int insertUser(UserAllVO vo) {
 		return userDao.insertUser(vo);
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService{
 	public int insertAddress(UserAllVO vo) {
 		return userDao.insertAddress(vo);
 	}
+	// 일반회원 이메일, hp 중복확인
 	@Override
 	public int chkEmail(String email) {
 		int count=userDao.chkEmail(email);
@@ -54,6 +56,7 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 	
+	//배송기사 회원가입
 	@Override
 	public int insertDriver(DriverAllVO vo) {
 		return userDao.insertDriver(vo);
@@ -63,6 +66,7 @@ public class UserServiceImpl implements UserService{
 	public int insertAccount(DriverAllVO vo) {
 		return userDao.insertAccount(vo);
 	}
+	//배송기사 이메일, hp 중복확인
 	@Override
 	public int chkDmail(String email) {
 		int count=userDao.chkDmail(email);
@@ -88,6 +92,7 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 	
+	//일반회원 로그인
 	@Override
 	public UserVO selectByEmail(String email) {
 		return userDao.selectByEmail(email);
@@ -110,6 +115,30 @@ public class UserServiceImpl implements UserService{
 		
 		return result;
 	}
+	//배송기사 로그인
+	@Override
+	public DriverAllVO selectByDmail(String email) {
+		return userDao.selectByDmail(email);
+	}
+	
+	@Override
+	public int dloginChk(String email, String pwd) {
+		String dbPwd = userDao.selectPwd3(email);
+		
+		int result=0;
+		if(dbPwd !=null && !dbPwd.isEmpty()) {
+			if(dbPwd.equals(pwd)) {
+				result=UserService.LOGIN_OK;
+			}else {
+				result=UserService.DISAGREE_PWD;				
+			}
+		}else {
+			result=UserService.NONE_USEREMAIL;
+		}
+		
+		return result;
+	}
+	
 	
 	@Override
 	public UserVO selectById(int no) {

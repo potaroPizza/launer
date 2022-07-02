@@ -15,8 +15,8 @@
       <selectKey order="BEFORE" keyProperty="addressNo" resultType="int">
          select users_address_seq.nextval from dual 
       </selectKey>
-      insert into users_address(no, users_no, address, address_detail, zipcode)
-      values(#{addressNo}, #{no}, #{address}, #{addressDetail}, #{zipcode})
+      insert into users_address(no, users_no, address, address_detail, zipcode,entermethod)
+      values(#{addressNo}, #{no}, #{address}, #{addressDetail}, #{zipcode}, #{entermethod})
    </insert>
    <!-- 배송기사 회원가입 -->
    <insert id="insertDriver" parameterType="driverAllVo" >
@@ -59,11 +59,11 @@
       where email=#{email} and out_date is null
    </select>
    <!-- 배달기사 로그인 -->
-   <select id="selectByDriverEmail" parameterType="String"  resultType="driverAllVo">
-      select * from users where email=#{email} 
+   <select id="selectByDmail" parameterType="String"  resultType="driverAllVo">
+      select * from delivery_driver where email=#{email} 
    </select>
    <select id="selectPwd3" parameterType="String" resultType="String">
-      select pwd from users
+      select pwd from delivery_driver
       where email=#{email} and out_date is null
    </select>
    <!-- 회원 정보 조회 -->
