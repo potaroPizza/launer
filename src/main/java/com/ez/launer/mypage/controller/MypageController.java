@@ -29,6 +29,7 @@ import com.ez.launer.payment.model.PaymentHistoryAllVO;
 import com.ez.launer.payment.model.PaymentHistoryViewVO;
 import com.ez.launer.payment.model.PaymentService;
 import com.ez.launer.point.model.PointService;
+import com.ez.launer.user.model.KakaoAPI;
 import com.ez.launer.user.model.UserAllVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
@@ -46,6 +47,7 @@ public class MypageController {
 	private final UserService userService;
 	private final PointService pointService;
 	private final PaymentService paymentService;
+	private final KakaoAPI kakaoApi;
 
 
 	@GetMapping("/") 
@@ -333,28 +335,46 @@ public class MypageController {
 			HttpSession session, HttpServletResponse response,
 			Model model) {
 		int no=(int)session.getAttribute("no");
-		String email=(String)session.getAttribute("email");
-		logger.info("회원 탈퇴 처리, 파라미터 no={}",no);
-		
 		
 		String msg="",url="";
-			int cnt=userService.deleteUser(no);
-			if(cnt>0) {
-				msg="회원탈퇴 처리가 되었습니다.";
-				url="/mypage/signout";
-				
-				Cookie ck = new Cookie("chkUseremail", email);
-				ck.setPath("/"); 
-				ck.setMaxAge(0);
-				response.addCookie(ck);
-				session.removeAttribute("no");
-				session.removeAttribute("name");
-				session.removeAttribute("email");
-				
-			}else {
-				msg="회원탈퇴 실패";				
-			}
+		int cnt =0;
 		
+		//카카오 회원탈퇴
+		String access_Token = (String)session.getAttribute("access_Token");
+		logger.info("access_Token={}",access_Token);
+		
+		if(access_Token!=null) {
+			
+			cnt = userService.deleteUser(no);
+			kakaoApi.unlink(access_Token);
+			logger.info("카카오 회원탈퇴완료");
+			msg ="회원탈퇴 처리가 되었습니다.";
+			url ="/mypage/signout";
+			
+			session.removeAttribute("no");
+			session.removeAttribute("access_Token");
+			session.removeAttribute("email");
+		}else {
+			String email=(String)session.getAttribute("email");
+			logger.info("회원 탈퇴 처리, 파라미터 no={}",no);
+
+				cnt=userService.deleteUser(no);
+				if(cnt>0) {
+					msg="회원탈퇴 처리가 되었습니다.";
+					url="/mypage/signout";
+					
+					Cookie ck = new Cookie("chkUseremail", email);
+					ck.setPath("/"); 
+					ck.setMaxAge(0);
+					response.addCookie(ck);
+					session.removeAttribute("no");
+					session.removeAttribute("name");
+					session.removeAttribute("email");
+					
+				}else {
+					msg="회원탈퇴 실패";				
+				}
+		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
