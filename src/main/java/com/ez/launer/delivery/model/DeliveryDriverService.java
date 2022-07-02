@@ -12,6 +12,8 @@ public interface DeliveryDriverService {
     List<Map<String, Object>> selectListAll(Map<String, Object> map);
     
     
+    
+    
     //로그인 체크시 사용하는 상수
   	public static final int LOGIN_OK=1; //로그인 성공
   	public static final int DISAGREE_PWD=2; //비밀번호 불일치
@@ -22,4 +24,5 @@ public interface DeliveryDriverService {
   	public int checkLogin(int no, String pwd);
   	int updateDeliveryHp(DeliveryDriverAllVO vo);
 	int updateAccountInfo(DeliveryDriverAllVO vo);
+	int deleteDelivery(int no);
 }

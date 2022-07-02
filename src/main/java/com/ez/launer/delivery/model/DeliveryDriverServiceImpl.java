@@ -114,5 +114,10 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService{
 		return deliveryDriverDAO.updateAccountInfo(vo);
 	}
 
+	@Override
+	public int deleteDelivery(int no) {
+		return deliveryDriverDAO.deleteDelivery(no);
+	}
+
 	
 }

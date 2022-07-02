@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -445,12 +446,12 @@ public class DeliveryController {
     
     
     
-    
+     
     
     
     //
     @GetMapping("/useredit") 
-	public String edit_get(HttpSession session, 
+	public String editDelivery_get(HttpSession session, 
 			Model model) { 
 		
 		/* int deliveryNo = (int) session.getAttribute("deliveryNo"); */
@@ -468,7 +469,7 @@ public class DeliveryController {
 	}
 
 	@PostMapping("/useredit")
-	public String edit_post(@ModelAttribute DeliveryDriverAllVO vo,
+	public String editDelivery_post(@ModelAttribute DeliveryDriverAllVO vo,
 			HttpSession session, Model model) {
 		/* int deliveryNo = (int) session.getAttribute("deliveryNo"); */
 		int deliveryNo=2000;
@@ -494,9 +495,9 @@ public class DeliveryController {
 
 		if(result==deliveryDriverService.LOGIN_OK) {
 			int cnt = deliveryDriverService.updateDeliveryHp(vo);
-			logger.info("회원정보 수정 결과, cnt ={}", cnt);
+			logger.info("배송기사정보 수정 결과, cnt ={}", cnt);
 			int cnt2 = deliveryDriverService.updateAccountInfo(vo);
-			logger.info("회원정보 수정 결과, cnt2={} ", cnt2);
+			logger.info("배송기사정보 수정 결과, cnt2={} ", cnt2);
 
 
 			if(cnt>0 && cnt2>0) { 
@@ -512,6 +513,62 @@ public class DeliveryController {
 
 		return "/common/message";
 
+	}
+	
+	
+	@GetMapping("/deliverywithdraw")
+	public String Deliverydelete_get(HttpSession session, Model model) {
+		logger.info("배송기사 탈퇴 화면");
+		int deliveryNo = (int) session.getAttribute("deliveryNo");
+		logger.info("배송기사 탈퇴 화면, 파라미터 no={}", deliveryNo);
+
+		DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
+		logger.info(" 배송기사 조회 결과, deliveryVO={}",deliveryVO);
+
+		model.addAttribute("deliveryVO",deliveryVO);
+
+		return "/mypage/withdraw";
+	}
+
+	@PostMapping("/deliveryWithdraw")
+	public String Deliverydelete_post(@RequestParam String pwd,
+			HttpSession session, HttpServletResponse response,
+			Model model) {
+		int deliveryNo = (int) session.getAttribute("deliveryNo");
+		String email=(String)session.getAttribute("email");
+		logger.info("배송기사 탈퇴 처리, 파라미터 deliveryNo={}, pwd={}",deliveryNo,pwd);
+
+		int result=deliveryDriverService.checkLogin(deliveryNo, pwd);
+		logger.info("배송기사 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
+
+		String msg="비밀번호 체크 실패",url="/mypage/withdraw";
+		if(result == deliveryDriverService.LOGIN_OK) {
+			int cnt=deliveryDriverService.deleteDelivery(deliveryNo);
+			if(cnt>0) {
+				msg="회원탈퇴 처리가 되었습니다.";
+				url="/mypage/signout";
+				
+				  Cookie ck = new Cookie("chkUseremail", email);
+				   ck.setPath("/"); 
+				   ck.setMaxAge(0);
+				  response.addCookie(ck);
+				  session.removeAttribute("deliveryNo");
+				  session.removeAttribute("name");
+				  session.removeAttribute("email");
+				 
+			}else {
+				msg="회원탈퇴 실패";				
+			}
+		}else if(result==deliveryDriverService.DISAGREE_PWD) {
+			msg="비밀번호가 일치하지 않습니다.";
+		}
+
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		
+		return "/common/message";
 	}
     
 }

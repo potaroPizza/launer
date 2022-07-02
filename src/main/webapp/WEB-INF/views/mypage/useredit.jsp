@@ -178,7 +178,7 @@
        </c:if>
        
        <!-- 배송기사 폼 -->
-	<c:if test="${map['USER_CODE']==2}">
+	<c:if test="${map['USERS_CLASS_NO']==2}">
         <div id="useredit_top"></div>
 			<div id="useredit_sub">
 				<p>내 정보 수정</p>
@@ -216,7 +216,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="office">지점</label></h3>
                     <span class="box int_office" style="width:76%; display: inline-block;">
-                     <select name="office" id="office">
+                     <select name="officeSelect" id="officeSelect">
 							<option value="강남지점">강남지점</option>
 							<option value="강동지점">강동지점</option>
 							<option value="강북지점">강북지점</option>

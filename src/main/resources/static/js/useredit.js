@@ -75,6 +75,28 @@ function execZipcode() {
 			}
 			
 		});
+		$('form[name=deliveryeditfrm]').submit(function(){
+			
+			 if($("form[name=deliveryeditfrm] #hp").val().length<1) {
+				alert("전화번호를 입력하세요");
+				$("form[name=deliveryeditfrm] #hp").focus();
+				return false;
+			}else if(!validate_hp($('form[name=deliveryeditfrm] #hp').val())){
+				alert("전화번호 형식이 맞지 않습니다.");	
+				$("form[name=deliveryeditfrm] #hp").focus();
+				return false;
+			}else if($("form[name=deliveryeditfrm] #accHolder").val().length<1) {
+				alert("계좌주를 입력하세요");
+				$("form[name=deliveryeditfrm] #accHolder").focus();
+				return false;
+			}else if($("form[name=deliveryeditfrm] #accNum").val().length<1) {
+				alert("계좌번호를 입력하세요");
+				$("form[name=deliveryeditfrm] #accNum").focus();
+				return false;
+			}
+			
+		});
+		
 		
 	});
 	

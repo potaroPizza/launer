@@ -24,4 +24,5 @@ public interface DeliveryDriverDAO {
     String selectPwd(int no);
     int updateDeliveryHp(DeliveryDriverAllVO vo);
 	int updateAccountInfo(DeliveryDriverAllVO vo);
+	int deleteDelivery(int no);
 }
