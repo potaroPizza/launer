@@ -227,6 +227,12 @@ public class UserServiceImpl implements UserService{
 	public int isAddressExist(int no) {
 		return userDao.isAddressExist(no);
 	}
+	@Override
+	public int insertAddressOnlyPart(UserAddressVO addressVo) {
+		return userDao.insertAddressOnlyPart(addressVo);
+	}
+	
+	
 
 
 

@@ -156,6 +156,14 @@
 	<select id ="isAddressExist" parameterType="int" resultType ="int">	
 		select count(*) from users_address where users_no = #{no}
 	</select>
+	<insert id="insertAddressOnlyPart" parameterType="userAddressVo">
+		<selectKey order="BEFORE" keyProperty="no" resultType ="int">
+		select users_address_seq.nextval from dual
+		</selectKey>
+			insert into users_address(no,users_no)
+			values(#{no}, #{usersNo})
+	</insert>
+	
 
 	
 
