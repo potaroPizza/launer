@@ -3,6 +3,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 import com.ez.launer.user.model.KakaoAPI;
-
+import com.ez.launer.user.model.SHA256Encryption;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +35,7 @@ public class LoginController {
 
 	
 	private final UserService userService;
+	private final SHA256Encryption sha256;
 	
 
 	@GetMapping("/login")
@@ -48,9 +50,11 @@ public class LoginController {
 	public String login_post(@ModelAttribute UserVO vo,
 			@RequestParam(required = false) String saveUseremail,
 			HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+			HttpServletResponse response, Model model) throws NoSuchAlgorithmException {
 		logger.info("로그인 처리, 파라미터 vo={}, saveUseremail={}", vo, saveUseremail);
-		
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
+
 		int result=userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);
 		

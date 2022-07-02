@@ -1,5 +1,6 @@
 package com.ez.launer.mypage.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import com.ez.launer.payment.model.PaymentHistoryViewVO;
 import com.ez.launer.payment.model.PaymentService;
 import com.ez.launer.point.model.PointService;
 import com.ez.launer.user.model.KakaoAPI;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserAllVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
@@ -48,6 +50,7 @@ public class MypageController {
 	private final PointService pointService;
 	private final PaymentService paymentService;
 	private final KakaoAPI kakaoApi;
+	private final SHA256Encryption sha256;
 
 
 	@GetMapping("/") 
@@ -142,7 +145,7 @@ public class MypageController {
 
 	@PostMapping("/useredit")
 	public String edit_post(@ModelAttribute UserAllVO vo,
-			HttpSession session, Model model) {
+			HttpSession session, Model model) throws NoSuchAlgorithmException {
 		int no=(int)session.getAttribute("no");
 
 		vo.setNo(no);
@@ -162,6 +165,9 @@ public class MypageController {
 
 
 		String msg="비밀번호 확인 실패", url="/mypage/useredit";
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
+		
 		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("회원정보 수정 - 비밀번호 확인 결과, result ={}", result);
 
@@ -244,17 +250,20 @@ public class MypageController {
 
 	@PostMapping("/editPwd")
 	public String editPwd_post(@ModelAttribute UserVO vo, @RequestParam String newPwd,
-			HttpSession session, Model model) {
+			HttpSession session, Model model) throws NoSuchAlgorithmException {
 		int no=(int)session.getAttribute("no");
 		vo.setNo(no);
 		logger.info("비밀번호 변경, vo={} ,파라미터 newPwd={}",vo,newPwd);
 
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
+		
 		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("비밀번호 변경 처리, 비밀번호 조회 결과 result={}", result);
 		
-		
-		vo.setPwd(newPwd);
-		logger.info("변경된 비밀번호, newPwd={}",newPwd);
+		String encNewPwd = sha256.encrypt(newPwd);
+		vo.setPwd(encNewPwd);
+		logger.info("변경된 암호화된 비밀번호, encNewPwd={}",encNewPwd);
 		String msg="비밀번호 확인 실패",url="/mypage/editPwd";
 		if(result == userService.LOGIN_OK) {
 			int cnt=userService.editPwd(vo);

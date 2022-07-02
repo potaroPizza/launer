@@ -42,6 +42,7 @@ public class JoinController {
 		
 		//비밀번호 암호화
 		String pwd = vo.getPwd();
+		logger.info("암호화 전 pwd ={}",pwd);
 		
 		String encryptedPwd = sha256.encrypt(pwd);
 		vo.setPwd(encryptedPwd);
