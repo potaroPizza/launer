@@ -17,9 +17,7 @@
       </selectKey>
       insert into users_address(no, address, address_detail, zipcode)
       values(no, #{address}, #{addressDetail}, #{zipcode})
-
-      insert into USERS_ADDRESS(no, users_no, office_no, address, address_detail, zipcode, lon_x, lat_y, entermethod)
-      values ()
+      
    </insert>
    <!-- 이메일 중복 확인 -->
    <select id="chkEmail" parameterType="String"  resultType="int">
@@ -44,9 +42,9 @@
    <!-- 회원 정보 조회 주소테이블 조인 -->
    <select id="selectByIdAddress" parameterType="int" resultType="hashMap">
       select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
-      from users u, users_address a
-      where u.no=a.users_no
-      and u.no=#{no}
+      from users u full outer join users_address a
+	  on u.no=a.users_no
+      where u.no=#{no}
    </select>
    <!-- 회원 탈퇴처리 -->
    <update id="deleteUser" parameterType="int">

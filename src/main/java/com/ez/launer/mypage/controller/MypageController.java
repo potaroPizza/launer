@@ -112,6 +112,8 @@ public class MypageController {
 		int no=(int)session.getAttribute("no");
 		logger.info("마이페이지 내정보 화면, 파라미터 userid={}", no);
 
+		UserVO vo= userService.selectById(no);
+		logger.info("회원정보 조회 kakao={}",no);
 		HashMap<String, Object> map= userService.selectByIdAddress(no);
 		logger.info("회원 정보 조회 결과, map={}",map);
 
@@ -128,6 +130,7 @@ public class MypageController {
 
 		HashMap<String, Object> map= userService.selectByIdAddress(no);
 		logger.info("회원 정보 조회 결과, map={}",map);
+		
 
 		model.addAttribute("map",map);
 
@@ -144,14 +147,16 @@ public class MypageController {
 		logger.info("회원정보 수정, UserAllVO={}", vo);
 
 		String hp=vo.getHp();
-		vo.setHp(hp);
-
-
 		String address=vo.getAddress(); 
 		String addressDetail=vo.getAddressDetail();
-
+		String zipcode=vo.getZipcode();
+		String entermethod=vo.getEntermethod();
+		
+		vo.setHp(hp);
 		vo.setAddress(address); 
 		vo.setAddressDetail(addressDetail);
+		vo.setZipcode(zipcode);
+		vo.setEntermethod(entermethod);
 
 
 		String msg="비밀번호 확인 실패", url="/mypage/useredit";
@@ -179,6 +184,47 @@ public class MypageController {
 		return "/common/message";
 
 	}
+	@PostMapping("/usereditKakao")
+	public String editKakao_post(@ModelAttribute UserAllVO vo,
+			HttpSession session, Model model) {
+		int no=(int)session.getAttribute("no");
+
+		vo.setNo(no);
+		logger.info("카카오회원정보 수정, UserAllVO={}", vo);
+
+		String hp=vo.getHp();
+		
+		String address=vo.getAddress(); 
+		String addressDetail=vo.getAddressDetail();
+		String zipcode=vo.getZipcode();
+		String entermethod=vo.getEntermethod();
+		
+		vo.setHp(hp);
+		vo.setAddress(address); 
+		vo.setAddressDetail(addressDetail);
+		vo.setZipcode(zipcode);
+		vo.setEntermethod(entermethod);
+
+
+		String msg="", url="/mypage/useredit";
+
+			int cnt = userService.updateUserAddress(vo);
+			logger.info("카카오회원정보 수정 결과, cnt ={}", cnt);
+
+
+			if(cnt>0 ) { 
+				msg="회원정보를 수정하였습니다.";
+			}else { msg="회원정보 수정 실패"; }
+
+		
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+
+	}
+	
 
 	@GetMapping("/editPwd")
 	public String editPwd_get(HttpSession session,
