@@ -55,4 +55,52 @@
             and REGDATE between to_date(#{startDate}) and to_date(#{endDate}) + 1
         order by REGDATE <if test="desc == null">desc</if>
     </select>
+    
+    
+    
+    
+  
+  
+  
+    
+    <!-- 배송기사 수정정보 조인 전체 조회 -->
+    <select id="selectByEdit" parameterType="int" resultType="hashMap">
+		select d.*,a.bank,a.account_number,a.account_holder,o.office_name 
+		from delivery_driver d join account_information a
+		on d.no=a.delivery_driver_no
+		join office o on d.office_no=o.no
+		where d.no=#{no}  
+    </select>
+    <!--배송기사 비밀번호 체크 -->
+   	<select id="selectPwd" parameterType="int" resultType="String">
+      select pwd from delivery_driver
+      where no=#{no} and out_date is null
+   	</select>
+    
+     <!--배달기사 비밀번호 변경처리 -->
+   	<update id="editPwd" parameterType="deliveryDriverVo">
+      update delivery_driver 
+      set pwd=#{pwd}
+      where no=#{no}
+   	</update>
+   	
+   	<!-- 배달기사정보 수정 (전화번호,지점)  -->
+   <update id="updateDeliveryHp" parameterType="deliveryDriverAllVo">
+      update delivery_driver
+      set hp=#{hp},office_No=#{officeNo}
+      where no=#{no}
+   </update>
+   
+   <!-- 배달기사정보 수정(계좌정보) -->
+   <update id="updateAccountInfo" parameterType="deliveryDriverAllVo">
+	   	update account_information
+		set bank=#{bank},account_number=#{accountNumber},account_holder=#{accountHolder}
+		where delivery_driver_no=#{no}
+   </update>
+   
+   <!-- 배달기사 회원 탈퇴처리 -->
+   <update id="deleteDelivery" parameterType="int">
+      update delivery_driver set out_date=sysdate
+      where no=#{no}
+   </update>
 </mapper>

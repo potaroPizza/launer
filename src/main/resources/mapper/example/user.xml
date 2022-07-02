@@ -33,6 +33,7 @@
       </selectKey>
       insert into account_information(no, delivery_driver_no, bank, account_number, account_holder)
       values(#{accInfoNo}, #{no}, #{bank}, #{accNum}, #{accHolder})
+
    </insert>
    <!-- 이메일 중복 확인 -->
    <select id="chkEmail" parameterType="String"  resultType="int">
@@ -52,7 +53,7 @@
    </select>
    <!-- 일반회원 로그인 -->
    <select id="selectByEmail" parameterType="String"  resultType="userVo">
-      select * from users where email=#{email} 
+      select * from users where email=#{email}
    </select>
    <select id="selectPwd2" parameterType="String" resultType="String">
       select pwd from users
@@ -73,9 +74,9 @@
    <!-- 회원 정보 조회 주소테이블 조인 -->
    <select id="selectByIdAddress" parameterType="int" resultType="hashMap">
       select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
-      from users u, users_address a
-      where u.no=a.users_no
-      and u.no=#{no}
+      from users u full outer join users_address a
+	  on u.no=a.users_no
+      where u.no=#{no}
    </select>
    <!-- 회원 탈퇴처리 -->
    <update id="deleteUser" parameterType="int">
