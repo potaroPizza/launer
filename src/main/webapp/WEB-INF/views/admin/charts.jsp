@@ -297,7 +297,7 @@ juqery가 hicharts보다 위에 선언되어야함
 		        }
 		    },
 		    series: [{
-		        name: 'Brands',
+		        name: 'Category',
 		        colorByPoint: true,
 		        data: [/* {
 		            name: 'Chrome',

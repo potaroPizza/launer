@@ -101,19 +101,18 @@
                                     <span class="sub-text">비대면 세탁</span>
                                 </div>
                                 <div class="element">
-                                    <div class="icon"><img style="width:230; height:160;" alt="비대면 세탁" src="${pageContext.request.contextPath}/images/test2.png"></div>
+                                    <div class="icon"><img style="width:230; height:160;" alt="신속한 배송" src="${pageContext.request.contextPath}/images/test3.png"></div>
                                     <span class="sub-text">신속한 배송</span>
                                 </div>
                                 <div class="element">
-                                    <div class="icon"></div>
+                                    <div class="icon"><img style="width:230; height:160;" alt="실시간 현황" src="${pageContext.request.contextPath}/images/test5.png"></div>
                                     <span class="sub-text">실시간 현황</span>
                                 </div>
                             </div>
                             <div class="second">
                                 <div class="title">
-                                    <p>
-                                        우리 모두가 배송을 할 수 있습니다.
-                                    </p>
+                                   <img style="width:432; height:220;" alt="배송기사 모집" src="${pageContext.request.contextPath}/images/test20.png">
+                                   <p style="text-align: center;">러너 배송기사 상시모집중</p>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +125,7 @@
                     <div class="sub-part">
                         <h3 class="title-font">저녁 있는 삶을 위해 세탁에서 퇴근하세요</h3>
                         <article class="part clearfix">
-                            <div class="img-box"></div>
+                            <div class="img-box"><img style="width:720; height:400;" alt="간단한 이용방법" src="${pageContext.request.contextPath}/images/test8.png"></div>
                             <div class="text-box r">
                                 <h4 class="sub-title-font">간단한 이용방법</h4>
                                 <span>주문 후, 수거한 다음 24시간 이내로 문 앞에 배송됩니다.</span>
@@ -145,10 +144,10 @@
                                     <p>가격표 보기</p>
                                 </a>
                             </div>
-                            <div class="img-box"></div>
+                            <div class="img-box"><img style="width:720; height:400;" alt="합리적인 가격" src="${pageContext.request.contextPath}/images/test9.png"></div>
                         </article>
                         <article class="part clearfix">
-                            <div class="img-box"></div>
+                            <div class="img-box"><img style="width:720; height:400;" alt="서비스 지역" src="${pageContext.request.contextPath}/images/test10.png"></div>
                             <div class="text-box r">
                                 <h4 class="sub-title-font">서비스 지역</h4>
                                 <span>우리는 서울 전지역을 서비스합니다. 각 구별로 지점이 있으며, 지역은 앞으로 더욱 확대될 예정입니다.</span>
@@ -164,10 +163,10 @@
                     <h3 class="title-font main-width">우리들의 꿀팁 <i class="fa-solid fa-thumbs-up"></i></h3>
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">Slide 1</div>
-                            <div class="swiper-slide">Slide 2</div>
-                            <div class="swiper-slide">Slide 3</div>
-                            <div class="swiper-slide">Slide 4</div>
+                            <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁1" src="${pageContext.request.contextPath}/images/test11.png"></div>
+                            <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁2" src="${pageContext.request.contextPath}/images/test14.png"></div>
+                            <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁3" src="${pageContext.request.contextPath}/images/test13.png"></div>
+                            <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁4" src="${pageContext.request.contextPath}/images/test15.png"></div>
                             <div class="swiper-slide">Slide 5</div>
                             <div class="swiper-slide">Slide 6</div>
                             <div class="swiper-slide">Slide 7</div>
