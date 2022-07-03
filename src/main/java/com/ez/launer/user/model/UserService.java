@@ -38,12 +38,12 @@ public interface UserService {
 	int updateUserHp(UserAllVO vo);
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
-	//이수지
-	List<UserVO> selectUser(int userCode);
+
 	
 	
 	
 	/* 한서현 */
+	public List<UserVO> selectUser(int userCode); // adminManager
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	int isAddressExist(int no);

@@ -70,20 +70,20 @@
 										</tr>
 									</c:if>
 									<c:if test="${!empty list }">
-										<c:forEach var="userVo" items="${lists }">
+										<c:forEach var="userVo" items="${list }">
 										
 											<tr>
 												<!-- 회원 리스트 반복 -->
 						
-												<td>${userVo['NO'] }</td>
+												<td>${userVo.no}</td>
 												<!-- users table no -->
-												<td>${map['NAME']}</td>
+												<td>${userVo.name}</td>
 												<!-- users table name -->
-												<td>${map['EMAIL']}</td>
+												<td>${userVo.email}</td>
 												<!-- users table email -->
-												<td>${map['HP']}</td>
+												<td>${userVo.hp}</td>
 												<!-- users table hp -->
-												<td>${map['USERCODE']}</td>
+												<td>${userVo.userCode}</td>
 												<!-- users_class table class  -->
 												<td><a href="#">수정 |</a><a href="#">삭제</a></td>
 											</tr>

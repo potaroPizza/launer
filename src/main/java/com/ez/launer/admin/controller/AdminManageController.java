@@ -40,7 +40,7 @@ public class AdminManageController {
 		int userCode = 1;
 		List<UserVO> list= userService.selectUser(userCode);
 		logger.info("list.size={}",list.size());
-		model.addAttribute("lists",list);
+		model.addAttribute("list",list);
 		model.addAttribute("size",list.size());
 
 		return "/admin/users";
