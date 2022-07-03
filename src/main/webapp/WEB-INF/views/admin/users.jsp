@@ -36,67 +36,10 @@
 
 					<!-- 일반회원 조회 tab -->
 
-				<%-- 	<c:import url="/admin/usersCommon">
+					 <c:import url="/admin/usersCommon">
 						<c:param name="userCode" value="1"></c:param>
-					</c:import>  --%>
+					</c:import> 
 					
-					<!-- 시작 -->
-					 <div class="card mb-4">
-						<div class="card-header">이용자 현황</div>
-						<div class="card-body">
-							<table class="table table-striped" id="orders">
-								<colgroup>
-									<col style="width: 10%">
-									<col style="width: 10%">
-									<col style="width: 25%">
-									<col style="width: 20%">
-									<col style="width: 20%">
-									<col style="width: 10%">
-								</colgroup>
-								<thead>
-									<tr>
-										<th>회원번호</th>
-										<th>회원명</th>
-										<th>이메일</th>
-										<th>전화번호</th>
-										<th>회원정보</th>
-										<th>상세정보</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:if test="${empty list }">
-										<tr>
-											<td colspan="5" class="align_center">해당 글이 존재하지 않습니다.</td>
-										</tr>
-									</c:if>
-									<c:if test="${!empty list }">
-										<c:forEach var="userVo" items="${list }">
-										
-											<tr>
-												<!-- 회원 리스트 반복 -->
-						
-												<td>${userVo.no}</td>
-												<!-- users table no -->
-												<td>${userVo.name}</td>
-												<!-- users table name -->
-												<td>${userVo.email}</td>
-												<!-- users table email -->
-												<td>${userVo.hp}</td>
-												<!-- users table hp -->
-												<td>${userVo.userCode}</td>
-												<!-- users_class table class  -->
-												<td><a href="#">수정 |</a><a href="#">삭제</a></td>
-											</tr>
-										</c:forEach>
-									</c:if>
-								</tbody>
-							</table>
-							<div>
-								<a href="#">회원정보삭제</a>
-							</div>
-						</div>
-					</div> 
-					<!-- 끝 -->
 				</div>
 
 
