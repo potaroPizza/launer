@@ -218,9 +218,17 @@ function pageFunc(curPage){
 								      		<label for="hp">전화번호</label>
 								      		<input type="text" name="hp" id="hp" maxlength="11" placeholder="-를 제외하고 입력해주세요">
 								      	</div>
-								      	<div class="stores">
-								      		<label for="hp">전화번호</label>
-								      		<input type="text" name="hp" id="hp" maxlength="11" placeholder="-를 제외하고 입력해주세요">
+								      	<div class="office">
+								      		<label for="office">지점</label>
+								      			<select name="office" id="office">
+								      				<option value="">지점 선택</option>
+								      				<option value="">종로지점</option>
+								      				<!-- 반복 시작 -->
+								      				<%-- <c:forEach var="" items="">
+														<option value="">지점</option>						
+													</c:forEach> --%>
+								      				<!-- 반복 끝 -->
+								      			</select>
 								      	</div>
 								      	<div align="center">
 								      		<input type="button" data-bs-dismiss="modal" value="닫기">
