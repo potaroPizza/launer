@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ez.launer.common.UserSearchVO;
+
 public interface UserService {
 	
 	//이메일 중복확인에서 사용하는 상수
@@ -43,11 +45,12 @@ public interface UserService {
 	
 	
 	/* 한서현 */
-	public List<UserVO> selectUser(int userCode); // adminManager
+	public List<UserVO> selectUser(UserSearchVO userSearchVo); // adminManager
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	int isAddressExist(int no);
 	int insertAddressOnlyPart(UserAddressVO addressVo);
+	int userTotalRecord(UserSearchVO userSearchVo);
 
 
 

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ez.launer.common.UserSearchVO;
+
 @Mapper
 public interface UserDAO {
 	public int insertUser(UserAllVO vo);
@@ -31,11 +33,12 @@ public interface UserDAO {
 	
 	
 	/* 한서현 */
-	public List<UserVO> selectUser(int userCode); // adminManager
+	public List<UserVO> selectUser(UserSearchVO userSearchVo); // adminManager
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	int isAddressExist(int no);
 	int insertAddressOnlyPart(UserAddressVO addressVo);
+	int userTotalRecord(UserSearchVO userSearchVo);
 
 
 	/* 박권순 */

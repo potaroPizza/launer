@@ -1,14 +1,34 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	
+	
+});
+function pageFunc(curPage){
+	//페이지 번호를 클릭했을 때 처리
+	$('input[name=currentPage]').val(curPage);
+	$('form[name=frmPage]').submit();
+}
+</script>
 
 <t:head>
 </t:head>
 <t:wrapper>
 	<main>
+		<form name="frmPage" method="post"
+			action="<c:url value='/admin/users'/>">
+			<input type="hidden" class="currentPage" name="currentPage">
+			<input type="hidden" name="userCode" value="1">
+		</form>
+
+
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">유저관리</h1>
-			<input type="text" name="paramTest" value="${size }">
 			<ol class="breadcrumb mb-4">
 				<li class="breadcrumb-item active">일반사용자 배송기사 관리 페이지</li>
 			</ol>
@@ -36,19 +56,8 @@
 
 					<!-- 일반회원 조회 tab -->
 
-					 <c:import url="/admin/usersCommon">
-						<c:param name="userCode" value="1"></c:param>
-					</c:import> 
-					
-				</div>
-
-
-
-				<div class="tab-pane fade" id="delivery-pane" role="tabpanel"
-					aria-labelledby="delivery-tab">
-					<!-- 시작 -->
 					<div class="card mb-4">
-						<div class="card-header">이용자 현황</div>
+						<div class="card-header">일반회원</div>
 						<div class="card-body">
 							<table class="table table-striped" id="orders">
 								<colgroup>
@@ -65,27 +74,158 @@
 										<th>회원명</th>
 										<th>이메일</th>
 										<th>전화번호</th>
-										<th>회원정보</th>
-										<th>상세정보</th>
+										<th>마지막접속일</th>
+										<th>비고</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<!-- users table no -->
-										<td>김길동</td>
-										<td>han@gmail.com</td>
-										<td>010-9999-0000</td>
-										<td>배송기사</td>
-										<td><a href="#">회원상세</a></td>
-									</tr>
+									<c:if test="${empty list }">
+										<tr>
+											<td colspan="5" class="align_center">해당 글이 존재하지 않습니다.</td>
+										</tr>
+									</c:if>
+									<c:if test="${!empty list }">
+										<c:forEach var="userVo" items="${list }">
+
+											<tr>
+												<!-- 회원 리스트 반복 -->
+
+												<td>${userVo.no}</td>
+												<!-- users table no -->
+												<td>${userVo.name}</td>
+												<!-- users table name -->
+												<td>${userVo.email}</td>
+												<!-- users table email -->
+												<td>${userVo.hp}</td>
+												<!-- users table hp -->
+												<td>${userVo.lastAccessDate}</td>
+												<!-- users_class table class  -->
+												<td><a href="#">수정 |</a><a href="#">삭제</a></td>
+											</tr>
+										</c:forEach>
+									</c:if>
 								</tbody>
 							</table>
-							<div>
-								<a href="#">회원정보삭제</a>
-							</div>
+							<nav aria-label="...">
+								<ul class="pagination">
+									<c:if test="${pagingInfo.firstPage>1 }">
+										<li class="page-item"><a class="page-link" href="#"
+											onclick="pageFunc(${pagingInfo.firstPage-1})">Previous
+										</a></li>
+									</c:if>
+									<!-- [1][2][3][4][5][6][7][8][9][10] -->
+									<c:forEach var="i" begin="${pagingInfo.firstPage }"
+										end="${pagingInfo.lastPage }">
+										<c:if test="${i==pagingInfo.currentPage }">
+											<li class="page-item disabled"><span class="page-link"
+												style="color: white; background: blue; font-weight: bold">
+													${i} </span></li>
+										</c:if>
+										<c:if test="${i!=pagingInfo.currentPage }">
+											<li class="page-item"><a class="page-link" href="#"
+												onclick="pageFunc(${i})">${i}</a></li>
+										</c:if>
+									</c:forEach>
+									<c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+										<li class="page-item"><a class="page-link" href="#"
+											onclick="pageFunc(${pagingInfo.lastPage+1})">Next
+										</a></li>
+									</c:if>
+								</ul>
+							</nav>
 						</div>
 					</div>
+
+				</div>
+
+
+
+				<div class="tab-pane fade" id="delivery-pane" role="tabpanel"
+					aria-labelledby="delivery-tab">
+					<!-- 시작 -->
+					<div class="card mb-4">
+						<div class="card-header">배송기사(러너)</div>
+						<div class="card-body">
+							<table class="table table-striped" id="orders">
+								<colgroup>
+									<col style="width: 10%">
+									<col style="width: 10%">
+									<col style="width: 25%">
+									<col style="width: 20%">
+									<col style="width: 20%">
+									<col style="width: 10%">
+								</colgroup>
+								<thead>
+									<tr>
+										<th>러너번호</th>
+										<th>이름 </th>
+										<th>이메일</th>
+										<th>전화번호</th>
+										<th>마지막접속일</th>
+										<th>비고</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:if test="${empty list }">
+										<tr>
+											<td colspan="5" class="align_center">해당 글이 존재하지 않습니다.</td>
+										</tr>
+									</c:if>
+									<c:if test="${!empty list }">
+										<c:forEach var="userVo" items="${list }">
+
+											<tr>
+												<!-- 회원 리스트 반복 -->
+
+												<td>${userVo.no}</td>
+												<!-- users table no -->
+												<td>${userVo.name}</td>
+												<!-- users table name -->
+												<td>${userVo.email}</td>
+												<!-- users table email -->
+												<td>${userVo.hp}</td>
+												<!-- users table hp -->
+												<td>${userVo.lastAccessDate}</td>
+												<!-- users_class table class  -->
+												<td><a href="#">수정 |</a><a href="#">삭제</a></td>
+											</tr>
+										</c:forEach>
+									</c:if>
+								</tbody>
+							</table>
+							<nav aria-label="...">
+								<ul class="pagination">
+									<c:if test="${pagingInfo.firstPage>1 }">
+										<li class="page-item"><a class="page-link" href="#"
+											onclick="pageFunc(${pagingInfo.firstPage-1})">Previous
+										</a></li>
+									</c:if>
+									<!-- [1][2][3][4][5][6][7][8][9][10] -->
+									<c:forEach var="i" begin="${pagingInfo.firstPage }"
+										end="${pagingInfo.lastPage }">
+										<c:if test="${i==pagingInfo.currentPage }">
+											<li class="page-item disabled"><span class="page-link"
+												style="color: white; background: blue; font-weight: bold">
+													${i} </span></li>
+										</c:if>
+										<c:if test="${i!=pagingInfo.currentPage }">
+											<li class="page-item"><a class="page-link" href="#"
+												onclick="pageFunc(${i})">${i}</a></li>
+										</c:if>
+									</c:forEach>
+									<c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+										<li class="page-item"><a class="page-link" href="#"
+											onclick="pageFunc(${pagingInfo.lastPage+1})">Next
+										</a></li>
+									</c:if>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				
+				
+				
+				
 					<!-- 끝 -->
 				</div>
 				<div class="tab-pane fade" id="Branch-manager-pane" role="tabpanel"
