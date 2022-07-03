@@ -1,6 +1,7 @@
 package com.ez.launer.user.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -26,6 +27,7 @@ public interface UserDAO {
 	int updateUserHp(UserAllVO vo);
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
+	List<Map<String, Object>> selectUser();
 	
 	
 	
