@@ -200,11 +200,6 @@ public class UserServiceImpl implements UserService{
 		return userDao.editPwd(vo);
 	}
 	
-	
-	@Override
-	public List<UserVO> selectUser(int userCode) {
-		return userDao.selectUser(userCode);
-	}
 
 	
 	
@@ -240,6 +235,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int insertSnsUser(UserVO userVO) {
 		return userDao.insertSnsUser(userVO);
+	}
+	@Override
+	public List<UserVO> selectUser(int userCode) {
+		return userDao.selectUser(userCode);
 	}
 	
 	

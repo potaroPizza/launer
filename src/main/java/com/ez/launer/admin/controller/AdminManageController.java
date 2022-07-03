@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin/manage")
+@RequestMapping("/admin")
 public class AdminManageController {
 
 	private static final Logger logger
@@ -40,10 +40,10 @@ public class AdminManageController {
 		int userCode = 1;
 		List<UserVO> list= userService.selectUser(userCode);
 		logger.info("list.size={}",list.size());
-		model.addAttribute("lists",list);
+		model.addAttribute("list",list);
 		model.addAttribute("size",list.size());
 
-		return "/admin/manage/users";
+		return "/admin/users";
 	}
 	
 }

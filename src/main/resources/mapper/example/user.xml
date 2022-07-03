@@ -114,7 +114,7 @@
 
 
    <select id="selectUser" resultType="userVo" parameterType="int">  <!--  /*1:유저, 3~4:관리자*/ -->
-      select * from USERS where no = #{no}
+      select * from USERS where user_code = #{userCode}
    </select>
 
    <select id="selectDeliveryUser">
