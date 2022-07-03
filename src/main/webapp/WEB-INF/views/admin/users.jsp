@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <t:head>
 </t:head>
@@ -7,7 +8,7 @@
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">유저관리</h1>
-			<input type ="text" name ="paramTest" value="${size }">
+			<input type="text" name="paramTest" value="${size }">
 			<ol class="breadcrumb mb-4">
 				<li class="breadcrumb-item active">일반사용자 배송기사 관리 페이지</li>
 			</ol>
@@ -32,8 +33,15 @@
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="consumer-pane"
 					role="tabpanel" aria-labelledby="consumer-tab">
+
+					<!-- 일반회원 조회 tab -->
+
+				<%-- 	<c:import url="/admin/usersCommon">
+						<c:param name="userCode" value="1"></c:param>
+					</c:import>  --%>
+					
 					<!-- 시작 -->
-					<div class="card mb-4">
+					 <div class="card mb-4">
 						<div class="card-header">이용자 현황</div>
 						<div class="card-body">
 							<table class="table table-striped" id="orders">
@@ -87,10 +95,12 @@
 								<a href="#">회원정보삭제</a>
 							</div>
 						</div>
-					</div>
+					</div> 
 					<!-- 끝 -->
 				</div>
-			
+
+
+
 				<div class="tab-pane fade" id="delivery-pane" role="tabpanel"
 					aria-labelledby="delivery-tab">
 					<!-- 시작 -->
