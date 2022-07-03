@@ -113,8 +113,8 @@
 
 
 
-   <select id="selectUser" resultType="map">  <!--  /*1:유저, 3~4:관리자*/ -->
-      select * from USERS 
+   <select id="selectUser" resultType="userVo" parameterType="int">  <!--  /*1:유저, 3~4:관리자*/ -->
+      select * from USERS where no = #{no}
    </select>
 
    <select id="selectDeliveryUser">
