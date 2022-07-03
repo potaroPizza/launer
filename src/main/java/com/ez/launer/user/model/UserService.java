@@ -1,6 +1,7 @@
 package com.ez.launer.user.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -37,6 +38,8 @@ public interface UserService {
 	int updateUserHp(UserAllVO vo);
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
+	//이수지
+	List<Map<String, Object>> selectUser();
 	
 	
 	

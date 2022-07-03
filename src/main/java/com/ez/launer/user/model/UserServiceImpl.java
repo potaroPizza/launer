@@ -199,8 +199,13 @@ public class UserServiceImpl implements UserService{
 	public int editPwd(UserVO vo) {
 		return userDao.editPwd(vo);
 	}
-
 	
+	
+	@Override
+	public List<Map<String, Object>> selectUser() {
+		return userDao.selectUser();
+	}
+
 	
 	
 	
@@ -236,7 +241,8 @@ public class UserServiceImpl implements UserService{
 	public int insertSnsUser(UserVO userVO) {
 		return userDao.insertSnsUser(userVO);
 	}
-
+	
+	
 
 }
 
