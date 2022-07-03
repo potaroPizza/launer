@@ -36,22 +36,19 @@ public class AdminManageController {
 
 		return "/admin/manage/stores";
 	}
-
+	
 	@RequestMapping("/users")
-	public String usersCommon(@ModelAttribute UserSearchVO searchVo,Model model) {
-		int userCode =1;
+	public String users_get() {
+		return"/admin/users";
+	}
 
-		if(searchVo.getCountPerPage() == 0) {	
-			searchVo.setCountPerPage(5);
-		}
+	@RequestMapping("/usersCommon")
+	public String usersCommon(@RequestParam int userCode,
+			@ModelAttribute UserSearchVO searchVo,Model model) {
 		
 		logger.info("페이징, searchVo={}", searchVo);
 
 		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
-		pagingInfo.setRecordCountPerPage(searchVo.getCountPerPage());
-		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
-		searchVo.setRecordCountPerPage(searchVo.getCountPerPage());
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		searchVo.setUserCode(userCode);
 		
@@ -61,14 +58,11 @@ public class AdminManageController {
 		
 		int totalRecord = userService.userTotalRecord(searchVo);
 		logger.info("조회결과 totalRecord = {}",totalRecord);
-		pagingInfo.setTotalRecord(totalRecord);
 
 		model.addAttribute("list",list);
-		model.addAttribute("pagingInfo", pagingInfo);
-		
+		model.addAttribute("totalRecord",totalRecord);
 
-		return"/admin/users";
-
+		return"/admin/usersCommon";
 	}
 
 }
