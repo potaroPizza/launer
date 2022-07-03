@@ -27,7 +27,7 @@ public interface UserDAO {
 	int updateUserHp(UserAllVO vo);
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
-	List<Map<String, Object>> selectUser();
+	List<UserVO> selectUser(int userCode);
 	
 	
 	

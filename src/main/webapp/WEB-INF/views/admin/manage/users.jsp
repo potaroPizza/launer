@@ -62,12 +62,12 @@
 										</tr>
 									</c:if>
 									<c:if test="${!empty list }">
-										<c:forEach var="map" items="${list }">
+										<c:forEach var="userVo" items="${lists }">
 										
 											<tr>
 												<!-- 회원 리스트 반복 -->
 						
-												<td>${map['NO'] }</td>
+												<td>${userVo['NO'] }</td>
 												<!-- users table no -->
 												<td>${map['NAME']}</td>
 												<!-- users table name -->
@@ -77,7 +77,7 @@
 												<!-- users table hp -->
 												<td>${map['USERCODE']}</td>
 												<!-- users_class table class  -->
-												<td><a href="#">회원상세</a></td>
+												<td><a href="#">수정 |</a><a href="#">삭제</a></td>
 											</tr>
 										</c:forEach>
 									</c:if>
@@ -90,6 +90,7 @@
 					</div>
 					<!-- 끝 -->
 				</div>
+			
 				<div class="tab-pane fade" id="delivery-pane" role="tabpanel"
 					aria-labelledby="delivery-tab">
 					<!-- 시작 -->

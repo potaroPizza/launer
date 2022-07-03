@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,8 @@ import com.ez.launer.user.model.UserVO;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/admin/manage")
 @RequiredArgsConstructor
+@RequestMapping("/admin/manage")
 public class AdminManageController {
 
 	private static final Logger logger
@@ -32,13 +33,14 @@ public class AdminManageController {
 		return "/admin/manage/stores";
 	}
 	
-	@GetMapping("/users")
-	public String users(Model model) {
+	@RequestMapping("/users")
+	public String users(ModelMap model) {
 		logger.info("회원관리 페이지");
 		
-		List<Map<String, Object>> list = userService.selectUser();
+		int userCode = 1;
+		List<UserVO> list= userService.selectUser(userCode);
 		logger.info("list.size={}",list.size());
-		model.addAttribute("list",list);
+		model.addAttribute("lists",list);
 		model.addAttribute("size",list.size());
 
 		return "/admin/manage/users";

@@ -39,7 +39,7 @@ public interface UserService {
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
 	//이수지
-	List<Map<String, Object>> selectUser();
+	List<UserVO> selectUser(int userCode);
 	
 	
 	
