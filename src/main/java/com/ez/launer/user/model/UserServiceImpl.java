@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.ez.launer.common.UserSearchVO;
 import com.ez.launer.office.model.OfficeDAO;
 import com.ez.launer.office.model.OfficeVO;
 
@@ -237,10 +238,14 @@ public class UserServiceImpl implements UserService{
 		return userDao.insertSnsUser(userVO);
 	}
 	@Override
-	public List<UserVO> selectUser(int userCode) {
-		return userDao.selectUser(userCode);
+	public List<UserVO> selectUser(UserSearchVO userSearchVo) {
+		return userDao.selectUser(userSearchVo);
 	}
-	
+	@Override
+	public int userTotalRecord(UserSearchVO userSearchVo) {
+		return userDao.userTotalRecord(userSearchVo);
+	}
+
 	
 
 }

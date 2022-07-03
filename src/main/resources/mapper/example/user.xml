@@ -113,8 +113,8 @@
 
 
 
-   <select id="selectUser" resultType="userVo" parameterType="int">  <!--  /*1:유저, 3~4:관리자*/ -->
-      select * from USERS where user_code = #{userCode}
+   <select id="selectUser" resultType="userVo" parameterType="UserSearchVO">  <!--  /*1:유저, 3~4:관리자*/ -->
+      select * from USERS where user_code = #{userCode} order by no
    </select>
 
    <select id="selectDeliveryUser">
@@ -157,6 +157,9 @@
 			insert into users_address(no,users_no)
 			values(#{no}, #{usersNo})
 	</insert>
+	<select id="userTotalRecord" parameterType="UserSearchVO" resultType="int">
+		select count(*) from users where user_code =#{userCode}
+	</select>
 
 
 

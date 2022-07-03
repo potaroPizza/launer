@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.PaginationInfo;
 import com.ez.launer.common.SearchVO;
+import com.ez.launer.common.UserSearchVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -37,36 +38,36 @@ public class AdminManageController {
 	}
 
 	@RequestMapping("/users")
-	public String users(ModelMap model) {
-		logger.info("회원관리 페이지");
+	public String usersCommon(@ModelAttribute UserSearchVO searchVo,Model model) {
+		int userCode =1;
 
+		if(searchVo.getCountPerPage() == 0) {	
+			searchVo.setCountPerPage(5);
+		}
+		
+		logger.info("페이징, searchVo={}", searchVo);
 
-		return "/admin/users";
-	}
-
-	@RequestMapping("/usersCommon")
-	public String usersCommon(@ModelAttribute SearchVO searchVo,@RequestParam int userCode,Model model) {
-		logger.info("회원종류 userCode={}",userCode);
-
-		//[1] PaginationInfo 생성
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
-		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		pagingInfo.setRecordCountPerPage(searchVo.getCountPerPage());
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
-
-		//[2] searchVo에 페이징 처리 관련 변수의 값 셋팅
+		searchVo.setRecordCountPerPage(searchVo.getCountPerPage());
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		searchVo.setUserCode(userCode);
+		
 
-		List<UserVO> list= userService.selectUser(userCode);
-		logger.info("list.size={}",list.size());
-
-		pagingInfo.setTotalRecord(list.size());
+		List<UserVO> list= userService.selectUser(searchVo);
+		logger.info("일반회원 조회 페이징, list.size()={}",list.size());
+		
+		int totalRecord = userService.userTotalRecord(searchVo);
+		logger.info("조회결과 totalRecord = {}",totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
 
 		model.addAttribute("list",list);
 		model.addAttribute("pagingInfo", pagingInfo);
+		
 
-		return"/admin/usersCommon";
+		return"/admin/users";
 
 	}
 
