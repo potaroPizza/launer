@@ -169,7 +169,7 @@ function pageFunc(curPage){
 										<th>이메일</th>
 										<th>전화번호</th>
 										<th>회원정보</th>
-										<th>상세정보</th>
+										<th>비고</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -179,12 +179,59 @@ function pageFunc(curPage){
 										<td>han@gmail.com</td>
 										<td>010-9999-0000</td>
 										<td>일반사용자</td>
-										<td><a href="#">회원상세</a></td>
+										<td><a href="#">수정</a> <a href="#">삭제</a></a></td>
 									</tr>
 								</tbody>
 							</table>
-							<div>
-								<a href="#">관리자추가</a> <a href="#">수정</a> <a href="#">삭제</a>
+							<div class="modal-button">
+								<!-- 관리자 추가 모달 -->
+								<input type="button" data-bs-toggle="modal" data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가">
+								
+								<!-- Modal -->
+								<div class="modal fade" id="addAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="addAdminModalLabel">관리자 추가</h5>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+								      <div class="modal-body">
+								      	<form name="adminAdd" method="" action="">
+								      	<div class="adminName">
+									      	<label for="name">관리자 이름</label> 
+											<input type="text" name="name" id="name" style="ime-mode: active">
+								      	</div>
+								      	<div class="adminEmail">
+									      	<label for="email">이메일</label> 
+									      	<input type="text" name="email" id="email">
+											<input type="button" value="중복 확인" id="ChkEmail">
+								      	</div>
+								      	<div class="adminPassword">
+									      	<label for="password">비밀번호</label> 
+									      	<input type="password" name="password" id="password" placeholder="8자 이상의 문자,특수문자 포함">
+								      	</div>
+								      	<div class="adminPassword2">
+									      	<label for="password2">비밀번호</label> 
+									      	<input type="password" name="password2" id="password2">
+								      	</div>
+								      	<div class="adminHp">
+								      		<label for="hp">전화번호</label>
+								      		<input type="text" name="hp" id="hp" maxlength="11" placeholder="-를 제외하고 입력해주세요">
+								      	</div>
+								      	<div class="stores">
+								      		<label for="hp">전화번호</label>
+								      		<input type="text" name="hp" id="hp" maxlength="11" placeholder="-를 제외하고 입력해주세요">
+								      	</div>
+								      	<div align="center">
+								      		<input type="button" data-bs-dismiss="modal" value="닫기">
+											<input type="submit" id="wr_submit" value="추가">
+										</div>
+								      	</form>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								<!-- Modal 끝 -->
 							</div>
 						</div>
 					</div>
