@@ -1,9 +1,12 @@
 package com.ez.launer.user.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.ez.launer.common.UserSearchVO;
 
 @Mapper
 public interface UserDAO {
@@ -30,10 +33,12 @@ public interface UserDAO {
 	
 	
 	/* 한서현 */
+	public List<UserVO> selectUser(UserSearchVO userSearchVo); // adminManager
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	int isAddressExist(int no);
 	int insertAddressOnlyPart(UserAddressVO addressVo);
+	int userTotalRecord(UserSearchVO userSearchVo);
 
 
 	/* 박권순 */

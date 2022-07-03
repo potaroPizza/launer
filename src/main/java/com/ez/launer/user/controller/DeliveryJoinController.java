@@ -1,5 +1,7 @@
 package com.ez.launer.user.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.launer.user.model.DriverAllVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ public class DeliveryJoinController {
     private static final Logger logger = LoggerFactory.getLogger(DeliveryJoinController.class);
     
     private final UserService userService;
+    private final SHA256Encryption sha256;
     
     @GetMapping("/join")
     public String register(Model model) {
@@ -32,9 +36,14 @@ public class DeliveryJoinController {
     }
     
     @PostMapping("/join")
-	public String join_post(@ModelAttribute DriverAllVO vo, Model model) {
+	public String join_post(@ModelAttribute DriverAllVO vo, Model model) throws NoSuchAlgorithmException {
     	logger.info("배송기사 회원가입 처리, 파라미터 vo={}", vo);
 		
+    	//비밀번호 암호화
+    	String pwd = sha256.encrypt(vo.getPwd());
+    	vo.setPwd(pwd);
+    	logger.info("암호화 pwd ={}",pwd);
+    	
 		int cnt=userService.insertDriver(vo);
 		logger.info("배송기사 회원가입 결과, cnt={}", cnt);
 		

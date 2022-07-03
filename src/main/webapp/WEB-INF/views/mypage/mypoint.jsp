@@ -25,7 +25,6 @@
 				</li>
 			</ul>
 		</div>
-
 		<div class="mypoint_details">
 			<p>포인트 이용내역</p>
 		</div>
@@ -57,7 +56,6 @@
 								P
 							</div>
 						</li>
-
 					</c:forEach>
 				</c:if>
 
@@ -93,7 +91,6 @@
 				</ul>
 			</nav>
 		</div>
-
 		<div class="mypoint_notification">
 			<p>포인트 이용 유의사항</p>
 			<ul>
