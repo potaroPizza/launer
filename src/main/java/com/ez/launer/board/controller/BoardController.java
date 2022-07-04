@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -54,9 +52,8 @@ public class BoardController {
             throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 //        session.setAttribute("no", 1000);
 
-//        String sUserNo = (String)session.getAttribute("no");
-//        int userNo = Integer.parseInt(sUserNo);
-        int userNo = 1000;
+        int userNo = Integer.parseInt(String.valueOf(session.getAttribute("no")));
+//        int userNo = 1000;
 
         UserVO userVO = userService.selectById(userNo);
         Map<String, Object> map = BeanUtils.describe(userVO);   //BeanUtils.describe() => Vo 프로퍼티를 map으로 바꿔준다고함
