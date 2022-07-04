@@ -7,17 +7,6 @@
 	$(function() {
 
 	});
-	function pageFunc(curPage) {
-		//페이지 번호를 클릭했을 때 처리
-		$('input[name=currentPage]').val(curPage);
-		$('form[name=frmPage]').submit();
-	}
-
-	function searchFunc() {
-		var searchKeyword = $('input[name=searchKeyword]').val();
-		var searchCondition = $('#searchCondition').val();
-
-	}
 </script>
 
 <t:head>
@@ -46,11 +35,9 @@
 						aria-controls="Branch-manager-pane" aria-selected="false">지점관리자</button>
 				</li>
 			</ul>
-			<br> <input type="text" name="searchCondition"
-				value="${param.searchCondition }"> <input type="text"
-				name="searchKeyword" value="${param.searchKeyword }">
-			<c:set var="searchCondition" value="${param.searchCondition }" />
-			<c:set var="searchKeyword" value="${param.searchKeyword }" />
+			<br> 
+				<%-- <input type="text" name="searchCondition"value="${param.searchCondition }"> 
+				<input type="text" name="searchKeyword" value="${param.searchKeyword }"> --%>
 
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="consumer-pane"
@@ -59,8 +46,8 @@
 					<!-- 일반회원 조회 tab -->
 
 					<c:import url="/admin/usersCommon">
-						<c:param name="searchCondition" value=""></c:param>
-						<c:param name="searchKeyword" value="한서현"></c:param>
+						<c:param name="searchCondition" value="${searchCondition }"></c:param>
+						<c:param name="searchKeyword" value="${searchKeyword }"></c:param>
 					</c:import>
 
 					<!-- 일반회원 검색창 -->
@@ -80,9 +67,8 @@
 									<c:if test="${searchCondition=='no' }">
 					            		selected="selected"
 					            	</c:if>>회원번호</option>
-							</select> <input type="text" name="searchKeyword" title="검색어 입력"
-								value="${searchKeyword}"> <input type="submit"
-								value="검색">
+							</select> 
+							<input type="text" name="searchKeyword" title="검색어 입력" value="${searchKeyword}"> value="검색">
 						</form>
 					</div>
 
@@ -163,9 +149,6 @@
 								<input type="button" data-bs-toggle="modal"
 									data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가">
 
-								<input type="button" data-bs-toggle="modal"
-									data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가">
-
 								<!-- Modal -->
 								<div class="modal fade" id="addAdmin" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -205,47 +188,10 @@
 															id="office">
 															<option value="">지점 선택</option>
 															<option value="">종로지점</option>
-															<!-- 반복 시작 -->
-															<%-- <c:forEach var="" items="">
-								<div class="modal fade" id="addAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <h5 class="modal-title" id="addAdminModalLabel">관리자 추가</h5>
-								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								      </div>
-								      <div class="modal-body">
-								      	<form name="adminAdd" method="" action="">
-								      	<div class="adminName">
-									      	<label for="name">관리자 이름</label> 
-											<input type="text" name="name" id="name" style="ime-mode: active">
-								      	</div>
-								      	<div class="adminEmail">
-									      	<label for="email">이메일</label> 
-									      	<input type="text" name="email" id="email" style="ime-mode: inactive">
-											<input type="button" value="중복 확인" id="ChkEmail">
-								      	</div>
-								      	<div class="adminPassword">
-									      	<label for="password">비밀번호</label> 
-									      	<input type="password" name="password" id="password" placeholder="8자 이상의 문자,특수문자 포함">
-								      	</div>
-								      	<div class="adminPassword2">
-									      	<label for="password2">비밀번호</label> 
-									      	<input type="password" name="password2" id="password2">
-								      	</div>
-								      	<div class="adminHp">
-								      		<label for="hp">전화번호</label>
-								      		<input type="text" name="hp" id="hp" maxlength="11" placeholder="-를 제외하고 입력해주세요">
-								      	</div>
-								      	<div class="office">
-								      		<label for="office">지점</label>
-								      			<select name="office" id="office">
-								      				<option value="">지점 선택</option>
-								      				<option value="">종로지점</option>
-								      				<!-- 반복 시작 -->
-								      				<%-- <c:forEach var="" items="">
-														<option value="">지점</option>						
-													</c:forEach> --%>
+										      				<!-- 반복 시작 -->
+										      				<%-- <c:forEach var="" items="">
+																<option value="">지점</option>						
+															</c:forEach> --%>
 															<!-- 반복 끝 -->
 														</select>
 													</div>
@@ -259,8 +205,61 @@
 									</div>
 								</div>
 								<!-- Modal 끝 -->
+								<!-- 관리자 수정 모달 -->
 								<input type="button" data-bs-toggle="modal"
 									data-bs-target="#editAdmin" id="btMultiUpdate" value="관리자 수정">
+								<!-- Modal 시작 -->
+								<div class="modal fade" id="editAdmin" tabindex="-1" aria-labelledby="#editAdminModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="#editAdminModalLabel">관리자 수정</h5>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+								      <div class="modal-body">
+								      	<form name="editAdmin" method="" action="">
+								      	<div class="no">
+									      	<label for="no">관리자번호</label> 
+									      	<span class="box int_id" style="background-color: #e9e9e9;">
+												<input type="text" name="userno" id="no" class="int" value="" maxlength="10" readonly="readonly" disabled style="background-color: #e9e9e9;">
+											</span>
+											<span class="error_next_box"></span>
+								      	</div>
+								      	<div class="editName">
+									      	<label for="editname">관리자명</label> 
+											<input type="text" name="name" id="name" style="ime-mode: active">
+								      	</div>
+								      	<div class="editEmail">
+									      	<label for="email">이메일</label> 
+									      	<input type="text" name="email" id="email" style="ime-mode: inactive">
+											<input type="button" value="중복 확인" id="editmail">
+								      	</div>
+								      	<div class="editHp">
+								      		<label for="editHp">전화번호</label>
+								      		<input type="text" name="editHp" id="editHp" maxlength="11" placeholder="-를 제외하고 입력해주세요">
+								      	</div>
+								      	<div class="editOffice">
+								      		<label for="editOffice">지점변경</label>
+								      			<select name="editOffice" id="editOffice">
+								      				<option value="">지점 선택</option>
+								      				<option value="">종로지점</option>
+								      				<!-- 반복 시작 -->
+								      				<%-- <c:forEach var="" items="">
+														<option value="">지점</option>						
+													</c:forEach> --%>
+								      				<!-- 반복 끝 -->
+								      			</select>
+								      	</div>
+								      	<div align="center">
+								      		<input type="button" data-bs-dismiss="modal" value="닫기">
+											<input type="submit" id="editButton" value="수정">
+										</div>
+								      	</form>
+								      </div>
+								    </div>
+								  </div>
+								</div>	
+								<!-- Modal 끝 -->	
 							</div>
 						</div>
 					</div>
