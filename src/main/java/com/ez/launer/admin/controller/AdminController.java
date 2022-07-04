@@ -409,11 +409,12 @@ public class AdminController {
 				session.setAttribute("adminEmail", uVo.getEmail());
 				session.setAttribute("adminName", uVo.getName());
 				session.setAttribute("adminCode", uVo.getUserCode());
+				session.setAttribute("email", uVo.getEmail());
+				session.setAttribute("name", uVo.getName());
+				session.setAttribute("no", uVo.getNo());
 				
 				msg = uVo.getName() +"님 로그인되었습니다.";
 				url="/admin/";
-				
-				logger.info("!!!{}", session.getAttribute("adminEmail"));
 			}
 		} else if(result == UserService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";
