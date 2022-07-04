@@ -536,11 +536,14 @@ public class DeliveryController {
 	@PostMapping("/withdrawDelivery")
 	public String Deliverydelete_post(@RequestParam String pwd,
 			HttpSession session, HttpServletResponse response,
-			Model model) {
+			Model model) throws NoSuchAlgorithmException {
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
 		String email=(String)session.getAttribute("email");
 		logger.info("배송기사 탈퇴 처리, 파라미터 deliveryNo={}, pwd={}",deliveryNo,pwd);
 
+		pwd = sha256.encrypt(pwd);
+		logger.info("암호화로 불러온pwd={}",deliveryNo,pwd);
+		
 		int result=deliveryDriverService.checkLogin(deliveryNo, pwd);
 		logger.info("배송기사 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
 
