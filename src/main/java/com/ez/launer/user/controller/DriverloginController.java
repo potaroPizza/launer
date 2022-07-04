@@ -1,5 +1,7 @@
 package com.ez.launer.user.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.launer.user.model.DriverVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,12 +30,17 @@ public class DriverloginController {
 	=LoggerFactory.getLogger(DriverloginController.class);
 	
 	private final UserService userService;
+	private final SHA256Encryption sha256;
 	
 	@PostMapping("/login")
 	public String login_post(@ModelAttribute DriverVO dvo,
 		@RequestParam(required = false) String saveDmail, 
-		HttpServletRequest request, HttpServletResponse response,Model model){
+		HttpServletRequest request, HttpServletResponse response,Model model) throws NoSuchAlgorithmException{
 		logger.info("배송기사 로그인 처리, 파라미터 dvo={}, saveDmail={}", dvo, saveDmail);
+		
+		String pwd = sha256.encrypt(dvo.getDPwd());
+    	dvo.setDPwd(pwd);
+    	logger.info("암호화 pwd ={}",pwd);
 		
 		int result=userService.dloginChk(dvo.getDmail(), dvo.getDPwd());
 		logger.info("배송기사 로그인 처리 결과 result={}", result);
