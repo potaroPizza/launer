@@ -106,7 +106,7 @@
 				<p>내 정보 수정</p>
 			</div>	
             <!-- content-->
-            <form method="post" name="usereditfrmkakao" action="<c:url value='/mypage/usereditKakao'/>">
+            <form method="post" name="usereditfrmSocial" action="<c:url value='/mypage/usereditSocial'/>">
             <div id="useredit_content">
 
                 <!-- ID -->
