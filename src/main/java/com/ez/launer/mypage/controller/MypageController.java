@@ -192,7 +192,7 @@ public class MypageController {
 		return "/common/message";
 
 	}
-	@PostMapping("/usereditKakao")
+	@PostMapping("/usereditSocial")
 	public String editKakao_post(@ModelAttribute UserAllVO vo,
 			HttpSession session, Model model) {
 		int no=(int)session.getAttribute("no");

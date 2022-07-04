@@ -3,28 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript">
-	$(function() {
-		 var tabNo = $('#tabNo').val();
-		 
-		 if(tabNo==1){	 
-			 $('#consumer').click();
-		 }else if (tabNo==2){
-			 $('#delivery').click();
-			 
-		 }else{
-			 $('#branch-manager').click();
-		 }
-		 
-		 if('.nav-item button').on("click",function(){
-			 
-			 $('.paramInput').val('');
-			 
-		 });
-		
-		
-	});
-</script>
+<script type="text/javascript" src="<c:url value='/js/adminManager.js'/>"></script>
 
 <t:head>
 </t:head>
@@ -39,7 +18,7 @@
 				<li class="nav-item" role="presentation">
 					<button class="nav-link active" id="consumer" data-bs-toggle="tab"
 						data-bs-target="#consumer-pane" type="button" role="tab"
-						aria-controls="consumer-pane" aria-selected="true">일반사용자</button>
+						aria-controls="consumer-pane" aria-selected="false">일반사용자</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="delivery" data-bs-toggle="tab"
