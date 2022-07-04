@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ez.launer.category.model.CategoryVO;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.DeliverySearchVO;
 import com.ez.launer.common.PaginationInfo;
@@ -47,8 +49,6 @@ public class AdminManageController {
 	@GetMapping("/users")
 	public String users_get() {
 		return"/admin/users";
-		
-		
 	}
 	
 	@PostMapping("/users")
@@ -143,5 +143,14 @@ public class AdminManageController {
 	
 	
 	
-
+	@RequestMapping("/insertManager")
+	@ResponseBody
+	public UserVO insertManager(@ModelAttribute UserVO userVo, Model model,@RequestParam String office){
+		logger.info("파라미터 userVo ={}",userVo);
+		logger.info("지점 office ={}",office);
+		
+		
+		model.addAttribute("userVo",userVo);
+		return userVo;
+	}
 }
