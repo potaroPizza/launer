@@ -5,7 +5,21 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	$(function() {
-
+		 var tabNo = $('#tabNo').val();
+		 
+		 if(tabNo==null || tabNo ==0){
+			 tabNo =1;
+		 }
+		 if(tabNo==1){	 
+			 $('#consumer').click();
+		 }else if (tabNo==2){
+			 $('#delivery').click();
+			 
+		 }else{
+			 $('#branch-manager').click();
+		 }
+		
+		
 	});
 </script>
 
@@ -36,6 +50,8 @@
 				</li>
 			</ul>
 			<br> 
+				
+			    <input type="text" name="tabNo"value="${tabNo }" id= "tabNo"> 
 			    <input type="text" name="searchCondition"value="${userSearchCondition }"> 
 				<input type="text" name="searchKeyword" value="${userSearchKeyword }">
 				<input type="text" name="searchKeyword" value="${driverSearchKeyword }">
