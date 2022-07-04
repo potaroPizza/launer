@@ -472,7 +472,7 @@ public class DeliveryController {
 
 	@PostMapping("/useredit")
 	public String editDelivery_post(@ModelAttribute DeliveryDriverAllVO vo,
-			HttpSession session, Model model) {
+			HttpSession session, Model model) throws NoSuchAlgorithmException {
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
 		vo.setNo(deliveryNo);
 		logger.info("배달기사정보 수정, DeliveryDriverAllVO={}", vo);
@@ -491,6 +491,8 @@ public class DeliveryController {
 
 
 		String msg="비밀번호 확인 실패", url="/delivery/useredit";
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
 		int result=deliveryDriverService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("배달기사정보 수정 - 비밀번호 확인 결과, result ={}", result);
 
@@ -593,8 +595,9 @@ public class DeliveryController {
 		vo.setNo(deliveryNo);
 		logger.info("비밀번호 변경, vo={} ,파라미터 newPwd={}",vo,newPwd);
 
-		String pwd = sha256.encrypt(vo.getPwd());
-		vo.setPwd(pwd);
+	
+		/* String pwd = sha256.encrypt(vo.getPwd()); vo.setPwd(pwd); */
+		 
 		
 		int result=deliveryDriverService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("비밀번호 변경 처리, 비밀번호 조회 결과 result={}", result);
