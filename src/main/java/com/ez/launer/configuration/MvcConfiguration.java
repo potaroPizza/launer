@@ -25,8 +25,8 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		.excludePathPatterns("/admin/adminLogin");
 
 
-		/*registry.addInterceptor(new DeliveryInterceptor())
-				.addPathPatterns("/delivery/**");*/
+		registry.addInterceptor(new DeliveryInterceptor())
+				.addPathPatterns("/delivery/**");
 
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")

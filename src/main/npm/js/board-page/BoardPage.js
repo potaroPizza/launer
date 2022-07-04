@@ -7,7 +7,6 @@ const BoardPage = () => {
     const [userInfo, setUserInfo] = useState();
 
     //유저 정보 받아오기
-
     const ajaxUser = () => {
         $.ajax({
             url: "/launer/board/userInfo",
