@@ -7,9 +7,6 @@
 	$(function() {
 		 var tabNo = $('#tabNo').val();
 		 
-		 if(tabNo==null || tabNo ==0){
-			 tabNo =1;
-		 }
 		 if(tabNo==1){	 
 			 $('#consumer').click();
 		 }else if (tabNo==2){
@@ -18,6 +15,12 @@
 		 }else{
 			 $('#branch-manager').click();
 		 }
+		 
+		 if('.nav-item button').on("click",function(){
+			 
+			 $('.paramInput').val('');
+			 
+		 });
 		
 		
 	});
@@ -51,11 +54,11 @@
 			</ul>
 			<br> 
 				
-			    <input type="text" name="tabNo"value="${tabNo }" id= "tabNo"> 
-			    <input type="text" name="searchCondition"value="${userSearchCondition }"> 
-				<input type="text" name="searchKeyword" value="${userSearchKeyword }">
-				<input type="text" name="searchKeyword" value="${driverSearchKeyword }">
-				<input type="text" name="searchKeyword" value="${driverSearchKeyword }">
+			    <input type="text" name="tabNo"value="${tabNo }" id= "tabNo" class ="paramInput"> 
+			    <input type="text" name="searchCondition"value="${userSearchCondition }" class ="paramInput"> 
+				<input type="text" name="searchKeyword" value="${userSearchKeyword }" class ="paramInput">
+				<input type="text" name="searchKeyword" value="${driverSearchKeyword }" class ="paramInput">
+				<input type="text" name="searchKeyword" value="${driverSearchKeyword }" class ="paramInput">
 
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="consumer-pane"
