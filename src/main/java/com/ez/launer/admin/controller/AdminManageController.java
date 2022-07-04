@@ -52,10 +52,25 @@ public class AdminManageController {
 	}
 	
 	@PostMapping("/users")
-	public String users_post(@ModelAttribute UserSearchVO userSearchVo, Model model) {
+	public String users_post(@RequestParam (required = false  )String userSearchKeyword, @RequestParam (required = false  )String userSearchCondition,
+			@RequestParam (required = false  )String driverSearchKeyword,@RequestParam (required = false  )String driverSearchCondition  ,Model model) {
 		
-		model.addAttribute("searchKeyword",userSearchVo.getSearchKeyword());
-		model.addAttribute("searchCondition",userSearchVo.getSearchCondition());
+		int tabNo = 0;
+		
+		if(userSearchKeyword!=null|| !userSearchKeyword.isEmpty()) {
+			tabNo = 1;
+		}else if(driverSearchKeyword!=null || !driverSearchKeyword.isEmpty()) {
+			tabNo = 2;
+		}else {
+			tabNo =3;
+		}
+		logger.info("tabNo={}",tabNo);
+		
+		model.addAttribute("userSearchKeyword",userSearchKeyword);
+		model.addAttribute("userSearchCondition",userSearchCondition);
+		model.addAttribute("driverSearchCondition",driverSearchCondition);
+		model.addAttribute("driverSearchKeyword",driverSearchKeyword);
+		model.addAttribute("tabNo",tabNo);
 		return"/admin/users";
 	}
 	
@@ -68,8 +83,17 @@ public class AdminManageController {
 		String searchKeyword = searchVo.getSearchKeyword();
 		String searchCondition = searchVo.getSearchCondition();
 		
-		logger.info("컨트롤러 searchKeyword ={}",searchKeyword);
-		logger.info("searchCondition ={}",searchCondition);
+		String temp1 [] = searchKeyword.split("[,]");
+		String temp2 [] = searchCondition.split("[,]");
+		
+		searchKeyword = temp1[0];
+		searchCondition = temp2[0];
+		
+		logger.info("일반회원 searchKeyword ={}",searchKeyword);
+		logger.info("일반회원 searchCondition ={}",searchCondition);
+		
+		searchVo.setSearchKeyword(searchKeyword);
+		searchVo.setSearchCondition(searchCondition);
 
 		List<UserVO> list= userService.selectUser(searchVo);
 		logger.info("일반회원 조회, list.size()={}",list.size());
@@ -79,18 +103,40 @@ public class AdminManageController {
 
 		model.addAttribute("list",list);
 		model.addAttribute("totalRecord",totalRecord);
+		model.addAttribute("searchKeyword",searchKeyword);
+		
 
 		return"/admin/usersCommon";
 	}
 	
 	
-	@GetMapping("/usersDelivery")
+	@RequestMapping("/usersDelivery")
 	public String usersDelivery(@ModelAttribute DeliverySearchVO deliverySearchVo,Model model) {
 		
-		List<DeliveryDriverVO> list = deliveryService.selectDeliveryByClass(deliverySearchVo);
+		String searchKeyword = deliverySearchVo.getSearchKeyword();
+		String searchCondition = deliverySearchVo.getSearchCondition();
+		
+		String temp1 [] = searchKeyword.split("[,]");
+		String temp2 [] = searchCondition.split("[,]");
+		
+		searchKeyword = temp1[0];
+		searchCondition = temp2[0];
+		
+		logger.info("배달기사 searchKeyword ={}",searchKeyword);
+		logger.info("배달기사 searchCondition ={}",searchCondition);
+		
+		deliverySearchVo.setSearchKeyword(searchKeyword);
+		deliverySearchVo.setSearchCondition(searchCondition);
+		
+		List<DeliveryDriverVO> list = deliveryService.selectDeliveryUser(deliverySearchVo);
 		logger.info("배달기사 조회, list.size() ={}",list.size());
 		
+		int totalRecord=deliveryService.getDriverTotalRecord(deliverySearchVo);
+		logger.info("조회결과 totalRecord = {}",totalRecord);
+		
 		model.addAttribute("list",list);
+		model.addAttribute("totalRecord",totalRecord);
+		model.addAttribute("searchKeyword",searchKeyword);
 		
 		return "/admin/usersDelivery";
 	}

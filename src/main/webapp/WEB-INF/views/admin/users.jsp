@@ -36,8 +36,10 @@
 				</li>
 			</ul>
 			<br> 
-				<%-- <input type="text" name="searchCondition"value="${param.searchCondition }"> 
-				<input type="text" name="searchKeyword" value="${param.searchKeyword }"> --%>
+			    <input type="text" name="searchCondition"value="${userSearchCondition }"> 
+				<input type="text" name="searchKeyword" value="${userSearchKeyword }">
+				<input type="text" name="searchKeyword" value="${driverSearchKeyword }">
+				<input type="text" name="searchKeyword" value="${driverSearchKeyword }">
 
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="consumer-pane"
@@ -46,31 +48,34 @@
 					<!-- 일반회원 조회 tab -->
 
 					<c:import url="/admin/usersCommon">
-						<c:param name="searchCondition" value="${searchCondition }"></c:param>
-						<c:param name="searchKeyword" value="${searchKeyword }"></c:param>
+						<c:param name="searchCondition" value="${userSearchCondition }"></c:param>
+						<c:param name="searchKeyword" value="${userSearchKeyword }"></c:param>
 					</c:import>
 
 					<!-- 일반회원 검색창 -->
 					<div class="divSearch">
 						<form name="frmSearch" method="post"
 							action='<c:url value="/admin/users"/>'>
-							<select name="searchCondition" id="searchCondition">
+							<select name="userSearchCondition" id="userSearchCondition">
 								<option value="name"
-									<c:if test="${searchCondition=='name' }">
+									<c:if test="${userSearchCondition=='name' }">
 					            		selected="selected"
 					            	</c:if>>이름</option>
 								<option value="email"
-									<c:if test="${searchCondition=='email' }">
+									<c:if test="${userSearchCondition=='email' }">
 					            		selected="selected"
 					            	</c:if>>이메일</option>
 								<option value="no"
-									<c:if test="${searchCondition=='no' }">
+									<c:if test="${userSearchCondition=='no' }">
 					            		selected="selected"
 					            	</c:if>>회원번호</option>
-							</select> 
-							<input type="text" name="searchKeyword" title="검색어 입력" value="${searchKeyword}"> value="검색">
+							</select> <input type="text" name="userSearchKeyword" title="검색어 입력"
+								value="${userSearchKeyword}"> <input type="submit"
+								value="검색">
 						</form>
 					</div>
+				
+					
 
 				</div>
 
@@ -79,29 +84,30 @@
 
 					<!-- 배달기사 조회 tab -->
 					<c:import url="/admin/usersDelivery">
-						<c:param name="searchKeyword" value="한서현"></c:param>
+						<c:param name="searchCondition" value="${driverSearchCondition }"></c:param>
+						<c:param name="searchKeyword" value="${driverSearchKeyword }"></c:param>
 					</c:import>
 
 					<!-- 배달기사 검색창 -->
 					<div class="divSearch">
 						<form name="frmSearch" method="post"
-							action='<c:url value="/admin/usersDelivery"/>'>
-							<select name="searchCondition">
-								<option value="title"
-									<c:if test="${param.searchCondition=='name' }">
+							action='<c:url value="/admin/users"/>'>
+							<select name="driverSearchCondition">
+								<option value="name"
+									<c:if test="${driverSearchCondition=='name' }">
 					            		selected="selected"
 					            	</c:if>>이름</option>
-								<option value="content"
-									<c:if test="${param.searchCondition=='email' }">
+								<option value="email"
+									<c:if test="${driverSearchCondition=='email' }">
 					            		selected="selected"
 					            	</c:if>>이메일</option>
-								<option value="name"
-									<c:if test="${param.searchCondition=='no' }">
+								<option value="no"
+									<c:if test="${driverSearchCondition=='no' }">
 					            		selected="selected"
 					            	</c:if>>기사번호</option>
-							</select> <input type="text" name="searchKeyword" title="검색어 입력"
-								value="${param.searchKeyword}"> <input type="submit"
-								value="검색" onclick="searchFunc()">
+							</select> <input type="text" name="driverSearchKeyword" title="검색어 입력"
+								value="${driverSearchKeyword}"> <input type="submit"
+								value="검색">
 						</form>
 					</div>
 

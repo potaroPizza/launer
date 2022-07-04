@@ -28,7 +28,7 @@
 				<tbody>
 					<c:if test="${empty list }">
 						<tr>
-							<td colspan="5" class="align_center">해당 글이 존재하지 않습니다.</td>
+							<td colspan="6" class="align_center">해당 글이 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
 					<c:if test="${!empty list }">
@@ -47,14 +47,15 @@
 								<!-- users table hp -->
 								<td>${userVo.lastAccessDate}</td>
 								<!-- users_class table class  -->
-								<td><a href="#">수정 |</a><a href="#">삭제</a></td>
+								<td><a href="#">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</c:if>
 				</tbody>
 			</table>
 		</div>
-
 	</div>
 </div>
+
+<div>총 ${totalRecord } 건</div>
 
