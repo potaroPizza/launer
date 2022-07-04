@@ -45,7 +45,7 @@ public class DriverloginController {
 			HttpSession session=request.getSession();
 			session.setAttribute("dmail", dvo.getDmail());
 			session.setAttribute("name", drVo.getName());
-			session.setAttribute("no", drVo.getNo());
+			session.setAttribute("deliveryNo", drVo.getNo());
 			logger.info("세션 확인 session={}",session);
 			
 			Cookie ck2 = new Cookie("chkDmail", dvo.getDmail());
@@ -60,7 +60,7 @@ public class DriverloginController {
 			logger.info("쿠키 체크 ck2={}",ck2);
 			
 			msg=drVo.getName() +"기사님 오늘도 화이팅!";
-			url="/";
+			url="/delivery/";
 		}else if(result==UserService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";
 		}else if(result==UserService.NONE_USEREMAIL) {
