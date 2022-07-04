@@ -57,9 +57,9 @@ public class AdminManageController {
 		
 		int tabNo = 0;
 		
-		if(userSearchKeyword!=null|| !userSearchKeyword.isEmpty()) {
+		if(userSearchKeyword!=null) {
 			tabNo = 1;
-		}else if(driverSearchKeyword!=null || !driverSearchKeyword.isEmpty()) {
+		}else if(driverSearchKeyword!=null) {
 			tabNo = 2;
 		}else {
 			tabNo =3;
