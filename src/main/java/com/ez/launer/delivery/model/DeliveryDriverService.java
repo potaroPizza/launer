@@ -30,5 +30,6 @@ public interface DeliveryDriverService {
 	
 	
 	//한서현
-	List<DeliveryDriverVO> selectDeliveryByClass(DeliverySearchVO deliverySearchVo);
+	List<DeliveryDriverVO> selectDeliveryUser(DeliverySearchVO deliverySearchVo);
+	int getDriverTotalRecord(DeliverySearchVO deliverySearchVo);
 }

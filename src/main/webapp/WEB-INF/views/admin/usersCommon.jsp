@@ -28,7 +28,7 @@
 				<tbody>
 					<c:if test="${empty list }">
 						<tr>
-							<td colspan="5" class="align_center">해당 글이 존재하지 않습니다.</td>
+							<td colspan="6" class="align_center">해당 글이 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
 					<c:if test="${!empty list }">
@@ -54,7 +54,8 @@
 				</tbody>
 			</table>
 		</div>
-
 	</div>
 </div>
+
+<div>총 ${totalRecord } 건</div>
 

@@ -55,10 +55,22 @@ public class AdminManageController {
 	public String users_post(@RequestParam (required = false  )String userSearchKeyword, @RequestParam (required = false  )String userSearchCondition,
 			@RequestParam (required = false  )String driverSearchKeyword,@RequestParam (required = false  )String driverSearchCondition  ,Model model) {
 		
+		int tabNo = 0;
+		
+		if(userSearchKeyword!=null|| !userSearchKeyword.isEmpty()) {
+			tabNo = 1;
+		}else if(driverSearchKeyword!=null || !driverSearchKeyword.isEmpty()) {
+			tabNo = 2;
+		}else {
+			tabNo =3;
+		}
+		logger.info("tabNo={}",tabNo);
+		
 		model.addAttribute("userSearchKeyword",userSearchKeyword);
 		model.addAttribute("userSearchCondition",userSearchCondition);
 		model.addAttribute("driverSearchCondition",driverSearchCondition);
 		model.addAttribute("driverSearchKeyword",driverSearchKeyword);
+		model.addAttribute("tabNo",tabNo);
 		return"/admin/users";
 	}
 	
@@ -77,8 +89,8 @@ public class AdminManageController {
 		searchKeyword = temp1[0];
 		searchCondition = temp2[0];
 		
-		logger.info("컨트롤러 searchKeyword ={}",searchKeyword);
-		logger.info("searchCondition ={}",searchCondition);
+		logger.info("일반회원 searchKeyword ={}",searchKeyword);
+		logger.info("일반회원 searchCondition ={}",searchCondition);
 		
 		searchVo.setSearchKeyword(searchKeyword);
 		searchVo.setSearchCondition(searchCondition);
@@ -91,6 +103,8 @@ public class AdminManageController {
 
 		model.addAttribute("list",list);
 		model.addAttribute("totalRecord",totalRecord);
+		model.addAttribute("searchKeyword",searchKeyword);
+		
 
 		return"/admin/usersCommon";
 	}
@@ -108,16 +122,21 @@ public class AdminManageController {
 		searchKeyword = temp1[0];
 		searchCondition = temp2[0];
 		
-		logger.info("컨트롤러 searchKeyword ={}",searchKeyword);
-		logger.info("searchCondition ={}",searchCondition);
+		logger.info("배달기사 searchKeyword ={}",searchKeyword);
+		logger.info("배달기사 searchCondition ={}",searchCondition);
 		
 		deliverySearchVo.setSearchKeyword(searchKeyword);
 		deliverySearchVo.setSearchCondition(searchCondition);
 		
-		List<DeliveryDriverVO> list = deliveryService.selectDeliveryByClass(deliverySearchVo);
+		List<DeliveryDriverVO> list = deliveryService.selectDeliveryUser(deliverySearchVo);
 		logger.info("배달기사 조회, list.size() ={}",list.size());
 		
+		int totalRecord=deliveryService.getDriverTotalRecord(deliverySearchVo);
+		logger.info("조회결과 totalRecord = {}",totalRecord);
+		
 		model.addAttribute("list",list);
+		model.addAttribute("totalRecord",totalRecord);
+		model.addAttribute("searchKeyword",searchKeyword);
 		
 		return "/admin/usersDelivery";
 	}

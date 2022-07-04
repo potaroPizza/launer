@@ -93,15 +93,15 @@
 						<form name="frmSearch" method="post"
 							action='<c:url value="/admin/users"/>'>
 							<select name="driverSearchCondition">
-								<option value="title"
+								<option value="name"
 									<c:if test="${driverSearchCondition=='name' }">
 					            		selected="selected"
 					            	</c:if>>이름</option>
-								<option value="content"
+								<option value="email"
 									<c:if test="${driverSearchCondition=='email' }">
 					            		selected="selected"
 					            	</c:if>>이메일</option>
-								<option value="name"
+								<option value="no"
 									<c:if test="${driverSearchCondition=='no' }">
 					            		selected="selected"
 					            	</c:if>>기사번호</option>

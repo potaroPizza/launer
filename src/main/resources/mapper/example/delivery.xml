@@ -108,14 +108,20 @@
    
    
    <!-- 한서현 -->
-   <select id="selectDeliveryByClass" parameterType="deliverySearchVo" resultType="deliveryDriverVo">
-	 	select * from delivery_driver
-		where out_date is null and users_class_no = #{usersClassNo}
-   </select>
-   
-   
-   
-   
-   
+   <sql id="searchWhere">
+		<if test="searchKeyword !=null and searchKeyword !=''">
+        	where ${searchCondition} 
+        		like '%' || #{searchKeyword} || '%'
+        </if>
+	</sql>
+   <select id="selectDeliveryUser" parameterType="deliverySearchVo" resultType="deliveryDriverVo">
+		       select * from delivery_driver
+	        <include refid="searchWhere"></include>
+	        order by no
+	</select>
+	<select id="getDriverTotalRecord" parameterType="deliverySearchVo" resultType="int">	
+		select count(*) from delivery_driver 
+		<include refid="searchWhere"></include>
+	</select>
    
 </mapper>

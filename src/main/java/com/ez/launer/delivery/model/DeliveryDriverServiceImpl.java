@@ -121,9 +121,16 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService{
 	}
 
 	@Override
-	public List<DeliveryDriverVO> selectDeliveryByClass(DeliverySearchVO deliverySearchVo) {
-		return deliveryDriverDAO.selectDeliveryByClass(deliverySearchVo);
+	public List<DeliveryDriverVO> selectDeliveryUser(DeliverySearchVO deliverySearchVo) {
+		return deliveryDriverDAO.selectDeliveryUser(deliverySearchVo);
 	}
+
+	@Override
+	public int getDriverTotalRecord(DeliverySearchVO deliverySearchVo) {
+		return deliveryDriverDAO.getDriverTotalRecord(deliverySearchVo);
+	}
+
+
 
 	
 
