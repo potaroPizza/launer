@@ -54,9 +54,6 @@ public class AdminManageController {
 	@PostMapping("/users")
 	public String users_post(@ModelAttribute UserSearchVO userSearchVo, Model model) {
 		
-		logger.info("검색조건 searchKeyword={}",userSearchVo.getSearchKeyword());
-		logger.info("검색조건 getSearchCondition={}",userSearchVo.getSearchCondition());
-		
 		model.addAttribute("searchKeyword",userSearchVo.getSearchKeyword());
 		model.addAttribute("searchCondition",userSearchVo.getSearchCondition());
 		return"/admin/users";
@@ -68,8 +65,11 @@ public class AdminManageController {
 	public String usersCommon(
 			@ModelAttribute UserSearchVO searchVo,Model model) {
 		
-		logger.info("페이징, searchVo={}", searchVo);
+		String searchKeyword = searchVo.getSearchKeyword();
+		String searchCondition = searchVo.getSearchCondition();
 		
+		logger.info("컨트롤러 searchKeyword ={}",searchKeyword);
+		logger.info("searchCondition ={}",searchCondition);
 
 		List<UserVO> list= userService.selectUser(searchVo);
 		logger.info("일반회원 조회, list.size()={}",list.size());
