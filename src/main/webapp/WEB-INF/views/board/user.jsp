@@ -10,7 +10,7 @@
 
 <t:wrapper>
     <script type="text/javascript">
-        const boardClass = ${boardClass}
+        let boardClass = ${boardClass}
     </script>
     <div class="margin-fixed-margin"></div>
     <div id="board-component"></div>
