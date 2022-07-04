@@ -17,8 +17,8 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th>회원번호</th>
-						<th>회원명</th>
+						<th>러너번호</th>
+						<th>이름</th>
 						<th>이메일</th>
 						<th>전화번호</th>
 						<th>마지막접속일</th>
@@ -32,20 +32,20 @@
 						</tr>
 					</c:if>
 					<c:if test="${!empty list }">
-						<c:forEach var="userVo" items="${list }">
+						<c:forEach var="deliveryDriverVo" items="${list }">
 
 							<tr>
 								<!-- 회원 리스트 반복 -->
 
-								<td>${userVo.no}</td>
+								<td>${deliveryDriverVo.no}</td>
 								<!-- users table no -->
-								<td>${userVo.name}</td>
+								<td>${deliveryDriverVo.name}</td>
 								<!-- users table name -->
-								<td>${userVo.email}</td>
+								<td>${deliveryDriverVo.email}</td>
 								<!-- users table email -->
-								<td>${userVo.hp}</td>
+								<td>${deliveryDriverVo.hp}</td>
 								<!-- users table hp -->
-								<td>${userVo.lastAccessDate}</td>
+								<td>${deliveryDriverVo.lastDate}</td>
 								<!-- users_class table class  -->
 								<td><a href="#">삭제</a></td>
 							</tr>
@@ -57,5 +57,5 @@
 	</div>
 </div>
 
-<div>총 ${totalRecord } 건</div>
 
+<div>총 ${totalRecord } 건</div>
