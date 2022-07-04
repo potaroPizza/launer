@@ -50,7 +50,7 @@ public interface UserService {
 	int accIsExist(String email);
 	int isAddressExist(int no);
 	int insertAddressOnlyPart(UserAddressVO addressVo);
-	int userTotalRecord(UserSearchVO userSearchVo);
+	int getUserTotalRecord(UserSearchVO userSearchVo);
 
 
 

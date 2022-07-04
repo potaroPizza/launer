@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ez.launer.common.DeliverySearchVO;
+
 public interface DeliveryDriverService {
     DeliveryDriverVO selectByNo(int no);
     int insertDeliveryAmount(Map<String, Object> map);
@@ -25,4 +27,8 @@ public interface DeliveryDriverService {
   	int updateDeliveryHp(DeliveryDriverAllVO vo);
 	int updateAccountInfo(DeliveryDriverAllVO vo);
 	int deleteDelivery(int no);
+	
+	
+	//한서현
+	List<DeliveryDriverVO> selectDeliveryByClass(DeliverySearchVO deliverySearchVo);
 }
