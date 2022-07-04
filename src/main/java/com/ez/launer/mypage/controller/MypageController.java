@@ -302,10 +302,13 @@ public class MypageController {
 	@PostMapping("/withdraw")
 	public String userdelete_post(@RequestParam String pwd,
 			HttpSession session, HttpServletResponse response,
-			Model model) {
+			Model model) throws NoSuchAlgorithmException {
 		int no=(int)session.getAttribute("no");
 		String email=(String)session.getAttribute("email");
 		logger.info("회원 탈퇴 처리, 파라미터 no={}, pwd={}",no,pwd);
+		
+		pwd = sha256.encrypt(pwd);
+		logger.info("암호화로 불러온pwd={}",no,pwd);
 
 		int result=userService.checkLogin(no, pwd);
 		logger.info("회원 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
