@@ -101,6 +101,49 @@
 		</div>
 	</form>
 	</c:if>
+	<c:if test="${deliveryVO.usersClassNo=='2'}">
+	<form name="withdrawFrm" method="post" action="<c:url value='/mypage/withdrawDelivery'/>">
+		<p>본인확인을 위해 비밀번호를 입력해 주세요.</p>
+		<div class="inputBx">
+		<div class="group-input">
+           <!-- <label for="userid">아이디 *</label> -->
+           <input type="text" id="userid" class="inputText" name="no" 
+           	value="${deliveryVO.name}" size=30 readonly="readonly">
+       </div>
+       <div class="group-input">
+           <!-- <label for="pwd">비밀번호 *</label> -->
+           <input type="password" id="pwd" class="inputText" name="pwd" size=30;
+           placeholder="비밀번호 입력">
+       </div>
+       </div>
+		<div class="btnWrap">
+        	<input type="checkbox" id="chk">&nbsp;유의 사항을 모두 확인했으며, 이에 동의합니다.<br>
+		</div>
+		<!-- Button trigger modal -->
+		<div class="mypage_withdraw_btn">
+			<button id="withdraw-btn" type="button" class="btn btn-dark">탈퇴하기</button>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">탈퇴하기</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body ">정말 러너를 탈퇴 하시겠습니까?</div>
+					<div class="modal-footer">
+						<button type="button" id="withDrawResult-btn" class="btn btn-dark">탈퇴하기</button>
+						<button type="button" class="btn btn-dark"
+							data-bs-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	</c:if>
 </div>
 </t:wrapper>
 

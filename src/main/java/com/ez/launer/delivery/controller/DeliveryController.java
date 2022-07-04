@@ -519,7 +519,7 @@ public class DeliveryController {
 	}
 	
 	
-	@GetMapping("/deliverywithdraw")
+	@GetMapping("/withdrawDelivery")
 	public String Deliverydelete_get(HttpSession session, Model model) {
 		logger.info("배송기사 탈퇴 화면");
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
@@ -533,7 +533,7 @@ public class DeliveryController {
 		return "/mypage/withdraw";
 	}
 
-	@PostMapping("/deliveryWithdraw")
+	@PostMapping("/withdrawDelivery")
 	public String Deliverydelete_post(@RequestParam String pwd,
 			HttpSession session, HttpServletResponse response,
 			Model model) {
