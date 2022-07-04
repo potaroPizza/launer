@@ -171,6 +171,14 @@
 		<include refid="searchWhere"></include>
 	</select>
 	
+	<insert id="insertBranchManager" parameterType="userVo">
+	<selectKey order="BEFORE" keyProperty="no" resultType="int">
+		select users_seq.nextval from dual
+	</selectKey>
+	 	 insert into users(no,user_code,name,email,pwd,hp,start_date)
+         values(#{no},3,#{name},#{email},#{pwd},#{hp},sysdate)
+	</insert>
+	
 
 
 
