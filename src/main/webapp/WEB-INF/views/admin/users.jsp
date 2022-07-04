@@ -7,17 +7,6 @@
 	$(function() {
 
 	});
-	function pageFunc(curPage) {
-		//페이지 번호를 클릭했을 때 처리
-		$('input[name=currentPage]').val(curPage);
-		$('form[name=frmPage]').submit();
-	}
-
-	function searchFunc() {
-		var searchKeyword = $('input[name=searchKeyword]').val();
-		var searchCondition = $('#searchCondition').val();
-
-	}
 </script>
 
 <t:head>
@@ -46,11 +35,9 @@
 						aria-controls="Branch-manager-pane" aria-selected="false">지점관리자</button>
 				</li>
 			</ul>
-			<br> <input type="text" name="searchCondition"
-				value="${param.searchCondition }"> <input type="text"
-				name="searchKeyword" value="${param.searchKeyword }">
-			<c:set var="searchCondition" value="${param.searchCondition }" />
-			<c:set var="searchKeyword" value="${param.searchKeyword }" />
+			<br> 
+				<%-- <input type="text" name="searchCondition"value="${param.searchCondition }"> 
+				<input type="text" name="searchKeyword" value="${param.searchKeyword }"> --%>
 
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="consumer-pane"
@@ -59,8 +46,8 @@
 					<!-- 일반회원 조회 tab -->
 
 					<c:import url="/admin/usersCommon">
-						<c:param name="searchCondition" value=""></c:param>
-						<c:param name="searchKeyword" value="한서현"></c:param>
+						<c:param name="searchCondition" value="${searchCondition }"></c:param>
+						<c:param name="searchKeyword" value="${searchKeyword }"></c:param>
 					</c:import>
 
 					<!-- 일반회원 검색창 -->
@@ -80,9 +67,8 @@
 									<c:if test="${searchCondition=='no' }">
 					            		selected="selected"
 					            	</c:if>>회원번호</option>
-							</select> <input type="text" name="searchKeyword" title="검색어 입력"
-								value="${searchKeyword}"> <input type="submit"
-								value="검색">
+							</select> 
+							<input type="text" name="searchKeyword" title="검색어 입력" value="${searchKeyword}"> value="검색">
 						</form>
 					</div>
 

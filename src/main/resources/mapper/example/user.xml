@@ -154,7 +154,7 @@
 	
 	<sql id="searchWhere">
 		<if test="searchKeyword !=null and searchKeyword !=''">
-        	where ${searchCondition} 
+        	where #{searchCondition} 
         		like '%' || #{searchKeyword} || '%'
         </if>
 	</sql>
