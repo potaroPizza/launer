@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.ez.launer.common.DeliverySearchVO;
 import com.ez.launer.laundryService.order.model.OrderDAO;
 
 import lombok.RequiredArgsConstructor;
@@ -118,6 +119,13 @@ public class DeliveryDriverServiceImpl implements DeliveryDriverService{
 	public int deleteDelivery(int no) {
 		return deliveryDriverDAO.deleteDelivery(no);
 	}
+
+	@Override
+	public List<DeliveryDriverVO> selectDeliveryByClass(DeliverySearchVO deliverySearchVo) {
+		return deliveryDriverDAO.selectDeliveryByClass(deliverySearchVo);
+	}
+
+	
 
 	
 }

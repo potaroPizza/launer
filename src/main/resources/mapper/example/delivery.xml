@@ -103,4 +103,19 @@
       update delivery_driver set out_date=sysdate
       where no=#{no}
    </update>
+   
+   
+   
+   
+   <!-- 한서현 -->
+   <select id="selectDeliveryByClass" parameterType="deliverySearchVo" resultType="deliveryDriverVo">
+	 	select * from delivery_driver
+		where out_date is null and users_class_no = #{usersClassNo}
+   </select>
+   
+   
+   
+   
+   
+   
 </mapper>

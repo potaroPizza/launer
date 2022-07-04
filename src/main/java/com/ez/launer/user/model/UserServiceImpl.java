@@ -242,9 +242,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectUser(userSearchVo);
 	}
 	@Override
-	public int userTotalRecord(UserSearchVO userSearchVo) {
-		return userDao.userTotalRecord(userSearchVo);
+	public int getUserTotalRecord(UserSearchVO userSearchVo) {
+		return userDao.getUserTotalRecord(userSearchVo);
 	}
+
 
 	
 

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ez.launer.common.DeliverySearchVO;
+
 @Mapper
 public interface DeliveryDriverDAO {
     DeliveryDriverVO selectByNo(int no);
@@ -25,4 +27,7 @@ public interface DeliveryDriverDAO {
     int updateDeliveryHp(DeliveryDriverAllVO vo);
 	int updateAccountInfo(DeliveryDriverAllVO vo);
 	int deleteDelivery(int no);
+	
+	//한서현
+	List<DeliveryDriverVO> selectDeliveryByClass(DeliverySearchVO deliverySearchVo);
 }

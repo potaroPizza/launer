@@ -111,12 +111,6 @@
       where no=#{no}
    </update>
 
-
-
-   <select id="selectUser" resultType="userVo" parameterType="UserSearchVO">  <!--  /*1:유저, 3~4:관리자*/ -->
-      select * from USERS where user_code = #{userCode} order by no
-   </select>
-
    <select id="selectDeliveryUser">
       select * from DELIVERY_DRIVER
    </select>
@@ -157,9 +151,26 @@
 			insert into users_address(no,users_no)
 			values(#{no}, #{usersNo})
 	</insert>
-	<select id="userTotalRecord" parameterType="UserSearchVO" resultType="int">
-		select count(*) from users where user_code =#{userCode}
+	
+	<sql id="searchWhere">
+		<if test="searchKeyword !=null and searchKeyword !=''">
+        	where ${searchCondition} 
+        		like '%' || #{searchKeyword} || '%'
+        </if>
+	</sql>
+	
+	
+	<select id="selectUser" parameterType="UserSearchVO" resultType="userVo">
+		       select * from USERS
+		        <include refid="searchWhere"></include>
+		        order by no
 	</select>
+	
+	<select id="getUserTotalRecord" parameterType="searchVo" resultType="int">	
+		select count(*) from USERS 
+		<include refid="searchWhere"></include>
+	</select>
+	
 
 
 
