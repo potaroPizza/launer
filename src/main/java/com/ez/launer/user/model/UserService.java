@@ -1,7 +1,10 @@
 package com.ez.launer.user.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.ez.launer.common.UserSearchVO;
 
 public interface UserService {
 	
@@ -37,14 +40,17 @@ public interface UserService {
 	int updateUserHp(UserAllVO vo);
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
+
 	
 	
 	
 	/* 한서현 */
+	public List<UserVO> selectUser(UserSearchVO userSearchVo); // adminManager
 	int insertKakaoUser(UserVO userVo);
 	int accIsExist(String email);
 	int isAddressExist(int no);
 	int insertAddressOnlyPart(UserAddressVO addressVo);
+	int userTotalRecord(UserSearchVO userSearchVo);
 
 
 

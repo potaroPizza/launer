@@ -1,0 +1,285 @@
+@at-root body {
+  background: #F4F4F4;
+}
+
+& {
+  width: $webWidth;
+  margin: 0 auto;
+
+  /* input 기본 스타일 초기화 */
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    &:focus{outline: none}
+    &::-ms-clear { display: none; }
+    &[type='number'] {
+      &::-webkit-outer-spin-button,
+      &::-webkit-outer-spin-button{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+    }
+  }
+  /* Select box 스타일 초기화 */
+  select {/*
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;*/
+    border: none;
+    padding: 0;
+    &:focus{
+      outline: none;
+    }
+    &::-ms-expand { display: none; }
+  }
+
+  button{
+    background: inherit ;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+    overflow:visible;
+    cursor:pointer
+  }
+}
+
+.board-wrap {
+  display: flex;
+  margin-top: 30px;
+
+  .board-title-component {
+    width: 30%;
+    h1 {
+      font-size: $superBigFontSize;
+      font-weight: bold;
+      height: 50px;
+    }
+
+    .sub-part{
+      h2{
+        font-size: 14px;
+        opacity: .8;
+      }
+      .user-name {
+        font-size: $bigFontSize;
+        margin-top: 14px;
+      }
+      margin-top: 20px;
+      width: 60%;
+      padding: 20px;
+      font-size: $bigFontSize;
+      border-radius: $card-bar-radius;
+      background:#546484;
+      color: #fff;
+      position: relative;
+      z-index: 11;
+    }
+
+    .paging-part{
+      width: 100%;
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+
+      .paging-num{
+        width: 30%;
+        height: 0;
+        padding-top: 30%;
+        background: #f4f4f4;
+        border-radius: 100%;
+        box-shadow:  28px 28px 56px #e0e0e0,
+        -28px -28px 56px #ffffff;
+        position: relative;
+
+        span{
+          display: block;
+          position: absolute;
+          top: 47%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 50px;
+          font-weight: 600;
+          color: #4d4d4d;
+        }
+      }
+
+
+      .paging-list{
+        width: 58%;
+        .paging-btn{
+          button{
+            width: 26%;
+            padding: 20px 0;
+            background: #dadada;
+            font-size: $bigFontSize;
+            &:nth-child(1) {border-radius: $card-bar-radius 0 0 $card-bar-radius}
+            &:nth-child(2) {border-radius: 0 $card-bar-radius $card-bar-radius 0}
+            &:hover{background: #b6b6b6;}
+          }
+        }
+      }
+    }
+  }
+
+  .board-list-component {
+    width: 70%;
+    @keyframes dropdown {
+      0% {
+        //transform: scaleY(0);
+        height: 0;
+      }
+      100% {
+        //transform: scaleY(100%);
+        height: 500px;
+      }
+    }
+    @keyframes dropUp {
+      0% {
+        //transform: scaleY(100%);
+        height: 500px;
+      }
+      100% {
+        //transform: scaleY(0);
+        height: 0;
+      }
+    }
+
+    .board-add-component {
+      width: calc(100% - 40px);
+      //height: 500px;
+      //height: auto;
+      background: #e3e3e3;
+      border-radius: $card-bar-radius 0 $card-bar-radius $card-bar-radius;
+      margin-top: 20px;
+      padding: 20px 20px;
+      transform-origin: left top;
+      box-sizing: content-box;
+      overflow: hidden;
+      &.dropdown {
+        animation: .5s ease-in-out dropdown;
+      }
+      &.dropUp {
+        animation: 0.5s ease-in-out dropUp;
+      }
+    }
+
+    .title-wrap{
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+
+      .add-btn{
+        width: 6%;
+        height: 100%;
+        button{
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          display: block;
+          line-height: 50px;
+          border-radius: $card-bar-radius;
+          transition: .2s;
+          &.on{
+            border-radius: $card-bar-radius $card-bar-radius 0 0;
+            height: calc(100% + 20px);
+            background: #e3e3e3;
+          }
+          &:hover{
+            background: #e3e3e3;
+          }
+        }
+      }
+      .search-part {
+        width: 92%;
+        height: 100%;
+        line-height: 30px;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+        border-radius: $card-bar-radius;
+        box-shadow:  5px 5px 41px #e3e3e3,
+        -5px -5px 41px #ffffff;
+
+        h2 {
+          font-size: $bigFontSize;
+        }
+        form{
+          display: flex;
+          width: 60%;
+        }
+        input, select, button{display: block; background: none;}
+        input, button {
+        }
+        select {
+          width: 18%;
+        }
+        input {
+          width: 65%;
+          margin-left: 10%;
+        }
+        button {
+          width: 7%;
+        }
+      }
+    }
+
+
+    .list-part{
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 50px;
+      border-radius: $card-bar-radius;
+      background: #fff;
+      position: relative;
+      z-index: 11;
+      transition: .2s;
+
+      form > div{
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        .list-col-1 {
+          width: 10%;
+        }
+        .list-col-2 {
+          width: 40%;
+        }
+        .list-col-3 {
+          width: 20%;
+        }
+        .list-col-4 {
+          width: 20%;
+        }
+        &:last-child {
+          border:none;
+        }
+      }
+
+      .list-title {
+        color: #505867;
+        border-bottom: 1px solid #d9d9d9;
+        font-size: 18px;
+        padding: 15px 20px;
+      }
+
+      .list-line{
+        margin: 0 20px;
+        padding: 15px 0;
+        border-bottom: 1px solid #f1f1f1;
+
+        .list-col-2 {
+          text-align: left;
+        }
+      }
+
+    }
+  }
+}
