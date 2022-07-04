@@ -245,6 +245,10 @@ public class UserServiceImpl implements UserService{
 	public int getUserTotalRecord(UserSearchVO userSearchVo) {
 		return userDao.getUserTotalRecord(userSearchVo);
 	}
+	@Override
+	public int insertBranchManager(UserVO userVo) {
+		return userDao.insertBranchManager(userVo);
+	}
 
 
 	
