@@ -48,9 +48,10 @@
 													checked="checked"
 												</c:if>
 											>
-											<label for="saveEmail">이메일 저장</label>
+											<label for="saveUserEmail">이메일 저장</label>
 										</div>
-										<input type="submit" class="login_btn" value="기존 회원 로그인">
+										<input type="submit" class="login_btn" 
+											value="기존 회원 로그인" formaction="<c:url value='/user/login'/>">
 										<div class="login_findmenu" style="display:block">
 											<a href="/launer/user/findId">이메일 찾기</a>
 											<a href="/launer/user/findPwd">비밀번호 찾기</a>
@@ -88,25 +89,24 @@
 							<div id="loginDriver">
 								<div id="login_body">
 									<h2 class="login_title">기사님 로그인</h2>
-									<p class="login_intro">
-									러너 크루가 되어 신개념 세탁서비스의 일원이 되어주세요!
-									</p>
+									<p>러너 크루가 되어 신개념 세탁서비스의 일원이 되어주세요!</p>
 									<div id="memberLogin" class="login_contents">
 										<div class="inputIdPwd">
-											<input id="member_email" name="member_email" 
+											<input id="member_email" name="dmail" 
 												placeholder="이메일" type="text">
-											<input id="member_pwd" name="member_pwd" 
+											<input id="member_pwd" name="dPwd" 
 												placeholder="비밀번호" type="text">
 										</div>
 										<div class="loginCheckBox">
-											<input type="checkbox" name="saveEmail" id="saveEmail"
-												<c:if test="${!empty cookie.ckUseremail }">
+											<input type="checkbox" name="saveDmail" id="saveEmail"
+												<c:if test="${!empty cookie.chkDmail }">
 													checked="checked"
 												</c:if>
 											>
-											<label for="saveEmail">이메일 저장</label>
+											<label for="saveDmail">이메일 저장</label>
 										</div>
-										<button class="login_btn">러너 크루 로그인</button>
+										<input type="submit" class="login_btn" 
+											value="러너 크루 로그인" formaction="<c:url value='/driver/login'/>">
 										<div class="login_findmenu" style="display:block">
 											<a href="/launer/user/findId">이메일 찾기</a>
 											<a href="/launer/user/findPwd">비밀번호 찾기</a>
