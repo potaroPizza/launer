@@ -5,15 +5,15 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(function(){
-	
-	
-	
+		
 });
 function pageFunc(curPage){
 	//페이지 번호를 클릭했을 때 처리
 	$('input[name=currentPage]').val(curPage);
 	$('form[name=frmPage]').submit();
 }
+
+
 </script>
 
 <t:head>
@@ -179,14 +179,13 @@ function pageFunc(curPage){
 										<td>han@gmail.com</td>
 										<td>010-9999-0000</td>
 										<td>일반사용자</td>
-										<td><a href="#">수정</a> <a href="#">삭제</a></a></td>
+										<td><input type="button" id="btMultiUpdate" value="삭제"></a></a></td>
 									</tr>
 								</tbody>
 							</table>
 							<div class="modal-button">
 								<!-- 관리자 추가 모달 -->
 								<input type="button" data-bs-toggle="modal" data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가">
-								
 								<!-- Modal -->
 								<div class="modal fade" id="addAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								  <div class="modal-dialog">
@@ -203,7 +202,7 @@ function pageFunc(curPage){
 								      	</div>
 								      	<div class="adminEmail">
 									      	<label for="email">이메일</label> 
-									      	<input type="text" name="email" id="email">
+									      	<input type="text" name="email" id="email" style="ime-mode: inactive">
 											<input type="button" value="중복 확인" id="ChkEmail">
 								      	</div>
 								      	<div class="adminPassword">
@@ -240,6 +239,7 @@ function pageFunc(curPage){
 								  </div>
 								</div>
 								<!-- Modal 끝 -->
+								<input type="button" data-bs-toggle="modal" data-bs-target="#editAdmin" id="btMultiUpdate" value="관리자 수정">
 							</div>
 						</div>
 					</div>
