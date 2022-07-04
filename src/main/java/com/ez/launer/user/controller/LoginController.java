@@ -1,10 +1,9 @@
 package com.ez.launer.user.controller;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,16 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.launer.user.model.DriverAllVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
-import com.ez.launer.user.model.KakaoAPI;
-import com.ez.launer.user.model.SHA256Encryption;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/user")
@@ -48,12 +45,12 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public String login_post(@ModelAttribute UserVO vo,
-			@RequestParam(required = false) String saveUseremail,
-			HttpServletRequest request,
-			HttpServletResponse response, Model model) throws NoSuchAlgorithmException {
+		@RequestParam(required = false) String saveUseremail,
+		HttpServletRequest request,HttpServletResponse response, 
+		Model model) throws NoSuchAlgorithmException {
 		logger.info("로그인 처리, 파라미터 vo={}, saveUseremail={}", vo, saveUseremail);
-		//String pwd = sha256.encrypt(vo.getPwd());
-		//vo.setPwd(pwd);
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
 
 		int result=userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);
@@ -92,7 +89,6 @@ public class LoginController {
 		return "/common/message";
 	}
 	
-
 	@GetMapping("/findId")
 	public void findId() {
 		logger.info("아이디 찾기 화면");
