@@ -117,17 +117,17 @@ public class UserServiceImpl implements UserService{
 	}
 	//배송기사 로그인
 	@Override
-	public DriverAllVO selectByDmail(String email) {
-		return userDao.selectByDmail(email);
+	public DriverVO selectByDmail(String dmail) {
+		return userDao.selectByDmail(dmail);
 	}
 	
 	@Override
-	public int dloginChk(String email, String pwd) {
-		String dbPwd = userDao.selectPwd3(email);
+	public int dloginChk(String dmail, String dPwd) {
+		String dbPwd = userDao.selectPwd3(dmail);
 		
 		int result=0;
 		if(dbPwd !=null && !dbPwd.isEmpty()) {
-			if(dbPwd.equals(pwd)) {
+			if(dbPwd.equals(dPwd)) {
 				result=UserService.LOGIN_OK;
 			}else {
 				result=UserService.DISAGREE_PWD;				
