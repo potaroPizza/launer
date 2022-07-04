@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import BoardAdd from "./BoardAdd";
 
-const BoardList = (props) => {
+const BoardList = ({userInfo}) => {
     console.log("BoardList 컴포넌트");
     const[addBtn, setAddBtn] = useState(false);
     const[boardBool, setBoardBool] = useState(false);
@@ -18,10 +18,23 @@ const BoardList = (props) => {
         {no: 1, content: "귀찮고 어렵다", name: "너굴맨", regdate: "2022-07-01"},
     ]);
 
-    const userInfo = {...props.userInfo};
-    const userCode = userInfo.userCode;
+    console.log("userInfo.userCode : " + userInfo.userCode);
+    const [userClass, setUserClass] = useState(false);
+    const [userCode, setUserCode] = useState();
+    console.log("userCode : " + userCode);
+    console.log("boardClass : " + boardClass);
 
+    const setUserSet = () => {
+        if(((boardClass === 1) && (parseInt(userCode) === 3 || parseInt(userCode) === 4))) {
+            setUserClass(true);
+            console.log(`userClass : ${userClass}`);
+        }
+    }
 
+    useEffect(() => {
+        setUserCode(userInfo.userCode);
+        setUserSet();
+    });
 
     const conList = boardList.map(item => (
         <div key={item.no} className="list-line">
@@ -63,8 +76,9 @@ const BoardList = (props) => {
                         <button><i className="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
-                {(boardClass === 1 || boardClass === 2) ? "" :
-                    (boardClass === 3 || (userCode === 3 || userCode === 4)) ? btnComponent : ""}
+                {(boardClass === 1 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
+                    (boardClass === 2 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
+                    (boardClass === 3 && (parseInt(userCode) === 3 || parseInt(userCode) === 4)) ? "" : btnComponent}
             </div>
             {addBtn && <BoardAdd animateClass={boardBool}/>}
             {/*<BoardAdd/>*/}

@@ -22,7 +22,6 @@ const QuillEditor = () => {
             const formData = new FormData();
             formData.append("files", files[0]);
 
-            // alert("asdfas");
             const range = this.quill.getSelection();
             const fileSrno = "logo_4.svg";
             this.quill.insertEmbed(range.index, "image", "http://localhost:9095/launer/images/" + fileSrno);
@@ -49,7 +48,16 @@ const QuillEditor = () => {
     console.log(value);
 
     return (
-        <ReactQuill theme='snow' value={value} modules={modules} onChange={setValue} />
+        <div style={{height: "500px"}}>
+            <ReactQuill
+                style={{
+                    height: "460px"
+                }}
+                theme='snow'
+                value={value}
+                modules={modules}
+                onChange={setValue} />
+        </div>
     );
 };
 

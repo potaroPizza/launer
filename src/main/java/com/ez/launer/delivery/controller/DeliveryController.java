@@ -59,7 +59,7 @@ public class DeliveryController {
     public String deliveryMain(HttpSession session, Model model) {
         //session.setAttribute("deliveryNo", 1000);   //임시
 
-        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        int deliveryNo = Integer.parseInt(String.valueOf(session.getAttribute("deliveryNo")));
         logger.info("배송기사 메인 페이지, 기사 no={}", deliveryNo);
 
         //deliveryNo로 배달기사 정보 전체 조회
@@ -519,7 +519,7 @@ public class DeliveryController {
 	}
 	
 	
-	@GetMapping("/deliverywithdraw")
+	@GetMapping("/withdrawDelivery")
 	public String Deliverydelete_get(HttpSession session, Model model) {
 		logger.info("배송기사 탈퇴 화면");
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
@@ -533,14 +533,17 @@ public class DeliveryController {
 		return "/mypage/withdraw";
 	}
 
-	@PostMapping("/deliveryWithdraw")
+	@PostMapping("/withdrawDelivery")
 	public String Deliverydelete_post(@RequestParam String pwd,
 			HttpSession session, HttpServletResponse response,
-			Model model) {
+			Model model) throws NoSuchAlgorithmException {
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
 		String email=(String)session.getAttribute("email");
 		logger.info("배송기사 탈퇴 처리, 파라미터 deliveryNo={}, pwd={}",deliveryNo,pwd);
 
+		pwd = sha256.encrypt(pwd);
+		logger.info("암호화로 불러온pwd={}",deliveryNo,pwd);
+		
 		int result=deliveryDriverService.checkLogin(deliveryNo, pwd);
 		logger.info("배송기사 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
 
