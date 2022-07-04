@@ -2,6 +2,31 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
 
+
+function imageUrlHandler() {
+    const range = this.quill.getSelection();
+    const url = prompt("please copy paste the image url here");
+
+    if(url) {
+        this.quill.insertEmbed(range.index, "image", url);
+    }
+}
+
+function imageHandler() {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", ".png,.jpg,.jpeg");
+    input.click();
+
+    input.onchange = (e) => {
+        const files = e.target.files;
+        const formData = new FormData();
+        formData.append("files", files[0]);
+
+        alert("asdfas");
+    }
+}
+
 class EditorComponent extends Component{
     constructor(props){
         super(props);
@@ -16,7 +41,7 @@ class EditorComponent extends Component{
             ['link', 'image'],
             [{ 'align': [] }, { 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
             ['clean']
-        ],
+        ]
     }
 
     formats = [
@@ -40,7 +65,11 @@ class EditorComponent extends Component{
                     modules={this.modules}
                     formats={this.formats}
                     value={value || ''}
-                    onChange={(content, delta, source, editor) => onChange(editor.getHTML())} />
+                    onChange={
+                        (content, delta, source, editor) => {
+                            onChange(editor.getHTML())
+                        }
+                    } />
             </div>
         )
     }

@@ -6,8 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/delivery" %>
 
 <t:wrapper>
-    <div class="margin-fixed-margin"></div>
+    <script type="text/javascript">
+        const boardClass = ${boardClass}
+    </script>
+    <div class="fixed-margin-top"></div>
+    <div id="board-component"></div>
 </t:wrapper>

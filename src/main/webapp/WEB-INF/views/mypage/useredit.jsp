@@ -6,10 +6,14 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/useredit.js'/>"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
- 
+<!-- <style>
+ 	body{
+ 	background: white;
+ }
+ </style> -->
     <div id="useredit_wrapper">
      <!-- 일반 회원 사용자 폼 -->   	
-		<c:if test="${map['SOCIAL_LOGIN_KEY']==null}">
+		<c:if test="${map['USER_CODE']=='1' && map['SOCIAL_LOGIN_KEY']==null}">
         <div id="useredit_top"></div>
 			<div id="useredit_sub">
 				<p>내 정보 수정</p>
@@ -26,7 +30,7 @@
                     </span>
                     <span class="error_next_box"></span>
                 </div>
-                <!-- PW1 -->
+                
                 <div>
                     <h3 class="useredit_title"><label for="pwd">비밀번호</label></h3>
                     <span class="box int_pass">
@@ -100,13 +104,13 @@
        </c:if>
        
        <!--소셜 로그인 사용자 폼(네이버,카카오)  -->
-	<c:if test="${map['SOCIAL_LOGIN_KEY']!=null}">
+	<c:if test="${map['USER_CODE']=='1' && map['SOCIAL_LOGIN_KEY']!=null}">
         <div id="useredit_top"></div>
 			<div id="useredit_sub">
 				<p>내 정보 수정</p>
 			</div>	
             <!-- content-->
-            <form method="post" name="usereditfrmkakao" action="<c:url value='/mypage/usereditKakao'/>">
+            <form method="post" name="usereditfrmSocial" action="<c:url value='/mypage/usereditSocial'/>">
             <div id="useredit_content">
 
                 <!-- ID -->
@@ -195,6 +199,15 @@
                     </span>
                     <span class="error_next_box"></span>
                 </div>
+                <div>
+                    <h3 class="useredit_title"><label for="pwd">비밀번호</label></h3>
+                    <span class="box int_pass">
+                        <input type="password" id="pwd" name="pwd" class="int" maxlength="16" placeholder="비밀번호를 입력해주세요.">
+                        <span id="alertTxt">사용불가</span>
+                        <img src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
+                    </span>
+                    <span class="error_next_box"></span>
+                </div>
                 <!-- NAME -->
                 <div>
                     <h3 class="useredit_title"><label for="name">이름</label></h3>
@@ -214,9 +227,8 @@
                 </div>
 
                 <div>
-                    <h3 class="useredit_title"><label for="office">지점</label></h3>
-                    <span class="box int_office" style="width:76%; display: inline-block;">
-                     <select name="officeSelect" id="officeSelect">
+                    <h3 class="useredit_title"><label for="officeSelect">지점</label></h3>
+                    <select name="officeSelect" id="officeSelect">
 							<option value="강남지점">강남지점</option>
 							<option value="강동지점">강동지점</option>
 							<option value="강북지점">강북지점</option>
@@ -232,19 +244,20 @@
 							<option value="종로지점">종로지점</option>
 							<option value="중랑지점">중랑지점</option>
 						</select>
-                        <input type="text" id="office" name="office" class="int"  value="">
+                    <span class="box int_office" style="width:76%; display: inline-block;">
+                        <input type="text" id="office" name="office" class="int"  value="${map['OFFICE_NAME'] }" readonly="readonly">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
                 <div>
-                    <h3 class="useredit_title"><label for="accHolder">계좌주</label></h3>
+                    <h3 class="useredit_title"><label for="accountHolder">계좌주</label></h3>
                     <span class="box int_accHolder">
-                        <input type="text" id="accHolder" name="accHolder" class="int"  maxlength="10" value="">
+                        <input type="text" id="accountHolder" name="accountHolder" class="int"  maxlength="10" value="${map['ACCOUNT_HOLDER'] }">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
                 <div>
-                    <h3 class="useredit_title"><label for="accNum">계좌번호</label></h3>
+                    <h3 class="useredit_title"><label for="accountNumber">계좌번호 <span class="accountNumber_sub">(${map['BANK']}&nbsp;${map['ACCOUNT_NUMBER'] })</span></label></h3>
                     <select name="bank" id="bank">
 							<option value="국민은행">국민은행</option>
 							<option value="기업은행">기업은행</option>
@@ -259,7 +272,7 @@
 							<option value="SC제일은행">SC제일은행</option>
 						</select>
                     <span class="box int_accNum" style="width:73%; display: inline-block;	">
-                        <input type="text" id="accNum" name="accNum" class="int"  maxlength="20" value="">
+                        <input type="text" id="accountNumber" name="accountNumber" class="int"  maxlength="20" value="${map['ACCOUNT_NUMBER'] }">
                     </span>
                     <span class="error_next_box"></span>
                 </div>

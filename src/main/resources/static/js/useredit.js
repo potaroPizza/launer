@@ -50,27 +50,27 @@ function execZipcode() {
 				return false;
 			}
 		});
-		$('form[name=usereditfrmkakao]').submit(function(){
+		$('form[name=usereditfrmSocial]').submit(function(){
 			
-			 if($("form[name=usereditfrmkakao] #hp").val().length<1) {
+			 if($("form[name=usereditfrmSocial] #hp").val().length<1) {
 				alert("전화번호를 입력하세요");
-				$("form[name=usereditfrmkakao] #hp").focus();
+				$("form[name=usereditfrmSocial] #hp").focus();
 				return false;
-			}else if(!validate_hp($('form[name=usereditfrmkakao] #hp').val())){
+			}else if(!validate_hp($('form[name=usereditfrmSocial] #hp').val())){
 				alert("전화번호 형식이 맞지 않습니다.");	
-				$("form[name=usereditfrmkakao] #hp").focus();
+				$("form[name=usereditfrmSocial] #hp").focus();
 				return false;
-			}else if($("form[name=usereditfrmkakao] #address").val().length<1) {
+			}else if($("form[name=usereditfrmSocial] #address").val().length<1) {
 				alert("주소를 입력하세요");
-				$("form[name=usereditfrmkakao] #zipcode").focus();
+				$("form[name=usereditfrmSocial] #zipcode").focus();
 				return false;
-			}else if($("form[name=usereditfrmkakao] #addressDetail").val().length<1) {
+			}else if($("form[name=usereditfrmSocial] #addressDetail").val().length<1) {
 				alert("상세주소를 입력하세요");
-				$("form[name=usereditfrmkakao] #addressDetail").focus();
+				$("form[name=usereditfrmSocial] #addressDetail").focus();
 				return false;
-			}else if($("form[name=usereditfrmkakao] #entermethod").val().length<1) {
+			}else if($("form[name=usereditfrmSocial] #entermethod").val().length<1) {
 				alert("공동현관 출입방법을 입력하세요");
-				$("form[name=usereditfrmkakao] #entermethod").focus();
+				$("form[name=usereditfrmSocial] #entermethod").focus();
 				return false;
 			}
 			
@@ -132,27 +132,27 @@ function execZipcode() {
 				}
 			})
 			//
-			$('form[name=usereditfrmkakao] #hp').keyup(function(){
-				if(!validate_hp($('form[name=usereditfrmkakao] #hp').val())){
-					$('form[name=usereditfrmkakao] .error_next_box').eq(2).text("전화번호 형식이 맞지 않습니다.").css("color","red");
+			$('form[name=usereditfrmSocial] #hp').keyup(function(){
+				if(!validate_hp($('form[name=usereditfrmSocial] #hp').val())){
+					$('form[name=usereditfrmSocial] .error_next_box').eq(2).text("전화번호 형식이 맞지 않습니다.").css("color","red");
 				}else{
-					$('form[name=usereditfrmkakao] .error_next_box').eq(2).text("")
+					$('form[name=usereditfrmSocial] .error_next_box').eq(2).text("")
 				}
 			
 			})
 			
-			$('form[name=usereditfrmkakao] #addressDetail').keyup(function(){
-				if($('form[name=usereditfrmkakao] #addressDetail').val()==""){
-					$('form[name=usereditfrmkakao] .error_next_box').eq(5).text("상세주소를 입력해주세요.").css("color","red");
+			$('form[name=usereditfrmSocial] #addressDetail').keyup(function(){
+				if($('form[name=usereditfrmSocial] #addressDetail').val()==""){
+					$('form[name=usereditfrmSocial] .error_next_box').eq(5).text("상세주소를 입력해주세요.").css("color","red");
 				}else{
-					$('form[name=usereditfrmkakao] .error_next_box').eq(5).text("")
+					$('form[name=usereditfrmSocial] .error_next_box').eq(5).text("")
 				}
 			})
-			$('form[name=usereditfrmkakao] #entermethod').keyup(function(){
-				if($('form[name=usereditfrmkakao] #entermethod').val()==""){
-					$('form[name=usereditfrmkakao] .error_next_box').eq(6).text("공동현관 출입방법을 입력해주세요.").css("color","red");
+			$('form[name=usereditfrmSocial] #entermethod').keyup(function(){
+				if($('form[name=usereditfrmSocial] #entermethod').val()==""){
+					$('form[name=usereditfrmSocial] .error_next_box').eq(6).text("공동현관 출입방법을 입력해주세요.").css("color","red");
 				}else{
-					$('form[name=usereditfrmkakao] .error_next_box').eq(6).text("")
+					$('form[name=usereditfrmSocial] .error_next_box').eq(6).text("")
 				}
 			})
 			

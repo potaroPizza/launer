@@ -143,6 +143,14 @@ public class NaverLoginController {
 
         String url ="/user/login", msg ="로그인처리 실패";
 
+
+        //현재 버그
+        //계정을 email로만 찾게되서 중복된 이메일이 있을 시(해당 sns가 아닌 모든 회원가입 경로)
+        //naver 회원가입 처리를 안하고 기존 계정으로 로그인하게됨
+        //현재상황 예 )
+        //kakao 계정이 회원가입된 상태 aa@aa.com
+        //naver로 회원가입 및 로그인을 하려고함
+        //naver sns관련 로직처리가 아닌 기존 db에 있는 계정(kakao)로 로그인을 처리함
         if(count > 0) { //존재하면 social_login_host 받아서 model 저장
             userVO = userService.selectByEmail(email);
 //            logger.info("socialInfo={}",socialInfo);
