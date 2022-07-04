@@ -63,8 +63,8 @@ const BoardList = (props) => {
                         <button><i className="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
-                {(boardClass === 1 || boardClass === 2) ? "" :
-                    (boardClass === 3 || (userCode === 3 || userCode === 4)) ? btnComponent : ""}
+                {((boardClass === 1 || boardClass === 2) && (userCode === 3 || userCode === 4)) ? "" :
+                    boardClass === 3 ? btnComponent : ""}
             </div>
             {addBtn && <BoardAdd animateClass={boardBool}/>}
             {/*<BoardAdd/>*/}
