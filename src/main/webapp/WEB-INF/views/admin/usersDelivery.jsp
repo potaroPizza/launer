@@ -48,6 +48,8 @@
 								<td>${deliveryDriverVo.lastDate}</td>
 								<!-- users_class table class  -->
 								<td><a href="#">삭제</a></td>
+								
+								
 							</tr>
 						</c:forEach>
 					</c:if>
