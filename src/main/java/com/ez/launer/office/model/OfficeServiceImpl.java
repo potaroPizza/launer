@@ -3,6 +3,7 @@ package com.ez.launer.office.model;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -23,4 +24,21 @@ public class OfficeServiceImpl implements OfficeService{
 	public List<OfficeVO> selectAll() {
 		return officeDAO.selectAll();
 	}
+
+	@Override
+	public int insertOfficeAdmin(Map<String, Object> map) {
+		return officeDAO.insertOfficeAdmin(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllManager() {
+		return officeDAO.selectAllManager();
+	}
+
+	@Override
+	public Map<String, Object> selectManagerByNo(int no) {
+		return officeDAO.selectManagerByNo(no);
+	}
+
+	
 }

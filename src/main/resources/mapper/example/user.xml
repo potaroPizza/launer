@@ -73,7 +73,7 @@
    </select>
    <!-- 회원 정보 조회 주소테이블 조인 -->
    <select id="selectByIdAddress" parameterType="int" resultType="hashMap">
-      select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
+      select u.*,a.address,a.entermethod,a.address_detail,a.zipcode,a.lon_x,a.lat_y
       from users u full outer join users_address a
 	  on u.no=a.users_no
       where u.no=#{no}
@@ -101,7 +101,8 @@
          address_detail=#{addressDetail}, 
          entermethod=#{entermethod}, 
          zipcode=#{zipcode},
-         office_no = #{officeNo}
+         office_no = #{officeNo},
+         lat_y=#{latY},lon_x=#{lonX}
       where users_no=#{no}
    </update>
    <!-- 비밀번호 변경처리 -->
@@ -115,6 +116,11 @@
       select * from DELIVERY_DRIVER
    </select>
 
+
+<!-- 회원정보 수정(지점 변경처리) -->
+	<select id="selectOffice" resultType="officeVo">
+		select * from office
+	</select>
 
 	
 	
@@ -157,13 +163,15 @@
         	where ${searchCondition} 
         		like '%' || #{searchKeyword} || '%'
         </if>
+		<!-- <if test="searchKeyword =null and searchKeyword =''">
+        	where out_date is null and user_code =1 
+        </if>  서치가 안됨 !! -->
 	</sql>
 	
 	
 	<select id="selectUser" parameterType="UserSearchVO" resultType="userVo">
 		       select * from USERS
-		        <include refid="searchWhere"></include>
-		        order by no
+		       <include refid="searchWhere"></include>
 	</select>
 	
 	<select id="getUserTotalRecord" parameterType="searchVo" resultType="int">	
@@ -171,6 +179,24 @@
 		<include refid="searchWhere"></include>
 	</select>
 	
+	<insert id="insertBranchManager" parameterType="userVo">
+	<selectKey order="BEFORE" keyProperty="no" resultType="int">
+		select users_seq.nextval from dual
+	</selectKey>
+	 	 insert into users(no,user_code,name,email,pwd,hp,start_date)
+         values(#{no},3,#{name},#{email},#{pwd},#{hp},sysdate)
+	</insert>
+	
+	<!-- 탈퇴한회원만 보기 -->
+	<select id="withdrawUsers" resultType="userVo">
+		select * from users where out_date is not null
+	</select>
+	
+	
+
+
+
+
 
 
 

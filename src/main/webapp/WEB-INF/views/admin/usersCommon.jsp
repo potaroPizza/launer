@@ -25,7 +25,7 @@
 						<th>비고</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id ="usersTbody">
 					<c:if test="${empty list }">
 						<tr>
 							<td colspan="6" class="align_center">해당 글이 존재하지 않습니다.</td>
@@ -47,7 +47,7 @@
 								<!-- users table hp -->
 								<td>${userVo.lastAccessDate}</td>
 								<!-- users_class table class  -->
-								<td><a href="#">삭제</a></td>
+								<td><input type="button" value="삭제" onclick="deleteUser(${userVo.no})"></td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -57,5 +57,5 @@
 	</div>
 </div>
 
-<div>총 ${totalRecord } 건</div>
+<div id ="commonTotal">총 ${totalRecord } 건</div>
 
