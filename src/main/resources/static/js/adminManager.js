@@ -49,7 +49,6 @@
 		
 	 var formData = $("#adminAdd").serialize();
 	 var officeNo = $("#office").val();
-	alert(officeNo);
 	
     //ajax 관리자추가
     $.ajax({
@@ -72,7 +71,6 @@
 		 checkIsTrue= $("input:checkbox[id='getWithdraw']").is(":checked");
 
 		if(checkIsTrue){	
-			alert("체크됨");
 			$('#commonTotal').hide();	
 			$.ajax({
 				   cache : false,
@@ -88,7 +86,6 @@
 				   }
 				});
 		}else{
-			alert("체크해제됨");
 			$('#commonTotal').show();	
 			location.href ="/launer/admin/users";
 		}
@@ -113,7 +110,8 @@ function appenToTable(managerMap){
         "<td>" + managerMap.NAME + "</td>" +
         "<td>" + managerMap.EMAIL + "</td>" +
         "<td>" + managerMap.HP + "</td>"+
-        "<td>" + managerMap.OFFICE_NAME + "</td>"+
+        //여기
+        "<td><fmt:formatDate value='" + managerMap.OFFICE_NAME + "'pattern ='yyyy-MM-dd'/></td>"+
         "<td><input type='button' value='삭제' onclick=''></td>"+"<tr>"
     );
 	  $("#managerTbody").append($cellsOfRow);
