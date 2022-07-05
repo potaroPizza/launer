@@ -244,9 +244,11 @@ public class UserServiceImpl implements UserService{
 	public int insertBranchManager(UserVO userVo) {
 		return userDao.insertBranchManager(userVo);
 	}
-	
-	
 
+	@Override
+	public List<UserVO> withdrawUsers() {
+		return userDao.withdrawUsers();
+	}
 
 	
 

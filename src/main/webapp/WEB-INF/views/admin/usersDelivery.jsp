@@ -47,7 +47,7 @@
 								<!-- users table hp -->
 								<td>${deliveryDriverVo.lastDate}</td>
 								<!-- users_class table class  -->
-								<td><a href="#">삭제</a></td>
+								<td><input type="button" value="삭제" onclick="deleteUser(${deliveryDriverVo.no})"></td>
 								
 								
 							</tr>

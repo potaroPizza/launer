@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="<c:url value='/js/adminManager.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/adminManager.js'/>"></script>
 <script type="text/javascript">
+
 	function deleteUser(no){
 		var url ='/launer/admin/user/'+no
 		alert(url)
@@ -24,6 +24,16 @@
 			}
 		});
 	}
+	
+	$(function(){
+		
+		
+		
+		
+	});
+	
+	
+	
 </script>
 
 <t:head>
@@ -94,6 +104,12 @@
 								value="검색">
 						</form>
 					</div>
+					
+					<div>
+					<span>탈퇴회원보기</span>
+					<input type ="checkbox" id ="getWithdraw" name ="getWithdraw">
+					
+					</div>
 
 
 
@@ -160,9 +176,29 @@
 									</tr>
 								</thead>
 								<tbody id="managerTbody">
-									<tr>
-										<!-- ajax 로 테이블 생성  -->
-									</tr>
+
+									<c:forEach var="map" items="${managerList }">
+
+										<tr>
+											<!-- 관리자 리스트 반복 -->
+
+											<td>${map['NO']}</td>
+											<!-- users table no -->
+											<td>${map['NAME']}</td>
+											<!-- users table name -->
+											<td>${map['EMAIL']}</td>
+											<!-- users table email -->
+											<td>${map['HP']}</td>
+											<!-- users table hp -->
+											<td>${map['OFFICE_NAME']}</td>
+											<!-- users_class table class  -->
+											<td><input type="button" value="삭제"
+												onclick="deleteUser(${map['NO']})"></td>
+										</tr>
+									</c:forEach>
+
+									<!-- ajax table 행추가 -->
+
 								</tbody>
 							</table>
 

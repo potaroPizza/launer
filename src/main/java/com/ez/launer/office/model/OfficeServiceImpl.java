@@ -29,4 +29,16 @@ public class OfficeServiceImpl implements OfficeService{
 	public int insertOfficeAdmin(Map<String, Object> map) {
 		return officeDAO.insertOfficeAdmin(map);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectAllManager() {
+		return officeDAO.selectAllManager();
+	}
+
+	@Override
+	public Map<String, Object> selectManagerByNo(int no) {
+		return officeDAO.selectManagerByNo(no);
+	}
+
+	
 }

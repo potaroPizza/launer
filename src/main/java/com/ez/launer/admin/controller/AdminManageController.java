@@ -53,16 +53,25 @@ public class AdminManageController {
 
 		return "/admin/manage/stores";
 	}
-
+	
+	
 	@GetMapping("/users")
 	public String users_get(Model model) {
 
-		//지점 select
+		//지점 select option 생성
 		List<OfficeVO> officeList = officeService.selectAll();
-		logger.info("전체  조회결과 officeList.size={}",officeList.size());
-
+		logger.info("전체 조회결과 officeList.size={}",officeList.size());
+		
+		//지점관리자 list vo
+		List<Map<String, Object>> managerList = officeService.selectAllManager();
+		logger.info("지점 관리자 조회결과 managerList.size={}",managerList.size());
+		
 		model.addAttribute("officeList",officeList);
+		model.addAttribute("managerList",managerList);
 		return"/admin/users";
+		
+		
+		
 	}
 
 	@PostMapping("/users")
@@ -159,27 +168,38 @@ public class AdminManageController {
 
 	@RequestMapping("/insertManager")
 	@ResponseBody
-	public UserVO insertManager(@ModelAttribute UserVO userVo, Model model,@RequestParam int office){
+	public Map<String, Object> insertManager(@ModelAttribute UserVO userVo, Model model,@RequestParam int office){
 		logger.info("파라미터 userVo ={}",userVo);
 		logger.info("지점 officeNo ={}",office);
 		
+		//user 테이블 insert
 		int cnt =  userService.insertBranchManager(userVo);
 		logger.info("관리자 user 등록 결과={}",cnt);
+
+		int usersNo = 0;
 		if(cnt>0) {
+			//userNo 가져오기
 			userVo = userService.selectByEmail(userVo.getEmail());
-			int usersNo = userVo.getNo();
+			usersNo = userVo.getNo();
 			
+			//office_admin insert
 			Map<String, Object> map = new HashMap<>();
 			map.put("usersNo", usersNo);
 			map.put("officeNo", office);
 			
 			int result = officeService.insertOfficeAdmin(map);
 			logger.info("관리자 OfficeAdmin 등록 결과={}",result);
-			model.addAttribute("userVo",userVo);
+			
 		}
-		return userVo;
+		//반환될 뷰 select
+		Map<String, Object> managerMap = officeService.selectManagerByNo(usersNo);
+		logger.info("반환 뷰 map ={}",managerMap.get("NAME"));
+		model.addAttribute("userVo",userVo);
+		model.addAttribute("map",managerMap);
+		return managerMap;
+
 	}
-	
+
 	@DeleteMapping("/user/{no}")
 	public String deleteAdmin(@PathVariable("no") int no) {
 		System.out.println("no "+no);
@@ -187,4 +207,15 @@ public class AdminManageController {
 		System.out.println("result "+result);
 		return "redirect:/admin/users";
 	}
+	
+	@RequestMapping("getWithdrawUser")
+	@ResponseBody
+	public List<UserVO> getWithdrawUsers(){
+		
+		List<UserVO> withdrawList = userService.withdrawUsers();
+		logger.info("탈퇴회원 list size ={}",withdrawList.size());
+		
+		return withdrawList;
+	}
+
 }

@@ -42,6 +42,7 @@ public interface UserDAO {
 	int insertAddressOnlyPart(UserAddressVO addressVo);
 	int getUserTotalRecord(UserSearchVO userSearchVo);
 	int insertBranchManager(UserVO userVo);
+	public List<UserVO> withdrawUsers();
 
 
 	/* 박권순 */
