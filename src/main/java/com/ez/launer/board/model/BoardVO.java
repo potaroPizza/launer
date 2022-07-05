@@ -7,9 +7,9 @@ import java.sql.Timestamp;
 @Data
 public class BoardVO {
     private int no;
-    private int userNo;
+    private int usersNo;
     private String title;
     private String content;
     private Timestamp regdate;
-    private int categoryNo;
+    private String categoryNo;
 }

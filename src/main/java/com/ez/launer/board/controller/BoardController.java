@@ -1,6 +1,8 @@
 package com.ez.launer.board.controller;
 
+import com.ez.launer.board.model.BoardService;
 import com.ez.launer.board.model.BoardVO;
+import com.ez.launer.board.model.UploadFileVO;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.FileUploadUtil;
 import com.ez.launer.user.model.UserService;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,12 +31,14 @@ public class BoardController {
 
     private final FileUploadUtil fileUploadUtil;
     private final UserService userService;
+    private final BoardService boardService;
 
     @GetMapping("/user/board/notice")
     public String userNotice(Model model) {
         logger.info("사용자 공지사항");
 
         model.addAttribute("boardClass", 1);
+        model.addAttribute("categoryNo", "A01");
         return "/board/user";
     }
 
@@ -41,6 +47,7 @@ public class BoardController {
         logger.info("사용자 후기 게시판");
 
         model.addAttribute("boardClass", 3);
+        model.addAttribute("categoryNo", "B01");
         return "/board/user";
     }
 
@@ -49,6 +56,7 @@ public class BoardController {
         logger.info("배송기사 공지사항");
 
         model.addAttribute("boardClass", 2);
+        model.addAttribute("categoryNo", "A02");
         return "/board/delivery";
     }
 
@@ -93,29 +101,84 @@ public class BoardController {
 
     @PostMapping("/board/upload")
     @ResponseBody
-    public String uploadBoard(@ModelAttribute BoardVO boardVO,
-                              HttpServletRequest request) {
+    public Map<String, Object> uploadBoard(HttpServletRequest request, @RequestPart(value = "key") BoardVO boardVO) {
         logger.info("게시글 업로드 처리, 파라미터 boardVO={}", boardVO);
+        HttpSession session = request.getSession();
+
+        //유저의 정보 가져오기
+        int no = (int)session.getAttribute("no");
+        UserVO userVO = userService.selectById(no);
+        logger.info("유저정보 조회 결과 userVO={}", userVO);
 
         //파일 업로드 처리
         String fileName = "", originFileName = "";
         long fileSize = 0;
+        List<UploadFileVO> fileListVo = new ArrayList<>();
+
         try {
-            List<Map<String, Object>> fileList = fileUploadUtil.fileUpload(request, ConstUtil.UPLOAD_FILE_FLAG);
+            List<Map<String, Object>> fileList = fileUploadUtil.mulitiFileUpload(request, ConstUtil.UPLOAD_FILE_FLAG);
             for(Map<String, Object> fileMap : fileList) {
-                //다중 파일 업로드 처리 해야 함! (현재는 단일 파일)
+                UploadFileVO uploadFileVO = new UploadFileVO();
+
                 originFileName = (String)fileMap.get("originalFileName");
                 fileName = (String)fileMap.get("fileName");
                 fileSize = (long)fileMap.get("fileSize");
+
+                uploadFileVO.setOriginalFileName(originFileName);
+                uploadFileVO.setFileName(fileName);
+                uploadFileVO.setFileSize(fileSize);
+
+                fileListVo.add(uploadFileVO);
             }//for
 
-            logger.info("파일 업로드 성공, originFileName={}, fileName={}, fileSize={}",
-                    originFileName,fileName, fileSize);
+            logger.info("파일 업로드 성공 fileListVo.size={}, originFileName={}, fileName={}, fileSize={}",
+                    fileListVo.size(), originFileName, fileName, fileSize);
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
 
-        return "";
+        int cnt = boardService.insertUploadFileBoard(boardVO, fileListVo);
+        logger.info("업로드 처리 결과 cnt={}", cnt);
+
+        Map<String, Object> map = new HashMap<>();
+
+        String msg = "업로드 실패";
+        boolean success = false;
+        if(cnt > 0) {
+            msg = "업로드 완료";
+            success = true;
+        }
+
+        map.put("SUCCESS", success);
+        map.put("msg", msg);
+
+        return map;
     }
 
+
+
+
+    //카테고리에 맞는 게시글 조회
+    @GetMapping("/board/searchList")
+    @ResponseBody
+    public Map<String, Object> boardList(@RequestParam String categoryNo)
+            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        logger.info("게시글 조회, categoryNo={}", categoryNo);
+
+        List<BoardVO> list = boardService.selectByCategoryNo(categoryNo);
+        logger.info("게시글 조회 결과, list.size={}", list.size());
+
+        List<Map<String, Object>> resList = new ArrayList<>();
+        for(BoardVO boardVO : list) {
+            logger.info("boardVO={}", boardVO);
+            Map<String, Object> map = BeanUtils.describe(boardVO);
+            resList.add(map);
+        }
+
+        Map<String, Object> resMap = new HashMap<>();
+        resMap.put("jsonData", resList);
+        resMap.put("SUCCESS", true);
+
+        return resMap;
+    }
 }
