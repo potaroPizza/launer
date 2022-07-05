@@ -6,6 +6,7 @@
 <script type="text/javascript"
 	src="<c:url value='/js/adminManager.js'/>"></script>
 <script type="text/javascript">
+
 	function deleteUser(no){
 		var url ='/launer/admin/user/'+no
 		alert(url)
@@ -93,6 +94,12 @@
 								value="${userSearchKeyword}"> <input type="submit"
 								value="검색">
 						</form>
+					</div>
+					
+					<div>
+					<span>탈퇴회원보기</span>
+					<input type ="checkbox" id ="getWithdraw" name ="getWithdraw">
+					
 					</div>
 
 

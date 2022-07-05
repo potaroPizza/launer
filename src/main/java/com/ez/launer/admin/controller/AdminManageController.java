@@ -53,7 +53,8 @@ public class AdminManageController {
 
 		return "/admin/manage/stores";
 	}
-
+	
+	
 	@GetMapping("/users")
 	public String users_get(Model model) {
 
@@ -180,6 +181,8 @@ public class AdminManageController {
 		return userVo;
 	}
 	
+
+
 	@DeleteMapping("/user/{no}")
 	public String deleteAdmin(@PathVariable("no") int no) {
 		System.out.println("no "+no);
@@ -187,4 +190,20 @@ public class AdminManageController {
 		System.out.println("result "+result);
 		return "redirect:/admin/users";
 	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping("getWithdrawUser")
+	@ResponseBody
+	public List<UserVO> getWithdrawUsers(){
+		
+		List<UserVO> withdrawList = userService.withdrawUsers();
+		logger.info("탈퇴회원 list size ={}",withdrawList.size());
+		
+		return withdrawList;
+	}
+
 }
