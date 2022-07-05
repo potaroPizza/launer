@@ -46,6 +46,8 @@ import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.laundryService.order.model.OrderVO;
 import com.ez.launer.notice.model.NoticeService;
 import com.ez.launer.notice.model.NoticeVO;
+import com.ez.launer.office.model.OfficeService;
+import com.ez.launer.office.model.OfficeVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -63,15 +65,16 @@ public class AdminController {
 	private final OrderService orderService;
 	private final AdminChartsService chartsService;
 	private final UserService userService;
+	private final OfficeService officeService;
 	
 	
 	@RequestMapping("/")
-	public String index(Model model) {
+	public String index(HttpSession session, Model model) {
 		logger.info("메인 페이지");
 		
 		List<NoticeVO> list = noticeService.selectTopTen();
 		logger.info("사내공지 게시판 상위 글 10개 조회 결과, list.size={}", list.size());
-		
+
 		model.addAttribute("list", list);
 		
 		return "/admin/index";
@@ -121,8 +124,12 @@ public class AdminController {
 		logger.info("주문내역 출력 결과, totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
+		//지점 전체 정보 불러오기
+		List<OfficeVO> officeList = officeService.selectAll();
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("officeList", officeList);
 		
 		return "/admin/orders";
 	}
@@ -327,7 +334,9 @@ public class AdminController {
 		List<Map<String, Object>> rcm = null;
 		List<Map<String, Object>> ccm = null;
 		
-		if(vo.getUserChart() == null) {	// 첫 화면 세팅
+		if(vo.getUserChart() == null &&
+				vo.getRevenueChart() == null &&
+				vo.getCategoryChart() == null) {	// 첫 화면 세팅
 			vo.setUserChart("2022");
 			vo.setRevenueChart("0");
 			vo.setCategoryChart("1");
@@ -346,9 +355,19 @@ public class AdminController {
 			}
 //		}
 		
+		int ofn = -1;
+		String ofName = null;
+		
 		if(vo.getRevenueChart() != null && !vo.getRevenueChart().isEmpty()) {
 			int officeNo = Integer.parseInt(vo.getRevenueChart());
 			rcm = chartsService.selectRevenueByMonth(officeNo);
+			
+			if(rcm.isEmpty()) {
+				model.addAttribute("msg", "선택한 카테고리의 자료가 존재하지 않습니다.");
+				model.addAttribute("url", "/admin/charts");
+				
+				return "/common/message";
+			}
 		}
 
 		if(vo.getCategoryChart() != null && !vo.getCategoryChart().isEmpty()) {
@@ -372,13 +391,31 @@ public class AdminController {
 		}
 		model.addAttribute("ccm", ccm);	// 카테고리 별 주문 수
 		
+		//지점 전체 정보 불러오기
+		List<OfficeVO> officeList = officeService.selectAll();
+		model.addAttribute("officeList", officeList);
+		
 		return "/admin/charts";
 	}
 	
 	
 	@GetMapping("/adminLogin")
-	public String adminLogin_get() {
+	public String adminLogin_get(HttpSession session, Model model) {
 		logger.info("관리자 로그인 페이지");
+		
+//		String adminCode = session.getAttribute("adminCode")+"";
+//		
+//		logger.info("???={}", adminCode);
+//		
+//		if(userCode == 3 || userCode == 4) {
+//		if(!adminCode.isEmpty()) {
+//			model.addAttribute("msg", "잘못된 url접근입니다.");
+//			model.addAttribute("url", "/admin/");
+//			
+//			logger.info("이건아니다");
+//			
+//			return "/common/message";
+//		}
 		
 		return "/admin/adminLogin";
 	}
@@ -429,7 +466,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/adminLogout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, Model model) {
 		logger.info("관리자 로그아웃 처리");
 		
 		//session.invalidate();	// 세션 소멸, 근데 이거하면 관리자 세션이 있을경우 같이 제거되므로 바꿔야함
@@ -437,7 +474,11 @@ public class AdminController {
 		session.removeAttribute("adminName");
 		session.removeAttribute("adminCode");
 		
-		return "redirect:/admin/adminLogin";
+		model.addAttribute("msg", "성공적으로 로그아웃 되었습니다.");
+		model.addAttribute("url", "/admin/adminLogin");		
+		
+		return "/common/message";
+		//return "redirect:/admin/adminLogin";
 	}
 	
 	

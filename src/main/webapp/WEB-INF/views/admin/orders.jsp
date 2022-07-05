@@ -243,21 +243,13 @@
 							&nbsp; 지점선택
 							<select name="officeNo">
 								<option value="0">전체</option>
-								<option value="1"
-									<c:if test="${orderSearchVO.officeNo==1}">
-	           							selected
-	           						</c:if>
-								>영등포점</option>
-								<option value="2"
-							  		<c:if test="${orderSearchVO.officeNo==2}">
-	           							selected
-	           						</c:if>
-								>마포점</option>
-								<option value="3"
-									<c:if test="${orderSearchVO.officeNo==3}">
-	           							selected
-	           						</c:if>
-								>구로점</option>
+								<c:forEach var="office" items="${officeList}">
+									<option value="${office.no}"
+										<c:if test="${orderSearchVO.officeNo == office.no}">
+		           							selected
+		           						</c:if>
+									>${office.officeName}</option>
+								</c:forEach>
 							</select>
 		
 							&nbsp; 주문상태 선택
