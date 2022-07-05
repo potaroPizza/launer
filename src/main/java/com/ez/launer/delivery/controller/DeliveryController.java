@@ -39,7 +39,6 @@ import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
 import com.ez.launer.user.model.SHA256Encryption;
-import com.ez.launer.user.model.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -52,7 +51,6 @@ public class DeliveryController {
     private final DeliveryDriverService deliveryDriverService;
     private final OfficeService officeService;
     private final OrderService orderService;
-    private final UserService userService;
     private final SHA256Encryption sha256;
 
     @GetMapping("/")
