@@ -49,8 +49,8 @@ public class LoginController {
 		HttpServletRequest request,HttpServletResponse response, 
 		Model model) throws NoSuchAlgorithmException {
 		logger.info("로그인 처리, 파라미터 vo={}, saveUseremail={}", vo, saveUseremail);
-		String pwd = sha256.encrypt(vo.getPwd());
-		vo.setPwd(pwd);
+		//String pwd = sha256.encrypt(vo.getPwd());
+		//vo.setPwd(pwd);
 
 		int result=userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);
