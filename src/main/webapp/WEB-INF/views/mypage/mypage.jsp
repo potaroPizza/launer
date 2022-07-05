@@ -18,12 +18,9 @@
 			${vo.name }님, &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
 			<span>시작</span><span>하세요!</span>
 			
-			<jsp:useBean id="today" class="java.util.Date" />
-			<fmt:formatDate var="now" value="${today}" pattern="yyyyMMdd" />
-			<fmt:formatDate var="sdate" value="${vo.startDate}" pattern="yyyyMMdd" />
-			<p>세탁 없는 생활 ${now-sdate}일 째</p>
-		
 		</div>
+
+
 		<div id="mypage-main-wrap" class="clearfix">
 			<div class="part">
 				<a href="/launer/mypage/mypoint">
@@ -57,6 +54,22 @@
 			</div>
 		</div>
 		
+	
+		<div class="mypage_container1">
+			<ul class="mypage_table1">
+				<li class="mypage_table1-row">
+					<div class="mypage_col1-1">
+						<jsp:useBean id="today" class="java.util.Date" />
+						<fmt:formatDate var="now" value="${today}" pattern="yyyyMMdd" />
+						<fmt:formatDate var="sdate" value="${vo.startDate}"
+							pattern="yyyyMMdd" />
+						<p>
+							세탁 없는 생활 <span>${now-sdate}</span>일 째
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
 		
 		
 	
