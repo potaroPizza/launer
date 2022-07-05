@@ -113,7 +113,7 @@ function execZipcode() {
 			})
 			$('form[name=usereditfrm] #pwd').keyup(function(){
 				if(!isPassword($('form[name=usereditfrm] #pwd').val())){
-					$('form[name=usereditfrm] .error_next_box').eq(1).text("비밀번호를 입력해주세요.").css("color","red");
+					$('form[name=usereditfrm] .error_next_box').eq(1).text("비밀번호 형식이 맞지 않습니다.").css("color","red");
 				}else{
 					$('form[name=usereditfrm] .error_next_box').eq(1).text("")
 				}
