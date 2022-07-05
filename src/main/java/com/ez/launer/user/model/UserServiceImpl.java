@@ -184,15 +184,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int updateUserAddress(UserAllVO vo) {
-//		List<OfficeVO> list = officeDao.selectAll();
-		/*for(OfficeVO officeVo : list) {
-			
-		}*/
-//		vo.getAddress();
-		
-		
-		vo.setOfficeNo(1);
-		
 		return userDao.updateUserAddress(vo);
 	}
 
@@ -201,6 +192,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.editPwd(vo);
 	}
 	
+	@Override
+	public List<OfficeVO> selectOffice() {
+		return userDao.selectOffice();
+	}
 
 	
 	
@@ -249,12 +244,11 @@ public class UserServiceImpl implements UserService{
 	public int insertBranchManager(UserVO userVo) {
 		return userDao.insertBranchManager(userVo);
 	}
+
 	@Override
 	public List<UserVO> withdrawUsers() {
 		return userDao.withdrawUsers();
 	}
-
-
 
 	
 

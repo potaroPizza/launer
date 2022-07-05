@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ez.launer.common.UserSearchVO;
+import com.ez.launer.office.model.OfficeVO;
 
 @Mapper
 public interface UserDAO {
@@ -29,6 +30,7 @@ public interface UserDAO {
 	int updateUserHp(UserAllVO vo);
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
+	List<OfficeVO>selectOffice();
 	
 	
 	
