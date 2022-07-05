@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import BoardAdd from "./BoardAdd";
 
-const BoardList = () => {
+const BoardList = ({userInfo}) => {
+    console.log("BoardList 컴포넌트");
     const[addBtn, setAddBtn] = useState(false);
     const[boardBool, setBoardBool] = useState(false);
     const[boardList, setBoardList] = useState([
@@ -16,6 +17,24 @@ const BoardList = () => {
         {no: 2, content: "귀찮고 어렵다", name: "너굴맨", regdate: "2022-07-01"},
         {no: 1, content: "귀찮고 어렵다", name: "너굴맨", regdate: "2022-07-01"},
     ]);
+
+    console.log("userInfo.userCode : " + userInfo.userCode);
+    const [userClass, setUserClass] = useState(false);
+    const [userCode, setUserCode] = useState();
+    console.log("userCode : " + userCode);
+    console.log("boardClass : " + boardClass);
+
+    const setUserSet = () => {
+        if(((boardClass === 1) && (parseInt(userCode) === 3 || parseInt(userCode) === 4))) {
+            setUserClass(true);
+            console.log(`userClass : ${userClass}`);
+        }
+    }
+
+    useEffect(() => {
+        setUserCode(userInfo.userCode);
+        setUserSet();
+    });
 
     const conList = boardList.map(item => (
         <div key={item.no} className="list-line">
@@ -36,6 +55,12 @@ const BoardList = () => {
         }
     }
 
+    const btnComponent = (
+        <div className="add-btn">
+            <button className={addBtn ? "on" : ""} onClick={addBtnOnClickEvent}><i className="fa-solid fa-plus"></i></button>
+        </div>
+    );
+
 
     return (
         <div className="board-list-component">
@@ -51,9 +76,9 @@ const BoardList = () => {
                         <button><i className="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
-                <div className="add-btn">
-                    <button className={addBtn ? "on" : ""} onClick={addBtnOnClickEvent}><i className="fa-solid fa-plus"></i></button>
-                </div>
+                {(boardClass === 1 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
+                    (boardClass === 2 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
+                    (boardClass === 3 && (parseInt(userCode) === 3 || parseInt(userCode) === 4)) ? "" : btnComponent}
             </div>
             {addBtn && <BoardAdd animateClass={boardBool}/>}
             {/*<BoardAdd/>*/}

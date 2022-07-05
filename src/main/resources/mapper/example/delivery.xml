@@ -87,7 +87,8 @@
    	<!-- 배달기사정보 수정 (전화번호,지점)  -->
    <update id="updateDeliveryHp" parameterType="deliveryDriverAllVo">
       update delivery_driver
-      set hp=#{hp},office_No=#{officeNo}
+      set hp=#{hp},office_No=1
+<!--       set hp=#{hp},office_No=#{office_No} -->
       where no=#{no}
    </update>
    

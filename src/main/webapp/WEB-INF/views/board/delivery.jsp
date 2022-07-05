@@ -9,5 +9,9 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/delivery" %>
 
 <t:wrapper>
-    
+    <script type="text/javascript">
+        const boardClass = ${boardClass}
+    </script>
+    <div class="fixed-margin-top"></div>
+    <div id="board-component"></div>
 </t:wrapper>

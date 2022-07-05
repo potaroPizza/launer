@@ -167,7 +167,7 @@
                             <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁2" src="${pageContext.request.contextPath}/images/test14.png"></div>
                             <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁3" src="${pageContext.request.contextPath}/images/test13.png"></div>
                             <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁4" src="${pageContext.request.contextPath}/images/test15.png"></div>
-                            <div class="swiper-slide">Slide 5</div>
+                            <div class="swiper-slide"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/Vf9TGVeVsu0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                             <div class="swiper-slide">Slide 6</div>
                             <div class="swiper-slide">Slide 7</div>
                             <div class="swiper-slide">Slide 8</div>

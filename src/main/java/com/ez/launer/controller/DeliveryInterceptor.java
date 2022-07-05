@@ -20,7 +20,7 @@ public class DeliveryInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 
-		String deliveryNo = (String) request.getSession().getAttribute("deliveryNo");
+		String deliveryNo = String.valueOf(request.getSession().getAttribute("deliveryNo"));
 		logger.info("email = {}", deliveryNo);
 
 		if(deliveryNo == null || deliveryNo.isEmpty()) {

@@ -39,6 +39,7 @@ public interface UserDAO {
 	int isAddressExist(int no);
 	int insertAddressOnlyPart(UserAddressVO addressVo);
 	int getUserTotalRecord(UserSearchVO userSearchVo);
+	int insertBranchManager(UserVO userVo);
 
 
 	/* 박권순 */

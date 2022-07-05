@@ -9,10 +9,9 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 
 <t:wrapper>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+    <script type="text/javascript">
+        let boardClass = ${boardClass}
+    </script>
     <div class="margin-fixed-margin"></div>
     <div id="board-component"></div>
 </t:wrapper>

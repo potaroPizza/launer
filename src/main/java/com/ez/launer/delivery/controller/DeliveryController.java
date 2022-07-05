@@ -1,6 +1,7 @@
 package com.ez.launer.delivery.controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,7 @@ import com.ez.launer.laundryService.order.model.OrderDeliveryVO;
 import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -51,12 +53,13 @@ public class DeliveryController {
     private final OfficeService officeService;
     private final OrderService orderService;
     private final UserService userService;
+    private final SHA256Encryption sha256;
 
     @GetMapping("/")
     public String deliveryMain(HttpSession session, Model model) {
         //session.setAttribute("deliveryNo", 1000);   //임시
 
-        int deliveryNo = (int) session.getAttribute("deliveryNo");
+        int deliveryNo = Integer.parseInt(String.valueOf(session.getAttribute("deliveryNo")));
         logger.info("배송기사 메인 페이지, 기사 no={}", deliveryNo);
 
         //deliveryNo로 배달기사 정보 전체 조회
@@ -454,8 +457,7 @@ public class DeliveryController {
 	public String editDelivery_get(HttpSession session, 
 			Model model) { 
 		
-		/* int deliveryNo = (int) session.getAttribute("deliveryNo"); */
-    	int deliveryNo=2000;
+		int deliveryNo = (int) session.getAttribute("deliveryNo"); 
 		logger.info("배송기사 정보 수정 화면, 파라미터 deliveryNo={}", deliveryNo);
 
 		HashMap<String, Object> map= deliveryDriverService.selectByEdit(deliveryNo);
@@ -470,26 +472,27 @@ public class DeliveryController {
 
 	@PostMapping("/useredit")
 	public String editDelivery_post(@ModelAttribute DeliveryDriverAllVO vo,
-			HttpSession session, Model model) {
-		/* int deliveryNo = (int) session.getAttribute("deliveryNo"); */
-		int deliveryNo=2000;
+			HttpSession session, Model model) throws NoSuchAlgorithmException {
+		int deliveryNo = (int) session.getAttribute("deliveryNo");
 		vo.setNo(deliveryNo);
 		logger.info("배달기사정보 수정, DeliveryDriverAllVO={}", vo);
 
 		String hp=vo.getHp();
-		String officeName=vo.getOfficeName();
+		String officeSelect=vo.getOfficeName();
 		String bank=vo.getBank();
 		String accountHolder=vo.getAccountHolder();
-		int accountNum=vo.getAccountNumber();
+		int accountNumber=vo.getAccountNumber();
 		
 		vo.setHp(hp);
-		vo.setOfficeName(officeName);
+		vo.setOfficeName(officeSelect);
 		vo.setBank(bank);
 		vo.setAccountHolder(accountHolder);
-		vo.setAccountNumber(accountNum);
+		vo.setAccountNumber(accountNumber);
 
 
-		String msg="비밀번호 확인 실패", url="/mypage/useredit";
+		String msg="비밀번호 확인 실패", url="/delivery/useredit";
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
 		int result=deliveryDriverService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("배달기사정보 수정 - 비밀번호 확인 결과, result ={}", result);
 
@@ -516,7 +519,7 @@ public class DeliveryController {
 	}
 	
 	
-	@GetMapping("/deliverywithdraw")
+	@GetMapping("/withdrawDelivery")
 	public String Deliverydelete_get(HttpSession session, Model model) {
 		logger.info("배송기사 탈퇴 화면");
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
@@ -530,14 +533,17 @@ public class DeliveryController {
 		return "/mypage/withdraw";
 	}
 
-	@PostMapping("/deliveryWithdraw")
+	@PostMapping("/withdrawDelivery")
 	public String Deliverydelete_post(@RequestParam String pwd,
 			HttpSession session, HttpServletResponse response,
-			Model model) {
+			Model model) throws NoSuchAlgorithmException {
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
 		String email=(String)session.getAttribute("email");
 		logger.info("배송기사 탈퇴 처리, 파라미터 deliveryNo={}, pwd={}",deliveryNo,pwd);
 
+		pwd = sha256.encrypt(pwd);
+		logger.info("암호화로 불러온pwd={}",deliveryNo,pwd);
+		
 		int result=deliveryDriverService.checkLogin(deliveryNo, pwd);
 		logger.info("배송기사 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
 
@@ -569,6 +575,58 @@ public class DeliveryController {
 
 		
 		return "/common/message";
+	}
+	
+	@GetMapping("/editPwd")
+	public String editPwd_get(HttpSession session,
+			Model model) {
+		int deliveryNo = (int) session.getAttribute("deliveryNo");
+		logger.info("배송기사 비밀번호 변경 화면, 파라미터 no={}", deliveryNo);
+
+		DeliveryDriverVO deVo = deliveryDriverService.selectByNo(deliveryNo);
+		logger.info("배송기사 정보 조회 결과, deVo={}",deVo);
+
+		model.addAttribute("deVo",deVo);
+
+		return "/mypage/editPwd";
+	}
+
+	@PostMapping("/editPwd")
+	public String editPwd_post(@ModelAttribute DeliveryDriverVO vo, @RequestParam String newPwd,
+			HttpSession session, Model model) throws NoSuchAlgorithmException {
+		int deliveryNo = (int) session.getAttribute("deliveryNo");
+		vo.setNo(deliveryNo);
+		logger.info("비밀번호 변경, vo={} ,파라미터 newPwd={}",vo,newPwd);
+
+	
+		/* String pwd = sha256.encrypt(vo.getPwd()); vo.setPwd(pwd); */
+		 
+		
+		int result=deliveryDriverService.checkLogin(vo.getNo(), vo.getPwd());
+		logger.info("비밀번호 변경 처리, 비밀번호 조회 결과 result={}", result);
+		
+		String encNewPwd = sha256.encrypt(newPwd);
+		vo.setPwd(encNewPwd);
+		logger.info("변경된 암호화된 비밀번호, encNewPwd={}",encNewPwd);
+		String msg="비밀번호 확인 실패",url="/mypage/editPwd";
+		if(result == deliveryDriverService.LOGIN_OK) {
+			int cnt=deliveryDriverService.editPwd(vo);
+			if(cnt>0) {
+				msg="비밀번호가 변경되었습니다.";
+				url="/delivery/";
+			}else {
+				msg="비밀번호 변경이 불가능합니다.";				
+			}
+		}else if(result==deliveryDriverService.DISAGREE_PWD) {
+			msg="비밀번호가 일치하지 않습니다.";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+
+
 	}
     
 }
