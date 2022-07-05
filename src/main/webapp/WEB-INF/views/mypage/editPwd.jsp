@@ -89,7 +89,7 @@
 							<label for="pwd">현재 비밀번호</label>
 						</h3>
 						<span class="editPwd_box int_pass"> <input type="password"
-							id="editPwd_pwd2" name="pwd" class="editPwd_int" maxlength="16">
+							id="editPwd_pwd" name="pwd" class="editPwd_int" maxlength="16">
 							<span id="editPwd_alertTxt">사용불가</span> <img
 							src="../../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
 						</span> <span class="error_next_box"></span>

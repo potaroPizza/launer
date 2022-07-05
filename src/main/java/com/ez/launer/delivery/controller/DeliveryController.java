@@ -39,7 +39,6 @@ import com.ez.launer.laundryService.order.model.OrderService;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
 import com.ez.launer.user.model.SHA256Encryption;
-import com.ez.launer.user.model.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -52,7 +51,6 @@ public class DeliveryController {
     private final DeliveryDriverService deliveryDriverService;
     private final OfficeService officeService;
     private final OrderService orderService;
-    private final UserService userService;
     private final SHA256Encryption sha256;
 
     @GetMapping("/")
@@ -519,7 +517,7 @@ public class DeliveryController {
 	}
 	
 	
-	@GetMapping("/deliverywithdraw")
+	@GetMapping("/withdrawDelivery")
 	public String Deliverydelete_get(HttpSession session, Model model) {
 		logger.info("배송기사 탈퇴 화면");
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
@@ -533,14 +531,17 @@ public class DeliveryController {
 		return "/mypage/withdraw";
 	}
 
-	@PostMapping("/deliveryWithdraw")
+	@PostMapping("/withdrawDelivery")
 	public String Deliverydelete_post(@RequestParam String pwd,
 			HttpSession session, HttpServletResponse response,
-			Model model) {
+			Model model) throws NoSuchAlgorithmException {
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
 		String email=(String)session.getAttribute("email");
 		logger.info("배송기사 탈퇴 처리, 파라미터 deliveryNo={}, pwd={}",deliveryNo,pwd);
 
+		pwd = sha256.encrypt(pwd);
+		logger.info("암호화로 불러온pwd={}",deliveryNo,pwd);
+		
 		int result=deliveryDriverService.checkLogin(deliveryNo, pwd);
 		logger.info("배송기사 탈퇴 처리, 비밀번호 조회 결과 result={}", result);
 

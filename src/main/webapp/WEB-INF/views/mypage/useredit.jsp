@@ -6,11 +6,7 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/useredit.js'/>"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- <style>
- 	body{
- 	background: white;
- }
- </style> -->
+
     <div id="useredit_wrapper">
      <!-- 일반 회원 사용자 폼 -->   	
 		<c:if test="${map['USER_CODE']=='1' && map['SOCIAL_LOGIN_KEY']==null}">
@@ -83,6 +79,9 @@
                     </span>
                     <span class="error_next_box"></span>
                 </div>
+                
+		    	<input type="hidden" name="lonX" value="${map['LON_X']}">
+		    	<input type="hidden" name="latY" value="${map['LAT_Y']}">
 
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
@@ -161,8 +160,9 @@
                         <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}" placeholder="상세주소를 입력해주세요.">
                     </span>
                     <span class="error_next_box"></span>
+                   	<input type="hidden" name="lonX" value="${map['LON_X']}">
+		    		<input type="hidden" name="latY" value="${map['LAT_Y']}">
                 </div>
-
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_entermethod">

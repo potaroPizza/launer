@@ -48,7 +48,16 @@ const QuillEditor = () => {
     console.log(value);
 
     return (
-        <ReactQuill theme='snow' value={value} modules={modules} onChange={setValue} />
+        <div style={{height: "500px"}}>
+            <ReactQuill
+                style={{
+                    height: "460px"
+                }}
+                theme='snow'
+                value={value}
+                modules={modules}
+                onChange={setValue} />
+        </div>
     );
 };
 
