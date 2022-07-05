@@ -30,5 +30,4 @@
 	<select id="selectManagerByNo" resultType ="map" parameterType="int">
 		select * from users_office_admin_view where no =#{no}	
 	</select>
-
 </mapper>

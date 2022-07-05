@@ -20,7 +20,8 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.addPathPatterns("/laundryService/**")
 				.addPathPatterns("/mypage/**")
 				.addPathPatterns("/user/**")
-				.excludePathPatterns("/user/login/**");
+				.excludePathPatterns("/user/login/**")
+				.excludePathPatterns("/mypage/signout");
 		
 		registry.addInterceptor(new AdminLoginInterceptor())
 		.addPathPatterns("/admin/**")

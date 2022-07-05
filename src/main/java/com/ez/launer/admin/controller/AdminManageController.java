@@ -1,5 +1,6 @@
 package com.ez.launer.admin.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.ez.launer.delivery.model.DeliveryDriverService;
 import com.ez.launer.delivery.model.DeliveryDriverVO;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
@@ -46,6 +48,7 @@ public class AdminManageController {
 	private final UserService userService;
 	private final DeliveryDriverService deliveryService;
 	private final OfficeService officeService;
+	private final SHA256Encryption sha256;
 
 	@RequestMapping("/stores")
 	public String stores() {
@@ -168,10 +171,14 @@ public class AdminManageController {
 
 	@RequestMapping("/insertManager")
 	@ResponseBody
-	public Map<String, Object> insertManager(@ModelAttribute UserVO userVo, Model model,@RequestParam int office){
+	public Map<String, Object> insertManager(@ModelAttribute UserVO userVo, Model model,@RequestParam int office) throws NoSuchAlgorithmException{
 		logger.info("파라미터 userVo ={}",userVo);
 		logger.info("지점 officeNo ={}",office);
 		
+		//비밀번호 암호화 필요
+		String pwd = sha256.encrypt(userVo.getPwd());
+		userVo.setPwd(pwd);
+
 		//user 테이블 insert
 		int cnt =  userService.insertBranchManager(userVo);
 		logger.info("관리자 user 등록 결과={}",cnt);
