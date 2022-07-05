@@ -165,7 +165,7 @@
 	
 	<select id="selectUser" parameterType="UserSearchVO" resultType="userVo">
 		       select * from USERS
-		        <include refid="searchWhere"></include>	
+		       <include refid="searchWhere"></include>
 	</select>
 	
 	<select id="getUserTotalRecord" parameterType="searchVo" resultType="int">	

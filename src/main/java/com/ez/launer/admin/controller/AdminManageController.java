@@ -51,7 +51,8 @@ public class AdminManageController {
 
 		return "/admin/manage/stores";
 	}
-
+	
+	
 	@GetMapping("/users")
 	public String users_get(Model model) {
 
