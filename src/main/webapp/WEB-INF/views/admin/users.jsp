@@ -7,7 +7,24 @@
 	src="<c:url value='/js/adminManager.js'/>"></script>
 <script type="text/javascript">
 
-
+	function deleteUser(no){
+		var url ='/launer/admin/user/'+no
+		alert(url)
+		$.ajax({
+			url:url,
+			type:'delete',
+			date: {},
+			dataType    : "html",
+			success:function(data) {
+				alert("성공")
+				location.reload();
+			},
+			error: function(error){
+				alert("성공")
+				location.reload();
+			}
+		});
+	}
 </script>
 
 <t:head>

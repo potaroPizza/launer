@@ -156,12 +156,18 @@ public class MypageController {
 		String addressDetail=vo.getAddressDetail();
 		String zipcode=vo.getZipcode();
 		String entermethod=vo.getEntermethod();
+		double lonX=vo.getLonX();
+		double latY=vo.getLatY();
+		
 		
 		vo.setHp(hp);
 		vo.setAddress(address); 
 		vo.setAddressDetail(addressDetail);
 		vo.setZipcode(zipcode);
 		vo.setEntermethod(entermethod);
+		vo.setLonX(lonX);
+		vo.setLatY(latY);
+		
 
 
 		String msg="비밀번호 확인 실패", url="/mypage/useredit";
@@ -206,12 +212,16 @@ public class MypageController {
 		String addressDetail=vo.getAddressDetail();
 		String zipcode=vo.getZipcode();
 		String entermethod=vo.getEntermethod();
+		double lonX=vo.getLonX();
+		double latY=vo.getLatY();
 		
 		vo.setHp(hp);
 		vo.setAddress(address); 
 		vo.setAddressDetail(addressDetail);
 		vo.setZipcode(zipcode);
 		vo.setEntermethod(entermethod);
+		vo.setLonX(lonX);
+		vo.setLatY(latY);
 
 
 		String msg="", url="/mypage/useredit";

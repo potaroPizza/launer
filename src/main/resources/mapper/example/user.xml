@@ -73,7 +73,7 @@
    </select>
    <!-- 회원 정보 조회 주소테이블 조인 -->
    <select id="selectByIdAddress" parameterType="int" resultType="hashMap">
-      select u.*,a.address,a.entermethod,a.address_detail,a.zipcode 
+      select u.*,a.address,a.entermethod,a.address_detail,a.zipcode,a.lon_x,a.lat_y
       from users u full outer join users_address a
 	  on u.no=a.users_no
       where u.no=#{no}
@@ -101,7 +101,8 @@
          address_detail=#{addressDetail}, 
          entermethod=#{entermethod}, 
          zipcode=#{zipcode},
-         office_no = #{officeNo}
+         office_no = #{officeNo},
+         lat_y=#{latY},lon_x=#{lonX}
       where users_no=#{no}
    </update>
    <!-- 비밀번호 변경처리 -->
