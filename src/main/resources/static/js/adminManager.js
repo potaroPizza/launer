@@ -32,51 +32,49 @@
             alert("관리자 등록실패");
         }
     });
-    
-    
-    
-    
+});
+
+
     //탈퇴회원만 보기
-     var checkIsTrue =true;
 	 $('#getWithdraw').change(function() {
 		 checkIsTrue= $("input:checkbox[id='getWithdraw']").is(":checked");
-	});
-	
-	if(checkIsTrue){
+
+		if(checkIsTrue){	
+			alert("체크됨");	
+			$.ajax({
+				   cache : false,
+				   url: '/launer/admin/getWithdrawUser',
+				   type: 'get', 
+				   data: {},
 		
-	alert("체크됨");	
-	var withdrawParam ="탈퇴회원 불러오기";
-	$.ajax({
-		   cache : false,
-		   url: '/launer/admin/getWithdrawUser',
-		   type: 'get', 
-		   data: withdrawParam,
-
-		   success: function (withdrawList) {
-		       appenToWithdraw(withdrawList);
-		   },
-		   error: function() {
-		       alert("탈퇴회원 조회 실패");
-		   }
-		});
-	}
-
-});
+				   success: function (withdrawList) {
+				       appenToWithdraw(withdrawList);
+				   },
+				   error: function() {
+				       alert("탈퇴회원 조회 실패");
+				   }
+				});
+		}else{
+			alert("체크해제됨");
+			location.href ="/launer/admin/users";
+		}
 	});
 	
-	function appenToTable(userVo){
+});
+	
+function appenToTable(userVo){
 
-	    let $cellsOfRow = $(
-	    	"<tr>"+		
-	        "<td>" + userVo.no + "</td>" +
-	        "<td>" + userVo.name + "</td>" +
-	        "<td>" + userVo.email + "</td>" +
-	        "<td>" + userVo.hp + "</td>"+
-	        "<td>" + userVo.office + "</td>"+
-	        "<td><a href="+ +">삭제</a></td>"+"<tr>"
-	    );
-		  $("#managerTbody").append($cellsOfRow);
-		  $('#addAdmin').modal("hide");
+    let $cellsOfRow = $(
+    	"<tr>"+		
+        "<td>" + userVo.no + "</td>" +
+        "<td>" + userVo.name + "</td>" +
+        "<td>" + userVo.email + "</td>" +
+        "<td>" + userVo.hp + "</td>"+
+        "<td>" + userVo.office + "</td>"+
+        "<td><a href="+ +">삭제</a></td>"+"<tr>"
+    );
+	  $("#managerTbody").append($cellsOfRow);
+	  $('#addAdmin').modal("hide");
   
 }
 
@@ -96,3 +94,4 @@ function appenToWithdraw(withdrawList){
 	     $("#usersTbody").append($cellsOfRow);
 	}
 }
+
