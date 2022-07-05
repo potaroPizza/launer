@@ -25,11 +25,8 @@ public class FileUploadUtil {
 		= LoggerFactory.getLogger(FileUploadUtil.class);
 	
 	public List<Map<String, Object>> fileUpload(HttpServletRequest request,
-			int uploadFlag)
-			
-			throws IllegalStateException, IOException {
-		MultipartHttpServletRequest multiRequest
-			= (MultipartHttpServletRequest)request;
+			int uploadFlag) throws IllegalStateException, IOException {
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
 		
 		// MultipartHttpServletRequest인터페이스의 부모인터페이스인 MultipartRequest의
 		// 메소드중 한개를 사용하여, 파라미터 이름을 키로 파라미터에 해당하는 파일 정보를 값으로하는 map을 리턴함
