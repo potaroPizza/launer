@@ -23,6 +23,8 @@ public class UserAllVO {
 	private String addressDetail;
 	private String zipcode;
 	private String entermethod;
-
 	private int addressNo;
+	private double latY;
+	private double lonX;
+	
 }
