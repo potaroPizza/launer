@@ -228,16 +228,16 @@
 													<div class="adminEmail">
 														<label for="email">이메일</label> <input type="text"
 															name="email" id="email"> <input type="button"
-															value="중복 확인" id="ChkEmail">
+															value="중복 확인" id="btnChkEmail">
 													</div>
 													<div class="adminPassword">
-														<label for="password">비밀번호</label> <input type="text"
+														<label for="password">비밀번호</label> <input type="password"
 															name="pwd" id="pwd"
 															placeholder="8자 이상의 문자,특수문자 포함">
 													</div>
 													<div class="adminPassword2">
 														<label for="password2">비밀번호확인</label> <input type="password"
-															name="password2" id="password2">
+															name="pwd2" id="pwd2">
 													</div>
 													<div class="adminHp">
 														<label for="hp">전화번호</label> <input type="text" name="hp"
