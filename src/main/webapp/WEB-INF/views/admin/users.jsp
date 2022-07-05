@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="<c:url value='/js/adminManager.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/adminManager.js'/>"></script>
 <script type="text/javascript">
 
 	function deleteUser(no){
@@ -25,6 +24,16 @@
 			}
 		});
 	}
+	
+	$(function(){
+		
+		
+		
+		
+	});
+	
+	
+	
 </script>
 
 <t:head>
