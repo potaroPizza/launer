@@ -51,6 +51,7 @@ public interface UserService {
 	int isAddressExist(int no);
 	int insertAddressOnlyPart(UserAddressVO addressVo);
 	int getUserTotalRecord(UserSearchVO userSearchVo);
+	int insertBranchManager(UserVO userVo);
 
 
 

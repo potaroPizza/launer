@@ -6,44 +6,24 @@
 <script type="text/javascript"
 	src="<c:url value='/js/adminManager.js'/>"></script>
 <script type="text/javascript">
-
-$(function(){
-$('#wr_submit').click(function() {
-	
-	alert("dsf");
-    
-	 var formData = $("#adminAdd").serialize();
-	
-    //ajax 로 등록
-    $.ajax({
-    	cache : false,
-        url: '/launer/admin/insertManager',
-        type: 'POST',
-        data: formData,
-        success: function (userVo) {
-			appenToTable(userVo);
-        },
-        error: function() {
-            alert("관리자 등록실패");
-        }
-    });
-});
-});
-
-function appenToTable(userVo){
-
-	    let $cellsOfRow = $(
-	    	"<tr>"+		
-	        "<td>" + userVo.no + "</td>" +
-	        "<td>" + userVo.name + "</td>" +
-	        "<td>" + userVo.email + "</td>" +
-	        "<td>" + userVo.hp + "</td>"+
-	        "<td>" + userVo.office + "</td>"+
-	        "<td><a href="+ +">삭제</a></td>"+"<tr>"
-	    );
-		  $("#managerTbody").append($cellsOfRow);
-  
-}
+	function deleteUser(no){
+		var url ='/launer/admin/user/'+no
+		alert(url)
+		$.ajax({
+			url:url,
+			type:'delete',
+			date: {},
+			dataType    : "html",
+			success:function(data) {
+				alert("성공")
+				location.reload();
+			},
+			error: function(error){
+				alert("성공")
+				location.reload();
+			}
+		});
+	}
 </script>
 
 <t:head>
@@ -230,12 +210,12 @@ function appenToTable(userVo){
 													<div class="office">
 														<label for="office">지점</label> <select name="office"
 															id="office">
-															<option value="">지점 선택</option>
-															<option value="">종로지점</option>
-															<!-- 반복 시작 -->
-															<%-- <c:forEach var="" items="">
-																<option value="">지점</option>						
-															</c:forEach> --%>
+	
+															<!-- 지점 select -->
+															<option value="" selected>선택</option>
+															<c:forEach var="officeVo" items="${officeList }">
+																<option value="${officeVo.no} ">${officeVo.officeName}</option>
+															</c:forEach>
 															<!-- 반복 끝 -->
 														</select>
 													</div>
