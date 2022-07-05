@@ -176,9 +176,29 @@
 									</tr>
 								</thead>
 								<tbody id="managerTbody">
-									<tr>
-										<!-- ajax 로 테이블 생성  -->
-									</tr>
+
+									<c:forEach var="map" items="${managerList }">
+
+										<tr>
+											<!-- 관리자 리스트 반복 -->
+
+											<td>${map['NO']}</td>
+											<!-- users table no -->
+											<td>${map['NAME']}</td>
+											<!-- users table name -->
+											<td>${map['EMAIL']}</td>
+											<!-- users table email -->
+											<td>${map['HP']}</td>
+											<!-- users table hp -->
+											<td>${map['OFFICE_NAME']}</td>
+											<!-- users_class table class  -->
+											<td><input type="button" value="삭제"
+												onclick="deleteUser(${map['NO']})"></td>
+										</tr>
+									</c:forEach>
+
+									<!-- ajax table 행추가 -->
+
 								</tbody>
 							</table>
 
