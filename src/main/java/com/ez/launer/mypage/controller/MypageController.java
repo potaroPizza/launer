@@ -25,6 +25,7 @@ import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.PaginationInfo;
 import com.ez.launer.common.PaymentSearchVO;
 import com.ez.launer.common.PointSearchVO;
+import com.ez.launer.office.model.OfficeVO;
 import com.ez.launer.payment.model.PaymentDetailAllVO;
 import com.ez.launer.payment.model.PaymentHistoryAllVO;
 import com.ez.launer.payment.model.PaymentHistoryViewVO;
@@ -168,7 +169,27 @@ public class MypageController {
 		vo.setLonX(lonX);
 		vo.setLatY(latY);
 		
-
+		String str = vo.getAddress();
+		String[]str2= str.split("\\s");
+		String office=str2[1];
+		
+		
+		List<OfficeVO> list= userService.selectOffice();
+		
+		int resCnt = 0;
+		for(OfficeVO officeVo : list) {
+			String dbOffice = officeVo.getAddress().split("\\s")[1];
+			
+			if(dbOffice.equals(office)) {
+				vo.setOfficeNo(officeVo.getNo());
+				resCnt++;
+				break;
+			}
+		} 
+        
+		
+		
+		
 
 		String msg="비밀번호 확인 실패", url="/mypage/useredit";
 		String pwd = sha256.encrypt(vo.getPwd());
@@ -183,11 +204,14 @@ public class MypageController {
 			int cnt2 = userService.updateUserAddress(vo);
 			logger.info("회원정보 수정 결과, cnt2={} ", cnt2);
 
-
-			if(cnt>0 && cnt2>0) { 
-				msg="회원정보를 수정하였습니다.";
-			}else { msg="회원정보 수정 실패"; }
-
+			if(resCnt > 0) {
+				if(cnt>0 && cnt2>0) { 
+					msg="회원정보를 수정하였습니다."; 
+				}else { msg="회원정보 수정 실패"; }
+			}else {
+				msg = "서비스 미지원 지역입니다.";
+				url="/";
+			}
 		}else if(result==UserService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";			
 		}
@@ -222,22 +246,46 @@ public class MypageController {
 		vo.setEntermethod(entermethod);
 		vo.setLonX(lonX);
 		vo.setLatY(latY);
-
-
+		
+		String str = vo.getAddress();
+		String[]str2= str.split("\\s");
+		String office=str2[1];
+		
+		
+		List<OfficeVO> list= userService.selectOffice();
+		
+		int resCnt = 0;
+		for(OfficeVO officeVo : list) {
+			String dbOffice = officeVo.getAddress().split("\\s")[1];
+			
+			if(dbOffice.equals(office)) {
+				vo.setOfficeNo(officeVo.getNo());
+				resCnt++;
+				break;
+			}
+		} 
+		
 		String msg="", url="/mypage/useredit";
-
+		
+		if(resCnt > 0) {
 			int cnt = userService.updateUserAddress(vo);
-			logger.info("카카오회원정보 수정 결과, cnt ={}", cnt);
+			logger.info("카카오회원정보 수정 결과, cnt ={},vo={}", cnt,vo);
 
 
 			if(cnt>0 ) { 
 				msg="회원정보를 수정하였습니다.";
 			}else { msg="회원정보 수정 실패"; }
-
+		}else {
+			msg = "서비스 미지원 지역입니다.";
+			url="/";
+		}
 		
 
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
+		
+		
+
 
 		return "/common/message";
 
