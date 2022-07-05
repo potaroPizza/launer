@@ -20,6 +20,7 @@
     <script src="<c:url value="/js/jquery-ui.min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/jquery.animate-shadow-min.js"/>" type="text/javascript" text="javascript"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2105ed82df9c00048785f53fbd42044d&libraries=services"></script>
     <script src="<c:url value="/js/main-fixed-wrap.js"/>"></script>
 </head>
 <body class="web-page">
