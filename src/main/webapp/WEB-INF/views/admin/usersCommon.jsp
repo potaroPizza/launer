@@ -57,5 +57,5 @@
 	</div>
 </div>
 
-<div>총 ${totalRecord } 건</div>
+<div id ="commonTotal">총 ${totalRecord } 건</div>
 

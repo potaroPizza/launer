@@ -25,8 +25,8 @@
         url: '/launer/admin/insertManager',
         type: 'POST',
         data: formData,officeNo,
-        success: function (userVo) {
-			appenToTable(userVo);
+        success: function (managerMap) {
+			appenToTable(managerMap);
         },
         error: function() {
             alert("관리자 등록실패");
@@ -40,7 +40,8 @@
 		 checkIsTrue= $("input:checkbox[id='getWithdraw']").is(":checked");
 
 		if(checkIsTrue){	
-			alert("체크됨");	
+			alert("체크됨");
+			$('#commonTotal').hide();	
 			$.ajax({
 				   cache : false,
 				   url: '/launer/admin/getWithdrawUser',
@@ -56,22 +57,23 @@
 				});
 		}else{
 			alert("체크해제됨");
+			$('#commonTotal').show();	
 			location.href ="/launer/admin/users";
 		}
 	});
 	
 });
 	
-function appenToTable(userVo){
+function appenToTable(managerMap){
 
     let $cellsOfRow = $(
     	"<tr>"+		
-        "<td>" + userVo.no + "</td>" +
-        "<td>" + userVo.name + "</td>" +
-        "<td>" + userVo.email + "</td>" +
-        "<td>" + userVo.hp + "</td>"+
-        "<td>" + userVo.office + "</td>"+
-        "<td><a href="+ +">삭제</a></td>"+"<tr>"
+        "<td>" + managerMap.NO + "</td>" +
+        "<td>" + managerMap.NAME + "</td>" +
+        "<td>" + managerMap.EMAIL + "</td>" +
+        "<td>" + managerMap.HP + "</td>"+
+        "<td>" + managerMap.OFFICE_NAME + "</td>"+
+        "<td><input type='button' value='삭제' onclick=''></td>"+"<tr>"
     );
 	  $("#managerTbody").append($cellsOfRow);
 	  $('#addAdmin').modal("hide");
