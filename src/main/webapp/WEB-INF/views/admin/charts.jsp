@@ -388,15 +388,17 @@ juqery가 hicharts보다 위에 선언되어야함
                     &nbsp; <span style="margin-left: 15px">지점 선택</span>
 					<select name="revenueChart" id="revenueChart">
 						<option value="0"
-							<c:if test="${ofn == 0}">
-									selected
-            				</c:if>
+						<c:if test="${ofn == 0}">
+								selected
+           				</c:if>
 						>전체</option>
-						<option value="1"
-							<c:if test="${ofn == 1}">
-									selected
-            				</c:if>
-						>종로지점</option>
+						<c:forEach var="office" items="${officeList}">
+							<option value="${office.no}"
+								<c:if test="${ofn == office.no}">
+										selected
+	            				</c:if>
+							>${office.officeName}</option>
+						</c:forEach>
 					</select>
                 </div>
                 <div class="card-body">
