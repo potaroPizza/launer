@@ -55,7 +55,7 @@ public class NoticeController {
 		vo.setUsersNo(9999);
 		vo.setTitle(param.get("title")+"");
 		vo.setContent(param.get("content")+"");
-		int cnt = noticeService.insertNotice(vo);
+		noticeService.insertNotice(vo);
 		vo.setRegdateStr(sdf.format(now));
 		
 		return vo;
@@ -68,12 +68,11 @@ public class NoticeController {
 			Model model) {
 		logger.info("사내공지사항 삭제 처리");
 		
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		
 		NoticeVO vo = new NoticeVO();
 		int no = Integer.parseInt(param.get("no")+"");
+		logger.info("삭제할 게시물 번호 = {}", no);
 		vo.setNo(no);
-		int cnt = noticeService.deleteNotice(vo.getNo());
+		noticeService.deleteNotice(vo.getNo());
 		
 		return vo;
 	}
