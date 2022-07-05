@@ -157,13 +157,15 @@
         	where ${searchCondition} 
         		like '%' || #{searchKeyword} || '%'
         </if>
+		<!-- <if test="searchKeyword =null and searchKeyword =''">
+        	where out_date is null and user_code =1 
+        </if>  서치가 안됨 !! -->
 	</sql>
 	
 	
 	<select id="selectUser" parameterType="UserSearchVO" resultType="userVo">
 		       select * from USERS
-		        <include refid="searchWhere"></include>
-		        order by no
+		        <include refid="searchWhere"></include>	
 	</select>
 	
 	<select id="getUserTotalRecord" parameterType="searchVo" resultType="int">	
@@ -179,6 +181,16 @@
          values(#{no},3,#{name},#{email},#{pwd},#{hp},sysdate)
 	</insert>
 	
+	<!-- 탈퇴한회원만 보기 -->
+	<select id="withdrawUsers" resultType="userVo">
+		select * from users where out_date is not null
+	</select>
+
+
+
+
+
+
 
 
 

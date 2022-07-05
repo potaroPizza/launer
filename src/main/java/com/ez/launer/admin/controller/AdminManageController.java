@@ -177,4 +177,23 @@ public class AdminManageController {
 		}
 		return userVo;
 	}
+	
+	
+	@RequestMapping("getWithdrawUser")
+	@ResponseBody
+	public List<UserVO> getWithdrawUsers(){
+		
+		List<UserVO> withdrawList = userService.withdrawUsers();
+		logger.info("탈퇴회원 list size ={}",withdrawList.size());
+		
+		return withdrawList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

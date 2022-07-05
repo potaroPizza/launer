@@ -7,6 +7,55 @@
 	src="<c:url value='/js/adminManager.js'/>"></script>
 <script type="text/javascript">
 
+$(function(){
+	 var checkIsTrue =true;
+	 $('#getWithdraw').change(function() {
+		 checkIsTrue= $("input:checkbox[id='getWithdraw']").is(":checked");
+	});
+	
+	
+	
+	if(checkIsTrue){
+		
+	alert("체크됨");	
+	var withdrawParam ="탈퇴회원 불러오기";
+	$.ajax({
+		   cache : false,
+		   url: '/launer/admin/getWithdrawUser',
+		   type: 'get', 
+		   data: withdrawParam,
+		   
+		   
+		   success: function (withdrawList) {
+		       appenToWithdraw(withdrawList);
+		   },
+		   error: function() {
+		       alert("탈퇴회원 조회 실패");
+		   }
+		});
+	}
+
+});
+
+function appenToWithdraw(withdrawList){
+	   $("#usersTbody").empty();
+	   
+	   for(let userVo of withdrawList){
+	   let $cellsOfRow = $(
+	       "<tr>"+		
+	       "<td>" + userVo.no + "</td>" +
+	       "<td>" + userVo.name + "</td>" +
+	       "<td>" + userVo.email + "</td>" +
+	       "<td>" + userVo.hp + "</td>"+
+	       "<td>" + userVo.outDate + "</td>"+
+	       "<td></td>"+"<tr>"
+	   );
+	     $("#usersTbody").append($cellsOfRow);
+	}
+}
+
+
+
 </script>
 
 <t:head>
@@ -76,6 +125,12 @@
 								value="${userSearchKeyword}"> <input type="submit"
 								value="검색">
 						</form>
+					</div>
+					
+					<div>
+					<span>탈퇴회원보기</span>
+					<input type ="checkbox" id ="getWithdraw" name ="getWithdraw">
+					
 					</div>
 
 

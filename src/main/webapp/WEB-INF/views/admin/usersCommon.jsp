@@ -25,7 +25,7 @@
 						<th>비고</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id ="usersTbody">
 					<c:if test="${empty list }">
 						<tr>
 							<td colspan="6" class="align_center">해당 글이 존재하지 않습니다.</td>
