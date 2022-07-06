@@ -6,7 +6,7 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/useredit.js'/>"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+	<div style="background-color:#fff">
     <div id="useredit_wrapper">
      <!-- 일반 회원 사용자 폼 -->   	
 		<c:if test="${map['USER_CODE']=='1' && map['SOCIAL_LOGIN_KEY']==null}">
@@ -287,6 +287,7 @@
             </form>
        </c:if>
             
+    </div>
     </div>
 
 </t:wrapper>
