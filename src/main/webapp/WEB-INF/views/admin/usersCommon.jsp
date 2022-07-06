@@ -34,6 +34,9 @@
 					</c:if>
 					<c:if test="${!empty list }">
 						<c:forEach var="userVo" items="${list }">
+						<!-- 일반 사용자 탈퇴회원 리스트 제외 -->
+						<c:if test="${ userVo.userCode == 1  }">
+						<c:if test="${ userVo.outDate == null  }">
 
 							<tr>
 								<!-- 회원 리스트 반복 -->
@@ -50,6 +53,9 @@
 						
 								<td><input type="button" value="삭제" onclick="deleteUser(${userVo.no})"></td>
 							</tr>
+							
+						</c:if>
+						</c:if>
 						</c:forEach>
 					</c:if>
 				</tbody>
