@@ -90,6 +90,14 @@ public class AdminManageController {
 		}else {
 			tabNo =3;
 		}
+		List<OfficeVO> officeList = officeService.selectAll();
+		logger.info("전체 조회결과 officeList.size={}",officeList.size());
+		List<Map<String, Object>> managerList = officeService.selectAllManager();
+		logger.info("지점 관리자 조회결과 managerList.size={}",managerList.size());
+		
+		model.addAttribute("officeList",officeList);
+		model.addAttribute("managerList",managerList);
+		
 		logger.info("tabNo={}",tabNo);
 
 		model.addAttribute("userSearchKeyword",userSearchKeyword);
