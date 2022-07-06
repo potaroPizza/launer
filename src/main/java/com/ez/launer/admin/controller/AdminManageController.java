@@ -211,6 +211,7 @@ public class AdminManageController {
 	public String deleteAdmin(@PathVariable("no") int no) {
 		System.out.println("no "+no);
 		int result = userService.deleteUser(no);
+		officeService.deleteOfficeAdmin(no);
 		System.out.println("result "+result);
 		return "redirect:/admin/users";
 	}
