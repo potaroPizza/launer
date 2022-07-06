@@ -10,7 +10,8 @@
 <script type="text/javascript">
 $(function(){
 	$("#findIdBtn").click(function(){
-		$("#modal-wrap").css("display","flex").hide().fadeIn();
+		return false;
+		$("#modal-wrap").css("display","flex");
 	});
 	$("#confirm").click(function(){
     	modalClose();
