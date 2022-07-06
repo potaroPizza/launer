@@ -27,14 +27,8 @@
 	}
 	
 	$(function(){
-		
-		
-		
-		
+
 	});
-	
-	
-	
 </script>
 
 <t:head>

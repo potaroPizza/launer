@@ -73,8 +73,6 @@ public class AdminManageController {
 		model.addAttribute("managerList",managerList);
 		return"/admin/users";
 		
-		
-		
 	}
 
 	@PostMapping("/users")
@@ -90,6 +88,14 @@ public class AdminManageController {
 		}else {
 			tabNo =3;
 		}
+		List<OfficeVO> officeList = officeService.selectAll();
+		logger.info("전체 조회결과 officeList.size={}",officeList.size());
+		List<Map<String, Object>> managerList = officeService.selectAllManager();
+		logger.info("지점 관리자 조회결과 managerList.size={}",managerList.size());
+		
+		model.addAttribute("officeList",officeList);
+		model.addAttribute("managerList",managerList);
+		
 		logger.info("tabNo={}",tabNo);
 
 		model.addAttribute("userSearchKeyword",userSearchKeyword);
@@ -207,14 +213,12 @@ public class AdminManageController {
 
 	}
 
-	@DeleteMapping("/user/{no}")
-	public String deleteAdmin(@PathVariable("no") int no) {
-		System.out.println("no "+no);
-		int result = userService.deleteUser(no);
-		System.out.println("result "+result);
-		return "redirect:/admin/users";
-	}
-	
+	/*
+	 * @DeleteMapping("/user/{no}") public String deleteAdmin(@PathVariable("no")
+	 * int no) { System.out.println("no "+no); int result =
+	 * userService.deleteUser(no); System.out.println("result "+result); return
+	 * "redirect:/admin/users"; }
+	 */
 	@RequestMapping("getWithdrawUser")
 	@ResponseBody
 	public List<UserVO> getWithdrawUsers(){
