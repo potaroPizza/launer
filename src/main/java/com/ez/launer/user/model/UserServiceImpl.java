@@ -144,37 +144,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String findEmail(UserVO vo) {
 		return userDao.findEmail(vo);
-		/*
-		 * String result = "";
-		if(dbEmail !=null && !dbEmail.isEmpty()) {
-			if(dbEmail.equals(map)) {
-				result=dbEmail;
-			}else {
-				result="입력하신 정보가 정확하지 않습니다.\n 다시 확인하고 입력하시기 바랍니다.";
-			}
-		}else {	
-			result="입력하신 정보와 일치하는 이메일이 없습니다.";				
-		}
-		*/	
 	}
 	//배송기사 이메일 찾기
 	@Override
 	public String findDmail(DriverAllVO vo) {
 		return userDao.findDmail(vo);
-		/*
-		String dbEmail = userDao.findDmail(map);
-		
-		String result = "";
-		if(dbEmail !=null && !dbEmail.isEmpty()) {
-			if(dbEmail.equals(map)) {
-				result=dbEmail;
-			}else {
-				result="입력하신 정보가 정확하지 않습니다.\n 다시 확인하고 입력하시기 바랍니다.";
-			}
-		}else {	
-			result="입력하신 정보와 일치하는 이메일이 없습니다.";				
-		}
-		*/
 	}
 	
 	@Override
