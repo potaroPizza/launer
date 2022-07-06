@@ -114,6 +114,12 @@ a {color: #000; text-decoration: none;}
       margin: 0 auto;
     }
   }
+  #error_404wrap{
+	@import "./partials/user/404.scss";
+}
+  #error_500wrap{
+	@import "./partials/user/500.scss";
+}
 
 }
 
