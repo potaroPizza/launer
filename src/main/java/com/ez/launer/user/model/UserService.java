@@ -56,6 +56,8 @@ public interface UserService {
 	int getUserTotalRecord(UserSearchVO userSearchVo);
 	int insertBranchManager(UserVO userVo);
 	public List<UserVO> withdrawUsers();
+	int insertToday (String userNo, String date);
+	int insertToday (Map<String,Object> map);
 
 
 	/* 박권순 */
