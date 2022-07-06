@@ -45,6 +45,7 @@ public interface UserDAO {
 	int getUserTotalRecord(UserSearchVO userSearchVo);
 	int insertBranchManager(UserVO userVo);
 	public List<UserVO> withdrawUsers();
+	int insertToday (Map<String,Object> map);
 
 
 	/* 박권순 */
