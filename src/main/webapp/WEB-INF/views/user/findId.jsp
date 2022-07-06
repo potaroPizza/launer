@@ -9,9 +9,12 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 $(function(){
+	const $modal = $("#modal-wrap");
 	$("#findIdBtn").click(function(){
+		$modal.css("display", "flex").animate({
+			opacity: 1
+		}, 300);
 		return false;
-		$("#modal-wrap").css("display","flex");
 	});
 	$("#confirm").click(function(){
     	modalClose();
@@ -20,7 +23,11 @@ $(function(){
     	modalClose();
 	});
 	function modalClose(){
-  		$("#modal-wrap").fadeOut();
+		$modal.animate({
+			opacity: 0
+		}, 300, function() {
+			$modal.css("display", "none");
+		});
 	}
 });
 </script>
@@ -72,8 +79,7 @@ $(function(){
 								placeholder="-를 제외하고 입력해주세요">
 						</p>
 						<div class="findIdPwdBtnWrap">
-                			<button class="findIdPwdBtn" id="findIdBtn"
-                				onclick="idSearch_click()">확인</button>
+                			<button class="findIdPwdBtn" id="findIdBtn">확인</button>
             			</div>
 					</div>
 				</div>

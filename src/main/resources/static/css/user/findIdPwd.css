@@ -136,14 +136,14 @@ input, select, textarea {
 		bottom:0;
 		display:none;
 		padding:15px;
+		opacity: 0;
 	}
 	.findId-modal{
 		width:100%;
 		max-width:400px;
-		background-color:#fff;
 		border-radius:10px;
 		overflow:hidden;
-		background-color:#31363d;;
+		background-color:#31363d;
 		box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3);
 	}
 	.modal-head{
@@ -165,9 +165,9 @@ input, select, textarea {
 		background-color:#fff;
 	}
 	.body-content{
-		width:400px;
 		padding:30px 0 30px 0;
 	}
+	.modalhead {padding: 10px 0;}
 	.body-titlebox{
 		text-align:center;
 		width:100%;
