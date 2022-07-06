@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="card mb-4">
 	<div class="card-header">일반회원</div>
 	<div class="card-body">
-		<div style="width: 100%; height: 500px; overflow: auto">
+		<div style="width: 100%; height: 700px; overflow: auto">
 			<table class="table table-striped" id="orders">
 				<colgroup>
 					<col style="width: 10%">
@@ -25,7 +26,7 @@
 						<th>비고</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id ="usersTbody">
 					<c:if test="${empty list }">
 						<tr>
 							<td colspan="6" class="align_center">해당 글이 존재하지 않습니다.</td>
@@ -38,16 +39,16 @@
 								<!-- 회원 리스트 반복 -->
 
 								<td>${userVo.no}</td>
-								<!-- users table no -->
+						
 								<td>${userVo.name}</td>
-								<!-- users table name -->
+				
 								<td>${userVo.email}</td>
-								<!-- users table email -->
+			
 								<td>${userVo.hp}</td>
-								<!-- users table hp -->
-								<td>${userVo.lastAccessDate}</td>
-								<!-- users_class table class  -->
-								<td><a href="#">삭제</a></td>
+					
+								<td><fmt:formatDate value="${userVo.lastAccessDate}" pattern ="yyyy-MM-dd"/></td>
+						
+								<td><input type="button" value="삭제" onclick="deleteUser(${userVo.no})"></td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -57,5 +58,5 @@
 	</div>
 </div>
 
-<div>총 ${totalRecord } 건</div>
+<div id ="commonTotal">총 ${totalRecord } 건</div>
 

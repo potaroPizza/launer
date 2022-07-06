@@ -10,7 +10,8 @@
 
 <t:wrapper>
     <script type="text/javascript">
-        const boardClass = ${boardClass}
+        const boardClass = ${boardClass};
+        const categoryNo = "${categoryNo}";
     </script>
     <div class="fixed-margin-top"></div>
     <div id="board-component"></div>

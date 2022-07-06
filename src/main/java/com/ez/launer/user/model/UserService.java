@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ez.launer.common.UserSearchVO;
+import com.ez.launer.office.model.OfficeVO;
 
 public interface UserService {
 	
@@ -47,7 +48,7 @@ public interface UserService {
 	int updateUserHp(UserAllVO vo);
 	int updateUserAddress(UserAllVO vo);
 	int editPwd(UserVO vo);
-
+	List<OfficeVO>selectOffice();
 	
 	
 	
@@ -59,7 +60,7 @@ public interface UserService {
 	int insertAddressOnlyPart(UserAddressVO addressVo);
 	int getUserTotalRecord(UserSearchVO userSearchVo);
 	int insertBranchManager(UserVO userVo);
-
+	public List<UserVO> withdrawUsers();
 
 
 	/* 박권순 */

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="card mb-4">
 	<div class="card-header">일반회원</div>
@@ -35,19 +36,17 @@
 						<c:forEach var="deliveryDriverVo" items="${list }">
 
 							<tr>
-								<!-- 회원 리스트 반복 -->
-
 								<td>${deliveryDriverVo.no}</td>
-								<!-- users table no -->
+					
 								<td>${deliveryDriverVo.name}</td>
-								<!-- users table name -->
+		
 								<td>${deliveryDriverVo.email}</td>
-								<!-- users table email -->
+					
 								<td>${deliveryDriverVo.hp}</td>
-								<!-- users table hp -->
-								<td>${deliveryDriverVo.lastDate}</td>
-								<!-- users_class table class  -->
-								<td><a href="#">삭제</a></td>
+						
+								<td><fmt:formatDate value="${deliveryDriverVo.lastDate}" pattern ="yyyy-MM-dd"/></td>
+			
+								<td><input type="button" value="삭제" onclick="deleteUser(${deliveryDriverVo.no})"></td>
 								
 								
 							</tr>

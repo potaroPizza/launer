@@ -1,12 +1,40 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="<c:url value='/js/adminManager.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/adminManager.js'/>"></script>
 <script type="text/javascript">
 
+	function deleteUser(no){
+		var url ='/launer/admin/user/'+no
+		alert(url)
+		$.ajax({
+			url:url,
+			type:'delete',
+			date: {},
+			dataType    : "html",
+			success:function(data) {
+				alert("성공")
+				location.reload();
+			},
+			error: function(error){
+				alert("성공")
+				location.reload();
+			}
+		});
+	}
+	
+	$(function(){
+		
+		
+		
+		
+	});
+	
+	
+	
 </script>
 
 <t:head>
@@ -35,13 +63,13 @@
 						aria-controls="Branch-manager-pane" aria-selected="false">지점관리자</button>
 				</li>
 			</ul>
-			<br> <input type="text" name="tabNo" value="${tabNo }"
-				id="tabNo" class="paramInput"> <input type="text"
+			<br> <input type="hidden" name="tabNo" value="${tabNo }"
+				id="tabNo" class="paramInput"> <input type="hidden"
 				name="searchCondition" value="${userSearchCondition }"
-				class="paramInput"> <input type="text" name="searchKeyword"
+				class="paramInput"> <input type="hidden" name="searchKeyword"
 				value="${userSearchKeyword }" class="paramInput"> <input
-				type="text" name="searchKeyword" value="${driverSearchKeyword }"
-				class="paramInput"> <input type="text" name="searchKeyword"
+				type="hidden" name="searchKeyword" value="${driverSearchKeyword }"
+				class="paramInput"> <input type="hidden" name="searchKeyword"
 				value="${driverSearchKeyword }" class="paramInput">
 
 			<div class="tab-content" id="myTabContent">
@@ -76,6 +104,12 @@
 								value="${userSearchKeyword}"> <input type="submit"
 								value="검색">
 						</form>
+					</div>
+					
+					<div>
+					<span>탈퇴회원보기</span>
+					<input type ="checkbox" id ="getWithdraw" name ="getWithdraw">
+					
 					</div>
 
 
@@ -122,7 +156,8 @@
 					<!-- 시작 -->
 					<div class="card mb-4">
 						<div class="card-header">관리자 현황</div>
-						<div class="card-body">
+						<div class="card-body"
+							style="width: 100%; height: 700px; overflow: auto">
 							<table class="table table-striped" id="orders">
 								<colgroup>
 									<col style="width: 10%">
@@ -143,9 +178,29 @@
 									</tr>
 								</thead>
 								<tbody id="managerTbody">
-									<tr>
-										<!-- ajax 로 테이블 생성  -->
-									</tr>
+
+									<c:forEach var="map" items="${managerList }">
+
+										<tr>
+											<!-- 관리자 리스트 반복 -->
+
+											<td>${map['NO']}</td>
+											<!-- users table no -->
+											<td>${map['NAME']}</td>
+											<!-- users table name -->
+											<td>${map['EMAIL']}</td>
+											<!-- users table email -->
+											<td>${map['HP']}</td>
+											<!-- users table hp -->
+											<td>${map['OFFICE_NAME']}</td>
+											<!-- users_class table class  -->
+											<td><input type="button" value="삭제"
+												onclick="deleteUser(${map['NO']})"></td>
+										</tr>
+									</c:forEach>
+
+									<!-- ajax table 행추가 -->
+
 								</tbody>
 							</table>
 
@@ -153,8 +208,7 @@
 
 							<div class="modal-button">
 								<!-- 관리자 추가 모달 -->
-								<input type="button" data-bs-toggle="modal"
-									data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가">
+
 
 								<!-- Modal -->
 								<div class="modal fade" id="addAdmin" tabindex="-1"
@@ -175,16 +229,15 @@
 													<div class="adminEmail">
 														<label for="email">이메일</label> <input type="text"
 															name="email" id="email"> <input type="button"
-															value="중복 확인" id="ChkEmail">
+															value="중복 확인" id="btnChkEmail">
 													</div>
 													<div class="adminPassword">
-														<label for="password">비밀번호</label> <input type="text"
-															name="pwd" id="pwd"
-															placeholder="8자 이상의 문자,특수문자 포함">
+														<label for="password">비밀번호</label> <input type="password"
+															name="pwd" id="pwd" placeholder="8자 이상의 문자,특수문자 포함">
 													</div>
 													<div class="adminPassword2">
-														<label for="password2">비밀번호확인</label> <input type="password"
-															name="password2" id="password2">
+														<label for="password2">비밀번호확인</label> <input
+															type="password" name="pwd2" id="pwd2">
 													</div>
 													<div class="adminHp">
 														<label for="hp">전화번호</label> <input type="text" name="hp"
@@ -193,7 +246,7 @@
 													<div class="office">
 														<label for="office">지점</label> <select name="office"
 															id="office">
-	
+
 															<!-- 지점 select -->
 															<option value="" selected>선택</option>
 															<c:forEach var="officeVo" items="${officeList }">
@@ -215,6 +268,8 @@
 							</div>
 						</div>
 					</div>
+					<input type="button" data-bs-toggle="modal"
+						data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가">
 					<!-- 끝 -->
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 package com.ez.launer.admin.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +30,7 @@ import com.ez.launer.delivery.model.DeliveryDriverService;
 import com.ez.launer.delivery.model.DeliveryDriverVO;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
@@ -44,6 +48,7 @@ public class AdminManageController {
 	private final UserService userService;
 	private final DeliveryDriverService deliveryService;
 	private final OfficeService officeService;
+	private final SHA256Encryption sha256;
 
 	@RequestMapping("/stores")
 	public String stores() {
@@ -51,16 +56,25 @@ public class AdminManageController {
 
 		return "/admin/manage/stores";
 	}
-
+	
+	
 	@GetMapping("/users")
 	public String users_get(Model model) {
 
-		//지점 select
+		//지점 select option 생성
 		List<OfficeVO> officeList = officeService.selectAll();
-		logger.info("전체  조회결과 officeList.size={}",officeList.size());
-
+		logger.info("전체 조회결과 officeList.size={}",officeList.size());
+		
+		//지점관리자 list vo
+		List<Map<String, Object>> managerList = officeService.selectAllManager();
+		logger.info("지점 관리자 조회결과 managerList.size={}",managerList.size());
+		
 		model.addAttribute("officeList",officeList);
+		model.addAttribute("managerList",managerList);
 		return"/admin/users";
+		
+		
+		
 	}
 
 	@PostMapping("/users")
@@ -157,24 +171,58 @@ public class AdminManageController {
 
 	@RequestMapping("/insertManager")
 	@ResponseBody
-	public UserVO insertManager(@ModelAttribute UserVO userVo, Model model,@RequestParam int office){
+	public Map<String, Object> insertManager(@ModelAttribute UserVO userVo, Model model,@RequestParam int office) throws NoSuchAlgorithmException{
 		logger.info("파라미터 userVo ={}",userVo);
 		logger.info("지점 officeNo ={}",office);
 		
+		//비밀번호 암호화 필요
+		String pwd = sha256.encrypt(userVo.getPwd());
+		userVo.setPwd(pwd);
+
+		//user 테이블 insert
 		int cnt =  userService.insertBranchManager(userVo);
 		logger.info("관리자 user 등록 결과={}",cnt);
+
+		int usersNo = 0;
 		if(cnt>0) {
+			//userNo 가져오기
 			userVo = userService.selectByEmail(userVo.getEmail());
-			int usersNo = userVo.getNo();
+			usersNo = userVo.getNo();
 			
+			//office_admin insert
 			Map<String, Object> map = new HashMap<>();
 			map.put("usersNo", usersNo);
 			map.put("officeNo", office);
 			
 			int result = officeService.insertOfficeAdmin(map);
 			logger.info("관리자 OfficeAdmin 등록 결과={}",result);
-			model.addAttribute("userVo",userVo);
+			
 		}
-		return userVo;
+		//반환될 뷰 select
+		Map<String, Object> managerMap = officeService.selectManagerByNo(usersNo);
+		logger.info("반환 뷰 map ={}",managerMap.get("NAME"));
+		model.addAttribute("userVo",userVo);
+		model.addAttribute("map",managerMap);
+		return managerMap;
+
 	}
+
+	@DeleteMapping("/user/{no}")
+	public String deleteAdmin(@PathVariable("no") int no) {
+		System.out.println("no "+no);
+		int result = userService.deleteUser(no);
+		System.out.println("result "+result);
+		return "redirect:/admin/users";
+	}
+	
+	@RequestMapping("getWithdrawUser")
+	@ResponseBody
+	public List<UserVO> getWithdrawUsers(){
+		
+		List<UserVO> withdrawList = userService.withdrawUsers();
+		logger.info("탈퇴회원 list size ={}",withdrawList.size());
+		
+		return withdrawList;
+	}
+
 }

@@ -77,14 +77,14 @@
       where no=#{no} and out_date is null
    	</select>
     
-     <!--배달기사 비밀번호 변경처리 -->
+     <!--배송기사 비밀번호 변경처리 -->
    	<update id="editPwd" parameterType="deliveryDriverVo">
       update delivery_driver 
       set pwd=#{pwd}
       where no=#{no}
    	</update>
    	
-   	<!-- 배달기사정보 수정 (전화번호,지점)  -->
+   	<!-- 배송기사정보 수정 (전화번호,지점)  -->
    <update id="updateDeliveryHp" parameterType="deliveryDriverAllVo">
       update delivery_driver
       set hp=#{hp},office_No=1
@@ -92,14 +92,14 @@
       where no=#{no}
    </update>
    
-   <!-- 배달기사정보 수정(계좌정보) -->
+   <!-- 배송기사정보 수정(계좌정보) -->
    <update id="updateAccountInfo" parameterType="deliveryDriverAllVo">
 	   	update account_information
 		set bank=#{bank},account_number=#{accountNumber},account_holder=#{accountHolder}
 		where delivery_driver_no=#{no}
    </update>
    
-   <!-- 배달기사 회원 탈퇴처리 -->
+   <!-- 배송기사 회원 탈퇴처리 -->
    <update id="deleteDelivery" parameterType="int">
       update delivery_driver set out_date=sysdate
       where no=#{no}

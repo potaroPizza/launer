@@ -21,6 +21,8 @@ function execZipcode() {
                 document.getElementById('zipcode').value = data.zonecode;
                 document.getElementById("address").value = addr;
                 document.getElementById("addressDetail").focus();
+                
+                coorSet(addr);
             }
         }).open();
     }
@@ -111,7 +113,7 @@ function execZipcode() {
 			})
 			$('form[name=usereditfrm] #pwd').keyup(function(){
 				if(!isPassword($('form[name=usereditfrm] #pwd').val())){
-					$('form[name=usereditfrm] .error_next_box').eq(1).text("비밀번호를 입력해주세요.").css("color","red");
+					$('form[name=usereditfrm] .error_next_box').eq(1).text("비밀번호 형식이 맞지 않습니다.").css("color","red");
 				}else{
 					$('form[name=usereditfrm] .error_next_box').eq(1).text("")
 				}
@@ -157,3 +159,17 @@ function execZipcode() {
 			})
 			
 		});
+		
+		
+function coorSet(addr) {
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(addr, function(result, status) {
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+	    document.querySelector("input[name=lonX]").value = result[0].y;
+	    document.querySelector("input[name=latY]").value = result[0].x;
+    }
+}); 
+}

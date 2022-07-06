@@ -21,5 +21,13 @@
 			insert into office_admin(no,users_no,office_no)
 			values(#{no},#{usersNo},#{officeNo})
 	</insert>
-
+	
+	<!-- 관리자 -->
+	<select id="selectAllManager" resultType ="map">
+		select * from users_office_admin_view	
+	</select>
+	<!-- 관리자 -->
+	<select id="selectManagerByNo" resultType ="map" parameterType="int">
+		select * from users_office_admin_view where no =#{no}	
+	</select>
 </mapper>

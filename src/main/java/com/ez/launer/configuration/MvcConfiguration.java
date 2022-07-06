@@ -18,7 +18,10 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		// 레지스트리에 인터셉터 등록
 		registry.addInterceptor(new LoginInterceptor())
 				.addPathPatterns("/laundryService/**")
-				.addPathPatterns("/mypage/**");
+				.addPathPatterns("/mypage/**")
+				.addPathPatterns("/user/**")
+				.excludePathPatterns("/user/login/**")
+				.excludePathPatterns("/mypage/signout");
 		
 		registry.addInterceptor(new AdminLoginInterceptor())
 		.addPathPatterns("/admin/**")
