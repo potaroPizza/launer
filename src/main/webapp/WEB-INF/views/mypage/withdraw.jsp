@@ -17,7 +17,8 @@
 			<h2>회원 탈퇴</h2>
 		</div>
 		<div class="withdraw-explain">
-			<c:if test="${vo.userCode=='1' && vo.socialLoginKey==null} ">
+			<c:if test="${vo.userCode=='1' && vo.socialLoginKey==null}">
+			
 				<p>
 					<span style="font-size: 25px; color: black;">${vo.name}님</span>
 					탈퇴하시겠습니까?
