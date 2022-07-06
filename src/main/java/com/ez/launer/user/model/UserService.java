@@ -15,6 +15,11 @@ public interface UserService {
 	//휴대전화 번호 중복확인에서 사용하는 상수
 		public static final int USABLE_HP=1;  //사용가능한 이메일
 		public static final int UNUSABLE_HP=2; //중복이라 사용불가능한 이메일
+	
+	//이메일 찾기시 사용하는 상수
+		public static final int FINDEMAIL_OK=1;
+		public static final int DISAGREE_EMAIL=2;
+		public static final int NONE_EMAIL=3;
 		
 	//로그인 체크시 사용하는 상수
 	public static final int LOGIN_OK=1; //로그인 성공
@@ -33,6 +38,8 @@ public interface UserService {
 	public int loginChk(String email, String pwd);
 	DriverVO selectByDmail(String dmail);
 	public int dloginChk(String dmail, String dPwd);
+	String findEmail(UserVO vo);
+	String findDmail(DriverAllVO vo);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);

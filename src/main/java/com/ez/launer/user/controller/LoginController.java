@@ -91,13 +91,51 @@ public class LoginController {
 	
 	@GetMapping("/findId")
 	public void findId() {
-		logger.info("아이디 찾기 화면");
+		logger.info("이메일 찾기 화면");
 
+	}
+	
+	@PostMapping("/findId")
+	public String findId_post(@ModelAttribute UserVO vo, DriverAllVO dvo,
+			@RequestParam int searchType, Model model) {
+		String result="";
+		
+		if(searchType==1) {
+			logger.info("일반회원 이메일 찾기, 파라미터 vo={}, searchType={}",vo, searchType);
+				
+			result=userService.findEmail(vo);
+			if(result==null || result.isEmpty()) {
+				result="해당 정보와 일치하는 이메일이 존재하지 않습니다";
+			}
+			
+			logger.info("일반회원 이메일 찾기 정보 결과 result={}", result);
+			model.addAttribute("result", result);
+
+		}else if(searchType==2) {
+			logger.info("배송기사 이메일 찾기, 파라미터 vo={}, searchType={}",dvo, searchType);
+			
+			result=userService.findDmail(dvo);
+			if(result==null || result.isEmpty()) {
+				result="해당 정보와 일치하는 이메일이 존재하지 않습니다";
+			}
+			
+			logger.info("배송기사 이메일 찾기 정보 결과 result={}", result);
+			model.addAttribute("result", result);
+			
+		}
+		
+		return "/user/findId";
 	}
 	
 	@GetMapping("/findPwd")
 	public void findPwd() {
 		logger.info("비밀번호 찾기 화면");
+
+	}
+	
+	@GetMapping("/findId_modal")
+	public void findId_modal() {
+		logger.info("아이디 찾기 모달");
 
 	}
 

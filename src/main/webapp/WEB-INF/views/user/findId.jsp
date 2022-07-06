@@ -6,8 +6,45 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<link rel="stylesheet" href="<c:url value="/css/user/findIdPwd.css"/>"/>
-
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript">
+$(function(){
+	$("#findIdBtn").click(function(){
+		$("#modal-wrap").css("display","flex").hide().fadeIn();
+	});
+	$("#confirm").click(function(){
+    	modalClose();
+	});
+	$("#close").click(function(){
+    	modalClose();
+	});
+	function modalClose(){
+  		$("#modal-wrap").fadeOut();
+	}
+});
+</script>
 <div id="findIdPwd_wrap">
+	<div id="modal-wrap">
+		<div class="findId-modal">
+			<div class="modalhead">
+			    <h2 class="head-title">Launer</h2>
+			</div>
+			<div class="modal-body">
+				<div class="body-content">
+					<div class="body-titlebox">
+					<span class="body-title">이메일 찾기 결과</span>
+					</div>
+					<div class="body-contentbox">
+					<span>${result}</span>
+					</div>
+				</div>
+			</div>
+			<div class="modal-foot">
+			<span class="modal-btn confirm" id="confirm">확인</span>
+			<span class="modal-btn close" id="close">창 닫기</span>
+			</div>
+		</div>
+	</div>
 	<div class="findIdPwdsubWrap">
 		<div class="titleArea">
 			<h2>이메일 찾기</h2>
@@ -22,19 +59,20 @@
 					<div id="findIdPwdbox">
 			            <p class="memberType"><strong>회원유형</strong>
 			            	<select id="searchType" name="searchType">
-								<option value="general" selected="selected">일반회원</option>
-								<option value="driver">배송 기사 회원</option>
+								<option value=1 selected="selected">일반회원</option>
+								<option value=2 >배송기사 회원</option>
 							</select>
 						</p>
 						<p id="name_view" style=""><strong id="name_lable">이름</strong>
-							<input id="name" name="name" type="text">
+							<input type="text" name="name" id="name">
 						</p>
 						<p id="mobile_view"><strong>휴대폰 번호</strong> 
 							<input type="text" name="hp" id="hp" maxlength="11" 
 								placeholder="-를 제외하고 입력해주세요">
 						</p>
 						<div class="findIdPwdBtnWrap">
-                			<button class="findIdPwdBtn">확인</button>
+                			<button class="findIdPwdBtn" id="findIdBtn"
+                				onclick="idSearch_click()">확인</button>
             			</div>
 					</div>
 				</div>
