@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod ="60 seconds">
+
+
+	<!-- 로그파일 저장 경로 !! 본인 경로에 맞게 변경 --> 
+	<property name="LOG_DIR" value="/logs" />
+
+	<!-- CONSOLE 출력 형식 변경 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> <!-- consoleLog -->
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} : %30logger{5} - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	<!-- // CONSOLE -->
+	
+	
+	<!-- SYSLOG -->
+	<appender name="SYSLOG" class="ch.qos.logback.core.rolling.RollingFileAppender"> <!-- 여러 파일에 log 찍음 -->
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} : %30logger{5} - %msg%n
+			</Pattern>
+		</layout>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/syslog/logback-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	<!-- // SYSLOG -->
+	
+	
+	<!-- ACCESSLOG -->
+	<!-- logger name 을 맞춰주면 특정 logger 만 따로 수집가능 ! -->
+	<appender name="ACCESSLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%msg%n
+			</Pattern>
+		</layout>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/accesslog/accesslog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	
+	<logger name = "accessLogger" level ="info">
+		<appender-ref ref= "ACCESSLOG"/>
+	</logger>
+	<!-- // ACCESSLOG -->
+	
+	
+	<!-- ERRORLOG 안찍힘. 수정필요 -->
+	<appender name="ERRORLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+	
+        <layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%msg%n
+			</Pattern>
+		</layout>
+        
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/errorlog/errorlog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			 <maxHistory>30</maxHistory> <!-- 에러로그만 보관주기지정 -->
+		</rollingPolicy>
+		
+	</appender>
+	<!-- // ERRORLOG -->
+	
+	
+	
+	<root level="info">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="SYSLOG" />
+	</root>
+	<logger name="com.example.logbackStudy" level="debug" additivity="false">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+	<logger name="access-log" level="info" additivity="false">
+		<appender-ref ref="ACCESSLOG" />
+	</logger>
+	
+	
+</configuration>

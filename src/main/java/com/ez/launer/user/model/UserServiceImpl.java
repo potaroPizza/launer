@@ -249,6 +249,16 @@ public class UserServiceImpl implements UserService{
 	public List<UserVO> withdrawUsers() {
 		return userDao.withdrawUsers();
 	}
+	@Override
+	public int insertToday(String userNo, String date) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int insertToday(Map<String, Object> map) {
+		return userDao.insertToday(map);
+	}
+	
 
 	
 

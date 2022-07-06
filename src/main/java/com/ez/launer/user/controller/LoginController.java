@@ -1,5 +1,7 @@
 package com.ez.launer.user.controller;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,9 @@ import lombok.RequiredArgsConstructor;
 public class LoginController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(LoginController.class);
+	
+	private static final Logger accessLogger
+	=LoggerFactory.getLogger("accessLogger");
 
 	
 	private final UserService userService;
@@ -40,6 +45,7 @@ public class LoginController {
 
 		logger.info("로그인 화면");
 		
+		
 		return "/user/login";
 	}
 
@@ -49,17 +55,23 @@ public class LoginController {
 		HttpServletRequest request,HttpServletResponse response, 
 		Model model) throws NoSuchAlgorithmException {
 		logger.info("로그인 처리, 파라미터 vo={}, saveUseremail={}", vo, saveUseremail);
+		
+		
 		String pwd = sha256.encrypt(vo.getPwd());
 		vo.setPwd(pwd);
 
 		int result=userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);
 		
+		
 		String msg="로그인 처리 실패", url="/user/login";
 		if(result==UserService.LOGIN_OK) {
 			UserVO uVo=userService.selectByEmail(vo.getEmail());
 			logger.info("로그인 처리-회원정보 조회결과 uVo={}", uVo);
-			
+
+			//accesslog 추가
+			accessLogger.info("userNO={}",uVo.getNo());
+
 			HttpSession session=request.getSession();
 			session.setAttribute("email", vo.getEmail());
 			session.setAttribute("name", uVo.getName());

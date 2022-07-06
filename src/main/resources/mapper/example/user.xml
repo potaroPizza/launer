@@ -192,6 +192,11 @@
 		select * from users where out_date is not null
 	</select>
 	
+	<!-- today check -->
+	<insert id="insertToday" parameterType="map">
+		insert into today(no,users_no,access_date)
+		values(today_seq.nextval,#{usersNo},#{date})
+	</insert>
 	
 
 
