@@ -140,6 +140,16 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 	
+	//일반회원 이메일 찾기
+	@Override
+	public String findEmail(UserVO vo) {
+		return userDao.findEmail(vo);
+	}
+	//배송기사 이메일 찾기
+	@Override
+	public String findDmail(DriverAllVO vo) {
+		return userDao.findDmail(vo);
+	}
 	
 	@Override
 	public UserVO selectById(int no) {

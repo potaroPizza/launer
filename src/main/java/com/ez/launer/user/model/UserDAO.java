@@ -19,10 +19,12 @@ public interface UserDAO {
 	public int insertAccount(DriverAllVO vo);
 	public int chkDmail(String email);
 	public int chkDhp(String hp);
-	UserVO selectByEmail(String email);
+	public UserVO selectByEmail(String email);
 	String selectPwd2(String email);
 	DriverVO selectByDmail(String dmail);
 	String selectPwd3(String dmail);
+	String findEmail(UserVO vo);
+	String findDmail(DriverAllVO vo);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);

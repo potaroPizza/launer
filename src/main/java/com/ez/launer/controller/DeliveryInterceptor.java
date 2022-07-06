@@ -16,12 +16,12 @@ public class DeliveryInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("preHandle() 실행");
+		logger.info("DeliveryInterceptor preHandle() 실행");
 
 		HttpSession session = request.getSession();
 
-		String deliveryNo = String.valueOf(request.getSession().getAttribute("deliveryNo"));
-		logger.info("email = {}", deliveryNo);
+		String deliveryNo = (String)(session.getAttribute("deliveryNo"));
+		logger.info("deliveryNo = {}", deliveryNo);
 
 		if(deliveryNo == null || deliveryNo.isEmpty()) {
 			response.setContentType("text/html; charset = UTF-8");

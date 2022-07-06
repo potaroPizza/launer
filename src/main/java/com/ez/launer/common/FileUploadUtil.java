@@ -23,13 +23,50 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class FileUploadUtil {
 	private static final Logger logger
 		= LoggerFactory.getLogger(FileUploadUtil.class);
+
+	//input multipart일 경우?
+	public List<Map<String, Object>> mulitiFileUpload(HttpServletRequest request,
+												int uploadFlag) throws IllegalStateException, IOException {
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+
+		List<Map<String, Object>> list = new ArrayList<>();
+
+		List<MultipartFile> fileMap = multiRequest.getFiles("file");
+		for(MultipartFile multipartFile : fileMap) {
+			if(!multipartFile.isEmpty()) {
+				long fileSize = multipartFile.getSize();	// 파일 크기
+				String oName = multipartFile.getOriginalFilename();	// 원래 파일명
+
+				//변경된 파일이름 구하기
+				String fileName = getUniqueFileName(oName);
+
+				//업로드할 폴더 구하기
+				String uploadPath
+						= getUploadPath(request, uploadFlag);
+
+				//파일 업로드 처리
+				File file = new File(uploadPath, fileName);
+				multipartFile.transferTo(file);
+
+				//업로드된 파일 정보 저장, (파일크기, 파일명2개를 VO나 Map으로 묶으면 된다)
+				//[1] Map에 저장
+				Map<String, Object> resultMap = new HashMap<>(); // <>뒤에는 생략가능
+				resultMap.put("fileName", fileName);
+				resultMap.put("fileSize", fileSize);
+				resultMap.put("originalFileName", oName);
+
+				//[2] 여러 개의 Map을 List에 저장
+				list.add(resultMap);
+			}
+		}
+
+		return list;
+	}
+
 	
 	public List<Map<String, Object>> fileUpload(HttpServletRequest request,
-			int uploadFlag)
-			
-			throws IllegalStateException, IOException {
-		MultipartHttpServletRequest multiRequest
-			= (MultipartHttpServletRequest)request;
+			int uploadFlag) throws IllegalStateException, IOException {
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
 		
 		// MultipartHttpServletRequest인터페이스의 부모인터페이스인 MultipartRequest의
 		// 메소드중 한개를 사용하여, 파라미터 이름을 키로 파라미터에 해당하는 파일 정보를 값으로하는 map을 리턴함
@@ -44,29 +81,29 @@ public class FileUploadUtil {
 			String key  = keyIter.next();
 			MultipartFile tempFile = fileMap.get(key);
 			//=> 업로드된 파일을 임시파일 형태로 제공 (MultipartFile객체의 존재의의)
-			
+
 			if(!tempFile.isEmpty()) {	// 파일이없으면, 마지막에 list==null로 리턴
 				long fileSize = tempFile.getSize();	// 파일 크기
 				String oName = tempFile.getOriginalFilename();	// 원래 파일명
-				
+
 				//변경된 파일이름 구하기
 				String fileName = getUniqueFileName(oName);
-				
+
 				//업로드할 폴더 구하기
 				String uploadPath
 					= getUploadPath(request, uploadFlag);
-				
+
 				//파일 업로드 처리
 				File file = new File(uploadPath, fileName);
 				tempFile.transferTo(file);
-				
+
 				//업로드된 파일 정보 저장, (파일크기, 파일명2개를 VO나 Map으로 묶으면 된다)
 				//[1] Map에 저장
 				Map<String, Object> resultMap = new HashMap<>(); // <>뒤에는 생략가능
 				resultMap.put("fileName", fileName);
 				resultMap.put("fileSize", fileSize);
 				resultMap.put("originalFileName", oName);
-				
+
 				//[2] 여러 개의 Map을 List에 저장
 				list.add(resultMap);
 			}//if
