@@ -31,7 +31,7 @@ public class LogScheduler {
 	    public void readLogFile () throws IOException {
 		 	String basePath = "C:\\logs\\accesslog\\accesslog-";
 	    	Date d = new Date(); //오늘날짜
-	       // d = new Date(d.getTime()+(1000*60*60*24*-1)); //어제날짜
+	        d = new Date(d.getTime()+(1000*60*60*24*-1)); //어제날짜
 	        SimpleDateFormat yesterday = new SimpleDateFormat("yyyy-MM-dd");
 	        
 	        //accesslog 파일 찾아서 => 파일 정보 읽어서 => list에 저장
