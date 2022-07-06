@@ -12,4 +12,6 @@ public class BoardVO {
     private String content;
     private Timestamp regdate;
     private String categoryNo;
+    private String name;
+    private int viewCount;
 }

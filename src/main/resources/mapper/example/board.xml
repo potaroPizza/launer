@@ -7,8 +7,8 @@
         <selectKey keyProperty="no" resultType="int" order="BEFORE">
             select BOARD_SEQ.nextval from DUAL
         </selectKey>
-        insert into BOARD(no, users_no, title, content, category_no)
-        values (#{no}, #{userNo}, #{title}, #{content}, #{categoryNo})
+        insert into BOARD(no, users_no, title, content, category_no, NAME)
+        values (#{no}, #{usersNo}, #{title}, #{content}, #{categoryNo}, #{name})
     </insert>
 
     <!-- 게시글 파일 추가 -->

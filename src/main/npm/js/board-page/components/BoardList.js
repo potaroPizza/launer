@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import BoardAdd from "./BoardAdd";
 
-const BoardList = ({userInfo, contentData}) => {
+const BoardList = ({userInfo, contentData, contentList}) => {
     console.log("BoardList 컴포넌트");
     const[addBtn, setAddBtn] = useState(false);
     const[boardBool, setBoardBool] = useState(false);
@@ -31,7 +31,7 @@ const BoardList = ({userInfo, contentData}) => {
     useEffect(() => {
         setUserSet();
         conDataSet();
-    }); //컴포넌트 변경될 때마다 실행
+    }, [userCode]); //컴포넌트 변경될 때마다 실행
 
     const setUserSet = () => {
         if(((boardClass === 1) && (parseInt(userCode) === 3 || parseInt(userCode) === 4))) {
@@ -58,7 +58,7 @@ const BoardList = ({userInfo, contentData}) => {
             <div key={item.no} className="list-line">
                 <div className="list-col-1">{item.no}</div>
                 <div className="list-col-2">{item.title}</div>
-                <div className="list-col-3">{item.userNo}</div>
+                <div className="list-col-3">{item.name}</div>
                 <div className="list-col-4">{dateReturn(date)}</div>
             </div>
         )
@@ -98,7 +98,7 @@ const BoardList = ({userInfo, contentData}) => {
                     (boardClass === 2 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
                     (boardClass === 3 && (parseInt(userCode) === 3 || parseInt(userCode) === 4)) ? "" : btnComponent}
             </div>
-            {addBtn && <BoardAdd addBtnOnClickEvent={addBtnOnClickEvent} userInfo={userInfo} animateClass={boardBool}/>}
+            {addBtn && <BoardAdd contentList={contentList} addBtnOnClickEvent={addBtnOnClickEvent} userInfo={userInfo} animateClass={boardBool}/>}
             {/*<BoardAdd/>*/}
             <div className="list-part">
                 <form>

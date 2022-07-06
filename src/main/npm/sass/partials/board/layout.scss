@@ -5,7 +5,7 @@
 & {
   width: $webWidth;
   margin: 0 auto;
-
+  min-height: 680px;
   /* input 기본 스타일 초기화 */
   input {
     -webkit-appearance: none;
@@ -121,6 +121,25 @@
             &:nth-child(1) {border-radius: $card-bar-radius 0 0 $card-bar-radius}
             &:nth-child(2) {border-radius: 0 $card-bar-radius $card-bar-radius 0}
             &:hover{background: #b6b6b6;}
+          }
+        }
+
+        .page-list{
+          margin-top: 20px;
+          border-radius: 10px;
+          background:#F9F8FC;
+          width: 70%;
+          display: flex;
+          overflow: hidden;
+          button{
+            display: block;
+            padding: 10px 5px;
+            flex-grow: 1;
+
+            &.on {
+              cursor: default;
+              background: #c2c2c9;
+            }
           }
         }
       }

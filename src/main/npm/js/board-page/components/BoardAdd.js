@@ -10,7 +10,7 @@ import QuillEditor from "./Editor/QuillEditor";
 // ajax로 이미지 업로드와 업로드 된 이미ㄴ의 경로를 써줄 거임
 // 응 실패 => QuillEditor에서 관련된 이벤트를 제공함, 그걸 활용
 
-const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent}) => {
+const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => {
     const [value, setValue] = useState("");
     const [maxiumText, setMaxiumText] = useState("");
     const quillRef = useRef();
@@ -93,7 +93,8 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent}) => {
             "title": $("input[name=title]").val(),
             "content": $("input[name=content]").val(),
             "usersNo": userInfo.no,
-            "categoryNo": categoryNo
+            "categoryNo": categoryNo,
+            "name": userInfo.name
         }
 
         const fileInput = $('input[type=file]');    //input type=file인 요소 선택
@@ -118,6 +119,7 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent}) => {
                 alert(res.msg);
 
                 if(res.SUCCESS) {
+                    contentList();
                     addBtnOnClickEvent();
                 }else {
                     window.location.reload();

@@ -161,16 +161,18 @@ public class BoardController {
     //카테고리에 맞는 게시글 조회
     @GetMapping("/board/searchList")
     @ResponseBody
-    public Map<String, Object> boardList(@RequestParam String categoryNo)
+    /*public Map<String, Object> boardList(@RequestParam String categoryNo)
+            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {*/
+    public Map<String, Object> boardList(@RequestParam Map<String, Object> paramMap)
             throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        logger.info("게시글 조회, categoryNo={}", categoryNo);
+        logger.info("게시글 조회, map={}", paramMap);
 
-        List<BoardVO> list = boardService.selectByCategoryNo(categoryNo);
+        List<BoardVO> list = boardService.selectByCategoryNo((String) paramMap.get("categoryNo"));
         logger.info("게시글 조회 결과, list.size={}", list.size());
 
         List<Map<String, Object>> resList = new ArrayList<>();
         for(BoardVO boardVO : list) {
-            logger.info("boardVO={}", boardVO);
+//            logger.info("boardVO={}", boardVO);
             Map<String, Object> map = BeanUtils.describe(boardVO);
             resList.add(map);
         }
