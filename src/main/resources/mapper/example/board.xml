@@ -20,9 +20,40 @@
         values (#{no}, #{boardNo}, #{fileName}, #{originalFileName}, #{fileSize})
     </insert>
 
-    <select id="selectByCategoryNo" parameterType="string" resultType="boardVo">
+    <!--<select id="selectByCategoryNo" parameterType="string" resultType="boardVo">
         select * from BOARD
         where CATEGORY_NO = #{categoryNo}
         order by NO desc
+    </select>-->
+
+    <sql id="searchWhere">
+        <if test="searchKeyword != null and searchKeyword != ''">
+            and ${searchCondition} like '%' || #{searchKeyword} || '%'
+        </if>
+    </sql>
+
+    <select id="selectByCategoryNo" parameterType="hashmap" resultType="Map">
+        select *
+        from
+        (
+            select rownum as RNUM, A.*
+            from
+            (
+                select * from BOARD
+                where CATEGORY_NO = #{categoryNo}
+                <include refid="searchWhere"/>
+                order by NO desc
+            ) A
+        )
+        where RNUM > #{firstRecordIndex}
+        <![CDATA[
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+    </select>
+
+    <select id="countBoardList" parameterType="string" resultType="int">
+        select count(*) from BOARD
+        where CATEGORY_NO = #{categoryNo}
+        <include refid="searchWhere"/>
     </select>
 </mapper>

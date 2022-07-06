@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import BoardPaging from "./BoardPaging";
 
-const BoardTitle = ({userInfo, boardClass, page, currentPage, currentPageEvent}) => {
+const BoardTitle = ({userInfo, boardClass, page, currentPage, currentPageEvent, contentList}) => {
     console.log("BoardTitle 컴포넌트");
     const[stateUser, setStateUser] = useState("사용자명");
     const[boardTitle, setBoardTitle] = useState("BOARD")
@@ -21,7 +21,7 @@ const BoardTitle = ({userInfo, boardClass, page, currentPage, currentPageEvent})
                 <h2>접속된 사용자</h2>
                 <div className="user-name">{stateUser}</div>
             </div>
-            <BoardPaging currentPageEvent={currentPageEvent} page={page} currentPage={currentPage}/>
+            <BoardPaging contentList={contentList} currentPageEvent={currentPageEvent} page={page} currentPage={currentPage}/>
         </div>
     );
 };

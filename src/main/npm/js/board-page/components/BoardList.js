@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import BoardAdd from "./BoardAdd";
 
-const BoardList = ({userInfo, contentData, contentList}) => {
+const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
     console.log("BoardList 컴포넌트");
     const[addBtn, setAddBtn] = useState(false);
     const[boardBool, setBoardBool] = useState(false);
@@ -53,12 +53,12 @@ const BoardList = ({userInfo, contentData, contentList}) => {
     // 실제적으로 list가 되는 div 요소 셋팅
     // console.log("boardList : " +  boardList);
     const conList = boardList.map(item => {
-        const date = new Date(item.regdate);
+        const date = new Date(item.REGDATE);
         return (
-            <div key={item.no} className="list-line">
-                <div className="list-col-1">{item.no}</div>
-                <div className="list-col-2">{item.title}</div>
-                <div className="list-col-3">{item.name}</div>
+            <div key={item.NO} className="list-line">
+                <div className="list-col-1">{item.NO}</div>
+                <div className="list-col-2">{item.TITLE}</div>
+                <div className="list-col-3">{item.NAME}</div>
                 <div className="list-col-4">{dateReturn(date)}</div>
             </div>
         )
@@ -80,12 +80,22 @@ const BoardList = ({userInfo, contentData, contentList}) => {
         </div>
     );
 
+    const searchSubmit = useCallback((e) => {
+        e.preventDefault();
+
+        const selectType = document.querySelector("select[name=search-type]")
+            .options[document.querySelector("select[name=search-type]").selectedIndex]
+            .value;
+        const selectText = document.querySelector("input[name=search-text]").value;
+        searchProccess(selectText, selectType);
+    })
+
     return (
         <div className="board-list-component">
             <div className="title-wrap">
                 <div className="search-part">
                     <h2>Filter</h2>
-                    <form name="search">
+                    <form name="search" onSubmit={searchSubmit}>
                         <select name="search-type">
                             <option value="title">제목</option>
                             <option value="content">내용</option>

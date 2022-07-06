@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +39,12 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<BoardVO> selectByCategoryNo(String categoryNo) {
-        return boardDAO.selectByCategoryNo(categoryNo);
+    public List<Map<String, Object>> selectByCategoryNo(Map<String, Object> map) {
+        return boardDAO.selectByCategoryNo(map);
+    }
+
+    @Override
+    public int countBoardList(Map<String, Object> map) {
+        return boardDAO.countBoardList(map);
     }
 }
