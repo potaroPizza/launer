@@ -5,6 +5,7 @@ import com.ez.launer.board.model.BoardVO;
 import com.ez.launer.board.model.UploadFileVO;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.FileUploadUtil;
+import com.ez.launer.common.PaginationInfo;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 import lombok.RequiredArgsConstructor;
@@ -70,9 +71,8 @@ public class BoardController {
 //        int userNo = 1000;
 
         UserVO userVO = userService.selectById(userNo);
-        Map<String, Object> map = BeanUtils.describe(userVO);   //BeanUtils.describe() => Vo 프로퍼티를 map으로 바꿔준다고함
 
-        return map;
+        return (Map<String, Object>) BeanUtils.describe(userVO);    //BeanUtils.describe() => Vo 프로퍼티를 map으로 바꿔준다고함
     }
 
 
@@ -165,9 +165,40 @@ public class BoardController {
             throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {*/
     public Map<String, Object> boardList(@RequestParam Map<String, Object> paramMap)
             throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        logger.info("게시글 조회, map={}", paramMap);
+        logger.info("게시글 조회, paramMap={}", paramMap);
 
-        List<BoardVO> list = boardService.selectByCategoryNo((String) paramMap.get("categoryNo"));
+        PaginationInfo pagingInfo = new PaginationInfo();
+        pagingInfo.setBlockSize(5);
+        pagingInfo.setRecordCountPerPage(10);
+        pagingInfo.setCurrentPage(Integer.parseInt((String) paramMap.get("currentPage")));
+
+        paramMap.put("firstRecordIndex", pagingInfo.getFirstRecordIndex());
+        paramMap.put("recordCountPerPage", 10);
+        logger.info("페이징 작업 후 paramMap={}", paramMap);
+
+        List<Map<String, Object>> list = boardService.selectByCategoryNo(paramMap);
+        logger.info("게시글 조회 결과, list.size={}", list.size());
+
+        int totalRecord = boardService.countBoardList(paramMap);
+        logger.info("totalRecord={}", totalRecord);
+
+        pagingInfo.setTotalRecord(totalRecord);
+        logger.info("pagingInfo={}", pagingInfo);
+
+        Map<String, Object> resMap = new HashMap<>();
+
+        resMap.put("jsonData", list);
+        resMap.put("pagingInfo", pagingInfo);
+        resMap.put("SUCCESS", true);
+
+        return resMap;
+    }
+
+    /*public Map<String, Object> boardList(@RequestParam String categoryNo)
+            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        logger.info("게시글 조회, categoryNo={}", categoryNo);
+
+        List<BoardVO> list = boardService.selectByCategoryNo(categoryNo);
         logger.info("게시글 조회 결과, list.size={}", list.size());
 
         List<Map<String, Object>> resList = new ArrayList<>();
@@ -182,5 +213,5 @@ public class BoardController {
         resMap.put("SUCCESS", true);
 
         return resMap;
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 
 const BoardPaging = ({page, currentPage, currentPageEvent}) => {
     const pageClickEvent = (e) => {
@@ -6,18 +6,26 @@ const BoardPaging = ({page, currentPage, currentPageEvent}) => {
         currentPageEvent(e);
     }
 
-    const pageBtnSet = page.map(item => {
+    const pageBtnSet = page.map((item, index) => {
         if(item === currentPage) {
             return (
-                <button key={item} className="on">{item}</button>
+                <button key={index} className="on">{item}</button>
+            )
+        }else if(item === 0) {
+            return (
+                <span key={index} className="on">{item}</span>
             )
         }
 
         return (
-            <button key={item} onClick={event => pageClickEvent(item)}>
+            <button key={index} onClick={() => pageClickEvent(item)}>
                 {item}
             </button>
         )
+    });
+
+    const onClickPageBtn = useCallback((e) => {
+        currentPageEvent(currentPage+(e));
     });
 
     return (
@@ -27,8 +35,8 @@ const BoardPaging = ({page, currentPage, currentPageEvent}) => {
             </div>
             <div className="paging-list">
                 <div className="paging-btn">
-                    <button><i className="fa-solid fa-caret-left"></i></button>
-                    <button><i className="fa-solid fa-caret-right"></i></button>
+                    <button onClick={() => onClickPageBtn(-1)}><i className="fa-solid fa-caret-left"></i></button>
+                    <button onClick={() => onClickPageBtn(1)}><i className="fa-solid fa-caret-right"></i></button>
                 </div>
                 <div className="page-list">
                     {pageBtnSet}
