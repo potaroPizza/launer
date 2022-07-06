@@ -313,8 +313,8 @@ public class MypageController {
 		vo.setNo(no);
 		logger.info("비밀번호 변경, vo={} ,파라미터 newPwd={}",vo,newPwd);
 
-		String pwd = sha256.encrypt(vo.getPwd());
-		vo.setPwd(pwd);
+		//String pwd = sha256.encrypt(vo.getPwd());
+		//vo.setPwd(pwd);
 		
 		int result=userService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("비밀번호 변경 처리, 비밀번호 조회 결과 result={}", result);
