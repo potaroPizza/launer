@@ -30,4 +30,10 @@
 	<select id="selectManagerByNo" resultType ="map" parameterType="int">
 		select * from users_office_admin_view where no =#{no}	
 	</select>
+	
+	<!-- 지점관리자 삭제시 office_admin테이블에서 삭제 -->
+	<delete id="deleteOfficeAdmin" parameterType="int">
+		delete from office_admin where users_no = #{usersNo}
+	</delete>
+	
 </mapper>
