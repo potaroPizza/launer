@@ -20,10 +20,10 @@ public class DeliveryInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 
-		String deliveryNo = (String)(session.getAttribute("deliveryNo"));
-		logger.info("deliveryNo = {}", deliveryNo);
+		String dmail = (String)(session.getAttribute("dmail"));
+		logger.info("deliveryNo = {}", dmail);
 
-		if(deliveryNo == null || deliveryNo.isEmpty()) {
+		if(dmail == null || dmail.isEmpty()) {
 			response.setContentType("text/html; charset = UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script type='text/javascript'>");
