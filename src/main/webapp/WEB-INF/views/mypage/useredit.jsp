@@ -6,7 +6,7 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/useredit.js'/>"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+	<div style="background-color:#fff">
     <div id="useredit_wrapper">
      <!-- 일반 회원 사용자 폼 -->   	
 		<c:if test="${map['USER_CODE']=='1' && map['SOCIAL_LOGIN_KEY']==null}">
@@ -80,8 +80,8 @@
                     <span class="error_next_box"></span>
                 </div>
                 
-		    	<input type="text" name="lonX" value="${map['LON_X']}">
-		    	<input type="text" name="latY" value="${map['LAT_Y']}">
+		    	<input type="hidden" name="lonX" value="${map['LON_X']}">
+		    	<input type="hidden" name="latY" value="${map['LAT_Y']}">
 
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
@@ -287,6 +287,7 @@
             </form>
        </c:if>
             
+    </div>
     </div>
 
 </t:wrapper>
