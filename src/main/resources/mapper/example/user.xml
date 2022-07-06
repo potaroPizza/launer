@@ -67,6 +67,28 @@
       select pwd from delivery_driver
       where email=#{dmail} and out_date is null
    </select>
+   <!-- 일반회원 이메일 찾기 -->
+   <select id="findEmail" parameterType="userVo" resultType="String">
+		select email from users where name =#{name} and  hp=#{hp}
+   </select>
+   <!-- 배송기사 이메일 찾기 -->
+   <select id="findDmail" parameterType="driverAllVo" resultType="String">
+ 		select email from delivery_driver where name =#{name} and  hp=#{hp}
+   </select>
+   <!-- 일반회원 비밀번호 찾기 -->
+   <select id="findPwd" parameterType="userVo" resultType="String">
+   
+   </select>
+   <update id="randomPwd" parameterType="userVo">
+   
+   </update>
+   <!-- 배송기사 비밀번호 찾기 -->
+   <select id="findDpwd" parameterType="driverAllVo" resultType="String">
+   
+   </select>
+   <update id="randomDpwd" parameterType="driverAllVo">
+   
+   </update>
    <!-- 회원 정보 조회 -->
    <select id="selectById" parameterType="int" resultType="userVo">
       select * from users where no=#{no}
