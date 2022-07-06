@@ -94,7 +94,7 @@
 							<option value="종로지점">종로지점</option>
 							<option value="중랑지점">중랑지점</option>
 						</select>
-						<input type="text" name="officeNo" id="OfficeNo" value="" readonly>
+						<input type="text" name="officeNo" id="OfficeNo" value=0 readonly>
 					</div>
 					<div>
 						<label for="accHolder">계좌주</label>

@@ -8,10 +8,18 @@ $(function(){
 			alert("이메일 형식에 맞게 입력해 주세요");
 			$("#email").focus();
 			event.preventDefault();
-		}else if($('#chkEmail').val()!='Y'){
-			alert("이메일 중복확인해야 합니다");
-			$("#btnChkEmail").focus();
-			event.preventDefault();
+		}else if(classNo === 1) {
+			if($('#chkEmail').val()!='Y'){
+				alert("이메일 중복확인해야 합니다");
+				$("#btnChkEmail").focus();
+				event.preventDefault();
+			}
+		}else if(classNo === 2) {
+			if($('#chkDmail').val()!='Y'){
+				alert("이메일 중복확인해야 합니다");
+				$("#btnChkDmail").focus();
+				event.preventDefault();
+			}
 		}else if($("#pwd").val().length<1) {
 			alert("비밀번호를 입력하세요");
 			$("#pwd").focus();

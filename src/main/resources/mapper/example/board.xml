@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.launer.board.model.BoardDAO">
+    <!-- 게시글 추가 -->
+    <insert id="insertBoard" parameterType="boardVo">
+        <selectKey keyProperty="no" resultType="int" order="BEFORE">
+            select BOARD_SEQ.nextval from DUAL
+        </selectKey>
+        insert into BOARD(no, users_no, title, content, category_no, NAME)
+        values (#{no}, #{usersNo}, #{title}, #{content}, #{categoryNo}, #{name})
+    </insert>
+
+    <!-- 게시글 파일 추가 -->
+    <insert id="insertUploadFile" parameterType="uploadFileVo">
+        <selectKey keyProperty="no" resultType="int" order="BEFORE">
+            select UPLOAD_FILE_SEQ.nextval from DUAL
+        </selectKey>
+        insert into UPLOAD_FILE(no, board_no, file_name, original_file_name, file_size)
+        values (#{no}, #{boardNo}, #{fileName}, #{originalFileName}, #{fileSize})
+    </insert>
+
+    <select id="selectByCategoryNo" parameterType="string" resultType="boardVo">
+        select * from BOARD
+        where CATEGORY_NO = #{categoryNo}
+        order by NO desc
+    </select>
+</mapper>

@@ -170,7 +170,7 @@
 								<thead>
 									<tr>
 										<th>회원번호</th>
-										<th>회원명</th>
+										<th>관리자명</th>
 										<th>이메일</th>
 										<th>전화번호</th>
 										<th>지점</th>
@@ -180,7 +180,8 @@
 								<tbody id="managerTbody">
 
 									<c:forEach var="map" items="${managerList }">
-
+									<c:if test="${map['OUT_DATE'] == null  }">
+									
 										<tr>
 											<!-- 관리자 리스트 반복 -->
 
@@ -197,6 +198,8 @@
 											<td><input type="button" value="삭제"
 												onclick="deleteUser(${map['NO']})"></td>
 										</tr>
+										
+									</c:if>
 									</c:forEach>
 
 									<!-- ajax table 행추가 -->

@@ -1,7 +1,9 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import ReactQuill from "react-quill";
 
-const QuillEditor = () => {
+const QuillEditor = ({onChangeText, value}) => {
+    const maxTextValue = 4000;
+
     function imageUrlHandler() {
         const range = this.quill.getSelection();
         const url = prompt("please copy paste the image url here");
@@ -11,7 +13,7 @@ const QuillEditor = () => {
         }
     }
 
-    function imageHandler() {
+    const imageHandler = useCallback(function () {
         const input = document.createElement("input");
         input.setAttribute("type", "file");
         input.setAttribute("accept", ".png,.jpg,.jpeg");
@@ -22,13 +24,24 @@ const QuillEditor = () => {
             const formData = new FormData();
             formData.append("files", files[0]);
 
-            const range = this.quill.getSelection();
-            const fileSrno = "logo_4.svg";
-            this.quill.insertEmbed(range.index, "image", "http://localhost:9095/launer/images/" + fileSrno);
+            $.ajax({
+                url: "/launer/board/tempImg",
+                type: "POST",
+                enctype: "multipart/form-data",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: (res) => {
+                    // alert(res);
+                    const range = this.quill.getSelection();
+                    const fileSrno = res;
+                    this.quill.insertEmbed(range.index, "image", "http://localhost:9095/launer/upload/temp_img/" + fileSrno);
+                },
+                error: (xhr, status, error) => alert(`error : ${error}`)
+            });
         }
-    }
+    }, []);
 
-    const[value, setValue] = useState("");
 
     const modules = useMemo(() => ({
        toolbar: {
@@ -45,7 +58,7 @@ const QuillEditor = () => {
        }
     }), []);
 
-    console.log(value);
+    // console.log(value);
 
     return (
         <div style={{height: "500px"}}>
@@ -56,7 +69,7 @@ const QuillEditor = () => {
                 theme='snow'
                 value={value}
                 modules={modules}
-                onChange={setValue} />
+                onChange={(e) => onChangeText(e)} />
         </div>
     );
 };
