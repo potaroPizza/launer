@@ -73,8 +73,6 @@ public class AdminManageController {
 		model.addAttribute("managerList",managerList);
 		return"/admin/users";
 		
-		
-		
 	}
 
 	@PostMapping("/users")
@@ -207,14 +205,12 @@ public class AdminManageController {
 
 	}
 
-	@DeleteMapping("/user/{no}")
-	public String deleteAdmin(@PathVariable("no") int no) {
-		System.out.println("no "+no);
-		int result = userService.deleteUser(no);
-		System.out.println("result "+result);
-		return "redirect:/admin/users";
-	}
-	
+	/*
+	 * @DeleteMapping("/user/{no}") public String deleteAdmin(@PathVariable("no")
+	 * int no) { System.out.println("no "+no); int result =
+	 * userService.deleteUser(no); System.out.println("result "+result); return
+	 * "redirect:/admin/users"; }
+	 */
 	@RequestMapping("getWithdrawUser")
 	@ResponseBody
 	public List<UserVO> getWithdrawUsers(){

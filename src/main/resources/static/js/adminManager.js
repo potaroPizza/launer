@@ -128,8 +128,8 @@ function appenToWithdraw(withdrawList){
 	       "<td>" + userVo.no + "</td>" +
 	       "<td>" + userVo.name + "</td>" +
 	       "<td>" + userVo.email + "</td>" +
-	       "<td>" + userVo.hp + "</td>"+
-	       "<td>" + userVo.outDate + "</td>"+
+	       "<td>" + userVo.hp + "</td>"+ 
+	       "<td>" + "<fmt:formatDate value='${"+userVo.lastAccessDate+"}' pattern ='yyyy-MM-dd'/>" + "</td>"+
 	       "<td>   </td>"+"<tr>"
 	   );
 	     $("#usersTbody").append($cellsOfRow);
