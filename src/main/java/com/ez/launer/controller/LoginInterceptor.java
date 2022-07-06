@@ -3,6 +3,7 @@ package com.ez.launer.controller;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,6 +27,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 		logger.info("email = {}", email);
 
 		if(email == null || email.isEmpty()) {
+			logger.info("현재 위치 : " + request.getRequestURI());
+			String tempURL = request.getRequestURI();
+			tempURL = tempURL.substring(tempURL.indexOf("/", 2));
+
+			Cookie cookie = new Cookie("tempURL", tempURL);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+
 			response.setContentType("text/html; charset = UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script type='text/javascript'>");

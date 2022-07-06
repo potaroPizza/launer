@@ -88,7 +88,31 @@ public class LoginController {
 			}
 			
 			msg=uVo.getName() +"님 로그인되었습니다.";
-			url="/";
+
+			//리턴 페이지 관련 로직//
+			//리턴 페이지 관련 로직//
+			Cookie[] cookies = request.getCookies();
+			int returnURLChk = 0;
+			String returnURL = "";
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("tempURL")) {
+					returnURLChk++;
+					returnURL = cookie.getValue();
+					break;
+				}
+			}
+
+			Cookie myCookie = new Cookie("tempURL", null);
+			myCookie.setMaxAge(0);
+			myCookie.setPath("/");
+
+			if(returnURLChk > 0) {
+				url = returnURL;
+			}else {
+				url="/";
+			}
+			//리턴 페이지 관련 로직//
+			//리턴 페이지 관련 로직//
 		}else if(result==UserService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";
 		}else if(result==UserService.NONE_USEREMAIL) {

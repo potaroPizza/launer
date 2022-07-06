@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -116,7 +118,7 @@ public class NaverLoginController {
 
     @RequestMapping("/auth")
     public String authNaver(@RequestParam String code, @RequestParam String state,
-                            HttpSession session, Model model)
+                            HttpSession session, Model model, HttpServletRequest request)
             throws JsonProcessingException {
         logger.info("code : {}", code);
 
@@ -154,8 +156,33 @@ public class NaverLoginController {
         if(count > 0) { //존재하면 social_login_host 받아서 model 저장
             userVO = userService.selectByEmail(email);
 //            logger.info("socialInfo={}",socialInfo);
-            msg =userVO.getSocialLoginHost() + " 로 로그인되었습니다";
-            url = "/";
+            msg =userVO.getSocialLoginHost() + "로 로그인되었습니다";
+
+
+            //리턴 페이지 관련 로직//
+            //리턴 페이지 관련 로직//
+            Cookie[] cookies = request.getCookies();
+            int returnURLChk = 0;
+            String returnURL = "";
+            for(Cookie cookie : cookies) {
+                if(cookie.getName().equals("tempURL")) {
+                    returnURLChk++;
+                    returnURL = cookie.getValue();
+                    break;
+                }
+            }
+
+            Cookie myCookie = new Cookie("tempURL", null);
+            myCookie.setMaxAge(0);
+            myCookie.setPath("/");
+
+            if(returnURLChk > 0) {
+                url = returnURL;
+            }else {
+                url="/";
+            }
+            //리턴 페이지 관련 로직//
+            //리턴 페이지 관련 로직//
         }else {
             // 존재 X => 회원정보 insert
             userVO.setName(name);
