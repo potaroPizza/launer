@@ -14,7 +14,6 @@
 
 	<div id="mypage_wrap">
 		<div class="mypage_top"></div>
-		<div class="mypage_introduceWrap">
 		<div class="mypage_introduce">
 			${vo.name }님, &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
 			<span>시작</span><span>하세요!</span>
@@ -34,7 +33,6 @@
 					</div>
 				</li>
 			</ul>
-		</div>
 		</div>
 
 
