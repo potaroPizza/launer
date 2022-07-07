@@ -3,74 +3,139 @@
          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.launer.admin.model.AdminChartsDAO">
 	<!-- 홈페이지 방문자 수 (로그인 횟수) -->
-	<!-- <select id="selectVisitByDay" resultType="map">
+	<!-- 최근 2주 -->
+	<select id="selectVisitByDay" resultType="map">
 		select count(*) as visitCount,
-			TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM-dd') as regadte 
+		    ACCESS_DATE as regadte 
 		from today
-		where LAST_ACCESS_DATE >= SYSDATE-15
-		group by TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM-dd')
-	</select> -->
+		where ACCESS_DATE >= SYSDATE-13
+		group by ACCESS_DATE
+		order by regadte
+	</select>
 	
+	<!-- 2022년 -->
 	<select id="selectVisitByMonth" resultType="map">
 		select count(*) as visitCount,
-			TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM') as regadte,
-			TO_CHAR(LAST_ACCESS_DATE, 'MM') as month
+		    SUBSTR(ACCESS_DATE, 1, 7) as regadte,
+		    SUBSTR(ACCESS_DATE, 6, 2) as month
 		from today
-		where TO_CHAR(LAST_ACCESS_DATE, 'yyyy') = '2022'
-		group by TO_CHAR(LAST_ACCESS_DATE, 'yyyy-MM'), TO_CHAR(LAST_ACCESS_DATE, 'MM')
+		where SUBSTR(ACCESS_DATE, 1, 4) = '2022'
+		group by SUBSTR(ACCESS_DATE, 1, 7), SUBSTR(ACCESS_DATE, 6, 2)
 	</select>
 	
 	
 	<!-- 신규 가입자 수 -->
-	<!-- <select id="selectJoinByDay" resultType="map">
-		select a.*
-		from (
-			select count(*) as joinCount,
-				TO_CHAR(START_DATE, 'yyyy-MM-dd') as startDate 
-			from Users
-			where START_DATE >= SYSDATE-15
-				and USER_CODE = 1
-			group by TO_CHAR(START_DATE, 'yyyy-MM-dd')
-		)a
-		order by startDate
-	</select> -->
-	
-	<select id="selectjoinByMonth" resultType="map">
-		select count(*) as joinCount,
-			TO_CHAR(START_DATE, 'yyyy-MM') as startDate,
-			TO_CHAR(START_DATE, 'MM') as month 
-		from Users
-		where TO_CHAR(START_DATE, 'yyyy') = '2022'
-			and USER_CODE = 1
-		group by TO_CHAR(START_DATE, 'yyyy-MM'), TO_CHAR(START_DATE, 'MM')
-	</select>
-	
-	
-	<!-- 누적 가입자 수 -->
-	<!-- <select id="selectUsersByDay" resultType="map">
-		select a.joinCount, a.startDate, sum(a.joinCount) over(order by a.joinCount) as sum
+	<!-- 최근 2주 -->
+	<select id="selectJoinByDay" resultType="map">
+		select nvl(a.joinCount, 0) as joinCount, TO_CHAR(b.dt, 'YYYY-MM-DD') as startDate
 		from (
 		    select count(*) as joinCount,
 		        TO_CHAR(START_DATE, 'yyyy-MM-dd') as startDate 
 		    from Users
-		    where START_DATE >= SYSDATE-15
+		    where START_DATE >= SYSDATE-13
 		        and USER_CODE = 1
 		    group by TO_CHAR(START_DATE, 'yyyy-MM-dd')
-		)a
-	</select> -->
+		)a right outer join
+		(
+		    SELECT (SYSDATE-13) + LEVEL - 1 AS dt
+		    FROM dual 
+		     <![CDATA[
+		    	CONNECT BY LEVEL <= (SYSDATE - (SYSDATE-13)+1)
+		    ]]>
+		)b
+		on TO_CHAR(b.dt, 'YYYY-MM-DD') = a.startDate
+		ORDER BY TO_CHAR(b.dt, 'YYYY-MM-DD')
+	</select>
 	
-	<select id="selectUsersByMonth" resultType="map">
-		select a.joinCount, a.startDate, a.month,
-			sum(a.joinCount) over(order by a.joinCount) as sum
+	<!-- 2022년 -->
+	<select id="selectjoinByMonth" resultType="map">
+		select nvl(b.joinCount, 0) as joinCount, c.dt as startDate,
+		    substr(c.dt, 6, 2) as month
 		from (
-		    select count(*) as joinCount,
-		        TO_CHAR(START_DATE, 'yyyy-MM') as startDate,
-		        TO_CHAR(START_DATE, 'MM') as month 
-		    from Users
-		    where TO_CHAR(START_DATE, 'yyyy') = '2022'
-		        and USER_CODE = 1
-		    group by TO_CHAR(START_DATE, 'yyyy-MM'), TO_CHAR(START_DATE, 'MM')
-		)a
+		    select a.*
+				from
+				(
+				    select count(*) as joinCount,
+				        TO_CHAR(START_DATE, 'yyyy-MM') as startDate,
+				        TO_CHAR(START_DATE, 'MM') as month 
+				    from Users
+				    where TO_CHAR(START_DATE, 'yyyy') = '2022'
+				        and USER_CODE = 1
+				    group by TO_CHAR(START_DATE, 'yyyy-MM'), TO_CHAR(START_DATE, 'MM')
+				)a
+				order by startDate
+		)b right outer join
+		(
+		    SELECT TO_CHAR(ADD_MONTHS(TO_DATE('2022-01', 'YYYY-MM'), LEVEL - 1),
+		                                                            'YYYY-MM') AS dt
+		    FROM DUAL
+		    <![CDATA[
+			    CONNECT BY LEVEL <= MONTHS_BETWEEN(SYSDATE,
+													TO_DATE('2022-01', 'YYYY-MM')) + 1
+			]]>
+		)c
+		on c.dt = b.startDate
+		ORDER BY c.dt
+	</select>
+	
+	
+	<!-- 누적 가입자 수 -->
+	<!-- 최근 2주 -->
+	<select id="selectUsersByDay" resultType="map">
+		select nvl(b.joinCount, 0),
+		    nvl(sum(b.joinCount) over(order by c.dt), 0) as sum,
+		    TO_CHAR(c.dt, 'YYYY-MM-DD') as startDate
+		from (
+		    select a.joinCount as joinCount, a.startDate 
+				from (
+				    select count(*) as joinCount,
+				        TO_CHAR(START_DATE, 'yyyy-MM-dd') as startDate 
+				    from Users
+				    where START_DATE >= SYSDATE-13
+				        and USER_CODE = 1
+				    group by TO_CHAR(START_DATE, 'yyyy-MM-dd')
+				)a
+		)b right outer join
+		(
+		    SELECT (SYSDATE-13) + LEVEL - 1 AS dt
+		    FROM dual 
+		     <![CDATA[
+		    	CONNECT BY LEVEL <= (SYSDATE - (SYSDATE-13)+1)
+		    ]]>
+		)c
+		on TO_CHAR(c.dt, 'YYYY-MM-DD') = b.startDate
+		ORDER BY TO_CHAR(c.dt, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 2022년 -->
+	<select id="selectUsersByMonth" resultType="map">
+		select nvl(b.joinCount, 0),
+		    nvl(sum(b.joinCount) over(order by c.dt), 0) as sum,
+		    substr(c.dt, 6, 2) as month
+		from (
+		    select a.*
+				from
+				(
+				    select count(*) as joinCount,
+				        TO_CHAR(START_DATE, 'yyyy-MM') as startDate,
+				        TO_CHAR(START_DATE, 'MM') as month 
+				    from Users
+				    where TO_CHAR(START_DATE, 'yyyy') = '2022'
+				        and USER_CODE = 1
+				    group by TO_CHAR(START_DATE, 'yyyy-MM'), TO_CHAR(START_DATE, 'MM')
+				)a
+		)b right outer join
+		(
+		    SELECT TO_CHAR(ADD_MONTHS(TO_DATE('2022-01', 'YYYY-MM'), LEVEL - 1 ),
+		                                                            'YYYY-MM') AS dt
+		    FROM DUAL
+		     <![CDATA[
+				CONNECT BY LEVEL <= MONTHS_BETWEEN(( SYSDATE ),
+										TO_DATE('2022-01-01', 'YYYY-MM-DD' ) ) + 1
+			]]>
+		)c
+		on c.dt = b.startDate
+		ORDER BY c.dt
 	</select>
 	
 	
@@ -78,27 +143,44 @@
 	<!-- <select id="selectRevenueByDay" resultType="map">
 		select sum(pay_price) as sum, TO_CHAR(payment_date, 'yyyy-MM-dd') as paymentDate 
 		from payment_detail
-		where payment_date >= SYSDATE-15
+		where payment_date >= SYSDATE-13
 		group by TO_CHAR(payment_date, 'yyyy-MM-dd');
 		
 	</select> -->
 	
-	<select id="selectRevenueByMonth" parameterType="int" resultType="map">
+	<select id="selectRevenueByMonth" parameterType="int" resultType="map">	
+		select nvl(c.sum, 0) as sum,
+		    d.dt as paymentDate, substr(d.dt, 6, 2) as month
+		    <if test="officeNo != 0">
+				, c.officeNo as officeNo, c.officeName as officeName
+			</if>
+		from(
 		select sum(pay_price) as sum, TO_CHAR(payment_date, 'yyyy-MM') as paymentDate,
-			TO_CHAR(a.payment_date, 'MM') as month
-			<if test="officeNo != 0">
+		    TO_CHAR(a.payment_date, 'MM') as month
+		    <if test="officeNo != 0">
 				, b.officeNo as officeNo, b.officeName as officeName
 			</if>
 		from payment_detail a join adminOrderListView b
 		on a.order_no = b.orderNo
 		where TO_CHAR(payment_date, 'yyyy') = '2022'
-		<if test="officeNo != 0">
-			and officeNo = #{officeNo}
-		</if>
+			<if test="officeNo != 0">
+				and officeNo = #{officeNo}
+			</if>
 		group by TO_CHAR(payment_date, 'yyyy-MM'), TO_CHAR(payment_date, 'MM')
 			<if test="officeNo != 0">
 				, officeNo, officeName
 			</if>
+		)c
+		right outer join
+		( SELECT TO_CHAR(ADD_MONTHS(TO_DATE('2022-01', 'YYYY-MM'), LEVEL - 1 ),
+		                                                            'YYYY-MM') AS dt
+		    FROM DUAL
+		    <![CDATA[
+			    CONNECT BY LEVEL <= MONTHS_BETWEEN(( SYSDATE ),
+			                        TO_DATE('2022-01-01', 'YYYY-MM-DD' ) ) + 1)d
+			]]>
+		on d.dt = c.paymentDate
+		order by d.dt
 	</select>
 	
 	
