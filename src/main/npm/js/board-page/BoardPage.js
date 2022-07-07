@@ -2,8 +2,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import BoardList from "./components/BoardList";
 import BoardTitle from "./components/BoardTitle";
 
-document.body.style.backgroundColor = "#F4F4F4";
-
 const BoardPage = () => {
     const [userInfo, setUserInfo] = useState("");   //유저 정보
     const [contentData, setContentData] = useState(""); //게시글 관련 Json객체를 넣어줌
