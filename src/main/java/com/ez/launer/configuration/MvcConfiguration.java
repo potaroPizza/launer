@@ -24,6 +24,8 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/join/**")
 				.excludePathPatterns("/user/findId/**")
 				.excludePathPatterns("/user/findPwd/**")
+				.excludePathPatterns("/user/checkEmail/**")
+				.excludePathPatterns("/user/checkHp/**")
 				.excludePathPatterns("/mypage/signout");
 		
 		registry.addInterceptor(new AdminLoginInterceptor())
@@ -33,7 +35,9 @@ public class MvcConfiguration implements WebMvcConfigurer{
 
 		registry.addInterceptor(new DeliveryInterceptor())
 				.addPathPatterns("/delivery/**")
-				.excludePathPatterns("/delivery/join/**");
+				.excludePathPatterns("/delivery/join/**")
+				.excludePathPatterns("/delivery/checkDmail/**")
+				.excludePathPatterns("/delivery/checkDhp/**");
 
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")
