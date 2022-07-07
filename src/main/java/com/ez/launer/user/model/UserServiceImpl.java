@@ -151,6 +151,17 @@ public class UserServiceImpl implements UserService{
 		return userDao.findDmail(vo);
 	}
 	
+	//일반회원 비밀번호 찾기 난수 업데이트
+	@Override
+	public int randomPwd(UserVO vo) {
+		return userDao.randomPwd(vo);
+	}
+	//배송기사 비밀번호 찾기 난수 업데이트
+	@Override
+	public int randomDpwd(DriverAllVO vo) {
+		return userDao.randomDpwd(vo);
+	}
+	
 	@Override
 	public UserVO selectById(int no) {
 		return userDao.selectById(no);
@@ -268,6 +279,7 @@ public class UserServiceImpl implements UserService{
 	public int insertToday(Map<String, Object> map) {
 		return userDao.insertToday(map);
 	}
+	
 	
 
 	

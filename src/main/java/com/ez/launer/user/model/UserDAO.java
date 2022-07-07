@@ -25,6 +25,8 @@ public interface UserDAO {
 	String selectPwd3(String dmail);
 	String findEmail(UserVO vo);
 	String findDmail(DriverAllVO vo);
+	int randomPwd(UserVO vo);
+	int randomDpwd(DriverAllVO vo);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);
