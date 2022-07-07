@@ -89,6 +89,11 @@ juqery가 hicharts보다 위에 선언되어야함
 		barChart();
 		pieChart();
 		
+		$('#userChart').on("change", function(){
+			//$('input[name=revenueChart]').val($(this).val());
+			$('form[name=frmCharts]').submit();
+		});
+		
 		$('#revenueChart').on("change", function(){
 			//$('input[name=revenueChart]').val($(this).val());
 			$('form[name=frmCharts]').submit();
@@ -136,6 +141,7 @@ juqery가 hicharts보다 위에 선언되어야함
 	        series: [{
 	            name: '신규 가입자',
 	            data: /* [3, 62, 157, 233, 580, 1049, null, null, null, null, null, null] */
+	            	<c:if test="${flag == '2022'}">
 	            	[
 						<c:forEach var="juMap" items="${jum}">
 						{
@@ -144,6 +150,17 @@ juqery가 hicharts보다 위에 선언되어야함
 						}, 
 						</c:forEach>
 					]
+	            	</c:if>
+	            	<c:if test="${flag == '2'}">
+	            	[
+	            		<c:forEach var="juMap" items="${jum}">
+						{
+							name : "${juMap['STARTDATE']}",
+							y : ${juMap['JOINCOUNT']},
+						}, 
+						</c:forEach>
+	            	]
+	            	</c:if>
 	        },/*  {
 	            name: '사이트 방문자',
 	            data:   [42, 168, 580, 1024, 3303, 5237, null, null, null, null, null, null]  
@@ -158,14 +175,26 @@ juqery가 hicharts보다 위에 선언되어야함
 	        }, */ {
 	            name: '누적 가입자',
 	            data: /* [3, 65, 250, 500, 1080, 2129, null, null, null, null, null, null] */
+	            	<c:if test="${flag == '2022'}">
 	            	[
 						<c:forEach var="uuMap" items="${uum}">
 						{
 							name : "${uuMap['MONTH']}월",
-							y : ${uuMap['JOINCOUNT']},
+							y : ${uuMap['SUM']},
 						}, 
 						</c:forEach>
 					]
+	            	</c:if>
+	            	<c:if test="${flag == '2'}">
+	            	[
+	            		<c:forEach var="uuMap" items="${uum}">
+						{
+							name : "${uuMap['STARTDATE']}",
+							y : ${uuMap['SUM']},
+						}, 
+						</c:forEach>
+	            	]
+	            	</c:if>
 	        }]
 	    });
 	}
@@ -368,9 +397,17 @@ juqery가 hicharts보다 위에 선언되어야함
 	               사용자 통계
 	               
 					&nbsp; 기간별
-					<select name="userChart">
-						<option value="1">최근 2주</option>
-						<option value="2022">2022년</option>
+					<select name="userChart" id="userChart">
+						<option value="2022"
+							<c:if test="${flag == '2022'}">
+								selected
+           					</c:if>
+						>2022년</option>
+						<option value="2"
+							<c:if test="${flag == '2'}">
+								selected
+           					</c:if>
+						>최근 2주</option>
 					</select>
 	            </div>
 	            <div class="card-body">

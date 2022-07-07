@@ -2,6 +2,7 @@ package com.ez.launer.user.controller;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.user.model.DriverAllVO;
 import com.ez.launer.user.model.SHA256Encryption;
@@ -131,8 +133,8 @@ public class LoginController {
 		logger.info("이메일 찾기 화면");
 
 	}
-	
 	@PostMapping("/findId")
+	@ResponseBody
 	public String findId_post(@ModelAttribute UserVO vo, DriverAllVO dvo,
 			@RequestParam int searchType, Model model) {
 		String result="";
@@ -149,7 +151,6 @@ public class LoginController {
 			
 			logger.info("일반회원 이메일 찾기 정보 결과 result={}", result);
 			model.addAttribute("result", result);
-
 		}else if(searchType==2) {
 			logger.info("배송기사 이메일 찾기, 파라미터 dvo={}, searchType={}",dvo, searchType);
 			
@@ -162,10 +163,9 @@ public class LoginController {
 			
 			logger.info("배송기사 이메일 찾기 정보 결과 result={}", result);
 			model.addAttribute("result", result);
-			
 		}
 		
-		return "/user/findId";
+		return result;
 	}
 	
 	@GetMapping("/findPwd")
