@@ -25,6 +25,8 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/findId/**")
 				.excludePathPatterns("/user/findPwd/**")
 				.excludePathPatterns("/user/kakaoLogin/**")
+				.excludePathPatterns("/user/checkEmail/**")
+				.excludePathPatterns("/user/checkHp/**")
 				.excludePathPatterns("/user/findPwd/**");
 		
 		registry.addInterceptor(new AdminLoginInterceptor())
