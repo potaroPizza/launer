@@ -16,14 +16,14 @@
 	        	<li>이메일로 임시 비밀 번호가 발송됩니다.</li>
     		</ul>
 		</div>
-		<form name="findIdfrm" method="post" 
+		<form name="findPwdfrm" method="post" 
 			action="<c:url value='/user/findPwd'/>">
 				<div class="findIdPwdsubWrap">
 					<div id="findIdPwdbox">
 			            <p class="memberType"><strong>회원유형</strong>
 			            	<select id="searchType" name="searchType">
-								<option value="general" selected="selected">일반회원</option>
-								<option value="driver">배송 기사 회원</option>
+								<option value=1 selected="selected">일반회원</option>
+								<option value=2>배송 기사 회원</option>
 							</select>
 						</p>
 						<p id="name_view" style=""><strong id="name_lable">이름</strong>

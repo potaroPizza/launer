@@ -20,4 +20,5 @@ public class DriverAllVO {
 	private String bank;
 	private int accNum;
 	private String accHolder;
+	private String randomPwd;
 }

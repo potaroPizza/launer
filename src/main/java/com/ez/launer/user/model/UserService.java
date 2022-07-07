@@ -36,6 +36,8 @@ public interface UserService {
 	public int dloginChk(String dmail, String dPwd);
 	String findEmail(UserVO vo);
 	String findDmail(DriverAllVO vo);
+	int randomPwd(UserVO vo);
+	int randomDpwd(DriverAllVO vo);
 	UserVO selectById(int no);
 	HashMap<String,Object> selectByIdAddress(int no);
 	int deleteUser(int no);
