@@ -330,7 +330,7 @@ footer img:focus, footer a:focus {
 				<label>아이디(Email)</label>
 			</div>
 			<div class="group">
-				<input type="email" name="pwd"><span class="highlight"></span>
+				<input type="password" name="pwd"><span class="highlight"></span>
 				<span class="bar"></span>
 				<label>비밀번호</label>
 			</div>

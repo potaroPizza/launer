@@ -163,15 +163,17 @@
                     <h3 class="title-font main-width">우리들의 꿀팁 <i class="fa-solid fa-thumbs-up"></i></h3>
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁1" src="${pageContext.request.contextPath}/images/test11.png"></div>
-                            <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁2" src="${pageContext.request.contextPath}/images/test14.png"></div>
-                            <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁3" src="${pageContext.request.contextPath}/images/test13.png"></div>
-                            <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁4" src="${pageContext.request.contextPath}/images/test15.png"></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/Vf9TGVeVsu0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/Bz8PoEdtbds" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide">Slide 7</div>
-                            <div class="swiper-slide">Slide 8</div>
-                            <div class="swiper-slide">Slide 9</div>
+                            <%-- <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁1" src="${pageContext.request.contextPath}/images/test11.png"></div>--%>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/tKZQuO1sN3Y" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/WknSBlAIgdY" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/gEejeo0MhX0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/O_QVwpBe2IM" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/UWsStmXtYM0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/Hpe-IqdQceE" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/Bz8PoEdtbds" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/v1R8XWFYuvQ" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/R3Nns8UE8nk" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/9vDNxekUIeg" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
