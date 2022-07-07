@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import EditorComponent from "./Editor/EditorComponent";
-import QuillEditor from "./Editor/QuillEditor";
+// import QuillEditor from "./Editor/QuillEditor";
 // import Home from "./Editor/Home";
 
 // 에디터 내 이미지가 들어갈 시
@@ -11,32 +11,14 @@ import QuillEditor from "./Editor/QuillEditor";
 // 응 실패 => QuillEditor에서 관련된 이벤트를 제공함, 그걸 활용
 
 const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => {
-    const [value, setValue] = useState("");
+    const [desc, setDesc] = useState('');
     const [maxiumText, setMaxiumText] = useState("");
-    const quillRef = useRef();
     const maxTextByte = 4000;
 
-    let cnt = 0;
-    /*function onEditorChange(value) {
-        /!*if((tempText.includes("<img src=\"data:")) && (cnt % 2 === 0)) {
-            let firstTagIdx = value.indexOf("<img src=\"data:");
-            let lastTagIdx = value.lastIndexOf(`">`);
-            let test = "<img src='/launer/images/logo_1.svg' alt='test'/>";
-
-            console.log("firstTagIdx : " + firstTagIdx);
-            console.log(`lastTageIdx : ${lastTagIdx}`);
-
-            let temp = value.substring(firstTagIdx, lastTagIdx+2);
-            console.log(temp);
-
-            tempText = value.replace(temp, test);
-            console.log(tempText);
-        }
-        cnt++;*!/
-
+    const onChange = useCallback((value) => {
+        console.log(value);
         setDesc(value);
-        console.log(desc);
-    }*/
+    });
 
     const getByteLengthOfString = function (s, b, i, c) {
         for (b = i = 0; c = s.charCodeAt(i++); b += c >> 11 ? 3 : c >> 7 ? 2 : 1) ;
@@ -91,7 +73,7 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => 
 
         const data = {  //일반 input값은 객체로 넣어줄 거임
             "title": $("input[name=title]").val(),
-            "content": $("input[name=content]").val(),
+            "content": desc,
             "usersNo": userInfo.no,
             "categoryNo": categoryNo,
             "name": userInfo.name
@@ -129,12 +111,8 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => 
         });
     });
 
-    const onChangeText = useCallback((e) => {
-        setValue(e);
-    });
-
     const maximumTextUpdate = useCallback(() => {
-        const currentByte = getByteLengthOfString(value);
+        const currentByte = getByteLengthOfString(desc);
         setMaxiumText(`${currentByte} / ${maxTextByte} Byte`);
     });
 
@@ -149,7 +127,7 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => 
     useEffect(() => {
         maximumTextUpdate();
         // maxiumumFind();
-    }, [value]);
+    }, [desc]);
 
 
     return (
@@ -157,10 +135,7 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => 
             <form method="get" name="board-form" encType="multipart/form-data" onSubmit={addBoard}>
                 <input name="title" placeholder="제목을 입력하세요."/>
                 <input className="upload-name" type="file" placeholder="첨부파일" multiple/>
-                {/*<EditorComponent value={desc} onChange={onEditorChange}/>*/}
-                <QuillEditor value={value} onChangeText={onChangeText}/>
-                <input type="hidden" name="content" value={value}/>
-                {/*<QuillEditor quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api={api} />*/}
+                <EditorComponent onChange={onChange}/>
                 <span>{maxiumText}</span>
                 <button type="submit"><i className="fa-solid fa-plus"></i></button>
             </form>

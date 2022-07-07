@@ -47,4 +47,9 @@ public class BoardServiceImpl implements BoardService{
     public int countBoardList(Map<String, Object> map) {
         return boardDAO.countBoardList(map);
     }
+
+    @Override
+    public BoardVO selectBoardByNo(int no) {
+        return boardDAO.selectBoardByNo(no);
+    }
 }

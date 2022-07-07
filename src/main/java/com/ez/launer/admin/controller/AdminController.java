@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -334,40 +333,35 @@ public class AdminController {
 		List<Map<String, Object>> rcm = null;
 		List<Map<String, Object>> ccm = null;
 		
+		//사용자 통계 플래그
+		String flag = null;
+		
+		// 첫 화면 세팅
 		if(vo.getUserChart() == null &&
 				vo.getRevenueChart() == null &&
-				vo.getCategoryChart() == null) {	// 첫 화면 세팅
+				vo.getCategoryChart() == null) {	
 			vo.setUserChart("2022");
 			vo.setRevenueChart("0");
 			vo.setCategoryChart("1");
 		}
 		
 		if(vo.getUserChart() != null && !vo.getUserChart().isEmpty()) {
-//			if(vo.getUserChart().equals("1")) {	// 최근 2주
-//				vum = chartsService.selectVisitByDay();
-//				jum = chartsService.selectJoinByDay();
-//				uum = chartsService.selectUsersByDay();
-//			} else if(vo.getUserChart().equals("2022")) {	
-				// 2022년
+			if(vo.getUserChart().equals("2")) {
+				vum = chartsService.selectVisitByDay();
+				jum = chartsService.selectJoinByDay();
+				uum = chartsService.selectUsersByDay();
+				flag = "2";
+			} else if(vo.getUserChart().equals("2022")) {	
 				vum = chartsService.selectVisitByMonth();
 				jum = chartsService.selectjoinByMonth();
 				uum = chartsService.selectUsersByMonth();
+				flag = "2022";
 			}
-//		}
-		
-		int ofn = -1;
-		String ofName = null;
+		}
 		
 		if(vo.getRevenueChart() != null && !vo.getRevenueChart().isEmpty()) {
 			int officeNo = Integer.parseInt(vo.getRevenueChart());
 			rcm = chartsService.selectRevenueByMonth(officeNo);
-			
-			if(rcm.isEmpty()) {
-				model.addAttribute("msg", "선택한 카테고리의 자료가 존재하지 않습니다.");
-				model.addAttribute("url", "/admin/charts");
-				
-				return "/common/message";
-			}
 		}
 
 		if(vo.getCategoryChart() != null && !vo.getCategoryChart().isEmpty()) {
@@ -377,19 +371,37 @@ public class AdminController {
 		logger.info("통계 페이지 vum={}", vum);
 		logger.info("통계 페이지 jum={}", jum);
 		logger.info("통계 페이지 uum={}", uum);
+		logger.info("통계 페이지 rcm={}", rcm);
 		logger.info("통계 페이지 ccm={}", ccm);
 		
 		model.addAttribute("vum", vum);	// 방문자 수
 		model.addAttribute("jum", jum);	// 신규 가입자 수
 		model.addAttribute("uum", uum);	// 누적 가입자 수
 		model.addAttribute("rcm", rcm);	// 월별 매출
+		
+		boolean bool = false;
 		if(!vo.getRevenueChart().equals("0")) {
-			model.addAttribute("ofn", rcm.get(0).get("OFFICENO"));
-			model.addAttribute("ofName", rcm.get(0).get("OFFICENAME"));
+			for(int i=0; i<rcm.size(); i++) {
+				if(rcm.get(i).get("OFFICENO") != null && rcm.get(i).get("OFFICENO") != "") {
+					model.addAttribute("ofn", rcm.get(i).get("OFFICENO"));
+					model.addAttribute("ofName", rcm.get(i).get("OFFICENAME"));
+					bool = true;
+					
+					break;
+				}
+			}
+			
+			if(!bool) {
+				model.addAttribute("msg", "선택한 카테고리의 데이터가 존재하지 않습니다.");
+				model.addAttribute("url", "/admin/charts");
+				
+				return "/common/message";
+			}
 		} else {
 			model.addAttribute("ofn", 0);
 		}
 		model.addAttribute("ccm", ccm);	// 카테고리 별 주문 수
+		model.addAttribute("flag", flag); // 사용자 통계 플래그
 		
 		//지점 전체 정보 불러오기
 		List<OfficeVO> officeList = officeService.selectAll();

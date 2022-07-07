@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -81,7 +82,8 @@ public class NaverLoginController {
         return jsonNode.get("access_token").asText();
     }
 
-    private JsonNode getNaverUserInfo(String accessToken) throws JsonProcessingException {
+    private JsonNode getNaverUserInfo(String accessToken)
+            throws JsonProcessingException {
         // HTTP Header 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
@@ -118,7 +120,8 @@ public class NaverLoginController {
 
     @RequestMapping("/auth")
     public String authNaver(@RequestParam String code, @RequestParam String state,
-                            HttpSession session, Model model, HttpServletRequest request)
+                            HttpSession session, Model model, HttpServletRequest request,
+                            HttpServletResponse response)
             throws JsonProcessingException {
         logger.info("code : {}", code);
 
@@ -175,6 +178,8 @@ public class NaverLoginController {
             Cookie myCookie = new Cookie("tempURL", null);
             myCookie.setMaxAge(0);
             myCookie.setPath("/");
+            response.addCookie(myCookie);
+
 
             if(returnURLChk > 0) {
                 url = returnURL;

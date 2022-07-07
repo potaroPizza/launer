@@ -56,4 +56,9 @@
         where CATEGORY_NO = #{categoryNo}
         <include refid="searchWhere"/>
     </select>
+
+    <select id="selectBoardByNo" parameterType="int" resultType="boardVo">
+        select * from BOARD
+        where NO = #{no}
+    </select>
 </mapper>

@@ -142,60 +142,6 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
                         <div className="list-col-2">귀찮고 어렵다</div>
                         <div className="list-col-3">너굴맨</div>
                         <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">9</div>
-                        <div className="list-col-2">취업 할 수 있겠지</div>
-                        <div className="list-col-3">로켓맨</div>
-                        <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">8</div>
-                        <div className="list-col-2">나는 독서실에서 하는중</div>
-                        <div className="list-col-3">로켓맨</div>
-                        <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">7</div>
-                        <div className="list-col-2">집에서는 집중이 안된다</div>
-                        <div className="list-col-3">로켓맨</div>
-                        <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">6</div>
-                        <div className="list-col-2">집에서하면 30분하고 1시간 쉬고 반복</div>
-                        <div className="list-col-3">로켓맨</div>
-                        <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">5</div>
-                        <div className="list-col-2">목 아프넹</div>
-                        <div className="list-col-3">너굴맨</div>
-                        <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">4</div>
-                        <div className="list-col-2">더 이상 쓸 말이 없다</div>
-                        <div className="list-col-3">로켓맨</div>
-                        <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">3</div>
-                        <div className="list-col-2">아무말 대잔치</div>
-                        <div className="list-col-3">로켓맨</div>
-                        <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">2</div>
-                        <div className="list-col-2">리액트로 게시판 만들기</div>
-                        <div className="list-col-3">로켓맨</div>
-                        <div className="list-col-4">2022-07-01</div>
-                    </div>
-                    <div className="list-line">
-                        <div className="list-col-1">1</div>
-                        <div className="list-col-2">리액트로 게시판 만들기</div>
-                        <div className="list-col-3">로켓맨</div>
-                        <div className="list-col-4">2022-07-01</div>
                     </div>*/}
                 </form>
             </div>
