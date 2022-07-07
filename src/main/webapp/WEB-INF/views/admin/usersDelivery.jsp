@@ -34,7 +34,7 @@
 					</c:if>
 					<c:if test="${!empty list }">
 						<c:forEach var="deliveryDriverVo" items="${list }">
-
+						<c:if test="${ deliveryDriverVo.outDate == null  }">
 							<tr>
 								<td>${deliveryDriverVo.no}</td>
 					
@@ -46,10 +46,9 @@
 						
 								<td><fmt:formatDate value="${deliveryDriverVo.lastDate}" pattern ="yyyy-MM-dd"/></td>
 			
-								<td><input type="button" value="삭제" onclick="deleteUser(${deliveryDriverVo.no})"></td>
-								
-								
+								<td><input type="button" value="삭제" onclick="deleteDeliveryUser(${deliveryDriverVo.no})"></td>
 							</tr>
+						</c:if>
 						</c:forEach>
 					</c:if>
 				</tbody>
