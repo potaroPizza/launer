@@ -21,17 +21,26 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.addPathPatterns("/mypage/**")
 				.addPathPatterns("/user/**")
 				.excludePathPatterns("/user/login/**")
+				.excludePathPatterns("/user/join/**")
 				.excludePathPatterns("/user/findId/**")
 				.excludePathPatterns("/user/findPwd/**")
-				.excludePathPatterns("/mypage/signout");
-		
+				.excludePathPatterns("/user/checkEmail/**")
+				.excludePathPatterns("/user/checkHp/**")
+				.excludePathPatterns("/mypage/signout")
+				.excludePathPatterns("/user/kakaoLogin/**")
+				.excludePathPatterns("/user/checkEmail/**")
+				.excludePathPatterns("/user/checkHp/**")
+				.excludePathPatterns("/user/findPwd/**");
 		registry.addInterceptor(new AdminLoginInterceptor())
 		.addPathPatterns("/admin/**")
 		.excludePathPatterns("/admin/adminLogin");
 
 
 		registry.addInterceptor(new DeliveryInterceptor())
-				.addPathPatterns("/delivery/**");
+				.addPathPatterns("/delivery/**")
+				.excludePathPatterns("/delivery/join/**")
+				.excludePathPatterns("/delivery/checkDmail/**")
+				.excludePathPatterns("/delivery/checkDhp/**");
 
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")

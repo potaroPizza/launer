@@ -1,5 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import BoardAdd from "./BoardAdd";
+import BoardModal from "./BoardModal";
+document.body.style.backgroundColor = "#F4F4F4";
 
 const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
     console.log("BoardList 컴포넌트");
@@ -20,6 +22,8 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
     const [boardList, setBoardList] = useState([]);
     const [userClass, setUserClass] = useState(false);
     const [userCode, setUserCode] = useState();
+    const [modalOn, setModalOn] = useState(false);
+    const [detailNo, setDetailNo] = useState(0);
 
     /*console.log("userInfo.userCode : " + userInfo.userCode);
     console.log("userCode : " + userCode);
@@ -50,6 +54,11 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
         return `${date.getFullYear()}-${(date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : ("0" + (date.getMonth() + 1))}-${date.getDate() >= 10 ? date.getDate() : ("0" + date.getDate())}`
     });
 
+    const onDetailModal = (no) => {
+        setDetailNo(no);
+        setModalOn(true);
+    }
+
     // 실제적으로 list가 되는 div 요소 셋팅
     // console.log("boardList : " +  boardList);
     const conList = boardList.map(item => {
@@ -57,7 +66,10 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
         return (
             <div key={item.NO} className="list-line">
                 <div className="list-col-1">{item.NO}</div>
-                <div className="list-col-2">{item.TITLE}</div>
+                <div className="list-col-2"><button onClick={(e) => {
+                    e.preventDefault();
+                    onDetailModal(item.NO);
+                }}>{item.TITLE}</button></div>
                 <div className="list-col-3">{item.NAME}</div>
                 <div className="list-col-4">{dateReturn(date)}</div>
             </div>
@@ -90,8 +102,13 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
         searchProccess(selectText, selectType);
     })
 
+    const initialModal = useCallback(() => {
+        setModalOn(false);
+    });
+
     return (
         <div className="board-list-component">
+            {modalOn && <BoardModal initialModal={initialModal} detailNo={detailNo}/>}
             <div className="title-wrap">
                 <div className="search-part">
                     <h2>Filter</h2>

@@ -19,6 +19,21 @@
 			<span>시작</span><span>하세요!</span>
 			
 		</div>
+		<div class="mypage_container1">
+			<ul class="mypage_table1">
+				<li class="mypage_table1-row">
+					<div class="mypage_col1-1">
+						<jsp:useBean id="today" class="java.util.Date" />
+						<fmt:formatDate var="now" value="${today}" pattern="yyyyMMdd" />
+						<fmt:formatDate var="sdate" value="${vo.startDate}"
+							pattern="yyyyMMdd" />
+						<p>
+							세탁 없는 생활 <span class="mypageDate">${now-sdate}</span>일 째
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
 
 
 		<div id="mypage-main-wrap" class="clearfix">
@@ -55,7 +70,7 @@
 		</div>
 		
 	
-		<div class="mypage_container1">
+		<%-- <div class="mypage_container1">
 			<ul class="mypage_table1">
 				<li class="mypage_table1-row">
 					<div class="mypage_col1-1">
@@ -69,7 +84,7 @@
 					</div>
 				</li>
 			</ul>
-		</div>
+		</div> --%>
 		
 		
 	

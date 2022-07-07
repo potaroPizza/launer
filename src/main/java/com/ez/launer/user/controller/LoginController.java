@@ -2,6 +2,7 @@ package com.ez.launer.user.controller;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.user.model.DriverAllVO;
 import com.ez.launer.user.model.SHA256Encryption;
@@ -130,8 +132,8 @@ public class LoginController {
 		logger.info("이메일 찾기 화면");
 
 	}
-	
 	@PostMapping("/findId")
+	@ResponseBody
 	public String findId_post(@ModelAttribute UserVO vo, DriverAllVO dvo,
 			@RequestParam int searchType, Model model) {
 		String result="";
@@ -139,33 +141,93 @@ public class LoginController {
 		if(searchType==1) {
 			logger.info("일반회원 이메일 찾기, 파라미터 vo={}, searchType={}",vo, searchType);
 				
-			result=userService.findEmail(vo);
-			if(result==null || result.isEmpty()) {
+			String findEmail=userService.findEmail(vo);
+			if(findEmail==null || findEmail.isEmpty()) {
 				result="해당 정보와 일치하는 이메일이 존재하지 않습니다";
+			}else {
+				result=findEmail;
 			}
 			
 			logger.info("일반회원 이메일 찾기 정보 결과 result={}", result);
 			model.addAttribute("result", result);
-
 		}else if(searchType==2) {
-			logger.info("배송기사 이메일 찾기, 파라미터 vo={}, searchType={}",dvo, searchType);
+			logger.info("배송기사 이메일 찾기, 파라미터 dvo={}, searchType={}",dvo, searchType);
 			
-			result=userService.findDmail(dvo);
-			if(result==null || result.isEmpty()) {
+			String findDmail=userService.findDmail(dvo);
+			if(findDmail==null || findDmail.isEmpty()) {
 				result="해당 정보와 일치하는 이메일이 존재하지 않습니다";
+			}else {
+				result=findDmail;
 			}
 			
 			logger.info("배송기사 이메일 찾기 정보 결과 result={}", result);
 			model.addAttribute("result", result);
-			
 		}
 		
-		return "/user/findId";
+		return result;
 	}
 	
 	@GetMapping("/findPwd")
 	public void findPwd() {
 		logger.info("비밀번호 찾기 화면");
+
+	}
+	@PostMapping("/findPwd")
+	public String findPwd_post(@ModelAttribute UserVO vo, DriverAllVO dvo,
+			@RequestParam int searchType, Model model) throws NoSuchAlgorithmException {
+		int result=0;
+		String randomPwd="";
+		for (int i = 0; i < 12; i++) {
+			randomPwd += (char) ((Math.random() * 26) + 97);
+		}
+
+		if(searchType==1) {
+			logger.info("일반회원 비밀번호 찾기, 파라미터 vo={}, searchType={}",vo, searchType);
+			
+		
+			String encodingRandomPwd = sha256.encrypt(randomPwd);
+			vo.setRandomPwd(encodingRandomPwd);
+			logger.info("임시비밀번호 , 암호화된 임시비밀번호 randomPwd={}, vo.getRandomPwd={} ",randomPwd, vo.getRandomPwd());
+			
+			result=userService.randomPwd(vo);
+			String msg="", url="";
+			
+			if(result>0) {
+				msg="입력하신 이메일 주소로 임시 비밀번호가 발송되었습니다.                "
+						+ "임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
+				url="/user/login";	
+			}else {
+				msg="해당 정보와 일치하는 계정이 존재하지 않습니다";
+				url="/user/findPwd";
+			}
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+		}else if(searchType==2) {
+			logger.info("일반회원 비밀번호 찾기, 파라미터 vo={}, searchType={}",dvo, searchType);
+			
+			dvo.setRandomPwd(randomPwd);
+			logger.info("임시비밀번호 , randomPwd={}",randomPwd);
+			
+			result=userService.randomPwd(vo);
+			String msg="", url="";
+			
+			if(result>0) {
+				msg="입력하신 이메일 주소로 임시 비밀번호가 발송되었습니다.                "
+						+ "임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
+				url="/user/login";	
+			}else {
+				msg="해당 정보와 일치하는 계정이 존재하지 않습니다";
+				url="/user/findPwd";
+			}
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+		}
+		
+		return "/common/message";
 
 	}
 	
