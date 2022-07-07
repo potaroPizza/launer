@@ -40,5 +40,10 @@ public class OfficeServiceImpl implements OfficeService{
 		return officeDAO.selectManagerByNo(no);
 	}
 
+	@Override
+	public int deleteOfficeAdmin(int usersNo) {
+		return officeDAO.deleteOfficeAdmin(usersNo);
+	}
+
 	
 }
