@@ -29,6 +29,7 @@
 	margin-bottom: 80px;
 	font-weight: bold;
 	font-size: 40px;
+	float: left;
 }
 
 .mypage_introduce span {
@@ -139,6 +140,10 @@
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-bottom: 70px;
+	width: 370px;
+    float: left;
+    margin-left: 110px;
+    text-align: center;
 }
 .mypage_table1 li {
 	border-radius: 10px;
@@ -158,5 +163,27 @@
 }
 
 .mypage_col1-1 span{
-	font-size: 30px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
+
+.mypageDate{
+	font-size: 35px;
+	font-weight: bold;
+	color: #466391;
+	letter-spacing: 2px;
+  background-image: -webkit-linear-gradient(92deg, #466391, #FFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: mypageDate 10s infinite linear;
+}
+@-webkit-keyframes mypageDate {
+  from {
+    -webkit-filter: mypageDate-rotate(0deg);
+  }
+  to {
+    -webkit-filter: mypageDate-rotate(-360deg);
+  }
+}
+
+

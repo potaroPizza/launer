@@ -65,7 +65,7 @@
     
     <!-- 배송기사 수정정보 조인 전체 조회 -->
     <select id="selectByEdit" parameterType="int" resultType="hashMap">
-		select d.*,a.bank,a.account_number,a.account_holder,o.office_name 
+		select d.*,a.bank,a.account_number,a.account_holder,o.office_name
 		from delivery_driver d join account_information a
 		on d.no=a.delivery_driver_no
 		join office o on d.office_no=o.no
@@ -87,9 +87,9 @@
    	<!-- 배송기사정보 수정 (전화번호,지점)  -->
    <update id="updateDeliveryHp" parameterType="deliveryDriverAllVo">
       update delivery_driver
-      set hp=#{hp},office_No=1
-<!--       set hp=#{hp},office_No=#{office_No} -->
-      where no=#{no}
+      <!-- set hp=#{hp},office_No=1 -->
+		set hp=#{hp},office_no=#{officeNo}
+      	where no=#{no}
    </update>
    
    <!-- 배송기사정보 수정(계좌정보) -->

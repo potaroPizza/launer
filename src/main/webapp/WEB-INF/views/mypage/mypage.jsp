@@ -14,10 +14,27 @@
 
 	<div id="mypage_wrap">
 		<div class="mypage_top"></div>
+		<div class="mypage_introduceWrap">
 		<div class="mypage_introduce">
 			${vo.name }님, &nbsp;<span>러너와</span> <span>함께</span> <span>빨래</span><span>없는</span> <span>생활을</span>
 			<span>시작</span><span>하세요!</span>
 			
+		</div>
+		<div class="mypage_container1">
+			<ul class="mypage_table1">
+				<li class="mypage_table1-row">
+					<div class="mypage_col1-1">
+						<jsp:useBean id="today" class="java.util.Date" />
+						<fmt:formatDate var="now" value="${today}" pattern="yyyyMMdd" />
+						<fmt:formatDate var="sdate" value="${vo.startDate}"
+							pattern="yyyyMMdd" />
+						<p>
+							세탁 없는 생활 <span class="mypageDate">${now-sdate}</span>일 째
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
 		</div>
 
 
@@ -55,7 +72,7 @@
 		</div>
 		
 	
-		<div class="mypage_container1">
+		<%-- <div class="mypage_container1">
 			<ul class="mypage_table1">
 				<li class="mypage_table1-row">
 					<div class="mypage_col1-1">
@@ -69,7 +86,7 @@
 					</div>
 				</li>
 			</ul>
-		</div>
+		</div> --%>
 		
 		
 	

@@ -227,23 +227,12 @@
                 </div>
 
                 <div>
-                    <h3 class="useredit_title"><label for="officeSelect">지점</label></h3>
-                    <select name="officeSelect" id="officeSelect">
-							<option value="강남지점">강남지점</option>
-							<option value="강동지점">강동지점</option>
-							<option value="강북지점">강북지점</option>
-							<option value="강서지점">강서지점</option>
-							<option value="관악지점">관악지점</option>
-							<option value="광진지점">광진지점</option>
-							<option value="노원지점">노원지점</option>
-							<option value="동대문지점">동대문지점</option>
-							<option value="서대문지점">서대문지점</option>
-							<option value="송파지점">송파지점</option>
-							<option value="양천지점">양천지점</option>
-							<option value="용산지점">용산지점</option>
-							<option value="종로지점">종로지점</option>
-							<option value="중랑지점">중랑지점</option>
-						</select>
+                    <h3 class="useredit_title"><label for="officeNo">지점</label></h3>
+                    <select name="officeNo" id="officeNo">
+	                    <c:forEach var="list" items="${list}" varStatus="status">
+								<option value="${list.no}">${list.officeName}</option>
+	                    </c:forEach>
+					</select>
                     <span class="box int_office" style="width:76%; display: inline-block;">
                         <input type="text" id="office" name="office" class="int"  value="${map['OFFICE_NAME'] }" readonly="readonly">
                     </span>
