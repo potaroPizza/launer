@@ -7,6 +7,10 @@
     <div class="logo">
         Launer
     </div>
+    <div class="top-menu">
+    	<a href="/launer"><i class="fa-solid fa-house"></i></a>
+        <a href="/launer/admin/adminLogout">Logout</a>
+    </div>
 
     <div id="btn-open-side-bar">
         <i class="fa-solid fa-bars"></i>
