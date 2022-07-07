@@ -312,6 +312,7 @@
         box-shadow:  20px 20px 60px rgba(40, 40, 40, 0.08),
         -20px -20px 60px rgba(0, 0, 0, 0.05);
         overflow: hidden;
+        overflow-y: auto;
 
         &.smallPage {
           animation: .3s smallpage ease;
@@ -337,7 +338,7 @@
         }
 
         .main-part{
-          width: 600px;
+          width: 800px;
           margin: 0 auto;
           box-sizing: border-box;
           padding: 20px 15px 0 15px;
@@ -622,7 +623,13 @@
     }
 
     .content-wrap{
-      margin-top:20px;
+      margin-top:40px;
+      overflow: hidden;
+      line-height: 150%;
+      img {
+        max-width: 100%;
+        margin: 10px 0;
+      }
     }
   }
 }

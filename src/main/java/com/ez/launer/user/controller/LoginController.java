@@ -105,6 +105,7 @@ public class LoginController {
 			Cookie myCookie = new Cookie("tempURL", null);
 			myCookie.setMaxAge(0);
 			myCookie.setPath("/");
+			response.addCookie(myCookie);
 
 			if(returnURLChk > 0) {
 				url = returnURL;

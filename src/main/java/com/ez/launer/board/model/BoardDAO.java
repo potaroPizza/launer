@@ -13,4 +13,6 @@ public interface BoardDAO {
 //    List<BoardVO> selectByCategoryNo(String categoryNo);
     List<Map<String, Object>> selectByCategoryNo(Map<String, Object> map);
     int countBoardList(Map<String, Object> map);
+
+    BoardVO selectBoardByNo(int no);
 }
