@@ -108,7 +108,7 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
 
     return (
         <div className="board-list-component">
-            {modalOn && <BoardModal initialModal={initialModal} detailNo={detailNo}/>}
+            {modalOn && <BoardModal contentList={contentList} userInfo={userInfo} initialModal={initialModal} detailNo={detailNo}/>}
             <div className="title-wrap">
                 <div className="search-part">
                     <h2>Filter</h2>

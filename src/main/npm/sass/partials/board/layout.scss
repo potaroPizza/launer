@@ -312,7 +312,6 @@
         box-shadow:  20px 20px 60px rgba(40, 40, 40, 0.08),
         -20px -20px 60px rgba(0, 0, 0, 0.05);
         overflow: hidden;
-        overflow-y: auto;
 
         &.smallPage {
           animation: .3s smallpage ease;
@@ -336,7 +335,11 @@
             &:nth-child(2) {color: #1CBC9C; margin-left: 7px}
           }
         }
-
+        .modal-scroll{
+          width: 100%;
+          height: calc(90vh - 36px);
+          overflow-y: auto;
+        }
         .main-part{
           width: 800px;
           margin: 0 auto;
@@ -570,6 +573,41 @@
 
   #board-detail-wrap {
     width: 100%;
+
+    .file-down-part{
+      width: 100%;
+      padding: 5px 6px;
+      border: 1px solid rgb(232, 234, 237);
+      margin-top: 15px;
+      display: flex;
+
+        .file-down{
+          padding: 3px 8px;
+          background: rgb(243, 243, 243);
+          margin-left: 5px;
+          display: block;
+          &:nth-child(1){margin-left: 0}
+          h3{
+            font-size: $middleFontSize;
+            margin-bottom: 5px;
+          }
+      }
+
+      /*form{
+        margin-left: 5px;
+        display: block;
+        &:nth-child(1){margin-left: 0}
+        .file-down{
+          padding: 3px 8px;
+          background: rgb(243, 243, 243);
+          h3{
+            font-size: $middleFontSize;
+            margin-bottom: 5px;
+          }
+
+        }
+      }*/
+    }
 
     .title{
       font-size: $superBigFontSize;
