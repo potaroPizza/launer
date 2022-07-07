@@ -51,10 +51,19 @@ public class AdminManageController {
 	private final SHA256Encryption sha256;
 
 	@RequestMapping("/stores")
-	public String stores() {
-		logger.info("지점관리 페이지");
+	public String stores(Model model) {
+		
+		//지점 전체 조회
+		List<OfficeVO> officeList = officeService.selectAll();
+		logger.info("지점조회 officeList.size={}", officeList.size());
+		
+		//지점관리자 list vo
+		List<Map<String, Object>> managerList = officeService.selectAllManager();
+		logger.info("지점 관리자 조회결과 managerList.size={}",managerList.size());
+		
+		model.addAttribute("officeList",officeList);
 
-		return "/admin/manage/stores";
+		return "/admin/stores";
 	}
 	
 	
@@ -90,14 +99,6 @@ public class AdminManageController {
 		}else {
 			tabNo =3;
 		}
-		List<OfficeVO> officeList = officeService.selectAll();
-		logger.info("전체 조회결과 officeList.size={}",officeList.size());
-		List<Map<String, Object>> managerList = officeService.selectAllManager();
-		logger.info("지점 관리자 조회결과 managerList.size={}",managerList.size());
-		
-		model.addAttribute("officeList",officeList);
-		model.addAttribute("managerList",managerList);
-		
 		logger.info("tabNo={}",tabNo);
 
 		model.addAttribute("userSearchKeyword",userSearchKeyword);
@@ -223,6 +224,15 @@ public class AdminManageController {
 		System.out.println("result "+result);
 		return "redirect:/admin/users";
 	}
+	
+	@DeleteMapping("/delivery-user/{no}")
+	public String deleteDelivery(@PathVariable("no") int no) {
+		System.out.println("no "+no);
+		int result = deliveryService.deleteDelivery(no);
+		System.out.println("result "+result);
+		return "redirect:/admin/users";
+	}
+	
 	
 	@RequestMapping("getWithdrawUser")
 	@ResponseBody
