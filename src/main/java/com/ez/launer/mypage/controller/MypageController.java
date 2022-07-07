@@ -150,7 +150,7 @@ public class MypageController {
 		int no=(int)session.getAttribute("no");
 
 		vo.setNo(no);
-		logger.info("회원정보 수정, UserAllVO={}", vo);
+		logger.info("회원정보 수정 파라미터, UserAllVO={}", vo);
 
 		String hp=vo.getHp();
 		String address=vo.getAddress(); 
@@ -163,16 +163,16 @@ public class MypageController {
 		
 		vo.setHp(hp);
 		vo.setAddress(address); 
-		vo.setAddressDetail(addressDetail);
+		vo.setAddressDetail(addressDetail);	
 		vo.setZipcode(zipcode);
 		vo.setEntermethod(entermethod);
 		vo.setLonX(lonX);
 		vo.setLatY(latY);
 		
+		
 		String str = vo.getAddress();
 		String[]str2= str.split("\\s");
 		String office=str2[1];
-		
 		
 		List<OfficeVO> list= userService.selectOffice();
 		
@@ -180,14 +180,16 @@ public class MypageController {
 		for(OfficeVO officeVo : list) {
 			String dbOffice = officeVo.getAddress().split("\\s")[1];
 			
+			logger.info("스플릿한 주소 office={},dbOffice={}",office,dbOffice);
 			if(dbOffice.equals(office)) {
 				vo.setOfficeNo(officeVo.getNo());
 				resCnt++;
 				break;
+			}else {
+				vo.setOfficeNo(vo.getOfficeNo());
 			}
+			
 		} 
-        
-		
 		
 		
 

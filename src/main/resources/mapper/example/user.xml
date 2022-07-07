@@ -93,7 +93,7 @@
    </select>
    <!-- 회원 정보 조회 주소테이블 조인 -->
    <select id="selectByIdAddress" parameterType="int" resultType="hashMap">
-      select u.*,a.address,a.entermethod,a.address_detail,a.zipcode,a.lon_x,a.lat_y
+      select u.*,a.address,a.entermethod,a.address_detail,a.zipcode,a.lon_x,a.lat_y,a.office_no
       from users u full outer join users_address a
 	  on u.no=a.users_no
       where u.no=#{no}

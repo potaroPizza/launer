@@ -46,11 +46,11 @@ function execZipcode() {
 				alert("전화번호 형식이 맞지 않습니다.");	
 				$("#hp").focus();
 				return false;
-			}else if(!isPassword($("#pwd").val())){
+			}/*else if(!isPassword($("#pwd").val())){
 				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
 				$('#pwd').focus();
 				return false;
-			}
+			}*/
 		});
 		$('form[name=usereditfrmSocial]').submit(function(){
 			
@@ -95,7 +95,11 @@ function execZipcode() {
 				alert("계좌번호를 입력하세요");
 				$("form[name=deliveryeditfrm] #accNum").focus();
 				return false;
-			}
+			}/*else if(!isPassword($("#pwd").val())){
+				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
+				$('#pwd').focus();
+				return false;
+			}*/
 			
 		});
 		
