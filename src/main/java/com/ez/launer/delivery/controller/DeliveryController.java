@@ -456,7 +456,10 @@ public class DeliveryController {
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
 		vo.setNo(deliveryNo);
 		logger.info("배달기사정보파라미터, DeliveryDriverAllVO={}", vo);
-
+		
+		int office=vo.getOfficeNo();
+		
+		vo.setOfficeNo(office);
 		/*
 		 * String hp=vo.getHp(); int officeNo=vo.getOfficeNo(); String
 		 * bank=vo.getBank(); String accountHolder=vo.getAccountHolder(); int
@@ -472,7 +475,7 @@ public class DeliveryController {
 		int result = deliveryDriverService.checkLogin(vo.getNo(), vo.getPwd());
 		logger.info("배달기사정보 수정 - 비밀번호 확인 결과, result ={}", result);
 
-		if (result == deliveryDriverService.LOGIN_OK) {
+		if (result == DeliveryDriverService.LOGIN_OK) {
 			int cnt = deliveryDriverService.updateDeliveryHp(vo);
 			logger.info("배송기사정보 수정 결과, cnt ={}", cnt);
 			int cnt2 = deliveryDriverService.updateAccountInfo(vo);
@@ -484,7 +487,7 @@ public class DeliveryController {
 				msg = "배송기사정보 수정 실패";
 			}
 
-		} else if (result == deliveryDriverService.DISAGREE_PWD) {
+		} else if (result == DeliveryDriverService.DISAGREE_PWD) {
 			msg = "비밀번호가 일치하지 않습니다.";
 		}
 

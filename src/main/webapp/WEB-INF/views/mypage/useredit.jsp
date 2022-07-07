@@ -229,7 +229,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="officeNo">지점</label></h3>
                     <select name="officeNo" id="officeNo">
-	                    <c:forEach var="list" items="${list}">
+	                    <c:forEach var="list" items="${list}" varStatus="status">
 								<option value="${list.no}">${list.officeName}</option>
 	                    </c:forEach>
 					</select>
