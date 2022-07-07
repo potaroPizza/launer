@@ -11,9 +11,23 @@
 $(function(){
 	const $modal = $("#modal-wrap");
 	$("#findIdBtn").click(function(){
+		const $formData = $("form[name=findIdfrm]").serialize();
+		console.log($formData);
+		
 		$modal.css("display", "flex").animate({
 			opacity: 1
 		}, 300);
+		
+		$.ajax({
+			url: "<c:url value='/user/findId'/>",
+			data: $formData,
+			method: "POST",
+			success: (res) => {
+				console.log(res);
+				$("#res-text").text(res);
+			},
+			error : (xhr, status, error) => alert("error : " + error)
+		});
 		return false;
 	});
 	$("#confirm").click(function(){
@@ -43,7 +57,7 @@ $(function(){
 					<span class="body-title">이메일 찾기 결과</span>
 					</div>
 					<div class="body-contentbox">
-					<span>${result}</span>
+					<span id="res-text">${result}</span>
 					</div>
 				</div>
 			</div>

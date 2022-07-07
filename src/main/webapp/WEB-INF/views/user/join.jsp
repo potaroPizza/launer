@@ -68,6 +68,8 @@
 						<input type="text" name="officeNo" id="OfficeNo" value=0 readonly><br />
 						<label for="adressDetail">상세주소</label>
 						<input type="text" name="addressDetail" id="addressDetail"><br />
+						<input type="hidden" name="lonX" value="${map['LON_X']}">
+		    			<input type="hidden" name="latY" value="${map['LAT_Y']}">
 						<label for="entermethod">공동현관 출입방법</label>
 						<input type="text" name="entermethod" id="entermethod"
 							placeholder="입력하지 않을시 '없음'으로 입력됩니다">
