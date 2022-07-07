@@ -66,7 +66,7 @@
 	
         <layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>
-				%msg%n
+				%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %-5level [%logger{0}:%line] - %msg %n
 			</Pattern>
 		</layout>
         
@@ -79,13 +79,13 @@
 		</rollingPolicy>
 		
 	</appender>
+	
+	
 	<!-- // ERRORLOG -->
-	
-	
-	
 	<root level="info">
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="SYSLOG" />
+		<appender-ref ref="ERRORLOG" />
 	</root>
 	<logger name="com.example.logbackStudy" level="debug" additivity="false">
 		<appender-ref ref="CONSOLE" />
@@ -93,6 +93,8 @@
 	<logger name="access-log" level="info" additivity="false">
 		<appender-ref ref="ACCESSLOG" />
 	</logger>
+
+	
 	
 	
 </configuration>
