@@ -22,4 +22,10 @@ public interface BoardDAO {
     int downloadCount(int no);
 
     int updateBoardViewCount(int no);
+
+    int deleteBoardFile(int no);
+
+    List<BoardFileVO> selectFileByNo(int no);
+
+    int updateBoard(BoardVO boardVO);
 }
