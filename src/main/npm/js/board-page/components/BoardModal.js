@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import BoardDetail from "./BoardDetail";
 
-const BoardModal = ({initialModal, detailNo}) => {
+const BoardModal = ({initialModal, detailNo, userInfo, contentList, addBtnOnClickEvent}) => {
     const [modalClass, setModalClass] = useState(true);
     const [modalStatus, setModalStatus] = useState("modal-part");
     const [btnCount, setBtnCount] = useState(0);
@@ -10,13 +10,15 @@ const BoardModal = ({initialModal, detailNo}) => {
         if(e.target.getAttribute("class") !== null) {
             if(e.target.getAttribute("class").includes('modal-wrap') ||
                 e.target.getAttribute("class").includes('window-close-btn')) {
-                setModalClass(false);
+                deleteModalOut();
                 setTimeout(() => {
                     initialModal();
                 }, 700);
             }
         }
     });
+
+    const deleteModalOut = useCallback(() => setModalClass(false));
 
     useEffect(() => {
         document.body.style.cssText = `
@@ -52,8 +54,10 @@ const BoardModal = ({initialModal, detailNo}) => {
                         <button><i className="fa-solid fa-circle-xmark window-close-btn" onClick={modalOut}></i></button>
                         <button><i className="fa-solid fa-window-maximize" onClick={modalUp}></i></button>
                     </header>
-                    <div className="main-part">
-                        <BoardDetail detailNo={detailNo}/>
+                    <div className="modal-scroll">
+                        <div className="main-part">
+                            <BoardDetail deleteModalOut={deleteModalOut} contentList={contentList} userInfo={userInfo} detailNo={detailNo}/>
+                        </div>
                     </div>
                 </div>
             </div>
