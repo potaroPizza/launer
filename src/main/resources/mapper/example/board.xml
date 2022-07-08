@@ -139,6 +139,36 @@
     <!-- 글 삭제 -->
 
 
+    <!-- 파일 삭제 -->
+    <!-- 파일 삭제 -->
+    <!-- 파일 삭제 -->
+    <!-- 파일 삭제 -->
+    <delete id="deleteBoardFile" parameterType="int">
+        delete UPLOAD_FILE
+        where BOARD_NO = #{no}
+    </delete>
+    <!-- 파일 삭제 -->
+    <!-- 파일 삭제 -->
+    <!-- 파일 삭제 -->
+    <!-- 파일 삭제 -->
+
+
+
+    <!-- 글 수정 -->
+    <!-- 글 수정 -->
+    <!-- 글 수정 -->
+    <!-- 글 수정 -->
+    <update id="updateBoard" parameterType="boardVo">
+        update BOARD
+        set TITLE = #{title}, CONTENT = #{content}
+        where NO = #{no}
+    </update>
+    <!-- 글 수정 -->
+    <!-- 글 수정 -->
+    <!-- 글 수정 -->
+    <!-- 글 수정 -->
+
+
 
     <!-- 글 조회수 증가 -->
     <!-- 글 조회수 증가 -->

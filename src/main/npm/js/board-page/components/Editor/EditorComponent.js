@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo} from 'react';
 import ReactQuill from "react-quill";
 
-const EditorComponent = ({onChange}) => {
+const EditorComponent = ({onChange, value}) => {
     const imageUrlHandler = useCallback(function() {
         const range = this.quill.getSelection();
         const url = prompt("please copy paste the image url here");
@@ -70,7 +70,7 @@ const EditorComponent = ({onChange}) => {
 
     return (
         <div>
-            <div style={{height: "500px"}}>
+            <div style={{height: "500px", borderBottom: "1px solid #ccc"}}>
                 <ReactQuill
                     style={{
                         height: "460px"
@@ -78,6 +78,7 @@ const EditorComponent = ({onChange}) => {
                     theme="snow"
                     modules={modules}
                     formats={formats}
+                    defaultValue={value}
                     onChange={(e) => onChange(e)}
                         //에바인게 아래 소스가 라이브러리가 제공하는 메서드임(한글 오류)
                         //근데 이게 이렇게 간단하게 해결이 되네;;

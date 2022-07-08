@@ -1,8 +1,6 @@
 package com.ez.launer.board.controller;
 
-import com.ez.launer.board.model.BoardDetailDownVO;
-import com.ez.launer.board.model.BoardFileVO;
-import com.ez.launer.board.model.BoardService;
+import com.ez.launer.board.model.*;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +13,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -76,8 +73,11 @@ public class BoardAPIController {
 
     @DeleteMapping("/board/{no}/{userNo}")
     @ResponseBody
-    public Map<String, Object> boardDelete(@PathVariable int no, @PathVariable int userNo) {
+    public Map<String, Object> boardDelete(@PathVariable int no, @PathVariable int userNo,
+                                           HttpServletRequest request) {
         logger.info("글 삭제 no={}, userNo={}", no, userNo);
+
+        List<BoardFileVO> fileList = boardService.selectFileByNo(no);
 
         Map<String, Object> resMap = new HashMap<>();
         resMap.put("no", no);
@@ -91,6 +91,16 @@ public class BoardAPIController {
         if(cnt > 0) {
             bool = true;
             msg = "삭제 성공";
+
+
+            String uploadPath = fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG);
+            for(BoardFileVO boardFileVO : fileList) {
+                File delFile = new File(uploadPath, boardFileVO.getFileName());
+                if(delFile.exists()) {
+                    boolean fileBool = delFile.delete();
+                    logger.info("파일 삭제 여부: {}", fileBool);
+                }
+            }
         }
 
         resMap.clear();
@@ -100,7 +110,66 @@ public class BoardAPIController {
         return resMap;
     }
 
+    @PostMapping("/board/{fileChk}")
+    @ResponseBody
+    public String updateBoard(@PathVariable boolean fileChk, @RequestPart(value = "key") BoardVO boardVO,
+                              HttpServletRequest request) {
+        logger.info("파일수정 API / fileChk={}, boardVO={}", fileChk, boardVO);
+        Map<String, Object> serviceMap = new HashMap<>();
 
+        List<BoardFileVO> oldFileList = boardService.selectFileByNo(boardVO.getNo());
+
+        //파일 업로드 처리
+        String fileName = "", originFileName = "";
+        long fileSize = 0;
+        List<UploadFileVO> fileListVo = new ArrayList<>();
+
+        try {
+            List<Map<String, Object>> fileList = fileUploadUtil.mulitiFileUpload(request, ConstUtil.UPLOAD_FILE_FLAG);
+            for(Map<String, Object> fileMap : fileList) {
+                UploadFileVO uploadFileVO = new UploadFileVO();
+
+                originFileName = (String)fileMap.get("originalFileName");
+                fileName = (String)fileMap.get("fileName");
+                fileSize = (long)fileMap.get("fileSize");
+
+                uploadFileVO.setBoardNo(boardVO.getNo());
+                uploadFileVO.setOriginalFileName(originFileName);
+                uploadFileVO.setFileName(fileName);
+                uploadFileVO.setFileSize(fileSize);
+
+                fileListVo.add(uploadFileVO);
+            }//for
+
+            logger.info("파일 업로드 성공 fileListVo.size={}, originFileName={}, fileName={}, fileSize={}",
+                    fileListVo.size(), originFileName, fileName, fileSize);
+        } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+
+        serviceMap.put("fileListVo", fileListVo);
+        serviceMap.put("fileChk", fileChk);
+        serviceMap.put("boardVO", boardVO);
+
+        int cnt = boardService.updateBoard(serviceMap);
+        logger.info("게시판 수정 로직 결과 cnt={}", cnt);
+
+        if(cnt > 0) {
+            String uploadPath = fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG);
+            for(BoardFileVO boardFileVO : oldFileList) {
+                File delFile = new File(uploadPath, boardFileVO.getFileName());
+                if(delFile.exists()) {
+                    boolean fileBool = delFile.delete();
+                    logger.info("파일 삭제 여부: {}", fileBool);
+                }
+            }
+        }
+
+        String msg = "수정 실패";
+        if(cnt > 0) msg = "수정 성공";
+
+        return msg;
+    }
 
 
 
