@@ -9,4 +9,5 @@ public interface CommentsService {
 	int updateComments(CommentsVO commentsVo);
 	int deleteComments(int boardNo);
 	int selectStep(int boardNo);
+	int insertReply(CommentsVO commentsVo);
 }
