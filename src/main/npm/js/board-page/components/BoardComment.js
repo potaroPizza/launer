@@ -19,6 +19,7 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
     const [comments, setComments] = useState([initialCommentData]);
     const [reply, setReply] = useState(0);
     const [replyComment, setReplyComment] = useState("");
+    const [replyClassName, setReplyClassName] = useState("");
 
     useEffect(() => {
         apiCommments();
@@ -46,9 +47,9 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
                 // alert(response.data);
                 if (response.data) {
                     apiCommments();
-                    if(isComment) {
+                    if (isComment) {
                         setComment("");
-                    }else {
+                    } else {
                         setReplyComment("");
                     }
                 } else {
@@ -61,8 +62,6 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
     const onChangeReplyComment = useCallback((e) => setReplyComment(e.target.value));
 
     const commentContents = comments.map((item, index) => {
-        console.log(item);
-
         return (
             <div className="comments-component" key={item.NO}>
                 <div className="out-of-step">
@@ -78,9 +77,11 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
                               onClick={() => replyPart(item.NO)}>{reply === item.NO ? "답글 취소" : "답글 달기"}</span>
                         {parseInt(userInfo.no) === item.USERS_NO ? (<span className="delete">삭제</span>) : ""}
                     </div>
-                    {reply === item.NO && <BoardCommentInput groupNo={item.NO} userInfo={userInfo} comment={replyComment}
-                                                             onChangeComment={onChangeReplyComment}
-                                                             apiCommentInsert={apiCommentInsert}/>}
+                    {reply === item.NO &&
+                        <BoardCommentInput replyClassName={replyClassName} groupNo={item.NO} userInfo={userInfo}
+                                           comment={replyComment}
+                                           onChangeComment={onChangeReplyComment}
+                                           apiCommentInsert={apiCommentInsert}/>}
                 </div>
             </div>
         )
@@ -89,8 +90,13 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
 
     const replyPart = useCallback((e) => {
         if (reply === e) {
-            setReply(0);
+            setReplyClassName("comment-input-part reply-dropUp");
+            setTimeout(() => {
+                setReply(0);
+            }, 210);
+            clearTimeout();
         } else {
+            setReplyClassName("comment-input-part reply-dropDown");
             setReply(e);
         }
     });
