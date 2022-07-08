@@ -4,6 +4,7 @@
 
 	<!-- 로그파일 저장 경로 !! 본인 경로에 맞게 변경 --> 
 	<property name="LOG_DIR" value="/logs" />
+<!--	<property name="LOG_DIR" value="/Library/DevelopProject/logs" />-->
 
 	<!-- CONSOLE 출력 형식 변경 -->
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> <!-- consoleLog -->

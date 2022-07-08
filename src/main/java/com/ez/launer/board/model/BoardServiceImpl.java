@@ -1,6 +1,8 @@
 package com.ez.launer.board.model;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -11,6 +13,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
+    private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
     private final BoardDAO boardDAO;
 
     @Override
@@ -49,7 +52,82 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public BoardVO selectBoardByNo(int no) {
+    public BoardDetailDownVO selectBoardByNo(int no) {
         return boardDAO.selectBoardByNo(no);
+    }
+
+    @Override
+    @Transactional
+    public int deleteBoard(Map<String, Object> map) {
+        int result = 0;
+
+        try {
+            result = boardDAO.deleteBoardFile((Integer) map.get("no"));
+
+            if(result > 0) {
+                result = boardDAO.deleteBoard(map);
+            }
+        } catch(RuntimeException e) {
+            e.printStackTrace();
+            result = -1;
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+
+        return result;
+    }
+
+    @Override
+    public int downloadCount(int no) {
+        return boardDAO.downloadCount(no);
+    }
+
+    @Override
+    public int updateBoardViewCount(int no) {
+        return boardDAO.updateBoardViewCount(no);
+    }
+
+    @Override
+    public List<BoardFileVO> selectFileByNo(int no) {
+        return boardDAO.selectFileByNo(no);
+    }
+
+    @Override
+    @Transactional
+    public int updateBoard(Map<String, Object> map) {
+        int result = 0;
+        //[1] 게시판 수정
+        //--fileChk
+        //[3] 기존 파일 삭제
+        //[2] 파일 테이블 insert
+
+        BoardVO boardVo = (BoardVO) map.get("boardVO");
+        int no = boardVo.getNo();
+        boolean bool = (boolean) map.get("fileChk");
+        List<UploadFileVO> uploadFileVOList = (List<UploadFileVO>) map.get("fileListVo");
+
+        logger.info("변환 결과 boardVo={}, bool={}, uploadFileVoList.size={}", boardVo, bool, uploadFileVOList.size());
+
+        try {
+            result = boardDAO.updateBoard(boardVo);
+            logger.info("[1] 게시판 업데이트 result={}", result);
+
+            if(result > 0 && bool) {
+                int cnt = 0;
+                cnt = boardDAO.deleteBoardFile(no);
+                logger.info("[2] 기존파일 삭제 cnt={}", cnt);
+
+                for (UploadFileVO uploadFileVO : uploadFileVOList) {
+                    logger.info("파일 정보 : {}", uploadFileVO);
+                    cnt = boardDAO.insertUploadFile(uploadFileVO);
+                }
+                logger.info("[3] 파일 dataInsert result={}", cnt);
+            }
+        } catch(RuntimeException e) {
+            e.printStackTrace();
+            result = -1;
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+
+        return result;
     }
 }

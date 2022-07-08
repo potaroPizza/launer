@@ -1,21 +1,26 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import BoardDetail from "./BoardDetail";
+import BoardComment from "./BoardComment";
 
-const BoardModal = ({initialModal, detailNo}) => {
+const BoardModal = ({initialModal, detailNo, userInfo, contentList, addBtnOnClickEvent}) => {
     const [modalClass, setModalClass] = useState(true);
     const [modalStatus, setModalStatus] = useState("modal-part");
     const [btnCount, setBtnCount] = useState(0);
 
     const modalOut = useCallback((e) => {
-        if(e.target.getAttribute("class") !== null) {
-            if(e.target.getAttribute("class").includes('modal-wrap') ||
+        if (e.target.getAttribute("class") !== null) {
+            if (e.target.getAttribute("class").includes('modal-wrap') ||
                 e.target.getAttribute("class").includes('window-close-btn')) {
-                setModalClass(false);
-                setTimeout(() => {
-                    initialModal();
-                }, 700);
+                deleteModalOut();
             }
         }
+    });
+
+    const deleteModalOut = useCallback(() => {
+        setModalClass(false);
+        setTimeout(() => {
+            initialModal();
+        }, 700);
     });
 
     useEffect(() => {
@@ -34,9 +39,9 @@ const BoardModal = ({initialModal, detailNo}) => {
 
 
     const modalUp = () => {
-        if(btnCount % 2 === 0) {
+        if (btnCount % 2 === 0) {
             setModalStatus("modal-part fullPage");
-        }else {
+        } else {
             setModalStatus("modal-part smallPage");
         }
 
@@ -46,14 +51,18 @@ const BoardModal = ({initialModal, detailNo}) => {
     return (
         <div className="detail-modal">
             <div className={modalClass ? "modal-background on" : "modal-background out"}></div>
-            <div className={modalClass ? `modal-wrap on` :  `modal-wrap out`} onClick={(e) => modalOut(e)}>
+            <div className={modalClass ? `modal-wrap on` : `modal-wrap out`} onClick={(e) => modalOut(e)}>
                 <div className={modalStatus}>
                     <header>
-                        <button><i className="fa-solid fa-circle-xmark window-close-btn" onClick={modalOut}></i></button>
+                        <button><i className="fa-solid fa-circle-xmark window-close-btn" onClick={modalOut}></i>
+                        </button>
                         <button><i className="fa-solid fa-window-maximize" onClick={modalUp}></i></button>
                     </header>
-                    <div className="main-part">
-                        <BoardDetail detailNo={detailNo}/>
+                    <div className="modal-scroll">
+                        <div className="main-part">
+                            <BoardDetail deleteModalOut={deleteModalOut} contentList={contentList} userInfo={userInfo}
+                                         detailNo={detailNo}/>
+                        </div>
                     </div>
                 </div>
             </div>

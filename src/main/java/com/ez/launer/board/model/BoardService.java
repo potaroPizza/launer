@@ -7,5 +7,16 @@ public interface BoardService {
     int insertUploadFileBoard(BoardVO boardVO, List<UploadFileVO> fileList);
     List<Map<String, Object>> selectByCategoryNo(Map<String, Object> map);
     int countBoardList(Map<String, Object> map);
-    BoardVO selectBoardByNo(int no);
+//    BoardVO selectBoardByNo(int no);
+    BoardDetailDownVO selectBoardByNo(int no);
+
+    int deleteBoard(Map<String, Object> map);
+
+    int downloadCount(int no);
+
+    int updateBoardViewCount(int no);
+
+    List<BoardFileVO> selectFileByNo(int no);
+
+    int updateBoard(Map<String, Object> map);
 }

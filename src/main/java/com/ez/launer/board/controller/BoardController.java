@@ -1,5 +1,6 @@
 package com.ez.launer.board.controller;
 
+import com.ez.launer.board.model.BoardFileVO;
 import com.ez.launer.board.model.BoardService;
 import com.ez.launer.board.model.BoardVO;
 import com.ez.launer.board.model.UploadFileVO;
@@ -15,9 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -214,4 +217,32 @@ public class BoardController {
 
         return resMap;
     }*/
+
+
+
+
+
+
+
+    /*@PostMapping("/board/file/download")
+    public ModelAndView fileDownLoad(@RequestPart(value = "key") BoardFileVO boardFileVO,
+                                     HttpServletRequest request) {*/
+    @GetMapping("/board/file/download")
+    public ModelAndView fileDownLoad(@RequestParam(defaultValue = "0") int no,
+                @RequestParam String fileName,
+                HttpServletRequest request) {
+        logger.info("파일 다운로드 no={}, fileName={}", no, fileName);
+
+        int cnt = boardService.downloadCount(no);
+        logger.info("다운로드 증감 결과 cnt={}", cnt);
+
+        //다운로드할 File 객체 만들어서 ModelAndView에 저장해서 리턴
+        Map<String, Object> map = new HashMap<>();
+        String uploadPath = fileUploadUtil.getUploadPath(request, ConstUtil.UPLOAD_FILE_FLAG);
+        File file = new File(uploadPath, fileName);
+        map.put("file", file);
+
+        ModelAndView mav = new ModelAndView("boardDownloadView", map);
+        return mav;
+    }
 }
