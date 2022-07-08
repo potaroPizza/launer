@@ -354,6 +354,10 @@
           width: 100%;
           height: calc(90vh - 36px);
           overflow-y: auto;
+
+          &.on {
+            height: calc(100vh - 36px);
+          }
         }
 
         .main-part {
