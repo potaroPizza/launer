@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.launer.comments.model.CommentsDAO">
+	<select id="selectComments" parameterType="int" resultType="map">
+		select a.*, b.name
+		from COMMENTS a join users b
+		on a.users_no = b.no
+		where BOARD_NO = #{boardNo}
+	</select>
+	
+	<insert id="insertComments" parameterType="commentsVo">
+		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+			select COMMENTS_SEQ.nextval from dual
+		</selectKey>
+		
+		insert into comments(NO, BOARD_NO, CONTENT, STEP, GROUP_NO)
+		values(#{no}, #{boardNo}, #{content}, #{step}, #{groupNo})
+	</insert>
+	
+	<update id="updateComments" parameterType="commentsVo">
+		update comments
+		set CONTENT = #{content}, REGDATE = SYSDATE
+		where NO = #{no}
+	</update>
+	
+	<update id="deleteComments" parameterType="int">
+		update comments
+		set DEL_FLAG = 'Y'
+		where no = #{no}
+	</update>
+	
+	<select id="selectComment" parameterType="int" resultType="commentsVo">
+		select * from COMMENTS
+		where BOARD_NO = #{boardNo}
+	</select>
+</mapper>
