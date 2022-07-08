@@ -62,4 +62,9 @@ public class BoardServiceImpl implements BoardService{
     public int downloadCount(int no) {
         return boardDAO.downloadCount(no);
     }
+
+    @Override
+    public int updateBoardViewCount(int no) {
+        return boardDAO.updateBoardViewCount(no);
+    }
 }

@@ -13,4 +13,6 @@ public interface BoardService {
     int deleteBoard(Map<String, Object> map);
 
     int downloadCount(int no);
+
+    int updateBoardViewCount(int no);
 }

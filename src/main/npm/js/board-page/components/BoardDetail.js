@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import BoardService from "../BoardService";
+import BoardComment from "./BoardComment";
 
 
 const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
@@ -87,8 +88,8 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                 console.log(response.data);
                 alert(response.data.message);
                 if (response.data.SUCCESS) {
-                    deleteModalOut();
                     contentList();
+                    deleteModalOut();
                 } else {
                     window.location.reload();
                 }
@@ -144,6 +145,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
             <div className="content-wrap">
                 <div dangerouslySetInnerHTML={{__html: (data.content)}}></div>
             </div>
+            <BoardComment detailNo={detailNo} userInfo={userInfo} apiBoard={apiBoard}/>
         </div>
     );
 };
