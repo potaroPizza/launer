@@ -42,6 +42,7 @@ h3 {
   box-sizing: border-box;
   position: relative;
   border-radius: 7px;
+  margin-bottom: 7px;
 }
 
 .int {
@@ -77,8 +78,9 @@ h3 {
 
 .error_next_box {
   margin-top: 9px;
-  font-size: 12px;
+  font-size: 13px;
   color: red;
+  margin-left: 5px;
 }
 
 #alertTxt {
@@ -114,4 +116,9 @@ h3 {
 .accountNumber_sub{
 	font-size: 12px;
 	color: gray;
+}
+select{
+	height:51px;
+	margin-right: 5px;
+	border-radius: 3px;
 }

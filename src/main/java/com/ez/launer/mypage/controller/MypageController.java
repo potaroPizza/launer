@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.PaginationInfo;
@@ -551,5 +552,30 @@ public class MypageController {
 	@GetMapping("/signout")
 	public void singOut() {
 		logger.info("탈퇴 완료 페이지 화면");
+	}
+	
+	
+	
+	@GetMapping("/chkAddress")
+	@ResponseBody
+	public Map<String, Object> chkAddress(@RequestParam String address) {
+		logger.info("주소 확인 address={}", address);
+		
+		String area = address.split("\\s")[1];
+		
+		List<OfficeVO> list= userService.selectOffice();
+		
+		boolean res = false;
+		for(OfficeVO officeVo : list) {
+			String dbOffice = officeVo.getAddress().split("\\s")[1];
+			if(dbOffice.equals(area)) {
+				res=true;
+				break;
+			}
+		} 
+		Map<String, Object> map = new HashMap<>();
+		map.put("SUCCESS", res);
+		
+		return map;
 	}
 }

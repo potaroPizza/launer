@@ -22,10 +22,6 @@ public interface UserService {
 	public static final int DISAGREE_PWD=2; //비밀번호 불일치
 	public static final int NONE_USEREMAIL=3;// 아이디 존재하지 않음
 	
-	//서비스지역 확인하는 상수
-	public static final int POSSIBLE_AREA=1; //서비스 가능 지역
-	public static final int IMPOSSIBLE_AREA=2;//서비스 불가능 지역
-	
 	public int insertUser(UserAllVO vo);
 	public int insertAddress(UserAllVO vo);
 	public int chkEmail(String email);
