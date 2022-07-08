@@ -49,10 +49,10 @@ function execZipcode() {
 				console.log(res);
 				if(res.SUCCESS){  
 					msg="서비스 지원 지역입니다.";
-				$('.error_next_box').eq(5).html(msg).css("color","green");
+					$('#serviceError').html(msg).css("color","#01DF01");
 				}else{ 						
 					msg="서비스 미지원 지역입니다.";
-					$('.error_next_box').eq(5).html(msg).css("color","red");
+					$('#serviceError').html(msg).css("color","red");
 				}
 			},
 			error:function(xhr, status, error){

@@ -67,15 +67,15 @@
                 <div>
                     <h3 class="useredit_title"><label for="address">주소</label></h3>
                     <span class="box int_address">
-                        <input type="text" id="address" name="address" class="int" maxlength="20" value="${map['ADDRESS']}" readonly="readonly">
+                        <input type="text" id="address" name="address" class="int" maxlength="20" value="${map['ADDRESS']}" onclick="execZipcode()" readonly="readonly">
                     </span>
-                    <span class="error_next_box"></span>
+                    <span class="error_next_box" id="serviceError"></span>
                 </div>
                 
                 <div>
                     <h3 class="useredit_title"><label for="addressDetail">상세주소</label></h3>
                     <span class="box int_addressDetail"> 
-                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}" placeholder="상세주소를 입력해주세요.">
+                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -87,7 +87,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_entermethod">
-                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}" placeholder="공동현관 출입방법을 입력해주세요.">
+                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}">
                     </span>
                     <span class="error_next_box"></span>
                     
@@ -150,15 +150,15 @@
                 <div>
                     <h3 class="useredit_title"><label for="address">주소</label></h3>
                     <span class="box int_address">
-                        <input type="text" id="address" name="address" class="int" maxlength="20" value="${map['ADDRESS']}" readonly="readonly">
+                        <input type="text" id="address" name="address" class="int" maxlength="20" value="${map['ADDRESS']}" onclick="execZipcode()"  readonly="readonly">
                     </span>
-                    <span class="error_next_box"></span>
+                    <span class="error_next_box" id="serviceError"></span>
                 </div>
                 
                 <div>
                     <h3 class="useredit_title"><label for="addressDetail">상세주소</label></h3>
                     <span class="box int_addressDetail"> 
-                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}" placeholder="상세주소를 입력해주세요.">
+                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}">
                     </span>
                     <span class="error_next_box"></span>
                    	<input type="hidden" name="lonX" value="${map['LON_X']}">
@@ -168,7 +168,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_entermethod">
-                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}" placeholder="공동현관 출입방법을 입력해주세요.">
+                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
