@@ -878,7 +878,9 @@ input#file-upload-button {
 					
 					.reply{
 						margin-right: 10px;
+                        cursor: pointer;
 					}
+                    .delete{cursor: pointer}
 				}
 			}
 		}

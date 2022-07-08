@@ -28,14 +28,19 @@ public class CommentsController {
 	private final CommentsService commentsService;
 	
 	@GetMapping("/comments/{boardNo}")
-	public List<Map<String, Object>> commentsView(@PathVariable int boardNo) {
+	@ResponseBody
+	public Map<String, Object> commentsView(@PathVariable int boardNo) {
 		logger.info("댓글 조회 api, boardNo={}", boardNo);
 
 		
 		List<Map<String, Object>> commentsList = commentsService.selectComments(boardNo);
 		logger.info("댓글 조회 결과 commentsList.size={}", commentsList.size());
+
+		Map<String, Object> resMap = new HashMap<>();
+		resMap.put("SUCCESS", true);
+		resMap.put("commentsList", commentsList);
 		
-		return commentsList;
+		return resMap;
 	}
 	
 	@PostMapping("/comments/{boardNo}/{usersNo}/{content}/{groupNo}")
