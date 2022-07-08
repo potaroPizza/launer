@@ -224,6 +224,8 @@ public class MypageController {
 		return "/common/message";
 
 	}
+	
+	
 	@PostMapping("/usereditSocial")
 	public String editKakao_post(@ModelAttribute UserAllVO vo,
 			HttpSession session, Model model) {
@@ -264,6 +266,8 @@ public class MypageController {
 				vo.setOfficeNo(officeVo.getNo());
 				resCnt++;
 				break;
+			}else {
+				vo.setOfficeNo(vo.getOfficeNo());
 			}
 		} 
 		
@@ -538,7 +542,6 @@ public class MypageController {
 		model.addAttribute("list", list);
 		
 		return "/mypage/detailedPaymentHistory";
-		
 		
 		
 		

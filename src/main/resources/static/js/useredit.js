@@ -24,8 +24,32 @@ function execZipcode() {
                 
                 coorSet(addr);
             }
+            
         }).open();
+        
     }
+    
+    $.ajax({
+					url:"<c:url value='/mypage/ajaxCheckArea'/>",
+					type:"get",
+					data:{
+						address:address
+					},
+					success:function(res){
+						var msg="";
+						if(res){  //이미 존재
+							msg="가능 서비스지역입니다.";
+							
+						}else{ //사용 가능							
+							msg="서비스 미지원 지역입니다.";
+						
+						}
+						$('.error_next_box').html(msg);
+					},
+					error:function(xhr, status, error){
+						alert('error! : '  +error);
+					}
+				});
 	function validate_hp(hp){
 	var pattern = new RegExp(/([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})/);
 	return pattern.test(hp);
