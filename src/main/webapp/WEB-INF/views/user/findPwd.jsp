@@ -6,7 +6,32 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<link rel="stylesheet" href="<c:url value="/css/user/findIdPwd.css"/>"/>
-
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#findPwdBtn').click(function(){
+			const $formData = $("form[name=findPwdfrm]").searialize();
+			console.log($fromData);
+			
+			$.ajax({
+				url: "<c:url value='/user/findPwd'/>",
+				data: $formData,
+				method: "POST",
+				success:function(data){
+					if(data ==0){
+						console.log(data);
+						output="해당 정보와 일치하는 계정이 존재하지 않습니다";
+					}else{
+						console.log(data);
+						output="입력하신 이메일 주소로 임시 비밀번호가 발송되었습니다.\n"
+								+"임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
+					}
+					$('#message').text(output);
+				} 
+			});
+		});
+	});
+</script>
 <div id="findIdPwd_wrap">
 	<div class="findIdPwdsubWrap">
 		<div class="titleArea">
@@ -37,7 +62,7 @@
 							<input id="email" name="email" type="text">
 						</p>
 						<div class="findIdPwdBtnWrap">
-                			<button class="findIdPwdBtn">확인</button>
+                			<button class="findIdPwdBtn" id="findPwdBtn">확인</button>
             			</div>
 					</div>
 				</div>
