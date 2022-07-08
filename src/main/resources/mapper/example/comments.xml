@@ -7,6 +7,7 @@
 		from COMMENTS a join users b
 		on a.users_no = b.no
 		where BOARD_NO = #{boardNo}
+		order by a.REGDATE desc
 	</select>
 	
 	<insert id="insertComments" parameterType="commentsVo">
@@ -14,8 +15,8 @@
 			select COMMENTS_SEQ.nextval from dual
 		</selectKey>
 		
-		insert into comments(NO, BOARD_NO, CONTENT, STEP, GROUP_NO)
-		values(#{no}, #{boardNo}, #{content}, #{step}, #{groupNo})
+		insert into comments(NO, BOARD_NO, CONTENT, STEP, GROUP_NO, USERS_NO)
+		values(#{no}, #{boardNo}, #{content}, #{step}, #{groupNo}, #{usersNo})
 	</insert>
 	
 	<update id="updateComments" parameterType="commentsVo">

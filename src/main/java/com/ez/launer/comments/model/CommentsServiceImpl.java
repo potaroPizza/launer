@@ -27,7 +27,6 @@ public class CommentsServiceImpl implements CommentsService {
 	@Override
 	public int insertComments(CommentsVO commentsVo) {
 		//groupNo가 0인 댓글은, 부모댓글이 없는 최상위 댓글입니다. (step도 1)
-		commentsVo.setGroupNo(0);
 		commentsVo.setStep(1);
 		
 		return commentsDao.insertComments(commentsVo);
