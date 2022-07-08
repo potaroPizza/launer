@@ -212,7 +212,7 @@ public class MypageController {
 				}else { msg="회원정보 수정 실패"; }
 			}else {
 				msg = "서비스 미지원 지역입니다.";
-				url="/";
+				url="/mypage/useredit";
 			}
 		}else if(result==UserService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";			
@@ -232,7 +232,7 @@ public class MypageController {
 		int no=(int)session.getAttribute("no");
 
 		vo.setNo(no);
-		logger.info("카카오회원정보 수정, UserAllVO={}", vo);
+		logger.info("카카오회원정보 수정 파라미터, UserAllVO={}", vo);
 
 		String hp=vo.getHp();
 		
@@ -276,14 +276,16 @@ public class MypageController {
 		if(resCnt > 0) {
 			int cnt = userService.updateUserAddress(vo);
 			logger.info("카카오회원정보 수정 결과, cnt ={},vo={}", cnt,vo);
+			int cnt2 = userService.updateUserAddress(vo);
+			logger.info("카카오회원정보 수정 결과, cnt2={} ", cnt2);
 
 
-			if(cnt>0 ) { 
+			if(cnt>0 && cnt2>0 ) { 
 				msg="회원정보를 수정하였습니다.";
 			}else { msg="회원정보 수정 실패"; }
 		}else {
 			msg = "서비스 미지원 지역입니다.";
-			url="/";
+			url="/mypage/useredit";
 		}
 		
 
