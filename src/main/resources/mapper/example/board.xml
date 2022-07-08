@@ -140,6 +140,22 @@
 
 
 
+    <!-- 글 조회수 증가 -->
+    <!-- 글 조회수 증가 -->
+    <!-- 글 조회수 증가 -->
+    <!-- 글 조회수 증가 -->
+    <update id="updateBoardViewCount" parameterType="int">
+        update BOARD
+        set VIEW_COUNT = VIEW_COUNT + 1
+        where NO = #{no}
+    </update>
+    <!-- 글 조회수 증가 -->
+    <!-- 글 조회수 증가 -->
+    <!-- 글 조회수 증가 -->
+    <!-- 글 조회수 증가 -->
+
+
+
     <!-- 파일 다운로드 시 count 증가 -->
     <update id="downloadCount" parameterType="int" >
         update UPLOAD_FILE

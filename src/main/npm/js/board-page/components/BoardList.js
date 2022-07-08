@@ -37,6 +37,10 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
         conDataSet();
     }, [userCode]); //컴포넌트 변경될 때마다 실행
 
+    useEffect(() => {
+
+    }, [detailNo]);
+
     const setUserSet = () => {
         if(((boardClass === 1) && (parseInt(userCode) === 3 || parseInt(userCode) === 4))) {
             setUserClass(true);
@@ -56,7 +60,6 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
 
     const onDetailModal = (no) => {
         setDetailNo(no);
-        setModalOn(true);
     }
 
     // 실제적으로 list가 되는 div 요소 셋팅
@@ -69,9 +72,11 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
                 <div className="list-col-2"><button onClick={(e) => {
                     e.preventDefault();
                     onDetailModal(item.NO);
+                    setModalOn(true);
                 }}>{item.TITLE}</button></div>
                 <div className="list-col-3">{item.NAME}</div>
-                <div className="list-col-4">{dateReturn(date)}</div>
+                <div className="list-col-4">{item.VIEW_COUNT}</div>
+                <div className="list-col-5">{dateReturn(date)}</div>
             </div>
         )
     });
@@ -133,7 +138,8 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
                         <div className="list-col-1">번호</div>
                         <div className="list-col-2">제목</div>
                         <div className="list-col-3">등록자</div>
-                        <div className="list-col-4">등록일</div>
+                        <div className="list-col-4">조회수</div>
+                        <div className="list-col-5">등록일</div>
                     </div>
                     {conList}
                     {/*

@@ -11,14 +11,16 @@ const BoardModal = ({initialModal, detailNo, userInfo, contentList, addBtnOnClic
             if(e.target.getAttribute("class").includes('modal-wrap') ||
                 e.target.getAttribute("class").includes('window-close-btn')) {
                 deleteModalOut();
-                setTimeout(() => {
-                    initialModal();
-                }, 700);
             }
         }
     });
 
-    const deleteModalOut = useCallback(() => setModalClass(false));
+    const deleteModalOut = useCallback(() => {
+        setModalClass(false);
+        setTimeout(() => {
+            initialModal();
+        }, 700);
+    });
 
     useEffect(() => {
         document.body.style.cssText = `

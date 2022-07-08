@@ -87,8 +87,8 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                 console.log(response.data);
                 alert(response.data.message);
                 if (response.data.SUCCESS) {
-                    deleteModalOut();
                     contentList();
+                    deleteModalOut();
                 } else {
                     window.location.reload();
                 }
