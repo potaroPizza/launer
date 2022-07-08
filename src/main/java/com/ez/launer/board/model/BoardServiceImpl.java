@@ -49,7 +49,22 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public BoardVO selectBoardByNo(int no) {
+    public BoardDetailDownVO selectBoardByNo(int no) {
         return boardDAO.selectBoardByNo(no);
+    }
+
+    @Override
+    public int deleteBoard(Map<String, Object> map) {
+        return boardDAO.deleteBoard(map);
+    }
+
+    @Override
+    public int downloadCount(int no) {
+        return boardDAO.downloadCount(no);
+    }
+
+    @Override
+    public int updateBoardViewCount(int no) {
+        return boardDAO.updateBoardViewCount(no);
     }
 }
