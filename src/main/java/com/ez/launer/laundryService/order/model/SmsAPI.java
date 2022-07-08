@@ -22,7 +22,7 @@ public class SmsAPI {
 	        params.put("to", "01049012186");
 	        params.put("from", hp);
 	        params.put("type", "SMS");
-	        params.put("text", "[런드리고] "+" 주문번호: "+orderNo+", "+name+"님, "+totalPrice+"원 결제완료되었습니다."+" 적립포인트: "+point+" p");
+	        params.put("text", "[러너] "+" 주문번호: "+orderNo+", "+name+"님, "+totalPrice+"원 결제완료되었습니다."+" 적립포인트: "+point+" p");
 	        params.put("app_version", "test app 1.2");
 
 	        try {
