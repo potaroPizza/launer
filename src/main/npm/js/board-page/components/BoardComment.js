@@ -37,6 +37,7 @@ const BoardComment = ({detailNo, userInfo}) => {
             		<span>댓글 등록</span>
 		            <button>등록</button>
 		        </div>
+		       {/*
             	<div className="input">
             		<input type="text" name="content" />
             	</div>
@@ -64,7 +65,7 @@ const BoardComment = ({detailNo, userInfo}) => {
 				)
 				}
 				
-            	{/*<div id="comments-component">
+            	<div id="comments-component">
             		<div className="out-of-step">
 	            		<div className="comment-info">
 	            			<img src=""/>

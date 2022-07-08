@@ -1,6 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import BoardService from "../BoardService";
 import BoardComment from "./BoardComment";
+import EditorComponent from "./Editor/EditorComponent";
 
 
 const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
@@ -18,6 +19,15 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
     const [data, setData] = useState(initialData);
     const [files, setFiles] = useState([]);
     const [fileChk, setFileChk] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+
+    const [title, setTitle] = useState("");
+    const [value, setValue] = useState("");
+
+    const refKey = useRef([]);
+
+
+    let [editFileChk, setEditFileChk] = useState(false);
 
     /*const fileSet = files.map(item => (
         <div key={item.no} className="file-down" onClick={() => {fileDownload({
@@ -73,6 +83,8 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
             .then((response) => {
                 console.log(response.data);
                 setData(response.data.boardVO);
+                setTitle(response.data.boardVO.title);
+                setValue(response.data.boardVO.content);
                 if (response.data.files.length > 0) {
                     setFiles(response.data.files);
                     setFileChk(true);
@@ -98,6 +110,31 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
     });
 
 
+    const updateBoard = useCallback(() => {
+        const formData = new FormData();
+
+        const fileData = refKey.current.file;
+
+        for(let i = 0; i < fileData.files.length; i++)
+            formData.append("file", fileData.files[i]);
+
+        const data = {
+            no: detailNo,
+            title,
+            content : value
+        }
+
+        formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
+
+        BoardService.boardUpdate(editFileChk, formData)
+            .then((response) => {
+                alert(response.data);
+                setEditMode(false);
+                apiBoard();
+            })
+    });
+
+
     /*const fileDownload = useCallback((index) => {
         const formData = new FormData();
         const data = {...files[index]}
@@ -119,15 +156,26 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
 
     const controllerBtn = (
         <div className="board-controll-btn">
-            <button>수정</button>
-            <button onClick={deleteBoard}>삭제</button>
+            <button onClick={() => setEditMode(!editMode)}>{editMode ? "취소" : "수정"}</button>
+            {editMode ? (
+                <button className="update-btn" onClick={updateBoard}>수정</button>) :
+                (<button className="delete-btn" onClick={deleteBoard}>삭제</button>)}
         </div>
     );
+
+    const fileChange = useCallback(() => setEditFileChk(true));
+
+
+    const onChange = useCallback((value) => {
+        console.log(value);
+        setValue(value);
+    });
 
     return (
         <div id="board-detail-wrap">
             <div className="title-line">
-                <h2 className="title">{data.title}</h2>
+                <h2 className="title">{editMode ? (
+                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>) : data.title}</h2>
                 <div className="title-sub">
                     <div className="user-info">
                         <p id="name">{data.name}</p>
@@ -141,9 +189,13 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                         {fileSet}
                     </div>
                 }
+                {editMode ? (<input onChange={fileChange} ref={e => refKey.current["file"] = e} className="upload-name"  type="file" placeholder="첨부파일" multiple/>) : ""}
             </div>
+            {/*<input type="text" value={content} onChange={(e) => setContent(e.target.value)}/>*/}
             <div className="content-wrap">
-                <div dangerouslySetInnerHTML={{__html: (data.content)}}></div>
+                {editMode ? (<EditorComponent value={value} onChange={onChange}/>) :
+                    (<div dangerouslySetInnerHTML={{__html: (data.content)}}></div>)
+                }
             </div>
             <BoardComment detailNo={detailNo} userInfo={userInfo} apiBoard={apiBoard}/>
         </div>

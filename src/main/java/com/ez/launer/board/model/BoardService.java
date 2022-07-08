@@ -15,4 +15,8 @@ public interface BoardService {
     int downloadCount(int no);
 
     int updateBoardViewCount(int no);
+
+    List<BoardFileVO> selectFileByNo(int no);
+
+    int updateBoard(Map<String, Object> map);
 }
