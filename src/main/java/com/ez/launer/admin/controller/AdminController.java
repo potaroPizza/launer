@@ -489,8 +489,8 @@ public class AdminController {
 		model.addAttribute("msg", "성공적으로 로그아웃 되었습니다.");
 		model.addAttribute("url", "/admin/adminLogin");		
 		
-		return "/common/message";
-		//return "redirect:/admin/adminLogin";
+		//return "/common/message";
+		return "redirect:/admin/adminLogin";
 	}
 	
 	
