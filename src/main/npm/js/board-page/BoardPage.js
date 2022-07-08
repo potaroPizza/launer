@@ -23,7 +23,7 @@ const BoardPage = () => {
             method: "GET",
             success: (res) => {
                 setUserInfo(res);
-                console.log("res : " + res);
+                console.log(res);
             },
             error: (xhr, status, error) => alert(`error : ${error}`)
         });

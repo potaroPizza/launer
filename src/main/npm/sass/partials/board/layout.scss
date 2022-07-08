@@ -674,3 +674,21 @@
     }
   }
 }
+
+
+
+
+
+#reply-component{
+  width: 100%;
+  padding: 15px 20px;
+  height: 300px;
+  border-radius: $card-bar-radius;
+  background: #ededed;
+  margin: 30px 0;
+
+  .title{
+    font-size: $middleFontSize;
+    margin-bottom: 10px;
+  }
+}
