@@ -908,10 +908,10 @@ input#file-upload-button {
 
       }
       .reply{
-
+        &:hover{cursor: pointer}
       }
       .delete{
-
+        &:hover{cursor: pointer}
       }
     }
 

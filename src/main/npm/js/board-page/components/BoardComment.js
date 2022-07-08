@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import BoardService from "../BoardService";
+import BoardCommentInput from "./BoardCommentInput";
 
 const BoardComment = ({detailNo, userInfo, dateReturn}) => {
-	const initialCommentData = {
+    const initialCommentData = {
         no: null,
         boardNo: null,
         content: "",
@@ -16,21 +17,23 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
 
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([initialCommentData]);
+    const [reply, setReply] = useState(0);
+    const [replyComment, setReplyComment] = useState("");
 
     useEffect(() => {
-		apiCommments();
-	}, []);
+        apiCommments();
+    }, []);
 
-	const apiCommments = () => {
-		BoardService.commentsSelectByBoardNo(parseInt(detailNo))
-			.then((response) => {
-				console.log(response.data);
+    const apiCommments = () => {
+        BoardService.commentsSelectByBoardNo(parseInt(detailNo))
+            .then((response) => {
+                console.log(response.data);
                 setComments(response.data.commentsList);
-			});
-	};
+            });
+    };
 
 
-    const apiCommentInsert = (groupNO) => {
+    const apiCommentInsert = (groupNO, isComment) => {
         const commentsVO = {
             boardNo: detailNo,
             usersNo: userInfo.no,
@@ -41,15 +44,21 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
         BoardService.commentsInsert(commentsVO)
             .then(response => {
                 // alert(response.data);
-                if(response.data) {
+                if (response.data) {
                     apiCommments();
-                    setComment("");
-                }else {
+                    if(isComment) {
+                        setComment("");
+                    }else {
+                        setReplyComment("");
+                    }
+                } else {
                     window.location.reload();
                 }
             });
     }
 
+    const onChangeComment = useCallback((e) => setComment(e.target.value));
+    const onChangeReplyComment = useCallback((e) => setReplyComment(e.target.value));
 
     const commentContents = comments.map((item, index) => {
         console.log(item);
@@ -65,29 +74,34 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
                     </div>
                     <div className="comment-info-btn">
                         <span className="regdate">{dateReturn(new Date(item.REGDATE))}</span>
-                        <span className="reply">답글 달기</span>
+                        <span className="reply"
+                              onClick={() => replyPart(item.NO)}>{reply === item.NO ? "답글 취소" : "답글 달기"}</span>
                         {parseInt(userInfo.no) === item.USERS_NO ? (<span className="delete">삭제</span>) : ""}
                     </div>
+                    {reply === item.NO && <BoardCommentInput groupNo={item.NO} userInfo={userInfo} comment={replyComment}
+                                                             onChangeComment={onChangeReplyComment}
+                                                             apiCommentInsert={apiCommentInsert}/>}
                 </div>
             </div>
         )
     })
-	
+
+
+    const replyPart = useCallback((e) => {
+        if (reply === e) {
+            setReply(0);
+        } else {
+            setReply(e);
+        }
+    });
+
+
     return (
         <div id="reply-component">
             <h3 className="title">댓글</h3>
             <div>
-                <div className="comment-input-part">
-                    <div className="left">
-                        <div className="comment-input">
-                            <h3 className="comment-name">{userInfo.name}</h3>
-                            <input type="text" value={comment} onChange={e => setComment(e.target.value)} name="content" />
-                        </div>
-                    </div>
-                    <div className="right">
-                        <button onClick={() => apiCommentInsert(0)}>등록</button>
-                    </div>
-                </div>
+                <BoardCommentInput groupNo={0} userInfo={userInfo} comment={comment} onChangeComment={onChangeComment}
+                                   apiCommentInsert={apiCommentInsert}/>
                 <div className="comment-list-part">
                     {commentContents}
                 </div>
