@@ -679,10 +679,52 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #reply-component{
   width: 100%;
   padding: 15px 20px;
-  height: 300px;
+  height: auto;
   border-radius: $card-bar-radius;
   background: #ededed;
   margin: 30px 0;
@@ -691,4 +733,96 @@
     font-size: $middleFontSize;
     margin-bottom: 10px;
   }
+  
+	.input{
+		width: 100%;
+  		padding: 5px 5px;
+  		height: 100px;
+  		//border: solid 1px black;
+  		margin: 10px 0;
+	}
+	
+	input{
+		width: 100%;
+  		padding: 5px 5px;
+  		height: 100px;
+  		border: solid 1px black;
+  		margin: 0px 0px 30px 0px;
+	}
+	
+	.comments-controll-btn{
+		height: 40px;
+		
+		span{
+			position: relative;
+    		top: 30px;
+		}
+		
+        button{
+		  margin-left: 15px;
+          padding: 10 10px;
+          height: 100%;
+          background: #fff;
+          border-radius: 15px;
+          box-shadow:  5px 5px 10px #f2f2f2;
+          background: blue;
+          color:#fff;
+          float: right;
+          position: relative;
+    	  top: 10px;
+        }
+        &:hover{
+          top:-2px;
+        }
+    }
+    
+    #comments-component{
+		width: 100%;
+		padding: 5px 5px;
+		height: 100px;
+		border-top: solid 1px black;
+		//border-bottom: solid 1px black;
+		margin: 20px 0;
+		
+		.step{
+			width: 10%;
+			height: 100px;
+		}
+		
+		.out-of-step{
+			width: auto;
+			height: 100px;
+			
+			p{
+				width: 100%;
+				height: 80%;
+				padding: 5px 5px;
+			}
+		
+			.comment-info{
+				width: 100%;
+				height: 20%;
+				margin-bottom: 15px;
+				
+				.name{
+					margin-right: 5px;
+				}
+				.regdate{
+					margin-left: 5px;
+				}
+				
+				.comment-info-btn{
+					float: right;
+					
+					.reply{
+						margin-right: 10px;
+					}
+				}
+			}
+		}
+		
+		
+		
+	}
+
 }
