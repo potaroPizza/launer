@@ -151,7 +151,9 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
     const dateReturn = useCallback((date) => {
         return `${date.getFullYear()}-${(date.getMonth() + 1) >= 10 ?
             (date.getMonth() + 1) : ("0" + (date.getMonth() + 1))}-${date.getDate() >= 10 ?
-            date.getDate() : ("0" + date.getDate())}  ${date.getHours()}:${date.getMinutes()}`
+            date.getDate() : ("0" + date.getDate())}  ${date.getHours() >= 10 ?
+            date.getHours() : ("0" + date.getHours())}:${date.getMinutes() >= 10 ?
+            date.getMinutes() : ("0" + date.getMinutes())}`
     });
 
     const controllerBtn = (
@@ -197,7 +199,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                     (<div dangerouslySetInnerHTML={{__html: (data.content)}}></div>)
                 }
             </div>
-            <BoardComment detailNo={detailNo} userInfo={userInfo} apiBoard={apiBoard}/>
+            <BoardComment dateReturn={dateReturn} detailNo={detailNo} userInfo={userInfo} apiBoard={apiBoard}/>
         </div>
     );
 };
