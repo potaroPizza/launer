@@ -559,7 +559,7 @@ public class MypageController {
 	@GetMapping("/chkAddress")
 	@ResponseBody
 	public Map<String, Object> chkAddress(@RequestParam String address) {
-		logger.info("주소 확인 address={}", address);
+		logger.info("ajax 주소 확인 address={}", address);
 		
 		String area = address.split("\\s")[1];
 		
