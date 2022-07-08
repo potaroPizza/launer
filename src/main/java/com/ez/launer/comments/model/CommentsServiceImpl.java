@@ -26,10 +26,10 @@ public class CommentsServiceImpl implements CommentsService {
 
 	@Override
 	public int insertComments(CommentsVO commentsVo) {
-		int boardNo = commentsVo.getBoardNo();
+		/*int boardNo = commentsVo.getBoardNo();
 		int step = selectStep(boardNo);
 		commentsVo.setStep(step+1);
-		
+		*/
 		return commentsDao.insertComments(commentsVo);
 	}
 

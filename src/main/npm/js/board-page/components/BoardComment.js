@@ -14,7 +14,7 @@ const BoardComment = ({detailNo, userInfo}) => {
         usersNo: null
     }
     
-    const [comment, setComment] = useState();
+    const [comment, setComment] = useState("");
     const [comments, setComments] = useState([initialCommentData]);
     
     useEffect(() => {
@@ -28,6 +28,21 @@ const BoardComment = ({detailNo, userInfo}) => {
                 setComments(response.data.commentsList);
 			});
 	};
+
+
+    const apiCommentInsert = (e) => {
+        const commentsVO = {
+            boardNo: detailNo,
+            usersNo: userInfo.no,
+            content: comment,
+            groupNo: e.target,
+        }
+
+        BoardService.commentsInsert(commentsVO)
+            .then(response => {
+                alert(response.data);
+            });
+    }
 
 
     const commentContents = comments.map((item, index) => (
@@ -55,7 +70,7 @@ const BoardComment = ({detailNo, userInfo}) => {
             <div>
             	<div className="comments-controll-btn">
             		<span>댓글 등록</span>
-		            <button>등록</button>
+		            <button onClick={() => apiCommentInsert(0)}>등록</button>
 		        </div>
 
             	<div className="input">

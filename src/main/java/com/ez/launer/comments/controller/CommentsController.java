@@ -4,15 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ez.launer.board.model.BoardVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ez.launer.comments.model.CommentsService;
 import com.ez.launer.comments.model.CommentsVO;
@@ -43,7 +38,7 @@ public class CommentsController {
 		return resMap;
 	}
 	
-	@PostMapping("/comments/{boardNo}/{usersNo}/{content}/{groupNo}")
+	/*@PostMapping("/comments/{boardNo}/{usersNo}/{content}/{groupNo}")
 	public CommentsVO commentsInsert(@PathVariable int boardNo, 
     		@PathVariable int usersNo, @PathVariable int groupNo,
     		@PathVariable int step, @PathVariable String content) {
@@ -61,6 +56,24 @@ public class CommentsController {
 		int cnt = commentsService.insertComments(commentsVo);
 		
 		return commentsVo;
+	}*/
+	@PostMapping("/comments")
+	@ResponseBody
+	public String commentsInsert(@RequestBody CommentsVO commentsVO) {
+		logger.info("댓글 등록 commentsVO={}", commentsVO);
+
+		//int step = commentsService.selectStep(boardNo);
+
+		/*CommentsVO commentsVo = new CommentsVO();
+		commentsVo.setStep(step);
+		commentsVo.setBoardNo(boardNo);
+		commentsVo.setUsersNo(usersNo);
+		commentsVo.setGroupNo(groupNo);
+		commentsVo.setContent(content);
+
+		int cnt = commentsService.insertComments(commentsVo);*/
+
+		return "test";
 	}
 	
 	@DeleteMapping("/comments/{commentsNo}")

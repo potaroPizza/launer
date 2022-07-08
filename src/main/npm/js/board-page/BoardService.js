@@ -39,8 +39,12 @@ const commentsSelectByBoardNo = (boardNo) => {
 	return httpCommon.get(`/comments/${boardNo}`);
 }
 
-const commentsInsert = (boardNo, usersNo, content, groupNo) => {
+/*const commentsInsert = (boardNo, usersNo, content, groupNo) => {
 	return httpCommon.get(`/comments/${boardNo}/${usersNo}/${content}/${groupNo}`);
+}*/
+
+const commentsInsert = (commentsVO) => {
+	return httpCommon.post(`/comments`, commentsVO);
 }
 
 
