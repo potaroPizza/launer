@@ -13,14 +13,17 @@ public interface ConstUtil {
 	
 	//자료실 - 파일 저장 경로
 	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\sung_ws\\launer\\src\\main\\resources\\static\\upload\\";
+//	String TEST_FILE_PATH = "/Library/IntelliJ Folder/project/src/main/resources/static/upload/";	//for Mac
 	String FILE_UPLOAD_PATH = "pd_upload";
 //	String FILE_UPLOAD_PATH_TEST = "C:\\lecture\\workspace_list\\spboot_ws\\springherb\\src\\main\\resources\\static\\pds_upload";
-	String FILE_UPLOAD_PATH_TEST = TEST_FILE_PATH + FILE_UPLOAD_PATH;	//Mac
+//	String FILE_UPLOAD_PATH_TEST = TEST_FILE_PATH + FILE_UPLOAD_PATH;	//Mac
+	String FILE_UPLOAD_PATH_TEST = TEST_FILE_PATH + FILE_UPLOAD_PATH;	//for Window
 
 	//관리자 페이지 - 상품 등록시 상품 이미지 저장 경로
 	String IMAGE_FILE_UPLOAD_PATH = "temp_img";
 //	String IMAGE_FILE_UPLOAD_PATH_TEST = "C:\\lecture\\workspace_list\\spboot_ws\\springherb\\src\\main\\resources\\static\\pd_images";
-	String IMAGE_FILE_UPLOAD_PATH_TEST = TEST_FILE_PATH + IMAGE_FILE_UPLOAD_PATH;	//Mac
+//	String IMAGE_FILE_UPLOAD_PATH_TEST = TEST_FILE_PATH + IMAGE_FILE_UPLOAD_PATH;	//Mac
+	String IMAGE_FILE_UPLOAD_PATH_TEST = TEST_FILE_PATH + IMAGE_FILE_UPLOAD_PATH;	//for Window
 
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
 	int UPLOAD_FILE_FLAG = 1;	// 자료실 업로드

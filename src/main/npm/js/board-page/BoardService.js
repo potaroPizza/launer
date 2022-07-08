@@ -17,4 +17,42 @@ const boardUpdate = (fileChk, boardVo) => {
     return httpFileCommon.post(`/board/${fileChk}`, boardVo);
 }
 
-export default {boardNoView, boardDeleteNo, boardUpdate};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 댓글 관련 */
+const commentsSelectByBoardNo = (boardNo) => {
+	return httpCommon.get(`/comments/${boardNo}`);
+}
+
+const commentsInsert = (boardNo, usersNo, content, groupNo) => {
+	return httpCommon.get(`/comments/${boardNo}/${usersNo}/${content}/${groupNo}`);
+}
+
+
+const commentsDeleteByCommentsNo = (commentsNo) => {
+	return httpCommon.delete(`/comments/${commentsNo}`);
+}
+
+
+
+
+
+
+
+export default {boardNoView, boardDeleteNo, boardUpdate,
+				commentsSelectByBoardNo, commentsInsert, commentsDeleteByCommentsNo};
