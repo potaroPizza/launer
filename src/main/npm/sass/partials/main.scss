@@ -128,7 +128,7 @@ section.part-one {
     width: 100%;
 }
 #title .one{
-    font-size: 15em;
+    font-size: 18em;
     position: relative;
 }
 #title .two {
@@ -266,10 +266,22 @@ section.part-three .text .second{
     border-radius: 10px;
     background: #000;
     margin-top: 34px;
-}
-section.part-three .text .second .title {
-    color: #fff;
-    font-size: 32px;
+    overflow: hidden;
+    .title {
+        color: #fff;
+        font-size: 32px;
+        position: relative;
+        img{
+            width: 100%;
+            display: block;
+        }
+
+        p{
+            position: absolute;
+            width: 100%;
+            bottom: 20px;
+        }
+    }
 }
 
 section.part-three .icon-box {
@@ -289,6 +301,12 @@ section.part-three .text .element .icon{
     height: 160px;
     border-radius: 10px;
     background: rgb(222, 222, 222);
+    overflow: hidden;
+
+    img{
+        display: block;
+        width: 100%;
+    }
 }
 
 section.part-three .text .element .sub-text{
@@ -451,13 +469,13 @@ section.part-five > h3{
 }
 
 .swiper-pagination {
-    bottom: 0;
+    bottom: -30px;
 }
 
 .swiper-pagination-bullet {
     border-radius: 0;
-    height: 2px;
-    width: 14px;
+    height: 10px;
+    width: 30px;
 }
 
 .swiper-pagination-bullet-active {
