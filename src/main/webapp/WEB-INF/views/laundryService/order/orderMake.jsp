@@ -6,7 +6,6 @@
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 
 <!-- select -->
-<script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -16,16 +15,16 @@
 			 	alert("주소 등록 후에 이용할 수 있는 서비스입니다");
 			 	location.href = "<c:url value='/mypage/useredit'/>";
 	 	 }
-	 	 
+
 	 	 var enterMethod =  $('#enterMethod').text();
 	 	 console.log("현관출입여부 : "+enterMethod);
 	 	 if(enterMethod.length<2){
 	 		enterMethod = "없음";
 	 		$('#enterMethod').text(enterMethod);
 	 	 }
-	 	 
-    	
-	 	 //주문하기 클릭했을 때 
+
+
+	 	 //주문하기 클릭했을 때
         $('#orderBtn').click(function () {
             if ($("input[name=itemName]").length < 1) {
                 alert("상품을 선택해주세요");
@@ -33,13 +32,13 @@
                 return false;
             }
 			let dataArr = [];
-			
+
 			let dataList = $(".testForm");
 			console.log(dataList);
-		
+
 			var param_string ="";
 			$.each(dataList, (idx, item) => {
-				
+
 				// console.log(item.childNodes);
 				let no = item.childNodes[0].defaultValue;
 				let name = item.childNodes[1].defaultValue;
@@ -50,14 +49,14 @@
 					no +","+name+","+price+","+ qty + "," + sum + "|"
 			});
 			console.log("param_string = "+param_string);
-			
+
 			$('#param').val(param_string);
-			
+
 			$('form[name=frm]').attr('action',"<c:url value='/laundryService/order/orderConfirm'/>");
 			$('form[name=frm]').attr('method','post');
         });
 
-        
+
         //동적으로 추가된 카테고리 관련
         $(document).on('click', '#delBtn', function () {
             var idx = $('.order-item-Div .testForm #delBtn').index(this);
@@ -76,7 +75,7 @@
 
             $("#totalPriceMake").attr("value", sum);
         });
-        
+
         $(document).on('mouseover', '#xWrap', function () {
         	$(this).css('background','#f3d2d2');
 
@@ -84,7 +83,7 @@
         $(document).on('mouseout', '#xWrap', function () {
         	$(this).css('background','');
         });
-        
+
 
         $(document).on('mouseover', '.order-item-Div div[name=testForm] #delBtn', function () {
             $(this).css("background", 'red');
@@ -171,8 +170,8 @@
             });
         });
     });
-   
-    
+
+
 </script>
 <script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
 <div class="margin-top-fixed" style ="height: 100px;"></div>
@@ -203,8 +202,8 @@
                 <i class="fa-solid fa-bell"></i>&nbsp;처음이신가요 ?
             </div>
             <a href="<c:url value="/laundryService/order/orderConfirm"/>">
-                <div class="hover-btn" style="width: 0px;"></div>
-				<p style="color: rgb(0, 0, 0);">첫고객 가이드</p>
+                <div class="hover-btn"></div>
+				<p >첫고객 가이드</p>
 			</a>
         </div>
         <hr>

@@ -1,111 +1,175 @@
 /* 기본 */
-.sp1 {width: 30px;
-    display: inline;}
+.sp1 {
+  width: 30px;
+  display: inline;
+}
 
 .sp2 {
-    width: 50px;
+  width: 50px;
 }
 
 .sp3 {
-    width: 70px;
+  width: 70px;
 }
 
 
-
-a { text-decoration: none; color: black; } a:visited { text-decoration: none; } a:hover { text-decoration: none; } a:focus { text-decoration: none; } a:hover, a:active { text-decoration: none; }
-
-.orderInfo-order-select-wrapper .title-select{
-	font-size: 24px;
-	font-weight: 600;
-	margin-bottom: 20px;
+a {
+  text-decoration: none;
+  color: black;
 }
 
-& > p:first-child >span {
-    font-weight: bold;
+ a:visited {
+  text-decoration: none;
+}
+
+ a:hover {
+  text-decoration: none;
+}
+
+ a:focus {
+  text-decoration: none;
+}
+
+ a:hover, a:active {
+  text-decoration: none;
+}
+
+.orderInfo-order-select-wrapper {
+  margin-top: 40px;
+
+  .title-select{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+
+
+  .order-select-wrap {
+    display: flex;
+    font-size: 23px;
+
+    .mulit-select{
+      width: 270px;
+      border-radius: $card-bar-radius;
+      height: 63px;
+      padding: 12px;
+      margin-right: 19px;
+      background: #f4f4f4;
+      border: none;
+      box-shadow:  13px 13px 22px #dedede,
+        -13px -13px 22px #ffffff;
+
+      &:focus {
+        outline-color: #a2a2a2;
+      }
+    }
+
+    .addBtnWrap{
+      display: flex;
+      align-items: center;
+      height: 64px;
+      border-radius: $card-bar-radius;
+      padding: 0 10px;
+      button {
+        background: none;
+        width: 80px;
+        height: 100%;
+        border: none;
+        padding: 0
+      }
+    }
+
+  }
+}
+
+& > p:first-child > span {
+  font-weight: bold;
 }
 
 .orderInfo-address p {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .orderInfo-address-myaddress {
-    border: 1px solid #b5b5b5;
-    height: 100px;
-    width: 500px;
-    border-radius: 8px;
-    margin-top: 14px;
-    padding: 20px;
+  border: 1px solid #b5b5b5;
+  height: 100px;
+  width: 500px;
+  border-radius: 8px;
+  margin-top: 14px;
+  padding: 20px;
 }
 
 span.orderInfo-address-myaddress-enter {
-    font-size: 0.7em;
-    color: #b4b1b1;
+  font-size: 0.7em;
+  color: #b4b1b1;
 }
 
 span#orderInfo-address-edit a {
-    font-size: 0.8em;
-    color: #0d62e2;
-    font-weight: bold;
-    text-decoration: none
+  font-size: 0.8em;
+  color: #0d62e2;
+  font-weight: bold;
+  text-decoration: none
 }
 
 .orderInfo-address > div > div:first-child {
-    width: 121px;
-    display: inline;
+  width: 121px;
+  display: inline;
 }
 
 .orderInfo-guide {
-    margin: 10px;
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-.orderInfo-order {
-    margin: 10px;
-    padding: 10px;
+  margin: 50px 10px 30px;
+  a {
+    box-sizing: content-box;
+    &:hover  {
+      p {color: #fff;}
+      .hover-btn{width: 100%;}
+    }
+
+    .hover-btn, p{transition: .3s}
+  }
 }
 
-.orderInfo-order> div:first-child {
+.orderInfo-order {
+  padding: 10px;
+
+  > div:first-child {
     font-weight: bold;
+  }
 }
 
 & {
-    width: 750px;
-    /*border: 1px solid black;*/
-    padding: 30px;
-    /*margin: 10px;*/
-    margin: 0 auto;
-    box-shadow:  37px 37px 73px #d9d9d9,
-        -37px -37px 73px #ffffff;
-    border-radius: 30px;
-}
-.margin-top-fixed{
-    width: 100%;
-    height: 100px;
+  width: 750px;
+  /*border: 1px solid black;*/
+  padding: 30px;
+  /*margin: 10px;*/
+  margin: 0 auto;
+  box-shadow: 37px 37px 73px #d9d9d9,
+  -37px -37px 73px #ffffff;
+  border-radius: 30px;
 }
 
-.orderInfo-order > div:first-child {
-    font-size: 23px;
-    margin-top: 20px;
-    margin-bottom: 34px;
+.margin-top-fixed {
+  width: 100%;
+  height: 100px;
 }
-
 
 
 
 .orderInfo-request {
-    margin-bottom: 53px;
+  margin-bottom: 53px;
 }
 
 span#orderAgree {
-    font-size: 0.8em;
-    font-weight: bold;
-    color: #19b919;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #19b919;
 }
 
 span#orderDisagree {
-    font-size: 0.8em;
-    font-weight: bold;
-    color: red;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: red;
 }
 
 .orderInfo-request {
@@ -119,7 +183,7 @@ span#orderDisagree {
 }
 
 .orderInfo-guide {
-  a{
+  a {
     margin-top: 13px;
     width: 160px;
     height: 50px;
@@ -133,259 +197,239 @@ span#orderDisagree {
     text-align: center;
     text-decoration: none;
 
-    & > .hover-btn{
-      width:0;
+    & > .hover-btn {
+      width: 0;
       height: 100%;
       background-color: #000;
       position: absolute;
-      top:0;
-      left:0;
+      top: 0;
+      left: 0;
     }
   }
 
 
 }
 
-.orderInfo-guide a>p {
-    z-index: 11;
-    position: relative;
-    margin: auto;
+.orderInfo-guide a > p {
+  z-index: 11;
+  position: relative;
+  margin: auto;
 }
 
-.orderInfo-goOrder{
-    align-items: center;
-    justify-content: center;
-  }
+.orderInfo-goOrder {
+  align-items: center;
+  justify-content: center;
+}
 
-  .orderBtn {
-    width: 140px;
-    height: 45px;
-    font-size: 15px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 500;
-    color: #000;
-    background-color: #fff;
-    border: none;
-    border-radius: 45px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
-    }
-  
-  .orderBtn:hover {
-    background-color: #7292b1;
-    box-shadow: 0px 15px 20px rgb(110 135 129 / 40%);
-    color: #fff;
-    transform: translateY(-7px);
-  }
+.orderBtn {
+  width: 140px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
 
-  .orderInfo-address {
-    margin-top: 65px;
+.orderBtn:hover {
+  background-color: #7292b1;
+  box-shadow: 0px 15px 20px rgb(110 135 129 / 40%);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.orderInfo-address {
+  margin-top: 65px;
 }
 
 
 div#order-formDiv {
-    height: 10px
+  height: 10px
 }
 
 #order-formDiv input {
-    border: none;
-    font-size: 20px;
-    width: 142px;
+  border: none;
+  font-size: 20px;
+  width: 142px;
 }
 
 div#order-divDiv {
-    border: 1px solid black;
-    height: 200px;
-    width: 400px;
-    overflow-y: scroll;
+  border: 1px solid black;
+  height: 200px;
+  width: 400px;
+  overflow-y: scroll;
 }
 
 
 i.fa-solid.fa-circle-xmark {
-    color: #ac1e1e;
-    margin-left: 30px;
+  color: #ac1e1e;
+  margin-left: 30px;
 }
 
 .order-div-wrapper {
-    width: 300px;
+  width: 300px;
 }
 
 .order-divDiv-selItem {
-    display: inline-block;
-    width: 140px;
-    font-size: 21px;
-    margin-right: 10px;
+  display: inline-block;
+  width: 140px;
+  font-size: 21px;
+  margin-right: 10px;
 }
 
 .order-divDiv-num {
-    display: inline-block;
-    font-size: 19px;
-}
- 
- 
- /* 0618 */
- 
- form[name=order-item-form] {
-    height: 300px;
-    border: 1px solid;
+  display: inline-block;
+  font-size: 19px;
 }
 
-#inputtest{
-	 overflow-y: scroll;
-	
+
+/* 0618 */
+
+form[name=order-item-form] {
+  height: 300px;
+  border: 1px solid;
 }
 
-input.tagAddDiv {    height: 43px;
-    font-size: 20px;
-    width: 148px;
-    padding-left: 15px;
-    border: none;}
-select#order-item {width: 300px;border-radius: 28px;height: 63px;padding: 12px;margin-right: 19px;}
+#inputtest {
+  overflow-y: scroll;
 
-.addBtnWrap {
-    width: 97px;
-    display: inline-block;
-    height: 44px;
-    border-radius: 5px;
-    padding-left: 13px;
-    padding-top: 5px;
 }
+
+input.tagAddDiv {
+  height: 43px;
+  font-size: 20px;
+  width: 148px;
+  padding-left: 15px;
+  border: none;
+  background: none;
+}
+
+
 
 .priceByQty {
-  	width: 71px;
-    height: 34px;
-    display: inline-block;
-    margin-left: 82px;
-    font-size: 20px;
+  width: 71px;
+  height: 34px;
+  display: inline-block;
+  margin-left: 82px;
+  font-size: 20px;
+  background: none;
 }
 
-i#plusI {color: #255bc7;}
+i#plusI {
+  color: #255bc7;
+}
 
 
 i.fa-solid.fa-xmark {
-    margin-left: 1px;
-    border-radius: 10px;
-    width: 27px;
-    height: 25px;
-    text-align: center;
-    padding-top: 5px;
+  margin-left: 1px;
+  border-radius: 10px;
+  width: 27px;
+  height: 25px;
+  text-align: center;
+  padding-top: 5px;
 }
 
 input#order_request {
-    width: 100%;
-    height: 100px;
-}
-
-& .addBtnWrap {
-    width: 120px;
-    }
-    
-    button#orderAddBtn {
-    background: none;
-    height: 35px;
-    width: 70px;
-    border: none;
-}
-
-
-button#orderAddBtn {
-    background: none;
-    height: 35px;
-    width: 70px;
-    border: none;
+  width: 100%;
+  height: 100px;
 }
 
 
 input#totalPriceMake {
-    margin-top: 63px;
-    width: 113px;
-    margin-right: 14px;
-    margin-left: 10px;
-    font-size: 1.4em;
-    border: none;
-    text-align: right;
-    border-bottom: 1px solid black;
-
-}
-
-
-
-.orderInfo-order-select-wrapper {
-    padding-top: 66px;
+  margin-top: 63px;
+  width: 113px;
+  margin-right: 14px;
+  margin-left: 10px;
+  font-size: 1.4em;
+  border: none;
+  text-align: right;
+  border-bottom: 1px solid black;
+  background: none;
 }
 
 
 .title-select {
-    margin-left: 12px;
+  margin-left: 12px;
 }
-
 
 
 button.btn.btn-primary {
-    display: list-item;
+  display: list-item;
 }
 
 .orderInfo-tac {
-    width: 100%;
+  width: 100%;
 }
 
- div#xWrap {
-    text-align: center;
-    width: 42px;
-    margin-left: 0px;
-    border-radius: 20px;
-}   
+div#xWrap {
+  text-align: center;
+  width: 42px;
+  margin-left: 0px;
+  border-radius: 20px;
+}
 
 div#totalPriceDiv {
-    text-align: right;
-    margin-right: 31px;
-    font-size: 19px;
-    font-weight: bold;
-    color: #000;
+  text-align: right;
+  margin-right: 31px;
+  font-size: 19px;
+  font-weight: bold;
+  color: #000;
 }
 
 
 .submitBtnWrapDiv {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 10px;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
-    
+
 .margin-top-fixed {
-    height: 29px;
+  height: 29px;
 }
-  .testForm{text-align: center;
-    margin-right: -17px;  
-	
-}  
+
+.testForm {
+  text-align: center;
+  margin-right: -17px;
+
+}
 
 div#orderAddressDetail {
-    margin-top: 16px;
+  margin-top: 16px;
 }
-div#categoryDiv {text-align: center;margin: 16px;margin-bottom: 32px;}
+
+div#categoryDiv {
+  text-align: center;
+  margin: 40px 16px 32px;
+}
 
 
 .categoryDiv-div {
-    display: inline-block;
-    font-size: 21px;
-    margin: auto;
-    margin-right: 31px;
-    width: 109px;
-    height: 43px;
-    border-radius: 8px;
-    font-weight: bold;
-    background: #f6f6f6;
-    padding-top: 10px;
+  display: inline-block;
+  font-size: 21px;
+  margin: auto;
+  margin-right: 31px;
+  width: 109px;
+  height: 43px;
+  border-radius: 8px;
+  font-weight: bold;
+  background: #f6f6f6;
+  padding-top: 10px;
 }
+
 select#order-num {
-    width: 58px;
-    margin-left: 17px;
+  width: 58px;
+  margin-left: 17px;
 }
+
 p#nim_p {
-    font-size: 27px;
+  font-size: 27px;
 }
   

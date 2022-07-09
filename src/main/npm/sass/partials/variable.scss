@@ -6,3 +6,14 @@ $bigFontSize: 26px;
 $middleFontSize: 22px;
 
 $card-bar-radius: 20px;
+
+
+@keyframes hoverSlide {
+  from {
+    color: #000;
+  }
+
+  to {
+    color: #fff;
+  }
+}

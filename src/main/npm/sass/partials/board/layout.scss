@@ -188,10 +188,12 @@
   @keyframes dropdown {
     0% {
       //transform: scaleY(0);
+      margin-top: 0;
       height: 0;
     }
     100% {
       //transform: scaleY(100%);
+      margin-top: 20px;
       height: 672px;
     }
   }
@@ -203,6 +205,7 @@
     100% {
       //transform: scaleY(0);
       height: 0;
+      margin-top: 0;
     }
   }
 
@@ -743,7 +746,7 @@ input#file-upload-button {
 
 #reply-component {
   width: 100%;
-  padding: 15px 20px;
+  padding: 15px 20px 20px 20px;
   height: auto;
   border-radius: $card-bar-radius;
   //background: #E4E4EC;
@@ -799,14 +802,46 @@ input#file-upload-button {
   }
 
   .comment-input-part {
+    @keyframes reply-dropdown {
+      0% {
+        height: 0;
+      }
+      100% {
+        height: 84px;
+      }
+    }
+    @keyframes reply-dropup {
+      0% {
+        height: 84px;
+      }
+      100% {
+        height: 0;
+        opacity: 0;
+        margin-top: 0px;
+      }
+    }
+
+
     width: 100%;
+    height: initial;
     background: #fff;
     border-radius: $card-bar-radius;
     margin-top: 20px;
     display: flex;
     overflow: hidden;
     border: 1px solid #8D8DA1;
-
+    box-sizing: border-box;
+    &.reply {
+      padding-left:60px;
+    }
+    &.reply-dropDown {
+      animation: .2s reply-dropdown ease;
+      animation-fill-mode: forwards;
+    }
+    &.reply-dropUp {
+      animation: .2s reply-dropup ease;
+      animation-fill-mode: forwards;
+    }
     .left {
       width: 90%;
 
@@ -824,6 +859,7 @@ input#file-upload-button {
           display: block;
           border-radius: 0;
           margin-top: 5px;
+          box-sizing: border-box;
         }
       }
     }
@@ -879,6 +915,7 @@ input#file-upload-button {
     margin-top: 15px;
     border-top: 1px solid #ddd;
 
+    transition: .2s;
     &.reply{padding-left: 60px;}
     &.reply-reply{padding-left: 120px;}
 
@@ -897,6 +934,7 @@ input#file-upload-button {
       font-size: 12px;
       color: #464646;
       display: flex;
+      align-items: center;
 
       span{
         display: block;
@@ -908,7 +946,12 @@ input#file-upload-button {
 
       }
       .reply{
+        background: #ddd;
+        border-radius: 3px;
+        padding: 2px 4px;
         &:hover{cursor: pointer}
+        &:active{background: #bbbbbb
+        }
       }
       .delete{
         &:hover{cursor: pointer}

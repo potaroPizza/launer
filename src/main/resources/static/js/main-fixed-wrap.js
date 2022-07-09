@@ -25,7 +25,6 @@ $(function() {
                 left: "-300px"
             }, 500, "swing");
             $("#modal-background").fadeOut(400);
-            scrollNone(0);
         }else {
             $(this).addClass("on");
             $(this).find("i").removeClass("fa-caret-right");
@@ -34,7 +33,6 @@ $(function() {
                 left: "0"
             }, 500, "swing");
             $("#modal-background").fadeIn(400);
-            scrollNone(1);
         }
     });
 
@@ -48,7 +46,6 @@ $(function() {
                 left: "-300px"
             }, 500, "swing");
             $("#modal-background").fadeOut(400);
-            scrollNone(0);
         }else {
             chk.addClass("on");
             chk.find("i").removeClass("fa-caret-right");
@@ -57,7 +54,6 @@ $(function() {
                 left: "0"
             }, 500, "swing");
             $("#modal-background").fadeIn(400);
-            scrollNone(1);
         }
     });
 

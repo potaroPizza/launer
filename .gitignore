@@ -36,3 +36,5 @@ build/
 /src/main/webapp/js/app.js
 /.node_modules/
 node_modules/
+/out/artifacts/launer_jar/launer.jar
+/src/main/java/META-INF/MANIFEST.MF

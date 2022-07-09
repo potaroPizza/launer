@@ -174,7 +174,7 @@ span#orderDisagree {
     cursor: pointer;
     outline: none;
     }
-  
+
   .orderBtn:hover {
     background-color: #7292b1;
     box-shadow: 0px 15px 20px rgb(110 135 129 / 40%);
@@ -225,10 +225,10 @@ i.fa-solid.fa-circle-xmark {
     display: inline-block;
     font-size: 19px;
 }
- 
- 
+
+
  /* 0618 */
- 
+
  form[name=order-item-form] {
     height: 300px;
     border: 1px solid;
@@ -236,7 +236,7 @@ i.fa-solid.fa-circle-xmark {
 
 #inputtest{
 	 overflow-y: scroll;
-	
+
 }
 
 input.tagAddDiv {    height: 43px;
@@ -283,7 +283,7 @@ input#order_request {
 & .addBtnWrap {
     width: 120px;
     }
-    
+
     button#orderAddBtn {
     background: none;
     height: 35px;
@@ -338,7 +338,7 @@ button.btn.btn-primary {
     width: 42px;
     margin-left: 0px;
     border-radius: 20px;
-}   
+}
 
 div#totalPriceDiv {
     text-align: right;
@@ -354,14 +354,14 @@ div#totalPriceDiv {
     margin-top: 50px;
     margin-bottom: 10px;
 }
-    
+
 .margin-top-fixed {
     height: 29px;
 }
   .testForm{text-align: center;
-    margin-right: -17px;  
-	
-}  
+    margin-right: -17px;
+
+}
 
 div#orderAddressDetail {
     margin-top: 16px;

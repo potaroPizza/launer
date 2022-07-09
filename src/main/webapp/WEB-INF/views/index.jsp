@@ -97,21 +97,21 @@
                         <div class="text">
                             <div class="first">
                                 <div class="element">
-                                    <div class="icon"><img style="width:230; height:160;" alt="비대면 세탁" src="${pageContext.request.contextPath}/images/test1.png"></div>
+                                    <div class="icon"><img alt="비대면 세탁" src="${pageContext.request.contextPath}/images/test1.png"></div>
                                     <span class="sub-text">비대면 세탁</span>
                                 </div>
                                 <div class="element">
-                                    <div class="icon"><img style="width:230; height:160;" alt="신속한 배송" src="${pageContext.request.contextPath}/images/test3.png"></div>
+                                    <div class="icon"><img alt="신속한 배송" src="${pageContext.request.contextPath}/images/test3.png"></div>
                                     <span class="sub-text">신속한 배송</span>
                                 </div>
                                 <div class="element">
-                                    <div class="icon"><img style="width:230; height:160;" alt="실시간 현황" src="${pageContext.request.contextPath}/images/test5.png"></div>
+                                    <div class="icon"><img alt="실시간 현황" src="${pageContext.request.contextPath}/images/test5.png"></div>
                                     <span class="sub-text">실시간 현황</span>
                                 </div>
                             </div>
                             <div class="second">
                                 <div class="title">
-                                   <img style="width:432; height:220;" alt="배송기사 모집" src="${pageContext.request.contextPath}/images/test20.png">
+                                   <img alt="배송기사 모집" src="${pageContext.request.contextPath}/images/test20.png">
                                    <p style="text-align: center;">러너 배송기사 상시모집중</p>
                                 </div>
                             </div>
@@ -164,16 +164,21 @@
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
                             <%-- <div class="swiper-slide"><img style="width:920; height:500;" alt="세탁팁1" src="${pageContext.request.contextPath}/images/test11.png"></div>--%>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/tKZQuO1sN3Y" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/WknSBlAIgdY" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/gEejeo0MhX0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/O_QVwpBe2IM" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/UWsStmXtYM0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/Hpe-IqdQceE" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/Bz8PoEdtbds" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/v1R8XWFYuvQ" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/R3Nns8UE8nk" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="swiper-slide" style="overflow: hidden;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/9vDNxekUIeg" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="swiper-slide" style="overflow: hidden;">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/tKZQuO1sN3Y"></iframe>
+                            </div>
+                            <div class="swiper-slide" style="overflow: hidden;">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/WknSBlAIgdY"></iframe>
+                            </div>
+                            <div class="swiper-slide" style="overflow: hidden;">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/gEejeo0MhX0" ></iframe>
+                            </div>
+                            <div class="swiper-slide" style="overflow: hidden;">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/O_QVwpBe2IM" ></iframe>
+                            </div>
+                            <div class="swiper-slide" style="overflow: hidden;">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/UWsStmXtYM0"></iframe>
+                            </div>
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
