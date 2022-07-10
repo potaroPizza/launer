@@ -28,6 +28,24 @@ $(function(){
 				if(userPoint<0 || userPoint==null){
 					userPoint = 0;
 				}
+				
+				if(payPrice ==0){
+					alert("결제금액 0원");
+					$.ajax({
+	                	type:'get',
+	            		url:"/launer/laundryService/payment/requestPayment",
+	            		data:{
+	            			"orderNo" : orderNo,
+	            			"payPrice" :payPrice,
+	            			"userPoint" : userPoint,
+	            			"savePoint" : savePoint,
+	            		},
+	            	});
+					
+					alert("결제가 완료되었습니다");
+					document.location.href="/launer";
+					
+				}
 
 		        // getter
 		        var IMP = window.IMP;
