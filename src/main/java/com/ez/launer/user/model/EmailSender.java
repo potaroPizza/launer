@@ -23,7 +23,7 @@ public class EmailSender {
 							+"임시비밀번호는"+vo.getRandomPwd()+"입니다. 임시비밀번호로 로그인하시고 마이페이지에서"
 							+"비밀번호 수정 부탁드립니다. 감사합니다! (주)런드리어벤져스";
 		String sender = "wjddls100472@naver.com"; 
-		
+		//네이버 계정문제였다니..
 		try {
 			MimeMessage msg = mailSender.createMimeMessage();
 			msg.setSubject(subject);

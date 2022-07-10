@@ -179,9 +179,8 @@ public class LoginController {
 
 	}
 	
-	@ResponseBody
 	@PostMapping("/findPwd")
-	public int findPwd_post(@ModelAttribute UserVO vo, DriverAllVO dvo,
+	public String findPwd_post(@ModelAttribute UserVO vo, DriverAllVO dvo,
 			@RequestParam int searchType, Model model) throws NoSuchAlgorithmException, MessagingException {
 		int result=0;
 		String randomPwd="";
@@ -199,12 +198,23 @@ public class LoginController {
 			
 			result=userService.randomPwd(vo);
 			logger.info("일반회원 임시비밀번호 부여 결과 result={}", result);
+			String msg="", url="";
 			
 			if(result>0) {
-				emailSender.sendEmail(vo);
+				msg="입력하신 이메일 주소로 임시 비밀번호가 발송되었습니다.                "
+						+ "임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
+				url="/user/login";	
+				
+				//if(updatePwd>0) {
+				//emailSender.sendEmail(vo);
+				//}
+			}else {
+				msg="해당 정보와 일치하는 계정이 존재하지 않습니다";
+				url="/user/findPwd";
 			}
 			
-			model.addAttribute("result", result);
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
 			
 		}else if(searchType==2) {
 			logger.info("일반회원 비밀번호 찾기, 파라미터 vo={}, searchType={}",dvo, searchType);
@@ -214,16 +224,27 @@ public class LoginController {
 			
 			result=userService.randomPwd(vo);
 			logger.info("배송기사 임시비밀번호 부여 결과 result={}", result);
+			String msg="", url="";
 			
 			if(result>0) {
-				dmailSender.sendDmail(dvo);
+				msg="입력하신 이메일 주소로 임시 비밀번호가 발송되었습니다.                "
+						+ "임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
+				url="/user/login";	
+				
+				//if(result>0) {
+				//dmailSender.sendDmail(dvo);
+				//}
+			}else {
+				msg="해당 정보와 일치하는 계정이 존재하지 않습니다";
+				url="/user/findPwd";
 			}
 			
-			model.addAttribute("result", result);
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
 		}
 		
-		return result;
-
+		return "/common/message";
 	}
 	
 	@GetMapping("/findId_modal")

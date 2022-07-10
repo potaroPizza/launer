@@ -26,5 +26,6 @@ public class UserAllVO {
 	private int addressNo;
 	private double latY;
 	private double lonX;
+	private String randomCode;
 	
 }

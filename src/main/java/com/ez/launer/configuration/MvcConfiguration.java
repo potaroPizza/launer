@@ -30,6 +30,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/kakaoLogin/**")
 				.excludePathPatterns("/user/checkEmail/**")
 				.excludePathPatterns("/user/checkHp/**")
+				.excludePathPatterns("/user/checkSms/**")
 				.excludePathPatterns("/user/findPwd/**");
 		registry.addInterceptor(new AdminLoginInterceptor())
 		.addPathPatterns("/admin/**")
