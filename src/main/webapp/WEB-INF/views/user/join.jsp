@@ -113,12 +113,12 @@
 						placeholder="-를 제외하고 입력해주세요">&nbsp;
 					<c:if test="${classNo == 1}">
 						<input type="button" value="중복 확인" id="btnChkHp">
-						<input type="text" name="chkHp" id="chkHp" disabled>
+						<input type="text" name="chkHp" id="chkHp" value="Y" disabled>
 						<input type="hidden" name="randomCode" id="randomCode" value="${randomCode}">
 					</c:if>
 					<c:if test="${classNo == 2}">
 						<input type="button" value="중복 확인" id="btnChkDhp">
-						<input type="text" name="chkDhp" id="chkDhp" disabled>
+						<input type="text" name="chkDhp" id="chkDhp" value="Y" disabled>
 					</c:if>
 				</div>
 				<div class="divTerms">
