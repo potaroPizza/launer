@@ -80,23 +80,11 @@
 				<c:if test="${classNo == 2}">
 					<div>
 						<label for="office">지점선택</label>
-						<select name="office" id="office">
-							<option value="강남지점">강남지점</option>
-							<option value="강동지점">강동지점</option>
-							<option value="강북지점">강북지점</option>
-							<option value="강서지점">강서지점</option>
-							<option value="관악지점">관악지점</option>
-							<option value="광진지점">광진지점</option>
-							<option value="노원지점">노원지점</option>
-							<option value="동대문지점">동대문지점</option>
-							<option value="서대문지점">서대문지점</option>
-							<option value="송파지점">송파지점</option>
-							<option value="양천지점">양천지점</option>
-							<option value="용산지점">용산지점</option>
-							<option value="종로지점">종로지점</option>
-							<option value="중랑지점">중랑지점</option>
+						<select name="officeNO">
+							<c:forEach var="list" items="${list}">
+							<option value="${list.no}">${list.officeName}</option>
+							</c:forEach>
 						</select>
-						<input type="text" name="officeNo" id="OfficeNo" value=0 readonly>
 					</div>
 					<div>
 						<label for="accHolder">계좌주</label>
@@ -126,6 +114,7 @@
 					<c:if test="${classNo == 1}">
 						<input type="button" value="중복 확인" id="btnChkHp">
 						<input type="text" name="chkHp" id="chkHp" disabled>
+						<input type="hidden" name="randomCode" id="randomCode" value="${randomCode}">
 					</c:if>
 					<c:if test="${classNo == 2}">
 						<input type="button" value="중복 확인" id="btnChkDhp">

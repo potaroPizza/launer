@@ -11,8 +11,11 @@
 	$(function(){
 		$('#btUse').click(function(){
 			$(opener.document).find('#hp').val('${param.hp}');
-			$("input[name=chkHp]", parent.parent.document.body).val('Y');
-			self.close();
+			$(opener.document).find('#randomCode').val('${param.randomCode}');
+			$opener.opener.form1.elements["#chkHp"].value='Y';
+			
+			window.close();
+			opener.window.close();
 		});
 	})
 </script>
@@ -21,11 +24,10 @@
 	<h2>인증번호 입력</h2>
 	<form name="frmSms" method="post" 
 		action="<c:url value='/user/checkSms'/>">
-		<p id=hp>${param.hp}번호로 전송된 인증번호를 입력해 주시기 바랍니다.</p><br>
-		<input type="hidden" name="hp" id="hp" value="${param.hp}" readonly><br>
+		<p id="hp">${param.hp}번호로 전송된 인증번호를 입력해 주시기 바랍니다.</p><br>
 		<input type="text" name="certifyCode" id="certifyCode" title="인증번호 입력" value="">
 		<input type="submit"  id="submit" value="확인">
-		<input type="hidden" name="randomCode" id="randomCode" value="${randomCode}">
+		<input type="hidden" name="randomCode" id="randomCode" value="${param.randomCode}">
 		<c:if test="${result==3 }">
 			<p>인증번호가 입력되지 않았습니다.</p>
 		</c:if>	

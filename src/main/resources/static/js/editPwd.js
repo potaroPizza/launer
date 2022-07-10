@@ -101,7 +101,7 @@
 			})
 			$('form[name=editPwdfrm] #editPwd_pwd').keyup(function(){
 				if(!isPassword($("#editPwd_pwd").val())){
-					$('.error_next_box').eq(0).text("비밀번호 형식이 맞지 않습니다.").css("color","red");
+					$('.error_next_box').eq(0).text("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.").css("color","red");
 				}else{
 					$('.error_next_box').eq(0).text("")
 				}
@@ -142,7 +142,7 @@
 			})
 			$('form[name=editPwdfrmDelivery] #editPwd_pwd').keyup(function(){
 				if(!isPassword($("#editPwd_pwd").val())){
-					$('.error_next_box').eq(0).text("비밀번호 형식이 맞지 않습니다.").css("color","red");
+					$('.error_next_box').eq(0).text("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.").css("color","red");
 				}else{
 					$('.error_next_box').eq(0).text("")
 				}
