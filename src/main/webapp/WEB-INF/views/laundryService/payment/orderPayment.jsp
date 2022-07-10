@@ -29,8 +29,8 @@ $(function(){
 					userPoint = 0;
 				}
 				
+				//전액 포인트로 결제할 경우
 				if(payPrice ==0){
-					alert("결제금액 0원");
 					$.ajax({
 	                	type:'get',
 	            		url:"/launer/laundryService/payment/requestPayment",

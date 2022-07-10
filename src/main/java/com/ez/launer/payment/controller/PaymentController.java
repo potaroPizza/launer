@@ -2,6 +2,7 @@ package com.ez.launer.payment.controller;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -44,10 +45,6 @@ public class PaymentController {
 			HttpSession session) {
 		int no = (int) session.getAttribute("no");
 		
-		if(payPrice == 0) {
-			System.out.println("잘 들어왔음!!");
-		}
-		
 		System.out.println("fk주문번호="+orderNo);
 		System.out.println("결제금액="+payPrice);
 		System.out.println("userPoint="+userPoint);
@@ -61,6 +58,9 @@ public class PaymentController {
 		
 		int rs = 0;
 		if(result>0) {
+			/*
+			
+			결제완료 SMS
 			
 			try {
 				UserVO userVo = userService.selectById(no);
@@ -70,7 +70,7 @@ public class PaymentController {
 				logger.info("sms 전송완료");
 			} catch (CoolsmsException e) {
 				e.printStackTrace();
-			}
+			}*/
 			
 			//orders 테이블 paymentDate null => sysdate
 			rs = orderService.updatePaymentDate(orderNo);
@@ -85,9 +85,8 @@ public class PaymentController {
 	
 	//결제 실패 시
 	@GetMapping("/paymentFailed")
-	public String paymentFailed_get(Model model,int savePoint,int orderNo, int payPrice, int userPoint, HttpSession session) {
-		int no =1000;
-		//(String) session.getAttribute("userid");
+	public String paymentFailed_get(HttpSession session,Model model,int savePoint,int orderNo, int payPrice, int userPoint) {
+		int no = (int) session.getAttribute("no");
 
 		logger.info("결제실패, orderNo={}",orderNo);
 		logger.info("결제실패, payPrice={}",payPrice);
@@ -97,6 +96,8 @@ public class PaymentController {
 		logger.info("userVo={}",userVo);
 		
 		userVo.setPoint(userPoint);
+		System.out.println("업데이트예정 point ="+userVo.getPoint());
+
 		int rs = orderService.updateUserPoint(userVo);
 		logger.info("결제취소, 업데이트 포인트 결과={}",rs);
 		return "/launer";

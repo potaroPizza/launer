@@ -28,13 +28,22 @@ $(function () {
 		
 		var havePoint = $('#havePoint').text();
 		var insertPoint = $('#insertPoint').val();
-		console.log(insertPoint);
+		console.log("입력포인트 :"+insertPoint); 
+		
+		//보유포인트에서 입력포인트를 뺐을 때 양수여야함
 		var cal = havePoint-insertPoint;
+		
+		//입력포인트는 구매금액보다 클 수 없음
+		var cal2 = buyingPrice - insertPoint;
+		//alert("cal2 ="+cal2);
 		
 		//입력포인트 > 보유포인트
 		if(cal<0){
 			$('#shortPoint').show();
 			alert("보유포인트보다 값이 큽니다");
+			
+			$('#totalPrice').val(buyingPrice);
+			$('#insertPoint').val("");
 			event.preventDefault();
 			return false;
 			
@@ -43,17 +52,31 @@ $(function () {
 		}
 		
 		//입력포인트 != number
-		if(isNaN(insertPoint)==true || insertPoint==0 ||insertPoint>buyingPrice ){
+		if(isNaN(insertPoint)==true || insertPoint==0){
 			alert("포인트가 올바르지 않습니다.");
+			$('#totalPrice').val(buyingPrice);
+			$('#insertPoint').val("");
 			event.preventDefault();
 			return false;
 		}
 		//포인트 사용가능 최소주문금액=10000
 		if(buyingPrice < 10000){
 			alert("10,000원 이상 구매시 포인트 사용가능합니다");
+			
+			$('#totalPrice').val(buyingPrice);
+			$('#insertPoint').val("");
 			event.preventDefault();
 			return false;
 		}
+		//구매금액보다 입력포인트가 클때
+		if(cal2<0){
+			alert("입력포인트가 구매금액보다 큽니다");
+			$('#totalPrice').val(buyingPrice);
+			$('#insertPoint').val("");
+			event.preventDefault();
+			return false;
+		}
+		
 			
 		//검사가 끝나면 파라미터 usePoint set
 		alert("입력포인트 "+insertPoint+"p");
@@ -204,12 +227,7 @@ $(function () {
 							</tr>
 						</thead>
 						<tbody>
-						
-							<c:if test="${empty list }">
-								<tr class="">
-									<td colspan="5">장바구니가 비었습니다.</td>
-								</tr>
-							</c:if>
+
 							<c:if test="${!empty list }">
 								<c:set var="readyPoint" value="0" />
 								<c:set var="buyingPrice" value="0" />
@@ -227,15 +245,13 @@ $(function () {
 										<td><input type="text" name="name" class="tdInput"
 											value="${map['name'] }"></td>
 										<td>
-										<span><fmt:formatNumber value="${map['price'] }" pattern="#,###" /></span>
-										<input type="hidden" name="price" class="paramInput"
+										<input type="text" name="price" class="paramInput"
 											value="${map['price'] }"></td>
 										<td><input type="text" name="quan" class="paramInput"
 											value="${map['quan'] }">
 										</td>
 										<td>
-										<span><fmt:formatNumber value="${map['sum'] }" pattern="#,###" /></span>
-										<input type="hidden"
+										<input type="text"
 											name="sum" class="paramInput" value="${map['sum'] }">
 										</td>
 									</tr>
@@ -252,8 +268,8 @@ $(function () {
 					<div class="orderConfirm-finalInfo">
 						<div class="orderConfirm-finalInfo-div">
 							<label for="buyingPrice" >상품금액 : </label> 
-							<span style="font-size:19px"><fmt:formatNumber value="${paramPrice }" pattern="#,###" />원</span>
-							<input type="hidden"
+
+							<input type="text"
 								name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
 								value="${paramPrice }" readonly>
 							<fmt:parseNumber 
@@ -263,6 +279,10 @@ $(function () {
 							<span><fmt:formatNumber value="${readyPoint }" pattern="#,###" />p</span>
 							<input type="hidden" id="savePoint"
 								name="savePoint" value="${readyPoint }">
+							
+							
+							
+							
 						</div>
 						<div class="orderConfirm-finalInfo-div">
 							<label for="">포인트사용 : </label> 
