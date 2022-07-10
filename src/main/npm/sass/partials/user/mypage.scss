@@ -134,35 +134,17 @@
 	
 	.mypage_container1 {
 	max-width: 1200px;
-	margin-left: 830px;
-	margin-right: auto;
-	padding-left: 10px;
-	padding-right: 10px;
 	margin-bottom: 70px;
-	width: 370px;
-    text-align: center;
-}
-.mypage_table1 li {
-	border-radius: 10px;
-	padding: 25px 30px;
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 25px;
-}
-.mypage_table1-row {
-	background-color: #ffffff;
-	box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
-	font-size: 18px;
+    text-align: right;
+    font-size: 18px;
 	font-weight: bold;
 }
-.mypage_col1-1 {
-	flex-basis: 100%;
-}
-
-.mypage_col1-1 span{
+.mypage_container1 span{
 	margin-left: 10px;
 	margin-right: 10px;
+	
 }
+
 
 .mypageDate{
 	font-size: 35px;

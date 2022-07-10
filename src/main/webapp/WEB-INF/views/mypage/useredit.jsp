@@ -67,15 +67,15 @@
                 <div>
                     <h3 class="useredit_title"><label for="address">주소</label></h3>
                     <span class="box int_address">
-                        <input type="text" id="address" name="address" class="int" maxlength="20" value="${map['ADDRESS']}" readonly="readonly">
+                        <input type="text" id="address" name="address" class="int" maxlength="20" value="${map['ADDRESS']}" onclick="execZipcode()" readonly="readonly">
                     </span>
-                    <span class="error_next_box"></span>
+                    <span class="error_next_box" id="serviceError"></span>
                 </div>
                 
                 <div>
                     <h3 class="useredit_title"><label for="addressDetail">상세주소</label></h3>
                     <span class="box int_addressDetail"> 
-                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}" placeholder="상세주소를 입력해주세요.">
+                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -87,7 +87,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_entermethod">
-                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}" placeholder="공동현관 출입방법을 입력해주세요.">
+                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}">
                     </span>
                     <span class="error_next_box"></span>
                     
@@ -150,15 +150,15 @@
                 <div>
                     <h3 class="useredit_title"><label for="address">주소</label></h3>
                     <span class="box int_address">
-                        <input type="text" id="address" name="address" class="int" maxlength="20" value="${map['ADDRESS']}" readonly="readonly">
+                        <input type="text" id="address" name="address" class="int" maxlength="20" value="${map['ADDRESS']}" onclick="execZipcode()"  readonly="readonly">
                     </span>
-                    <span class="error_next_box"></span>
+                    <span class="error_next_box" id="serviceError"></span>
                 </div>
                 
                 <div>
                     <h3 class="useredit_title"><label for="addressDetail">상세주소</label></h3>
                     <span class="box int_addressDetail"> 
-                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}" placeholder="상세주소를 입력해주세요.">
+                        <input type="text" id="addressDetail" name="addressDetail" class="int" maxlength="30" value="${map['ADDRESS_DETAIL']}">
                     </span>
                     <span class="error_next_box"></span>
                    	<input type="hidden" name="lonX" value="${map['LON_X']}">
@@ -168,7 +168,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_entermethod">
-                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}" placeholder="공동현관 출입방법을 입력해주세요.">
+                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -235,8 +235,8 @@
 								<option value="${list.no}">${list.officeName}</option>
 	                    </c:forEach>
 					</select>
-                    <span class="box int_office" style="width:76%; display: inline-block;">
-                        <input type="text" id="office" name="office" class="int"  value="${map['OFFICE_NAME'] }" readonly="readonly">
+                    <span class="box int_office" style="width:75%; display: inline-block; background-color: #e9e9e9;">
+                        <input type="text" id="office" name="office" class="int"  value="${map['OFFICE_NAME'] }" readonly="readonly" disabled style="background-color: #e9e9e9;">
                     </span>
                     <span class="error_next_box"></span>
                 </div>
@@ -248,7 +248,7 @@
                     <span class="error_next_box"></span>
                 </div>
                 <div>
-                    <h3 class="useredit_title"><label for="accountNumber">계좌번호 <span class="accountNumber_sub">(${map['BANK']}&nbsp;${map['ACCOUNT_NUMBER'] })</span></label></h3>
+                    <h3 class="useredit_title"><label for="accountinfo">계좌번호 <span class="accountNumber_sub">(${map['BANK']}&nbsp;${map['ACCOUNT_NUMBER'] })</span></label></h3>
                     <select name="bank" id="bank">
 							<option value="국민은행">국민은행</option>
 							<option value="기업은행">기업은행</option>
@@ -262,10 +262,11 @@
 							<option value="한국씨티은행">한국씨티은행</option>
 							<option value="SC제일은행">SC제일은행</option>
 						</select>
-                    <span class="box int_accNum" style="width:73%; display: inline-block;	">
-                        <input type="text" id="accountNumber" name="accountNumber" class="int"  maxlength="20" value="${map['ACCOUNT_NUMBER'] }">
+                    <span class="box int_accNum" style="width:72%; display: inline-block;">
+                        <input type="text" id="accountNumber" name="accountNumber" class="int"  maxlength="20" value="${map['ACCOUNT_NUMBER'] }"
+                        	oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="숫자이외에는 입력이 불가능합니다."/>
                     </span>
-                    <span class="error_next_box"></span>
+                    <span class="error_next_box"></span>	
                 </div>
 
                 <!-- useredit BTN-->
