@@ -9,30 +9,29 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
-		$('#btUse').click(function(){
-			$(opener.document).find('#hp').val('${param.hp}');
-			$(opener.document).find('#chkHp').val('Y');
-			
-			self.close();
+		$('#toSmsBtn').click(function(){
+			var ctxPath="/launer";
+			var hp=$('#hp').val();
+
+			window.open(ctxPath+"/user/checkSms?hp="+hp,"Hpcheck",
+				"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
 		});
 	})
 </script>
 </head>
 <body>
 	<h2>휴대전화 번호 중복 검사</h2>
-	<form name="frmEmail" method="post" 
+	<form name="frmHp" method="post" 
 		action="<c:url value='/user/checkHp'/>">
 		<input type="text" name="hp" id="hp" 
 			title="휴대전화 번호 입력" placeholder="-를 제외하고 입력해주세요" value="${param.hp}">
-		<input type="submit"  id="submit" value="확인">
-		
+		<input type="submit"  id="submit" value="확인">	
 		<c:if test="${result==UNUSABLE_HP }">
 			<p>이미 등록된 휴대전화 번호입니다. 다른 번호를 입력하세요</p>
 		</c:if>	
-		
 		<c:if test="${result==USABLE_HP }">
-			<input type="button" value="사용하기" id="btUse">
-			<p>사용가능한 휴대전화 번호입니다. [사용하기]버튼을 클릭하세요</p>
+			<input type="button" value="인증하기" id="toSmsBtn">
+			<p>사용가능한 휴대전화 번호입니다. 문자 인증을 위해 [인증하기]버튼을 누르면 인증페이지로 넘어갑니다.</p>
 		</c:if>
 	</form>
 </body>

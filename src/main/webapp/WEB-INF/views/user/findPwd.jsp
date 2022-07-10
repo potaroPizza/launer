@@ -6,7 +6,6 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<link rel="stylesheet" href="<c:url value="/css/user/findIdPwd.css"/>"/>
-
 <div id="findIdPwd_wrap">
 	<div class="findIdPwdsubWrap">
 		<div class="titleArea">
@@ -37,7 +36,7 @@
 							<input id="email" name="email" type="text">
 						</p>
 						<div class="findIdPwdBtnWrap">
-                			<button class="findIdPwdBtn">확인</button>
+                			<button class="findIdPwdBtn" id="findPwdBtn">확인</button>
             			</div>
 					</div>
 				</div>
