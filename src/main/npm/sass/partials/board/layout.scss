@@ -907,6 +907,8 @@ input#file-upload-button {
     }
   }
 
+
+
   .comments-component {
     width: 100%;
     //border-bottom: solid 1px black;
@@ -914,10 +916,30 @@ input#file-upload-button {
     padding: 15px 10px 0 10px;
     margin-top: 15px;
     border-top: 1px solid #ddd;
-
     transition: .2s;
-    &.reply{padding-left: 60px;}
-    &.reply-reply{padding-left: 120px;}
+    position: relative;
+
+    /*.reply-line {
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background: #000;
+      left: 0;
+      top:0;
+    }*/
+
+    background: no-repeat;
+    background-size: 15px auto;
+    &.reply{
+      padding-left: 60px;
+      //background-image: url(../../images/reply-icon.svg);
+      background-position: 35px 15px;
+
+    }
+    &.reply-reply{
+      padding-left: 120px;
+      background-position: 95px 15px;
+    }
 
     .comment-info {
       .name {
@@ -928,6 +950,10 @@ input#file-upload-button {
 
     .comment{
       margin-top: 15px;
+      &.del {
+        margin-top: 0;
+        color:#ddd;
+      }
     }
     .comment-info-btn{
       margin-top: 8px;

@@ -7,7 +7,7 @@
 		from COMMENTS a join users b
 		on a.users_no = b.no
 		where BOARD_NO = #{boardNo}
-		order by a.REGDATE desc
+		order by a.GROUP_NO desc, a.SORT_NO
 	</select>
 	
 	<insert id="insertComments" parameterType="commentsVo">
@@ -16,8 +16,28 @@
 		</selectKey>
 		
 		insert into comments(NO, BOARD_NO, CONTENT, STEP, GROUP_NO, USERS_NO)
-		values(#{no}, #{boardNo}, #{content}, #{step}, #{groupNo}, #{usersNo})
+		<if test="groupNo == 0">
+			values(#{no}, #{boardNo}, #{content}, #{step}, #{no}, #{usersNo})
+		</if>
 	</insert>
+
+
+	<update id="updateSortNo" parameterType="commentsVo">
+		update COMMENTS
+		set SORT_NO = SORT_NO + 1
+		where GROUP_NO = #{groupNo} and SORT_NO > #{sortNo}
+	</update>
+
+	<insert id="reply" parameterType="commentsVo">
+		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+			select COMMENTS_SEQ.nextval from dual
+		</selectKey>
+		insert into comments(NO, BOARD_NO, CONTENT, STEP, SORT_NO, GROUP_NO, USERS_NO)
+		values (#{no}, #{boardNo}, #{content}, #{step} + 1, #{sortNo} + 1, #{groupNo}, #{usersNo})
+	</insert>
+
+
+
 	
 	<update id="updateComments" parameterType="commentsVo">
 		update comments

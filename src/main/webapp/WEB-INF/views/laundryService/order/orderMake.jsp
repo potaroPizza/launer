@@ -149,7 +149,7 @@
                         + "</c:forEach>"
                         + "</select>"
                         + "<input type ='text' name='priceByQty' class = 'priceByQty' readonly style='border:none' value=" + vo.price + " >"
-                        + "<div id ='xWrap' style='display:inline-block'><a href=# id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a></div>"
+                        + "<div id ='xWrap' style='display:inline-block'><a href=# onclick='event.preventDefault()' id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a></div>"
                         + "</div>";
                     $(tagAdd).appendTo(".order-item-Div");
 

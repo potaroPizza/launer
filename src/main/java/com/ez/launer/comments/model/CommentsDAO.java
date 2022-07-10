@@ -12,4 +12,7 @@ public interface CommentsDAO {
 	int updateComments(CommentsVO commentsVo);
 	int deleteComments(int boardNo);
 	CommentsVO selectComment(int boardNo);
+
+	int updateSortNo(CommentsVO commentsVO);
+	int reply(CommentsVO commentsVO);
 }

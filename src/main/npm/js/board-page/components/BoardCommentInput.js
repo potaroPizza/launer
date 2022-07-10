@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-const BoardCommentInput = ({replyClassName, onChangeComment, comment, userInfo, apiCommentInsert, groupNo}) => {
+const BoardCommentInput = ({no, sortNo, step, replyClassName, onChangeComment, comment, userInfo, apiCommentInsert, groupNo}) => {
     const isComment = groupNo === 0;
 
 
@@ -13,7 +13,7 @@ const BoardCommentInput = ({replyClassName, onChangeComment, comment, userInfo, 
                 </div>
             </div>
             <div className="right">
-                <button onClick={() => apiCommentInsert(groupNo, isComment)}>등록</button>
+                <button onClick={() => apiCommentInsert(groupNo, isComment, step, sortNo, no)}>등록</button>
             </div>
         </div>
     );
