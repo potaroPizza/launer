@@ -43,7 +43,7 @@ $(function(){
 	            	});
 					
 					alert("결제가 완료되었습니다");
-					document.location.href="/launer";
+					document.location.href="/launer/mypage/paymentdetails";
 					
 				}
 
@@ -91,7 +91,7 @@ $(function(){
 		            alert(msg);
 		            //alert창 확인 후 이동할 url 설정
 		            if(paymentResult){
-		           	  document.location.href="/launer"; //결제 성공 시 이동할 url
+		           	  document.location.href="/launer/mypage/paymentdetails"; //결제 성공 시 이동할 url
 		            }else {
 		            	$.ajax({
 		                	type:'get',
@@ -103,9 +103,10 @@ $(function(){
 		            			"savePoint" : savePoint,
 		            		},
 		            	});
-		            	
+		            	document.location.href="/launer"; //결제 성공 시 이동할 url
+
 		            }
-		          	 document.location.href="/launer"; //모두 완료 후 이동할 rul
+
 		            
 	});
 });
