@@ -1,6 +1,7 @@
 package com.ez.launer.user.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.launer.office.model.OfficeVO;
 import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.SmsSender;
 import com.ez.launer.user.model.UserAllVO;
@@ -33,7 +35,12 @@ public class JoinController {
 	@GetMapping("/join")
 	public void join_get(Model model) {
 		logger.info("일반회원가입 화면");
-
+		
+		int randomNum = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
+		String randomCode=Integer.toString(randomNum);
+		logger.info("인증번호 생성 체크, randomCode={}", randomCode);
+		
+		model.addAttribute("randomCode", randomCode);
 		model.addAttribute("classNo", 1);
 	}
 	
@@ -49,7 +56,28 @@ public class JoinController {
 		String encryptedPwd = sha256.encrypt(pwd);
 		vo.setPwd(encryptedPwd);
 		logger.info("암호화 후 encryptedPwd={}",vo.getPwd());
-
+		
+		String str = vo.getAddress();
+		String[]str2= str.split("\\s");
+		String office=str2[1];
+		
+		List<OfficeVO> list= userService.selectOffice();
+		
+		int resCnt = 0;
+		for(OfficeVO officeVo : list) {
+			String dbOffice = officeVo.getAddress().split("\\s")[1];
+			
+			logger.info("스플릿한 주소 office={},dbOffice={}",office,dbOffice);
+			if(dbOffice.equals(office)) {
+				vo.setOfficeNo(officeVo.getNo());
+				resCnt++;
+				break;
+			}else {
+				vo.setOfficeNo(vo.getOfficeNo());
+			}
+			
+		}
+		
 		String entermethod=vo.getEntermethod();
 		if(entermethod==null || entermethod.isEmpty()) {
 			entermethod=entermethod2;
@@ -61,10 +89,17 @@ public class JoinController {
 		int cnt2=userService.insertAddress(vo);
 		logger.info("주소입력 결과, cnt2={}", cnt2);
 		
-		String msg="회원가입 실패", url="/user/join";
-		if(cnt>0 && cnt2>0) {
-			msg="회원가입되었습니다.";
-			url="/";
+		String msg="", url="";
+		if(resCnt>0) {
+			if(cnt>0 && cnt2>0) {
+				msg="회원가입되었습니다.";
+				url="/";
+			}else {
+				msg="회원가입 실패";
+			}
+		}else {
+			msg="서비스 미지원 지역입니다.";
+			url="/user/join";
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
@@ -91,42 +126,31 @@ public class JoinController {
 	}
 	
 	@RequestMapping("/checkHp")
-	public String checkHp(@RequestParam String hp, Model model) {
-		logger.info("휴대전화 번호 중복확인, 파라미터 hp={}", hp);
+	public String checkHp(@RequestParam(required=false)String hp, String randomCode, Model model) {
+		logger.info("휴대전화 번호 중복확인, 파라미터 hp={}, randomCode={}", hp, randomCode);
 		
 		int result=0;
 		if(hp!=null && !hp.isEmpty()) {		
 			result=userService.chkHp(hp);
-			
 			logger.info("휴대전화 번호 중복확인 결과, result={}", result);
+			
+			if(result==UserService.USABLE_HP) {
+				//smsSender.certifySms(hp, randomCode);
+			}
 		}
 		
 		model.addAttribute("result", result);
-		model.addAttribute("USABLE_HP", userService.USABLE_HP);
-		model.addAttribute("UNUSABLE_HP", userService.UNUSABLE_HP);
+		model.addAttribute("USABLE_HP", UserService.USABLE_HP);
+		model.addAttribute("UNUSABLE_HP", UserService.UNUSABLE_HP);
 		
 		return "/user/checkHp";
 	}
 	
-	@GetMapping("/checkSms")
-	public String checkSms_get(Model model) {
-		logger.info("인증번호 입력 화면");
-		
-		int randomNum = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
-	    String randomCode=Integer.toString(randomNum);
-	    logger.info("인증번호 생성 체크, randomCode={}", randomCode);
-		
-		model.addAttribute("randomCode", randomCode);
-		return "/user/checkSms";
-	}
-	
 	@RequestMapping("/checkSms")
-	public String checkSms(@RequestParam(required=false) String hp, String randomCode, 
+	public String checkSms(@RequestParam(required=false) String randomCode, 
 			String certifyCode, Model model) {
-		logger.info("인증번호 확인, 파라미터 hp={}, randomCode={}, certifyCode={}",hp, randomCode, certifyCode);
+		logger.info("인증번호 확인, 파라미터 randomCode={}, certifyCode={}", randomCode, certifyCode);
 		
-	    smsSender.certifySms(hp, randomCode);
-	    
 		int result=0;
 		if(certifyCode!=null && !certifyCode.isEmpty()) {		
 			if(certifyCode.equals(randomCode)) {

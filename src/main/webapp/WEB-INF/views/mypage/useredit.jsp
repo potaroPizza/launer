@@ -30,7 +30,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="pwd">비밀번호</label></h3>
                     <span class="box int_pass">
-                        <input type="password" id="pwd" name="pwd" class="int" maxlength="16" placeholder="비밀번호를 입력해주세요.">
+                        <input type="password" id="pwd" name="pwd" class="int" maxlength="16">
                         <span id="alertTxt">사용불가</span>
                         <img src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
                     </span>

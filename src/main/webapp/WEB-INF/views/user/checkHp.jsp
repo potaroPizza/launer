@@ -12,9 +12,11 @@
 		$('#toSmsBtn').click(function(){
 			var ctxPath="/launer";
 			var hp=$('#hp').val();
+			var randomCode=$('#randomCode').val();
 
-			window.open(ctxPath+"/user/checkSms?hp="+hp,"Hpcheck",
+			newPop=window.open(ctxPath+"/user/checkSms?hp="+hp+"&randomCode="+randomCode,"Hpcheck",
 				"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+			newPop.opener=opener;
 		});
 	})
 </script>
@@ -25,7 +27,8 @@
 		action="<c:url value='/user/checkHp'/>">
 		<input type="text" name="hp" id="hp" 
 			title="휴대전화 번호 입력" placeholder="-를 제외하고 입력해주세요" value="${param.hp}">
-		<input type="submit"  id="submit" value="확인">	
+		<input type="submit"  id="submit" value="확인">
+		<input type="hidden" name="randomCode" id="randomCode" value="${param.randomCode}">	
 		<c:if test="${result==UNUSABLE_HP }">
 			<p>이미 등록된 휴대전화 번호입니다. 다른 번호를 입력하세요</p>
 		</c:if>	
