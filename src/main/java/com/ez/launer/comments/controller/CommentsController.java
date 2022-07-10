@@ -62,7 +62,15 @@ public class CommentsController {
 	public boolean commentsInsert(@RequestBody CommentsVO commentsVO) {
 		logger.info("댓글 등록 commentsVO={}", commentsVO);
 
-		int cnt = commentsService.insertComments(commentsVO);
+		int step = commentsVO.getStep();
+		int cnt = 0;
+
+		if(step == 0) {
+			cnt = commentsService.insertComments(commentsVO);
+		} else {
+			cnt = commentsService.insertReply(commentsVO);
+		}
+
 		logger.info("댓글 등록 결과 cnt={}", cnt);
 
 		return cnt > 0;

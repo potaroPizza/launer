@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ez.launer.board.controller.BoardAPIController;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,11 +50,11 @@ public class CommentsServiceImpl implements CommentsService {
 	}
 
 	@Override
+	@Transactional
 	public int insertReply(CommentsVO commentsVo) {
 		// 부모 댓글의 step을 찾아서, +1 시킨값을 넣음 (프로시저 대신에 썼습니다.)
-		commentsVo.setStep(selectStep(commentsVo.getBoardNo())+1);
-		
-		return commentsDao.insertComments(commentsVo);
+		commentsDao.updateSortNo(commentsVo);
+		return commentsDao.reply(commentsVo);
 	}
 	
 }
