@@ -63,7 +63,7 @@ const BoardComment = ({detailNo, userInfo, dateReturn}) => {
 
     const commentContents = comments.map((item, index) => {
         return (
-            <div className="comments-component" key={item.NO}>
+            <div className="comments-component" key={index}>
                 <div className="out-of-step">
                     <div className="comment-info">
                         <span className="name">{item.NAME}</span>

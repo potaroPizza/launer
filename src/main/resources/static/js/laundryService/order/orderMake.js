@@ -1,6 +1,6 @@
 $(function() {
 	//첫고객가이드
-    $(".orderInfo-guide a").hover(function(){
+    /*$(".orderInfo-guide a").hover(function(){
         $(this).find(".hover-btn").stop().animate({
             width: "100%"
         }, 300, "swing");
@@ -10,10 +10,10 @@ $(function() {
             width: "0"
         }, 300, "swing");
         $(this).find("p").stop().animate({color: "#000"}, 400);
-    });
+    });*/
     
     
-    $("#plusI").hide();
+    /*$("#plusI").hide();
     $(".addBtnWrap").hover(function(){
 	    $(this).css("background", "#D7E6FF");
     $("#plusI").show();
@@ -21,7 +21,7 @@ $(function() {
     },function(){
         $(this).css("background", "#FFF");
     $("#plusI").hide();
-    });
+    });*/
     
 $("select[id='order-daily']").change(function () {
     var selectedOptionsDaily = [];

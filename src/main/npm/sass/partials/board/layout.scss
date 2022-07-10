@@ -188,10 +188,12 @@
   @keyframes dropdown {
     0% {
       //transform: scaleY(0);
+      margin-top: 0;
       height: 0;
     }
     100% {
       //transform: scaleY(100%);
+      margin-top: 20px;
       height: 672px;
     }
   }
