@@ -43,7 +43,7 @@ $(function () {
 		}
 		
 		//입력포인트 != number
-		if(isNaN(insertPoint)==true || insertPoint==0){
+		if(isNaN(insertPoint)==true || insertPoint==0 ||insertPoint>buyingPrice ){
 			alert("포인트가 올바르지 않습니다.");
 			event.preventDefault();
 			return false;
@@ -54,6 +54,7 @@ $(function () {
 			event.preventDefault();
 			return false;
 		}
+			
 		//검사가 끝나면 파라미터 usePoint set
 		alert("입력포인트 "+insertPoint+"p");
 		usePoint = insertPoint;

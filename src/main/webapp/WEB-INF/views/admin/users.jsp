@@ -76,13 +76,13 @@
 						aria-controls="Branch-manager-pane" aria-selected="false">지점관리자</button>
 				</li>
 			</ul>
-			<br> <input type="hidden" name="tabNo" value="${tabNo }"
-				id="tabNo" class="paramInput"> <input type="hidden"
+			<br> <input type="text" name="tabNo" value="${tabNo }"
+				id="tabNo" class="paramInput"> <input type="text"
 				name="searchCondition" value="${userSearchCondition }"
-				class="paramInput"> <input type="hidden" name="searchKeyword"
+				class="paramInput"> <input type="text" name="searchKeyword"
 				value="${userSearchKeyword }" class="paramInput"> <input
-				type="hidden" name="searchKeyword" value="${driverSearchKeyword }"
-				class="paramInput"> <input type="hidden" name="searchKeyword"
+				type="text" name="searchKeyword" value="${driverSearchKeyword }"
+				class="paramInput"> <input type="text" name="searchKeyword"
 				value="${driverSearchKeyword }" class="paramInput">
 
 			<div class="tab-content" id="myTabContent">
