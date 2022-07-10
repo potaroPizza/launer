@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.PaginationInfo;
@@ -212,7 +213,7 @@ public class MypageController {
 				}else { msg="회원정보 수정 실패"; }
 			}else {
 				msg = "서비스 미지원 지역입니다.";
-				url="/";
+				url="/mypage/useredit";
 			}
 		}else if(result==UserService.DISAGREE_PWD) {
 			msg="비밀번호가 일치하지 않습니다.";			
@@ -224,13 +225,15 @@ public class MypageController {
 		return "/common/message";
 
 	}
+	
+	
 	@PostMapping("/usereditSocial")
 	public String editKakao_post(@ModelAttribute UserAllVO vo,
 			HttpSession session, Model model) {
 		int no=(int)session.getAttribute("no");
 
 		vo.setNo(no);
-		logger.info("카카오회원정보 수정, UserAllVO={}", vo);
+		logger.info("카카오회원정보 수정 파라미터, UserAllVO={}", vo);
 
 		String hp=vo.getHp();
 		
@@ -264,6 +267,8 @@ public class MypageController {
 				vo.setOfficeNo(officeVo.getNo());
 				resCnt++;
 				break;
+			}else {
+				vo.setOfficeNo(vo.getOfficeNo());
 			}
 		} 
 		
@@ -272,14 +277,16 @@ public class MypageController {
 		if(resCnt > 0) {
 			int cnt = userService.updateUserAddress(vo);
 			logger.info("카카오회원정보 수정 결과, cnt ={},vo={}", cnt,vo);
+			int cnt2 = userService.updateUserAddress(vo);
+			logger.info("카카오회원정보 수정 결과, cnt2={} ", cnt2);
 
 
-			if(cnt>0 ) { 
+			if(cnt>0 && cnt2>0 ) { 
 				msg="회원정보를 수정하였습니다.";
 			}else { msg="회원정보 수정 실패"; }
 		}else {
 			msg = "서비스 미지원 지역입니다.";
-			url="/";
+			url="/mypage/useredit";
 		}
 		
 
@@ -541,10 +548,34 @@ public class MypageController {
 		
 		
 		
-		
 	}
 	@GetMapping("/signout")
 	public void singOut() {
 		logger.info("탈퇴 완료 페이지 화면");
+	}
+	
+	
+	
+	@GetMapping("/chkAddress")
+	@ResponseBody
+	public Map<String, Object> chkAddress(@RequestParam String address) {
+		logger.info("ajax 주소 확인 address={}", address);
+		
+		String area = address.split("\\s")[1];
+		
+		List<OfficeVO> list= userService.selectOffice();
+		
+		boolean res = false;
+		for(OfficeVO officeVo : list) {
+			String dbOffice = officeVo.getAddress().split("\\s")[1];
+			if(dbOffice.equals(area)) {
+				res=true;
+				break;
+			}
+		} 
+		Map<String, Object> map = new HashMap<>();
+		map.put("SUCCESS", res);
+		
+		return map;
 	}
 }

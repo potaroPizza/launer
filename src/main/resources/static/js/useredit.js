@@ -1,10 +1,19 @@
 /**useredit.jsp  회원정보 수정페이지 
  * 
  */
- function isPassword(asValue) {
+function isPassword(asValue) {
 	var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
  
-	return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
+	return regExp.test(asValue);
+}
+function validate_hp(hp){
+var pattern = new RegExp(/([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})/);
+return pattern.test(hp);
+}
+
+function validate_accountNumber(accountNumber){
+	var pattern = new RegExp(/^[0-9]+$/);
+	return pattern.test(accountNumber);
 }
 
 function execZipcode() {
@@ -22,14 +31,37 @@ function execZipcode() {
                 document.getElementById("address").value = addr;
                 document.getElementById("addressDetail").focus();
                 
+                chkAddress(addr);
                 coorSet(addr);
             }
+            
         }).open();
+        
     }
-	function validate_hp(hp){
-	var pattern = new RegExp(/([01]{2})([01679]{1})([0-9]{3,4})([0-9]{4})/);
-	return pattern.test(hp);
-}
+    	
+	const chkAddress = (address) => {
+		$.ajax({
+			url:"/launer/mypage/chkAddress",
+			type:"get",
+			data:`address=${address}`,
+			success:function(res){
+				var msg="";
+				console.log(res);
+				if(res.SUCCESS){  
+					msg="서비스 지원 지역입니다.";
+					$('#serviceError').html(msg).css("color","#01DF01");
+				}else{ 						
+					msg="서비스 미지원 지역입니다.";
+					$('#serviceError').html(msg).css("color","red");
+				}
+			},
+			error:function(xhr, status, error){
+				alert('error! : '  +error);
+			}
+		});
+	};
+		
+
 	
 
 	$(function(){
@@ -52,6 +84,7 @@ function execZipcode() {
 				return false;
 			}*/
 		});
+		//소셜회원
 		$('form[name=usereditfrmSocial]').submit(function(){
 			
 			 if($("form[name=usereditfrmSocial] #hp").val().length<1) {
@@ -77,6 +110,7 @@ function execZipcode() {
 			}
 			
 		});
+		//배송기사
 		$('form[name=deliveryeditfrm]').submit(function(){
 			
 			 if($("form[name=deliveryeditfrm] #hp").val().length<1) {
@@ -87,20 +121,20 @@ function execZipcode() {
 				alert("전화번호 형식이 맞지 않습니다.");	
 				$("form[name=deliveryeditfrm] #hp").focus();
 				return false;
-			}else if($("form[name=deliveryeditfrm] #accHolder").val().length<1) {
+			}else if($("form[name=deliveryeditfrm] #accountHolder").val().length<1) {
 				alert("계좌주를 입력하세요");
-				$("form[name=deliveryeditfrm] #accHolder").focus();
-				return false;
-			}else if($("form[name=deliveryeditfrm] #accNum").val().length<1) {
+				$("form[name=deliveryeditfrm] #accountHolder").focus();
+				return false;	
+			}else if($("#accountNumber").val() === ""){
 				alert("계좌번호를 입력하세요");
-				$("form[name=deliveryeditfrm] #accNum").focus();
+				$("#accountNumber").focus();
 				return false;
-			}/*else if(!isPassword($("#pwd").val())){
+			}
+			/*else if(!isPassword($("#pwd").val())){
 				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
 				$('#pwd').focus();
 				return false;
 			}*/
-			
 		});
 		
 		
@@ -137,7 +171,7 @@ function execZipcode() {
 					$('form[name=usereditfrm] .error_next_box').eq(7).text("")
 				}
 			})
-			//
+			//소셜회원
 			$('form[name=usereditfrmSocial] #hp').keyup(function(){
 				if(!validate_hp($('form[name=usereditfrmSocial] #hp').val())){
 					$('form[name=usereditfrmSocial] .error_next_box').eq(2).text("전화번호 형식이 맞지 않습니다.").css("color","red");
@@ -161,19 +195,56 @@ function execZipcode() {
 					$('form[name=usereditfrmSocial] .error_next_box').eq(6).text("")
 				}
 			})
+
+			//배송기사
+			$('form[name=deliveryeditfrm] #pwd').keyup(function(){
+				if(!isPassword($('form[name=deliveryeditfrm] #pwd').val())){
+					$('form[name=deliveryeditfrm] .error_next_box').eq(1).text("비밀번호 형식이 맞지 않습니다.").css("color","red");
+				}else{
+					$('form[name=deliveryeditfrm] .error_next_box').eq(1).text("")
+				}
+			
+			})
+			$('form[name=deliveryeditfrm] #hp').keyup(function(){
+				if(!validate_hp($('form[name=deliveryeditfrm] #hp').val())){
+					$('form[name=deliveryeditfrm] .error_next_box').eq(3).text("전화번호 형식이 맞지 않습니다.").css("color","red");
+				}else{
+					$('form[name=deliveryeditfrm] .error_next_box').eq(3).text("")
+				}
+			
+			})
+			
+			$('form[name=deliveryeditfrm] #accountHolder').keyup(function(){
+				if($('form[name=deliveryeditfrm] #accountHolder').val()==""){
+					$('form[name=deliveryeditfrm] .error_next_box').eq(5).text("계좌주를 입력해주세요.").css("color","red");
+				}else{
+					$('form[name=deliveryeditfrm] .error_next_box').eq(5).text("")
+				}
+			})
+			$('form[name=deliveryeditfrm] #accountNumber').keyup(function(){
+				
+				if($('form[name=deliveryeditfrm] #accountNumber').val()==""){
+					$('form[name=deliveryeditfrm] .error_next_box').eq(6).text("계좌번호를 입력해주세요.").css("color","red");
+				}else{
+					$('form[name=deliveryeditfrm] .error_next_box').eq(6).text("")
+				}
+				
+			})
+			
 			
 		});
 		
 		
-function coorSet(addr) {
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch(addr, function(result, status) {
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-	    document.querySelector("input[name=lonX]").value = result[0].y;
-	    document.querySelector("input[name=latY]").value = result[0].x;
-    }
-}); 
+	function coorSet(addr) {
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch(addr, function(result, status) {
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+		    document.querySelector("input[name=lonX]").value = result[0].y;
+		    document.querySelector("input[name=latY]").value = result[0].x;
+	    }
+	}); 
 }
+
