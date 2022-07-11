@@ -80,7 +80,7 @@
 				<c:if test="${classNo == 2}">
 					<div>
 						<label for="office">지점선택</label>
-						<select name="officeNO">
+						<select name="officeNo">
 							<c:forEach var="list" items="${list}">
 							<option value="${list.no}">${list.officeName}</option>
 							</c:forEach>
