@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import BoardAdd from "./BoardAdd";
 import BoardModal from "./BoardModal";
+
 document.body.style.backgroundColor = "#F4F4F4";
 
 const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
     console.log("BoardList 컴포넌트");
-    const[addBtn, setAddBtn] = useState(false);
-    const[boardBool, setBoardBool] = useState(false);
+    const [addBtn, setAddBtn] = useState(false);
+    const [boardBool, setBoardBool] = useState(false);
     /*const[boardList, setBoardList] = useState([
         {no: 10, content: "귀찮고 어렵다", name: "너굴맨", regdate: "2022-07-01"},
         {no: 9, content: "취업 할 수 있겠지", name: "로켓맨", regdate: "2022-07-01"},
@@ -42,7 +43,7 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
     }, [detailNo]);
 
     const setUserSet = () => {
-        if(((boardClass === 1) && (parseInt(userCode) === 3 || parseInt(userCode) === 4))) {
+        if (((boardClass === 1) && (parseInt(userCode) === 3 || parseInt(userCode) === 4))) {
             setUserClass(true);
             console.log(`userClass : ${userClass}`);
         }
@@ -69,11 +70,13 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
         return (
             <div key={item.NO} className="list-line">
                 <div className="list-col-1">{item.NO}</div>
-                <div className="list-col-2"><button onClick={(e) => {
-                    e.preventDefault();
-                    onDetailModal(item.NO);
-                    setModalOn(true);
-                }}>{item.TITLE}</button></div>
+                <div className="list-col-2">
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        onDetailModal(item.NO);
+                        setModalOn(true);
+                    }}>{item.TITLE}</button>
+                </div>
                 <div className="list-col-3">{item.NAME}</div>
                 <div className="list-col-4">{item.VIEW_COUNT}</div>
                 <div className="list-col-5">{dateReturn(date)}</div>
@@ -82,10 +85,10 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
     });
 
     const addBtnOnClickEvent = () => {
-        if(addBtn) {
+        if (addBtn) {
             setBoardBool(!boardBool);
             setTimeout(() => setAddBtn(!addBtn), 460);
-        }else {
+        } else {
             setBoardBool(!boardBool);
             setAddBtn(!addBtn);
         }
@@ -93,7 +96,8 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
 
     const btnComponent = (
         <div className="add-btn">
-            <button className={addBtn ? "on" : ""} onClick={addBtnOnClickEvent}><i className="fa-solid fa-plus"></i></button>
+            <button className={addBtn ? "on" : ""} onClick={addBtnOnClickEvent}><i className="fa-solid fa-plus"></i>
+            </button>
         </div>
     );
 
@@ -113,7 +117,8 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
 
     return (
         <div className="board-list-component">
-            {modalOn && <BoardModal contentList={contentList} userInfo={userInfo} initialModal={initialModal} detailNo={detailNo}/>}
+            {modalOn && <BoardModal contentList={contentList} userInfo={userInfo} initialModal={initialModal}
+                                    detailNo={detailNo}/>}
             <div className="title-wrap">
                 <div className="search-part">
                     <h2>Filter</h2>
@@ -122,15 +127,18 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
                             <option value="title">제목</option>
                             <option value="content">내용</option>
                         </select>
-                        <input name="search-text" />
+                        <input name="search-text"/>
                         <button><i className="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
-                {(boardClass === 1 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
-                    (boardClass === 2 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
-                    (boardClass === 3 && (parseInt(userCode) === 3 || parseInt(userCode) === 4)) ? "" : btnComponent}
+                {/*{(boardClass === 1 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
+                (boardClass === 2 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ||
+                (boardClass === 3 && (parseInt(userCode) === 3 || parseInt(userCode) === 4)) ? "" : btnComponent}*/}
+                {((boardClass === 1) || (boardClass === 2)) && (parseInt(userCode) === 3 || parseInt(userCode) === 4) ||
+                (boardClass === 3 && (parseInt(userCode) === 1 || parseInt(userCode) === 2)) ? btnComponent : ""}
             </div>
-            {addBtn && <BoardAdd contentList={contentList} addBtnOnClickEvent={addBtnOnClickEvent} userInfo={userInfo} animateClass={boardBool}/>}
+            {addBtn && <BoardAdd contentList={contentList} addBtnOnClickEvent={addBtnOnClickEvent} userInfo={userInfo}
+                                 animateClass={boardBool}/>}
             {/*<BoardAdd/>*/}
             <div className="list-part">
                 <form>

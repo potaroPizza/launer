@@ -342,7 +342,7 @@ footer img:focus, footer a:focus {
 			</button>
 		</form>
 		<footer>
-			<a href="http://www.polymer-project.org/" target="_blank">
+			<a href="<c:url value='/'/>">
 				<img src="<c:url value="/images/logo_4.svg"/>"></a>
 			<p>
 				관리자 아이디 비밀번호 분실시, 본사로 연락 바랍니다. <a href="#"

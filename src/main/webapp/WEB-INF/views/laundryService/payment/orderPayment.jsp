@@ -28,6 +28,25 @@ $(function(){
 				if(userPoint<0 || userPoint==null){
 					userPoint = 0;
 				}
+				
+				//전액 포인트로 결제할 경우
+				if(payPrice ==0){
+					$.ajax({
+	                	type:'get',
+	            		url:"/launer/laundryService/payment/requestPayment",
+	            		data:{
+	            			"orderNo" : orderNo,
+	            			"payPrice" :payPrice,
+	            			"userPoint" : userPoint,
+	            			"savePoint" : savePoint,
+	            		},
+	            	});
+					
+					alert("결제가 완료되었습니다");
+					document.location.href="/launer/mypage/paymentdetails";
+					event.preventDefault();
+	                return false;
+				}
 
 		        // getter
 		        var IMP = window.IMP;
@@ -73,7 +92,7 @@ $(function(){
 		            alert(msg);
 		            //alert창 확인 후 이동할 url 설정
 		            if(paymentResult){
-		           	  document.location.href="/launer"; //결제 성공 시 이동할 url
+		           	  document.location.href="/launer/mypage/paymentdetails"; //결제 성공 시 이동할 url
 		            }else {
 		            	$.ajax({
 		                	type:'get',
@@ -85,9 +104,10 @@ $(function(){
 		            			"savePoint" : savePoint,
 		            		},
 		            	});
-		            	
+		            	document.location.href="/launer"; //결제 성공 시 이동할 url
+
 		            }
-		          	 document.location.href="/launer"; //모두 완료 후 이동할 rul
+
 		            
 	});
 });

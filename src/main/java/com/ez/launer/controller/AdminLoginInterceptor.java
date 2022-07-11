@@ -18,7 +18,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("관리자 preHandle() 실행");
+		logger.info("관리자 로그인체크 인터셉터 실행");
 
 		HttpSession session = request.getSession();
 

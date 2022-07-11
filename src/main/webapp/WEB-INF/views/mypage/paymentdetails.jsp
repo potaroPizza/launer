@@ -45,7 +45,7 @@
 				<li class="paymentdetails_table-header">
 					<div class="paymentdetails_col-1">주문번호</div>
 					<div class="paymentdetails_col-2">상품명</div>
-					<div class="paymentdetails_col-3">가격</div>
+					<div class="paymentdetails_col-3">주문금액</div>
 					<div class="paymentdetails_col-4">주문일</div>
 					<div class="paymentdetails_col-5">상태</div>
 				</li>
@@ -54,7 +54,7 @@
 				<li class="paymentdetails_table-row"> 
 					<div class="paymentdetails_col-1" data-label="주문번호"></div>
 					<div class="paymentdetails_col-2" data-label="상품명">결제 내역이 없습니다.</div>
-					<div class="paymentdetails_col-3" data-label="가격"></div>
+					<div class="paymentdetails_col-3" data-label="주문금액"></div>
 					<div class="paymentdetails_col-4" data-label="주문일"></div>
 					<div class="paymentdetails_col-5" data-label="상태"></div>
 				</li>
@@ -83,7 +83,7 @@
 			                  <a href="/launer/mypage/detailedPaymentHistory?orderNo=${vo.paymentViewVO.orderNo}">${title}</a>           
 			            </c:if>
 							</div>
-							<div class="paymentdetails_col-3" data-label="가격"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber>원</div>
+							<div class="paymentdetails_col-3" data-label="주문금액"><fmt:formatNumber value="${vo.paymentViewVO.totalPrice}" pattern="#,###"></fmt:formatNumber>원</div>
 							<div class="paymentdetails_col-4" data-label="주문일"><fmt:formatDate value="${vo.paymentViewVO.regdate}" pattern="yyyy-MM-dd" /></div>
 							<div class="paymentdetails_col-5" data-label="상태">${vo.paymentViewVO.status}</div>
 

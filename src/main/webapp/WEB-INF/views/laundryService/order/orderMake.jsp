@@ -1,13 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user"%>
 
 <t:wrapper>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<script src="<c:url value="/js/bootstrap.min.js"/>"
+		type="text/javascript" text="javascript"></script>
 
-<!-- select -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script type="text/javascript">
+	<!-- select -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+	<script type="text/javascript">
     $(function () {
     	var isAddressExist = $('#isAddressExist').val();
     	console.log("주소등록여부:"+isAddressExist);
@@ -173,76 +175,232 @@
 
 
 </script>
-<script src="<c:url value="/js/laundryService/order/orderMake.js"/>" type="text/javascript" text="javascript"></script>
-<div class="margin-top-fixed" style ="height: 100px;"></div>
-<div id="orderWrapper">
-<input type ="hidden" name ="isAddressExist" value ="${isAddressExist }" id ="isAddressExist">
-    <p id ="nim_p">
-        <span id ="nim">${userVo.name}  님</span> 수거요청
-    </p>
-    <div class="orderInfo">
-        <div class="orderInfo-address">
-            <div>
-                <div>수거/배송 주소</div>
-                <span id="orderInfo-address-edit"><a href="<c:url value="/mypage/useredit"/>">&nbsp;&nbsp;수정&nbsp;
-	                <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-                </span>
-               
-              	 <div class="orderInfo-address-myaddress">
-                    <span id = "orderAddress">${map['ADDRESS']} &nbsp;${map['ADDRESS_DETAIL']}</span><br> 
-                    <div id = "orderAddressDetail" >
-                    <span class="orderInfo-address-myaddress-enter"> 현관출입방법 :<span class="orderInfo-address-myaddress-enter" id="enterMethod"> ${map['ENTERMETHOD']}</span></span>
-                        </div>
-                </div>
-            </div>
-            <div></div>
-        </div>
-        <div class="orderInfo-guide">
-            <div>
-                <i class="fa-solid fa-bell"></i>&nbsp;처음이신가요 ?
-            </div>
-            <a href="<c:url value="/laundryService/order/orderConfirm"/>">
-                <div class="hover-btn"></div>
-				<p >첫고객 가이드</p>
-			</a>
-        </div>
-        <hr>
-        <!-- 상품선택 -->
-        <div class="orderInfo-order-select-wrapper">
-            <div class="title-select">세탁물 선택</div>
-            <c:import url="/laundryService/order/orderMakeSelect">
-                <c:param name="categoryGroup" value="1"></c:param>
-            </c:import>
-           
-			<div id ="categoryDiv">
-				<div id="categoryNameDiv" class = "categoryDiv-div">상품</div>
-				<div id="categoryPriceDiv" class = "categoryDiv-div">금액</div>
-				<div id="categoryQTYDiv" class = "categoryDiv-div">수량</div>
-				<div id="categoryTotalDiv" class = "categoryDiv-div">총금액</div>
+
+
+	<script src="<c:url value="/js/laundryService/order/orderMake.js"/>"
+		type="text/javascript" text="javascript"></script>
+		<style>
+		img.guideImg {
+    width: 83px;
+}
+
+.step {
+    margin: 30px;
+}
+
+.guideTitle {
+    border: 1px solid black;
+    border-radius: 42px;
+    width: 278px;
+    text-align: center;
+    height: 41px;
+    padding-top: 10px;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.guideWrapper {
+    padding: 54px;
+}
+
+.guideWrapper p {
+    line-height: 28px;
+    font-size: 1.3em;
+}
+
+.imgDiv {
+    margin-bottom: 15px;
+}
+
+.guideStitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+		
+		
+		</style>
+		
+	<div class="margin-top-fixed" style="height: 100px;"></div>
+	<div id="orderWrapper">
+		<input type="hidden" name="isAddressExist" value="${isAddressExist }"
+			id="isAddressExist">
+		<p id="nim_p">
+			<span id="nim">${userVo.name} 님</span> 수거요청
+		</p>
+		<div class="orderInfo">
+			<div class="orderInfo-address">
+				<div>
+					<div>수거/배송 주소</div>
+					<span id="orderInfo-address-edit"><a
+						href="<c:url value="/mypage/useredit"/>">&nbsp;&nbsp;수정&nbsp;
+							<i class="fa-solid fa-arrow-right-from-bracket"></i>
+					</a> </span>
+
+					<div class="orderInfo-address-myaddress">
+						<span id="orderAddress">${map['ADDRESS']}
+							&nbsp;${map['ADDRESS_DETAIL']}</span><br>
+						<div id="orderAddressDetail">
+							<span class="orderInfo-address-myaddress-enter"> 현관출입방법 :<span
+								class="orderInfo-address-myaddress-enter" id="enterMethod">
+									${map['ENTERMETHOD']}</span></span>
+						</div>
+					</div>
+				</div>
+				<div></div>
 			</div>
-           
-            <div id="order-item-form-div">
- 
-                <div class="order-item-Div">
-                </div>
-            </div>
-           <div id="totalPriceDiv"> 총 : <input type="text" name="totalPriceMake" id="totalPriceMake" value=""></input>원</div>
+			<div class="orderInfo-guide">
+				<div>
+					<i class="fa-solid fa-bell"></i>&nbsp;처음이신가요 ?
+				</div>
+				<a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">
+					<div class="hover-btn"></div>
+					<p>첫고객 가이드</p>
+				</a>
+			</div>
 
-        </div>
-        <div class="margin-top-fixed"></div>
-        
-    </div>
-    <hr>
- 
+		
+ 			<!-- 가이드 모달시작 -->
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-xl">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">세탁요청 가이드</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div>
+				
+								<div class="guideWrapper">
+									<div class="guideTitle">세탁물 맡기는 방법</div>
+									<div id="step1" class="step">
+										<div class="imgDiv">
+											<img
+												src="<c:url value="/images/shopping-bag.png"/>"
+												alt="shopping-bag" class="guideImg">
+										</div>
+										<div>
+											<p>
+												모든세탁물은 아래의 분류 방법대로<br> <span
+													style="color: rgb(16, 90, 181); font-weight: bold;">비닐이나
+													쇼핑백에 구분해서</span> 담아주세요
+											</p>
+										</div>
+									</div>
+									<hr>
+									<div id="step2" class="step">
+										<div class="imgDiv">
+											<img
+												src="<c:url value="/images/water-drop.png"/>"
+												alt="water-drop" class="guideImg">
+										</div>
+										<div>
+											<div class = "guideStitle">생활빨래</div>
+											<p>
+												<span
+													style="font-weight: bold; background: linear-gradient(to top, #d7ecff 50%, transparent 50%)">'러너
+													생활빨래'</span> 를 표기해주세요
+											</p>
+											<p>속옷은 별도로 포장하여 생활빨래와 함께 담아주세요</p>
+										</div>
+									</div>
+									<hr>
+									<div id="step3" class="step">
+										<div class="imgDiv">
+											<img src="<c:url value="/images/shirt.png"/>"
+												alt="shirt" class="guideImg">
+										</div>
+										<div>
+											<div class = "guideStitle">드라이클리닝</div>
+											<p>
+												<span
+													style="font-weight: bold; background: linear-gradient(to top, #d7ecff 50%, transparent 50%)">'러너
+													드라이클리닝'</span> 을 표기해주세요
+											</p>
+										</div>
+									</div>
+									<hr>
+									<div id="step4" class="step">
+										<div class="imgDiv">
+											<img
+												src="<c:url value="/images/blanket.png"/>"
+												alt="blanket" class="guideImg"> <img
+												src="<c:url value="/images/curtains.png"/>"
+												alt="curtains" class="guideImg"> <img
+												src="<c:url value="/images/sneakers.png"/>"
+												alt="sneakers" class="guideImg">
+										</div>
+										<div>
+											<div class = "guideStitle">기타</div>
+											<p>
+												<span
+													style="font-weight: bold; background: linear-gradient(to top, #d7ecff 50%, transparent 50%)">'러너
+													세탁물명(이불,운동화 등)'</span> 을 표기해주세요
+											</p>
+										</div>
+									</div>
 
-    <div class="orderInfo-goOrder">
+								</div>
 
- 	<form id= "frm" name="frm">
-    	<input type ="hidden" value="" id="param" name="param">
-       <div class = "submitBtnWrapDiv"><input type="submit" class="orderBtn" value="수거신청" id="orderBtn"></div> 
-    </form>
-    </div>
-   
-</div>
-<div class="margin-top-fixed" style ="height: 100px;"></div>
+
+							</div>
+						</div>
+						<!-- modal body끝 -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">확인</button>
+						</div>
+					</div>
+				</div>
+			</div> 
+			<!-- 모달끝 -->
+			
+
+			<hr>
+			<!-- 상품선택 -->
+			<div class="orderInfo-order-select-wrapper">
+				<div class="title-select">세탁물 선택</div>
+				<c:import url="/laundryService/order/orderMakeSelect">
+					<c:param name="categoryGroup" value="1"></c:param>
+				</c:import>
+
+				<div id="categoryDiv">
+					<div id="categoryNameDiv" class="categoryDiv-div">상품</div>
+					<div id="categoryPriceDiv" class="categoryDiv-div">금액</div>
+					<div id="categoryQTYDiv" class="categoryDiv-div">수량</div>
+					<div id="categoryTotalDiv" class="categoryDiv-div">총금액</div>
+				</div>
+
+				<div id="order-item-form-div">
+
+					<div class="order-item-Div"></div>
+				</div>
+				<div id="totalPriceDiv">
+					총 : <input type="text" name="totalPriceMake" id="totalPriceMake"
+						value=""></input>원
+				</div>
+
+			</div>
+			<div class="margin-top-fixed"></div>
+
+		</div>
+		<hr>
+
+
+		<div class="orderInfo-goOrder">
+
+			<form id="frm" name="frm">
+				<input type="hidden" value="" id="param" name="param">
+				<div class="submitBtnWrapDiv">
+					<input type="submit" class="orderBtn" value="수거신청" id="orderBtn">
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<div class="margin-top-fixed" style="height: 100px;"></div>
 </t:wrapper>

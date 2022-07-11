@@ -268,11 +268,15 @@
                                 listElement +=
                                     "<div class='order-box' onclick='markerPositon(" + item.orderOfficeView.LON_X + ", " +  item.orderOfficeView.LAT_Y + ")'>" +
                                     "<div class='timer-box'></div>" +
-                                    "<h3>" + titleStr +"</h3>" +
+                                    "<h3>" + (titleStr.length > 25 ? titleStr.substring(0, 27) + "..." : titleStr) +"</h3>" +
                                     "<div class='order-text-box clearfix'>" +
                                     "<div class='left'>" +
                                     "<div class='order-text-list'>" +
-                                    "<p>신청자 <strong>" + item.orderOfficeView.NAME + "</strong></p>" +
+                                    "<p>신청자 <strong>" +
+                                        (item.orderOfficeView.NAME.length > 7 ?
+                                            (item.orderOfficeView.NAME).substring(0, 7) + "..." :
+                                            item.orderOfficeView.NAME) +
+                                        "</strong></p>" +
                                     "<p>수량 <strong>" + item.orderOfficeView.SUM + "</strong></p>" +
                                     "<p>수당 <strong>" + pay.toLocaleString('ko-KR') + " 원</strong></p>" +
                                     "</div>" +
@@ -450,7 +454,7 @@
             <h3><strong>${deliveryName}</strong> 기사님</h3>
             <p>
                 <button onclick="panTo(defaultPoint)"><strong>${officeVO.officeName}</strong></button>
-                <a href="#"><i class="fa-solid fa-gear"></i></a>
+                <a href="<c:url value="/delivery/useredit"/>"><i class="fa-solid fa-gear"></i></a>
             </p>
         </div>
         <div class="total-recode">

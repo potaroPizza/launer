@@ -131,7 +131,7 @@
     <!-- 글 삭제 -->
     <delete id="deleteBoard" parameterType="map">
         delete BOARD
-        where NO = #{no} and USERS_NO = #{userNo}
+        where NO = #{no}
     </delete>
     <!-- 글 삭제 -->
     <!-- 글 삭제 -->
@@ -187,9 +187,25 @@
 
 
     <!-- 파일 다운로드 시 count 증가 -->
+    <!-- 파일 다운로드 시 count 증가 -->
+    <!-- 파일 다운로드 시 count 증가 -->
+    <!-- 파일 다운로드 시 count 증가 -->
     <update id="downloadCount" parameterType="int" >
         update UPLOAD_FILE
         set DOWN_COUNT = DOWN_COUNT + 1
         where NO = #{no}
     </update>
+    <!-- 파일 다운로드 시 count 증가 -->
+    <!-- 파일 다운로드 시 count 증가 -->
+    <!-- 파일 다운로드 시 count 증가 -->
+    <!-- 파일 다운로드 시 count 증가 -->
+
+
+
+
+    <!-- 게시판 카테고리 조회 -->
+    <select id="selectBoardCategoryByNo" parameterType="string" resultType="boardCategoryVo">
+        select * from BOARD_CATEGORY
+        where NO = #{no}
+    </select>
 </mapper>

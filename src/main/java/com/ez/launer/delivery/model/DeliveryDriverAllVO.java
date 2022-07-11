@@ -18,7 +18,7 @@ public class DeliveryDriverAllVO {
 	private Timestamp startDate;
 	private Timestamp outDate;
 	private String bank;
-	private int accountNumber;
+	private long accountNumber;
 	private String accountHolder;
 	private String officeName;
 }

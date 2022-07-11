@@ -1,12 +1,11 @@
 package com.ez.launer.board.controller;
 
-import com.ez.launer.board.model.BoardFileVO;
-import com.ez.launer.board.model.BoardService;
-import com.ez.launer.board.model.BoardVO;
-import com.ez.launer.board.model.UploadFileVO;
+import com.ez.launer.board.model.*;
 import com.ez.launer.common.ConstUtil;
 import com.ez.launer.common.FileUploadUtil;
 import com.ez.launer.common.PaginationInfo;
+import com.ez.launer.delivery.model.DeliveryDriverVO;
+import com.ez.launer.user.model.DriverVO;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 import lombok.RequiredArgsConstructor;
@@ -66,16 +65,33 @@ public class BoardController {
 
     @GetMapping("/board/userInfo")
     @ResponseBody
-    public Map<String, Object> userInfo(HttpSession session)
+    public Map<String, Object> userInfo(@RequestParam String categoryNo, HttpSession session)
             throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 //        session.setAttribute("no", 1000);
+        logger.info("게시판 회원정보 조회 categoryNo={}", categoryNo);
 
-        int userNo = Integer.parseInt(String.valueOf(session.getAttribute("no")));
-//        int userNo = 1000;
+        BoardCategoryVO boardCategoryVO = boardService.selectBoardCategoryByNo(categoryNo);
+        logger.info("게시판 카테고리 조회결과 boardCategoryVO={}", boardCategoryVO);
 
-        UserVO userVO = userService.selectById(userNo);
+        int classNo = boardCategoryVO.getUsersClassNo();
 
-        return (Map<String, Object>) BeanUtils.describe(userVO);    //BeanUtils.describe() => Vo 프로퍼티를 map으로 바꿔준다고함
+
+        Map<String, Object> map = null;
+        if(classNo == 1 || classNo == 3) {
+            map = BeanUtils.describe(userService.selectById((Integer) session.getAttribute("no")));
+        }else if(classNo == 2) {
+            String adminEmail = (String) session.getAttribute("adminEmail");
+
+            if(adminEmail != null && !adminEmail.isEmpty()) {
+                map = BeanUtils.describe(userService.selectById((Integer) session.getAttribute("no")));
+            }else {
+                map = BeanUtils.describe(userService.selectByDmail((String) session.getAttribute("dmail")));
+            }
+        }
+
+        logger.info("게시판 userInfo={}", map);
+
+        return map;    //BeanUtils.describe() => Vo 프로퍼티를 map으로 바꿔준다고함
     }
 
 

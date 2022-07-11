@@ -202,12 +202,12 @@ public class MypageController {
 		logger.info("회원정보 수정 - 비밀번호 확인 결과, result ={}", result);
 
 		if(result==UserService.LOGIN_OK) {
-			int cnt = userService.updateUserHp(vo);
-			logger.info("회원정보 수정 결과, cnt ={}", cnt);
-			int cnt2 = userService.updateUserAddress(vo);
-			logger.info("회원정보 수정 결과, cnt2={} ", cnt2);
 
 			if(resCnt > 0) {
+				int cnt = userService.updateUserHp(vo);
+				logger.info("회원정보 수정 결과, cnt ={}", cnt);
+				int cnt2 = userService.updateUserAddress(vo);
+				logger.info("회원정보 수정 결과, cnt2={} ", cnt2);
 				if(cnt>0 && cnt2>0) { 
 					msg="회원정보를 수정하였습니다."; 
 				}else { msg="회원정보 수정 실패"; }
@@ -275,7 +275,7 @@ public class MypageController {
 		String msg="", url="/mypage/useredit";
 		
 		if(resCnt > 0) {
-			int cnt = userService.updateUserAddress(vo);
+			int cnt = userService.updateUserHp(vo);
 			logger.info("카카오회원정보 수정 결과, cnt ={},vo={}", cnt,vo);
 			int cnt2 = userService.updateUserAddress(vo);
 			logger.info("카카오회원정보 수정 결과, cnt2={} ", cnt2);

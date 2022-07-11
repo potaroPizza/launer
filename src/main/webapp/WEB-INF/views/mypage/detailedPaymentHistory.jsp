@@ -35,7 +35,7 @@
 				주문 요청사항 &nbsp;&nbsp;&nbsp;&nbsp;<span>${list[0].paymentHistoryViewVO.orderRequest}</span>
 			</p>
 			<p>
-				총 금액 &nbsp;&nbsp;&nbsp;&nbsp;<span><fmt:formatNumber value="${list[0].paymentHistoryViewVO.totalPrice}" pattern="#,###,###,###"></fmt:formatNumber> 원</span>
+				총 주문금액 &nbsp;&nbsp;&nbsp;&nbsp;<span><fmt:formatNumber value="${list[0].paymentHistoryViewVO.totalPrice}" pattern="#,###,###,###"></fmt:formatNumber> 원</span>
 			</p>
 		</div>
 		<hr>
@@ -49,7 +49,7 @@
 									<tr>
 										<th id="detailedPaymentHistory_col1"></th>
 										<th id="detailedPaymentHistory_col2">상품</th>
-										<th id="detailedPaymentHistory_col3">가격</th>
+										<th id="detailedPaymentHistory_col3">주문금액</th>
 										<th id="detailedPaymentHistory_col4">적립 포인트</th>
 										<th id="detailedPaymentHistory_col5">주문상태</th>
 									</tr>

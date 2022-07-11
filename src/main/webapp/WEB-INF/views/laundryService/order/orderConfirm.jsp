@@ -28,13 +28,22 @@ $(function () {
 		
 		var havePoint = $('#havePoint').text();
 		var insertPoint = $('#insertPoint').val();
-		console.log(insertPoint);
+		console.log("입력포인트 :"+insertPoint); 
+		
+		//보유포인트에서 입력포인트를 뺐을 때 양수여야함
 		var cal = havePoint-insertPoint;
+		
+		//입력포인트는 구매금액보다 클 수 없음
+		var cal2 = buyingPrice - insertPoint;
+		//alert("cal2 ="+cal2);
 		
 		//입력포인트 > 보유포인트
 		if(cal<0){
 			$('#shortPoint').show();
 			alert("보유포인트보다 값이 큽니다");
+			
+			$('#totalPrice').val(buyingPrice);
+			$('#insertPoint').val("");
 			event.preventDefault();
 			return false;
 			
@@ -45,15 +54,30 @@ $(function () {
 		//입력포인트 != number
 		if(isNaN(insertPoint)==true || insertPoint==0){
 			alert("포인트가 올바르지 않습니다.");
+			$('#totalPrice').val(buyingPrice);
+			$('#insertPoint').val("");
 			event.preventDefault();
 			return false;
 		}
 		//포인트 사용가능 최소주문금액=10000
 		if(buyingPrice < 10000){
 			alert("10,000원 이상 구매시 포인트 사용가능합니다");
+			
+			$('#totalPrice').val(buyingPrice);
+			$('#insertPoint').val("");
 			event.preventDefault();
 			return false;
 		}
+		//구매금액보다 입력포인트가 클때
+		if(cal2<0){
+			alert("입력포인트가 구매금액보다 큽니다");
+			$('#totalPrice').val(buyingPrice);
+			$('#insertPoint').val("");
+			event.preventDefault();
+			return false;
+		}
+		
+			
 		//검사가 끝나면 파라미터 usePoint set
 		alert("입력포인트 "+insertPoint+"p");
 		usePoint = insertPoint;
@@ -203,12 +227,7 @@ $(function () {
 							</tr>
 						</thead>
 						<tbody>
-						
-							<c:if test="${empty list }">
-								<tr class="">
-									<td colspan="5">장바구니가 비었습니다.</td>
-								</tr>
-							</c:if>
+
 							<c:if test="${!empty list }">
 								<c:set var="readyPoint" value="0" />
 								<c:set var="buyingPrice" value="0" />
@@ -226,15 +245,13 @@ $(function () {
 										<td><input type="text" name="name" class="tdInput"
 											value="${map['name'] }"></td>
 										<td>
-										<span><fmt:formatNumber value="${map['price'] }" pattern="#,###" /></span>
-										<input type="hidden" name="price" class="paramInput"
+										<input type="text" name="price" class="paramInput"
 											value="${map['price'] }"></td>
 										<td><input type="text" name="quan" class="paramInput"
 											value="${map['quan'] }">
 										</td>
 										<td>
-										<span><fmt:formatNumber value="${map['sum'] }" pattern="#,###" /></span>
-										<input type="hidden"
+										<input type="text"
 											name="sum" class="paramInput" value="${map['sum'] }">
 										</td>
 									</tr>
@@ -251,17 +268,21 @@ $(function () {
 					<div class="orderConfirm-finalInfo">
 						<div class="orderConfirm-finalInfo-div">
 							<label for="buyingPrice" >상품금액 : </label> 
-							<span style="font-size:19px"><fmt:formatNumber value="${paramPrice }" pattern="#,###" />원</span>
-							<input type="hidden"
+
+							<input type="text"
 								name="buyingPrice" id="buyingPrice" class="orderConfirm-input"
 								value="${paramPrice }" readonly>
 							<fmt:parseNumber 
 								var="readyPoint" value="${paramPrice/100 }" integerOnly="true"/>
-							<div class ="spaceDiv"></div>
-							<span class ="insertPointSpan">적립예정포인트:</span>
-							<span><fmt:formatNumber value="${readyPoint }" pattern="#,###" />p</span>
+		
+							<span class ="insertPointSpan" style="font-weight:bold;">적립예정포인트:</span>
+							<span><fmt:formatNumber value="${readyPoint }" pattern="#,###" /></span><span style="font-weight:bold;font-size:1.1em"> p</span>
 							<input type="hidden" id="savePoint"
 								name="savePoint" value="${readyPoint }">
+							
+							
+							
+							
 						</div>
 						<div class="orderConfirm-finalInfo-div">
 							<label for="">포인트사용 : </label> 
@@ -269,7 +290,7 @@ $(function () {
 							<input type="hidden" name="usePoint" id="usePoint"> 
 							<button type="button" class="btn btn-secondary" id ="insertPointBtn">사용</button>&nbsp; 
 							<!-- <input type="button" value="사용" id="insertPointBtn"> -->
-							<span>보유포인트 : </span><span id="havePoint">${userVo.point }</span><span>p</span><br>
+							<span style="font-weight:bold;"> 보유포인트: </span><span id="havePoint">${userVo.point }</span><span style="font-weight:bold;font-size:1.1em"> p</span><br>
 							<input type="hidden" name="paramPoint" id="havePoint2"
 								value="${userVo.point }"> <span id="shortPoint">보유포인트보다
 								값이 큽니다</span>
@@ -300,19 +321,14 @@ $(function () {
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
-									<div class="modal-body"><div style ="font-weight:bold;font-size:1.5em;margin-bottom:20px">[서비스 불가 지역 안내]</div>
-									<span style ="color:red;text-align:center"> 서비스 지역 내이나 <br>아직 배송 밀도가 낮아 진출하지 못한 일부 지역이 있습니다.<br> 빠른 시일내에 런특권이 될 수 있도록 노력하겠습니다.</span>
-										<br>
-										<span style ="text-align:center;line-height:23px">
-										<br>
-										강서구 과해동·공항동·오곡동·오쇠동 <br>
-										성남시 수정구 고등동·시흥동·신촌동 <br>
-										하남시 미사동·천현동·감북동·춘군동·초이동<br>
-										고양시 구산동·법곳동·산황동·사리현동·문봉동·지영동·성석동·설문동·고양동·관산동·효자동<br>
-										부천시 오정동·대장동<br>
-										군포시 대야동·속달동<br>
-										남양주시 수동면·조안면<br>
-										용인시 처인구</span>
+									<div class="modal-body">
+									<div style ="font-weight:bold;font-size:1.3em;margin-bottom:20px">[ 수거신청 전 확인해주세요 ! ]</div>
+									<span style ="color:red;text-align:center;line-height:23px;font-size:1.1em"> 서울특별시 외 서비스 이용이 불가하오니 <br>주소를 반드시 재확인하여주시길 바랍니다. </span>
+									<p><br>빠른 시일내에 런특권이 될 수 있도록 노력하겠습니다.</p>
+									
+									<br>
+									<p style ="text-decoration:underline;font-size:1.2em;line-height:26px"> 평균 10분 이내로 기사님이 배정되오니 <br>결제 후 빨래를 문앞에 놓아주세요  </p>
+									
 									
 									</div>
 									<div class="modal-footer">
@@ -330,6 +346,7 @@ $(function () {
 								</div>
 							</div>
 						</div>
+						<!--  -->
 
 
 						<span id="orderAgree">&nbsp;<i

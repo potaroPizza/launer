@@ -129,12 +129,13 @@
                             <div class="text-box r">
                                 <h4 class="sub-title-font">간단한 이용방법</h4>
                                 <span>주문 후, 수거한 다음 24시간 이내로 문 앞에 배송됩니다.</span>
-                                <a href="#">
+                                <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="<c:url value="/laundryService/order/guide"/>">
                                     <div class="hover-btn"></div>
                                     <p>자세히 알아보기</p>
                                 </a>
                             </div>
                         </article>
+
                         <article class="part clearfix">
                             <div class="text-box l">
                                 <h4 class="sub-title-font">합리적 가격</h4>
@@ -186,4 +187,6 @@
             </main>
         </div>
     </div>
+    
+    
 </t:wrapper>

@@ -54,7 +54,7 @@
 		</div>
 		<div id="mypage-text-wrap" class="clearfix">
 			<div class="part">
-				<span><fmt:formatNumber value="${vo.point }" pattern="#,###,###,###"></fmt:formatNumber> Point</span>
+				<span><fmt:formatNumber value="${vo.point}" pattern="#,###,###,###"></fmt:formatNumber> Point</span>
 			</div>
 			<div class="part">
 				<span>결제내역</span>

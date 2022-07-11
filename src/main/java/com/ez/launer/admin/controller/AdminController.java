@@ -2,6 +2,7 @@ package com.ez.launer.admin.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +48,7 @@ import com.ez.launer.notice.model.NoticeService;
 import com.ez.launer.notice.model.NoticeVO;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -65,6 +67,7 @@ public class AdminController {
 	private final AdminChartsService chartsService;
 	private final UserService userService;
 	private final OfficeService officeService;
+	private final SHA256Encryption sha256;
 	
 	
 	@RequestMapping("/")
@@ -424,9 +427,9 @@ public class AdminController {
 //			model.addAttribute("msg", "잘못된 url접근입니다.");
 //			model.addAttribute("url", "/admin/");
 //			
-//			logger.info("이건아니다");
+//			logger.info("이건아니다"); // "이건아니다" 넘 웃겨용
 //			
-//			return "/common/message";
+//			return "/common/message"; 
 //		}
 		
 		return "/admin/adminLogin";
@@ -435,9 +438,14 @@ public class AdminController {
 	@PostMapping("/adminLogin")
 	public String adminLogin_post(@ModelAttribute UserVO vo,
 			HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+			HttpServletResponse response, Model model) throws NoSuchAlgorithmException {
 		logger.info("관리자 로그인 처리, 파라미터 email={}, pwd={}",
 				vo.getEmail(), vo.getPwd());
+		
+		
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
+
 		
 		int result = userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("관리자 로그인 처리 결과 result={}", result);
@@ -455,6 +463,8 @@ public class AdminController {
 			} else {
 				//[1] session에 저장
 				HttpSession session = request.getSession();
+				session.invalidate();	// 세션 초기화
+				session = request.getSession();
 				session.setAttribute("adminEmail", uVo.getEmail());
 				session.setAttribute("adminName", uVo.getName());
 				session.setAttribute("adminCode", uVo.getUserCode());
@@ -481,10 +491,10 @@ public class AdminController {
 	public String logout(HttpSession session, Model model) {
 		logger.info("관리자 로그아웃 처리");
 		
-		//session.invalidate();	// 세션 소멸, 근데 이거하면 관리자 세션이 있을경우 같이 제거되므로 바꿔야함
-		session.removeAttribute("adminEmail");
-		session.removeAttribute("adminName");
-		session.removeAttribute("adminCode");
+//		session.removeAttribute("adminEmail");
+//		session.removeAttribute("adminName");
+//		session.removeAttribute("adminCode");
+		session.invalidate(); // 세션초기화
 		
 		model.addAttribute("msg", "성공적으로 로그아웃 되었습니다.");
 		model.addAttribute("url", "/admin/adminLogin");		

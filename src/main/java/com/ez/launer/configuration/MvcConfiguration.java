@@ -1,7 +1,7 @@
 package com.ez.launer.configuration;
 
 import com.ez.launer.controller.AdminLoginInterceptor;
-
+import com.ez.launer.controller.AdminLogoutInterceptor;
 import com.ez.launer.controller.DeliveryInterceptor;
 import com.ez.launer.controller.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -33,16 +33,25 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/checkSms/**")
 				.excludePathPatterns("/user/findPwd/**")
 				.excludePathPatterns("/user/chkAddress/**");
+		
+		//관리자 인터셉터
 		registry.addInterceptor(new AdminLoginInterceptor())
 		.addPathPatterns("/admin/**")
 		.excludePathPatterns("/admin/adminLogin");
-
+		registry.addInterceptor(new AdminLogoutInterceptor())
+		.addPathPatterns("/*")
+		.addPathPatterns("/user/**")
+		.addPathPatterns("/delivery/**")
+		.excludePathPatterns("/admin/**")
+		.excludePathPatterns("/user/board/**")
+		.excludePathPatterns("/delivery/board/**");
 
 		registry.addInterceptor(new DeliveryInterceptor())
 				.addPathPatterns("/delivery/**")
 				.excludePathPatterns("/delivery/join/**")
 				.excludePathPatterns("/delivery/checkDmail/**")
-				.excludePathPatterns("/delivery/checkDhp/**");
+				.excludePathPatterns("/delivery/checkDhp/**")
+				.excludePathPatterns("/delivery/board/notice");
 
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")
