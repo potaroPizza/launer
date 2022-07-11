@@ -158,7 +158,7 @@ $(function(){
 		window.open(ctxPath+"/delivery/checkDhp?hp="+hp,"Dhpcheck",
 			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
 	});
-
+	//약관
 	$('input[name="agreeAllchk"]').click(function() {
 		$("input[type=checkbox]").prop("checked", this.checked);
 	});
@@ -237,6 +237,7 @@ function coorSet(addr) {
      if (status === kakao.maps.services.Status.OK) {
 	    document.querySelector("input[name=lonX]").value = result[0].y;
 	    document.querySelector("input[name=latY]").value = result[0].x;
-    }
-});
-} 
+	 }
+    });
+};
+	
