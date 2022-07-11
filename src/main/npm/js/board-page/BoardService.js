@@ -5,8 +5,8 @@ const boardNoView = (no) => {
     return httpCommon.get(`/board/${no}`);
 }
 
-const boardDeleteNo = (no, userNo) => {
-    return httpCommon.delete(`/board/${no}/${userNo}`)
+const boardDeleteNo = (no) => {
+    return httpCommon.delete(`/board/${no}`)
 }
 
 /*const fileDownload = (data) => {
