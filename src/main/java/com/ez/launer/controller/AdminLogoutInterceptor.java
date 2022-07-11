@@ -36,9 +36,9 @@ public class AdminLogoutInterceptor implements HandlerInterceptor {
 			session.invalidate();
 			session = request.getSession();
 			
-			response.setHeader("cache-control","no-cache");
-			response.setHeader("expires","0");
-			response.setHeader("pragma","no-cache");
+//			response.setHeader("cache-control","no-cache");
+//			response.setHeader("expires","0");
+//			response.setHeader("pragma","no-cache");
 
 			return false;
 		}
