@@ -31,14 +31,15 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/checkEmail/**")
 				.excludePathPatterns("/user/checkHp/**")
 				.excludePathPatterns("/user/checkSms/**")
-				.excludePathPatterns("/user/findPwd/**");
+				.excludePathPatterns("/user/findPwd/**")
+				.excludePathPatterns("/user/chkAddress/**");
 		
 		//관리자 인터셉터
 		registry.addInterceptor(new AdminLoginInterceptor())
 		.addPathPatterns("/admin/**")
 		.excludePathPatterns("/admin/adminLogin");
 		registry.addInterceptor(new AdminLogoutInterceptor())
-		.addPathPatterns("/*")
+		.addPathPatterns("/")
 		.addPathPatterns("/user/**")
 		.addPathPatterns("/delivery/**")
 		.excludePathPatterns("/admin/**")
