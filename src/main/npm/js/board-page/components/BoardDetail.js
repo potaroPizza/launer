@@ -158,7 +158,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
 
     const controllerBtn = (
         <div className="board-controll-btn">
-            <button onClick={() => setEditMode(!editMode)}>{editMode ? "취소" : "수정"}</button>
+            {userInfo.no === data.no && (<button onClick={() => setEditMode(!editMode)}>{editMode ? "취소" : "수정"}</button>)}
             {editMode ? (
                 <button className="update-btn" onClick={updateBoard}>수정</button>) :
                 (<button className="delete-btn" onClick={deleteBoard}>삭제</button>)}
@@ -184,7 +184,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                         <span id="regdate">{dateReturn(new Date(data.regdate))}</span>
                         &nbsp;&nbsp; 조회<span id="viewCount">{data.viewCount}</span>
                     </div>
-                    {parseInt(userInfo.no) === data.usersNo && controllerBtn}
+                    {(parseInt(userInfo.no) === data.usersNo || parseInt(userInfo.userCode) === 4 || parseInt(userInfo.userCode) === 3) && controllerBtn}
                 </div>
                 {fileChk &&
                     <div className="file-down-part">
