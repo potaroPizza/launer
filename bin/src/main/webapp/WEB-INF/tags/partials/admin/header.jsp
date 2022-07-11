@@ -7,9 +7,6 @@
     <div class="logo">
         Launer
     </div>
-    <div class="logout">
-        <a href="">LOGOUT</a>
-    </div>
 
     <div id="btn-open-side-bar">
         <i class="fa-solid fa-bars"></i>

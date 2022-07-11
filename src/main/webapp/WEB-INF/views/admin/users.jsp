@@ -27,6 +27,9 @@
 	}
 	
 	function deleteDeliveryUser(no){
+		if (!confirm("배송기사를 삭제 하시겠습니까?")){
+			return
+		}
 		var url ='/launer/admin/delivery-user/'+no
 		alert(url)
 		$.ajax({
