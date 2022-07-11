@@ -8,6 +8,9 @@
 <script type="text/javascript">
 
 	function deleteUser(no){
+		if (!confirm("사용자를 삭제 하시겠습니까?")){
+			return
+		}
 		var url ='/launer/admin/user/'+no
 		alert(url)
 		$.ajax({
