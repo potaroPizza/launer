@@ -274,9 +274,9 @@ $(function () {
 								value="${paramPrice }" readonly>
 							<fmt:parseNumber 
 								var="readyPoint" value="${paramPrice/100 }" integerOnly="true"/>
-							<div class ="spaceDiv"></div>
-							<span class ="insertPointSpan">적립예정포인트:</span>
-							<span><fmt:formatNumber value="${readyPoint }" pattern="#,###" />p</span>
+		
+							<span class ="insertPointSpan" style="font-weight:bold;">적립예정포인트:</span>
+							<span><fmt:formatNumber value="${readyPoint }" pattern="#,###" /></span><span style="font-weight:bold;font-size:1.1em"> p</span>
 							<input type="hidden" id="savePoint"
 								name="savePoint" value="${readyPoint }">
 							
@@ -290,7 +290,7 @@ $(function () {
 							<input type="hidden" name="usePoint" id="usePoint"> 
 							<button type="button" class="btn btn-secondary" id ="insertPointBtn">사용</button>&nbsp; 
 							<!-- <input type="button" value="사용" id="insertPointBtn"> -->
-							<span>보유포인트 : </span><span id="havePoint">${userVo.point }</span><span>p</span><br>
+							<span style="font-weight:bold;"> 보유포인트: </span><span id="havePoint">${userVo.point }</span><span style="font-weight:bold;font-size:1.1em"> p</span><br>
 							<input type="hidden" name="paramPoint" id="havePoint2"
 								value="${userVo.point }"> <span id="shortPoint">보유포인트보다
 								값이 큽니다</span>
@@ -346,6 +346,7 @@ $(function () {
 								</div>
 							</div>
 						</div>
+						<!--  -->
 
 
 						<span id="orderAgree">&nbsp;<i
