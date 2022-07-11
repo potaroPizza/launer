@@ -18,7 +18,7 @@ public class DriverAllVO {
 	private Timestamp outDate;
 	private int accInfoNo;
 	private String bank;
-	private int accNum;
+	private long accNum;
 	private String accHolder;
 	private String randomPwd;
 }
