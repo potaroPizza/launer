@@ -82,7 +82,7 @@
                 
 		    	<input type="hidden" name="lonX" value="${map['LON_X']}">
 		    	<input type="hidden" name="latY" value="${map['LAT_Y']}">
-		    	<input type="hidden" name="officeNo" value="${map['OFFICE_NO'] }">
+		    	<input type="hidden" name="officeNo" value="${map['OFFICE_NO'] == null ? 0 : map['OFFICE_NO']}">
 
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
@@ -163,7 +163,7 @@
                     <span class="error_next_box"></span>
                    	<input type="hidden" name="lonX" value="${map['LON_X']}">
 		    		<input type="hidden" name="latY" value="${map['LAT_Y']}">
-		    		<input type="hidden" name="officeNo" value="${map['OFFICE_NO'] }">
+		    		<input type="hidden" name="officeNo" value="${map['OFFICE_NO'] == null ? 0 : map['OFFICE_NO']}">
                 </div>
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
