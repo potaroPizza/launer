@@ -23,6 +23,7 @@
 </script>
 <script src="<c:url value="/js/join.js"/>" type="text/javascript" text="javascript"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <div id="join_wrap">
 	<div class="join_form">
 		<form name="joinfrm" method="post"
@@ -51,27 +52,27 @@
 				<div>
 					<label for="pwd">비밀번호</label> 
 					<input type="Password" name="pwd" 
-						id="pwd" placeholder="8~16자의 숫자,문자,특수문자 포함"><br>
-					<span class="error_message_box"></span>
+						id="pwd" placeholder="8~16자의 숫자,문자,특수문자 포함">
+					<span class="error_message_box" style="margin-left : 0"></span>
 				</div>
 				<div>
 					<label for="pwd2">비밀번호 확인</label> 
-					<input type="Password" name="pwd2" id="pwd2"><br>
-					<span class="error_message_box"></span>
+					<input type="Password" name="pwd2" id="pwd2">
+					<span class="error_message_box" style="margin-left : 0"></span>
 				</div>
 				<!-- 일반회원 가입시 주소 입력 폼-->
 				<c:if test="${classNo == 1}">
 					<div>
 						<label for="zipcode">우편번호</label>
-						<input type="text" name="zipcode" id="zipcode">&nbsp;
+						<input type="text" name="zipcode" id="zipcode">
 						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()">
 						<input type="hidden" name="point" id="point" value=999999 readonly><br>
 						<label for="adress">주소</label>
-						<input type="text" name="address" id="address"><br>
-						<span class="error_message_box" id="serviceError"></span><br>
+						<input type="text" name="address" id="address">
+						<span class="error_message_box" id="serviceError" style="margin-left : 0"></span><br>
 						<label for="addressDetail">상세주소</label>
-						<input type="text" name="addressDetail" id="addressDetail"><br>
-						<span class="error_message_box"></span><br>
+						<input type="text" name="addressDetail" id="addressDetail">
+						<span class="error_message_box" style="margin-left : 0"></span><br>
 						<input type="hidden" name="lonX" value="${map['LON_X']}">
 		    			<input type="hidden" name="latY" value="${map['LAT_Y']}">
 						<label for="entermethod">공동현관 출입방법</label>
@@ -83,12 +84,13 @@
 				<!-- 배달기사 가입시 지점, 계좌 입력 폼-->
 				<c:if test="${classNo == 2}">
 					<div>
-						<label for="office">지점선택</label>
+						<label for="officeNo">지점선택</label>
 						<select name="officeNo">
 							<c:forEach var="list" items="${list}">
 							<option value="${list.no}">${list.officeName}</option>
 							</c:forEach>
 						</select>
+						<input type="button" value="지점 선택 아직 미완성" name="officeBtn" id="officeBtn">
 					</div>
 					<div>
 						<label for="accHolder">계좌주</label>
