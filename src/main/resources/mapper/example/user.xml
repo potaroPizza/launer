@@ -115,7 +115,7 @@
       set hp=#{hp} where no=#{no}
    </update>
    <!-- 회원정보 수정(주소) -->
-   <update id="updateUserAddress" parameterType="userAddressVo">
+   <update id="updateUserAddress" parameterType="userAllVo">
       update users_address
       set address=#{address}, 
          address_detail=#{addressDetail}, 
