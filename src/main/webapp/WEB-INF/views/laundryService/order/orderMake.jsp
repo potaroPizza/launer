@@ -349,6 +349,7 @@
 
 							</div>
 						</div>
+						<!-- modal body끝 -->
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">확인</button>

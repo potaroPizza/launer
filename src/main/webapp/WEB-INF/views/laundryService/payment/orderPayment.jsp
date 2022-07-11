@@ -44,7 +44,8 @@ $(function(){
 					
 					alert("결제가 완료되었습니다");
 					document.location.href="/launer/mypage/paymentdetails";
-					
+					event.preventDefault();
+	                return false;
 				}
 
 		        // getter
