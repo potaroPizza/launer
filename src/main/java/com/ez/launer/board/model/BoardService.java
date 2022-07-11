@@ -19,4 +19,6 @@ public interface BoardService {
     List<BoardFileVO> selectFileByNo(int no);
 
     int updateBoard(Map<String, Object> map);
+
+    BoardCategoryVO selectBoardCategoryByNo(String categoryNo);
 }

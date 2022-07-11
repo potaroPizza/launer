@@ -188,12 +188,11 @@
   @keyframes dropdown {
     0% {
       //transform: scaleY(0);
-      margin-top: 0;
+      margin-top: 20px;
       height: 0;
     }
     100% {
       //transform: scaleY(100%);
-      margin-top: 20px;
       height: 672px;
     }
   }
@@ -204,8 +203,9 @@
     }
     100% {
       //transform: scaleY(0);
+      margin-top: 20px;
+      padding: 0 20px;
       height: 0;
-      margin-top: 0;
     }
   }
 
@@ -387,11 +387,11 @@
     overflow: hidden;
 
     &.dropdown {
-      animation: .5s ease-in-out dropdown;
+      animation: .5s ease dropdown;
     }
 
     &.dropUp {
-      animation: 0.5s ease-in-out dropUp;
+      animation: 0.5s ease dropUp;
     }
 
     input[name=title] {

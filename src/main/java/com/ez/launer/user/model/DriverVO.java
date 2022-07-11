@@ -16,4 +16,5 @@ public class DriverVO {
 	private Timestamp lastAccessDate;
 	private Timestamp startDate;
 	private Timestamp outDate;
+	private int usersClassNo;
 }

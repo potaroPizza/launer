@@ -28,4 +28,6 @@ public interface BoardDAO {
     List<BoardFileVO> selectFileByNo(int no);
 
     int updateBoard(BoardVO boardVO);
+
+    BoardCategoryVO selectBoardCategoryByNo(String categoryNo);
 }

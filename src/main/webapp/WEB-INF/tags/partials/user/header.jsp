@@ -9,29 +9,41 @@
             <nav>
                 <ul>
                     <li class="sub-title on">
-                        <a href="<c:url value="/"/>">소개</a>
+                        <a href="#" onclick="event.preventDefault()">소개</a>
                         <ul class="sub-nav">
-                            <li><a href="#">사이트 소개</a></li>
+                            <li><a href="<c:url value="/"/>">사이트 소개</a></li>
                             <li><a href="<c:url value="/user/pricelist"/>">가격표</a></li>
-                            <li><a href="#">가이드</a></li>
+                            <li><a href="<c:url value="/"/>">가이드</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/laundryService/order/orderMake">세탁서비스</a>
                     </li>
-                    <li>
+                    <%--<li>
                         <a href="#">라이프</a>
-                    </li>
+                    </li>--%>
                     <li class="sub-title">
                         <a href="#" onclick="event.preventDefault();">고객소통게시판</a>
                         <ul class="sub-nav">
-                            <li><a href="#">공지사항 / FAQ</a></li>
-                            <li><a href="#">문의 게시판</a></li>
-                            <li><a href="#">후기 게시판</a></li>
+                            <li><a href="<c:url value="/user/board/notice"/>">공지사항 / FAQ</a></li>
+<%--                            <li><a href="#">문의 게시판</a></li>--%>
+                            <li><a href="<c:url value="/user/board/review"/>">후기 게시판</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
+            <div class="sub-link">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="<c:url value="/delivery/"/>">러너크루</a>
+                        </li>
+                        <li>
+                            <a href="<c:url value="/admin/"/>">관리자</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
         <a href="#" id="side-btn">
             <div></div>
