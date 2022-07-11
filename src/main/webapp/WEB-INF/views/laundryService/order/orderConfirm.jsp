@@ -321,19 +321,14 @@ $(function () {
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
-									<div class="modal-body"><div style ="font-weight:bold;font-size:1.5em;margin-bottom:20px">[서비스 불가 지역 안내]</div>
-									<span style ="color:red;text-align:center"> 서비스 지역 내이나 <br>아직 배송 밀도가 낮아 진출하지 못한 일부 지역이 있습니다.<br> 빠른 시일내에 런특권이 될 수 있도록 노력하겠습니다.</span>
-										<br>
-										<span style ="text-align:center;line-height:23px">
-										<br>
-										강서구 과해동·공항동·오곡동·오쇠동 <br>
-										성남시 수정구 고등동·시흥동·신촌동 <br>
-										하남시 미사동·천현동·감북동·춘군동·초이동<br>
-										고양시 구산동·법곳동·산황동·사리현동·문봉동·지영동·성석동·설문동·고양동·관산동·효자동<br>
-										부천시 오정동·대장동<br>
-										군포시 대야동·속달동<br>
-										남양주시 수동면·조안면<br>
-										용인시 처인구</span>
+									<div class="modal-body">
+									<div style ="font-weight:bold;font-size:1.3em;margin-bottom:20px">[ 수거신청 전 확인해주세요 ! ]</div>
+									<span style ="color:red;text-align:center;line-height:23px;font-size:1.1em"> 서울특별시 외 서비스 이용이 불가하오니 <br>주소를 반드시 재확인하여주시길 바랍니다. </span>
+									<p><br>빠른 시일내에 런특권이 될 수 있도록 노력하겠습니다.</p>
+									
+									<br>
+									<p style ="text-decoration:underline;font-size:1.2em;line-height:26px"> 평균 10분 이내로 기사님이 배정되오니 <br>결제 후 빨래를 문앞에 놓아주세요  </p>
+									
 									
 									</div>
 									<div class="modal-footer">
