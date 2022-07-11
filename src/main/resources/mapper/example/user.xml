@@ -15,8 +15,8 @@
       <selectKey order="BEFORE" keyProperty="addressNo" resultType="int">
          select users_address_seq.nextval from dual 
       </selectKey>
-      insert into users_address(no, users_no, address, address_detail, zipcode,lon_x,lat_y,entermethod)
-      values(#{addressNo}, #{no}, #{address}, #{addressDetail}, #{zipcode}, #{lonX}, #{latY}, #{entermethod})
+      insert into users_address(no, users_no, office_no, address, address_detail, zipcode,lon_x,lat_y,entermethod)
+      values(#{addressNo}, #{no}, #{officeNo}, #{address}, #{addressDetail}, #{zipcode}, #{lonX}, #{latY}, #{entermethod})
    </insert>
    <!-- 배송기사 회원가입 -->
    <insert id="insertDriver" parameterType="driverAllVo" >

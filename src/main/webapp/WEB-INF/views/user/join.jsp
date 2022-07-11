@@ -28,33 +28,36 @@
 		<form name="joinfrm" method="post"
 			action="" >
 			<fieldset>
-			<!-- 배달기사 로그인은 제목 다르게 -->
+			<!-- 배달기사 가입은 제목 다르게 -->
 				<h3 align="center">${classNo == 1 ? "러너" : "배달기사"} 회원 가입</h3>
 				<div class="namebox">
 					<label for="name">회원 이름</label> 
-					<input type="text" name="name" id="name" style="ime-mode: active">
-					<input type="text" name="userCode" id="userCode" value="${classNo == 1 ? 1 : 2}" readonly>
+					<input type="text" name="name" id="name" maxlength="20" style="ime-mode: active">
+					<input type="hidden" name="userCode" id="userCode" value="${classNo == 1 ? 1 : 2}" readonly>
 				</div>
 				<div>
 					<label for="email">이메일</label>
 					<input type="text" name="email" id="email">
 					<c:if test="${classNo == 1}">
 						<input type="button" value="중복 확인" id="btnChkEmail">
-						<input type="text" name="chkEmail" id="chkEmail" disabled>
+						<input type="hidden" name="chkEmail" id="chkEmail" disabled>
 					</c:if>
 					<c:if test="${classNo == 2}">
 						<input type="button" value="중복 확인" id="btnChkDmail">
-						<input type="text" name="chkDmail" id="chkDmail" disabled>
+						<input type="hidden" name="chkDmail" id="chkDmail" disabled>
 					</c:if>
+					<br><span class="error_message_box"></span>
 				</div>
 				<div>
 					<label for="pwd">비밀번호</label> 
 					<input type="Password" name="pwd" 
-						id="pwd" placeholder="8자 이상의 문자,특수문자 포함">
+						id="pwd" placeholder="8~16자의 숫자,문자,특수문자 포함"><br>
+					<span class="error_message_box"></span>
 				</div>
 				<div>
 					<label for="pwd2">비밀번호 확인</label> 
-					<input type="Password" name="pwd2" id="pwd2">
+					<input type="Password" name="pwd2" id="pwd2"><br>
+					<span class="error_message_box"></span>
 				</div>
 				<!-- 일반회원 가입시 주소 입력 폼-->
 				<c:if test="${classNo == 1}">
@@ -62,18 +65,19 @@
 						<label for="zipcode">우편번호</label>
 						<input type="text" name="zipcode" id="zipcode">&nbsp;
 						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()">
-						<input type="text" name="point" id="point" value= 5000 readonly><br />
+						<input type="hidden" name="point" id="point" value=999999 readonly><br>
 						<label for="adress">주소</label>
-						<input type="text" name="address" id="address">
-						<input type="text" name="officeNo" id="OfficeNo" value=0 readonly><br />
-						<label for="adressDetail">상세주소</label>
-						<input type="text" name="addressDetail" id="addressDetail"><br />
+						<input type="text" name="address" id="address"><br>
+						<span class="error_message_box" id="serviceError"></span><br>
+						<label for="addressDetail">상세주소</label>
+						<input type="text" name="addressDetail" id="addressDetail"><br>
+						<span class="error_message_box"></span><br>
 						<input type="hidden" name="lonX" value="${map['LON_X']}">
 		    			<input type="hidden" name="latY" value="${map['LAT_Y']}">
 						<label for="entermethod">공동현관 출입방법</label>
 						<input type="text" name="entermethod" id="entermethod"
 							placeholder="입력하지 않을시 '없음'으로 입력됩니다">
-						<input type="text" name="entermethod2" id="entermethod2" value="없음" readonly>
+						<input type="hidden" name="entermethod2" id="entermethod2" value="없음" readonly>
 					</div>
 				</c:if>
 				<!-- 배달기사 가입시 지점, 계좌 입력 폼-->
@@ -88,7 +92,7 @@
 					</div>
 					<div>
 						<label for="accHolder">계좌주</label>
-						<input type="text" name="accHolder" id="accHolder"><br />
+						<input type="text" name="accHolder" id="accHolder" maxlength="20"><br />
 						<label for="bank">은행-계좌번호</label>
 						<select name="bank" id="bank">
 							<option value="국민은행">국민은행</option>
@@ -105,6 +109,7 @@
 						</select>
 						<input type="text" name="accNum" id="accNum" 
 							placeholder="-를 제외하고 입력해주세요" class="width_350">
+						<br><span class="error_message_box"></span>
 					</div>
 				</c:if>
 				<div class="hpbox">
@@ -120,6 +125,7 @@
 						<input type="button" value="중복 확인" id="btnChkDhp">
 						<input type="text" name="chkDhp" id="chkDhp" value="Y" disabled>
 					</c:if>
+					<br><span class="error_message_box"></span>
 				</div>
 				<div class="divTerms">
 				  	<h5>러너 이용약관</h5>
@@ -221,7 +227,7 @@
 						② 이 약관은 준거법으로 한국법을 적용합니다. 
 					</div>
 					<div>
-			   		<label class="label2" for="agreechk">동의함</label>
+			   		<label class="label2" for="agreechk">동의(필수)</label>
 				  	<input type="checkbox" name="agreechk" id="agreechk" class="checkbox"/>
 					</div>
 					<h5>개인정보 수집 및 이용안내</h5>
@@ -266,7 +272,7 @@
 						- 보존 기간 : 1년
 					</div>
 					<div>
-			   		<label class="label2" for="privacychk">동의함</label>
+			   		<label class="label2" for="privacychk">동의(필수)</label>
 				  	<input type="checkbox" name="privacychk" id="privacychk" class="checkbox"/>
 					</div>
 					<h5>제 3자 개인정보 제공 동의</h5>
@@ -284,7 +290,7 @@
 						   거부하실 경우 홈페이지내 서비스 이용 제한으로 회원가입이 불가합니다.
 					</div>
 					<div>
-				   		<label class="label2" for="privacychk2">동의함</label>
+				   		<label class="label2" for="privacychk2">동의(필수)</label>
 					  	<input type="checkbox" name="privacychk2" id="privacychk2" class="checkbox"/>
 					  	<label class="label3" for="agreeAllchk">전체 동의</label>
 						<input type="checkbox" name="agreeAllchk" id="agreeAllchk" class="checkbox"/>

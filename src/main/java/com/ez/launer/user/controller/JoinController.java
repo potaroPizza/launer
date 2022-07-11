@@ -1,7 +1,9 @@
 package com.ez.launer.user.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.launer.office.model.OfficeVO;
 import com.ez.launer.user.model.SHA256Encryption;
@@ -63,34 +66,34 @@ public class JoinController {
 		
 		List<OfficeVO> list= userService.selectOffice();
 		
-		int resCnt = 0;
 		for(OfficeVO officeVo : list) {
 			String dbOffice = officeVo.getAddress().split("\\s")[1];
 			
 			logger.info("스플릿한 주소 office={},dbOffice={}",office,dbOffice);
 			if(dbOffice.equals(office)) {
 				vo.setOfficeNo(officeVo.getNo());
-				resCnt++;
 				break;
 			}else {
 				vo.setOfficeNo(vo.getOfficeNo());
 			}
 			
 		}
+		int officeNo=vo.getOfficeNo();
 		
 		String entermethod=vo.getEntermethod();
 		if(entermethod==null || entermethod.isEmpty()) {
 			entermethod=entermethod2;
 		}
 		vo.setEntermethod(entermethod);
-		
-		int cnt=userService.insertUser(vo);
-		logger.info("일반회원가입 결과, cnt={}", cnt);
-		int cnt2=userService.insertAddress(vo);
-		logger.info("주소입력 결과, cnt2={}", cnt2);
+		logger.info("서비스지역 및 지점 확인 결과, officeNo={}",officeNo);
 		
 		String msg="", url="";
-		if(resCnt>0) {
+		if(officeNo>0) {
+			int cnt=userService.insertUser(vo);
+			logger.info("일반회원가입 결과, cnt={}", cnt);
+			int cnt2=userService.insertAddress(vo);
+			logger.info("주소입력 결과, cnt2={}", cnt2);
+
 			if(cnt>0 && cnt2>0) {
 				msg="회원가입되었습니다.";
 				url="/";
@@ -105,6 +108,28 @@ public class JoinController {
 		model.addAttribute("url", url);
 		
 		return "/common/message";
+	}
+	@GetMapping("/chkAddress")
+	@ResponseBody
+	public Map<String, Object> chkAddress(@RequestParam String address) {
+		logger.info("ajax 주소 확인 address={}", address);
+		
+		String area = address.split("\\s")[1];
+		
+		List<OfficeVO> list= userService.selectOffice();
+		
+		boolean res = false;
+		for(OfficeVO officeVo : list) {
+			String dbOffice = officeVo.getAddress().split("\\s")[1];
+			if(dbOffice.equals(area)) {
+				res=true;
+				break;
+			}
+		} 
+		Map<String, Object> map = new HashMap<>();
+		map.put("SUCCESS", res);
+		
+		return map;
 	}
 	
 	@RequestMapping("/checkEmail")
