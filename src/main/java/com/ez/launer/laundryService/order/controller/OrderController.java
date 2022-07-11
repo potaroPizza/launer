@@ -55,6 +55,12 @@ public class OrderController {
 		return vo;
 		
 	}
+	
+	@RequestMapping("/guide")
+	public String guide() {
+		
+		return "/laundryService/order/guide";
+	}
 
 	
 	@RequestMapping("/orderMakeSelect")
