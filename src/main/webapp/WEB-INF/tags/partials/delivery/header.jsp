@@ -23,8 +23,10 @@
             <li><a href="<c:url value="/delivery/board/notice"/>">공지사항</a></li>
             <li><span class="sub-btn">마이페이지</span>
                 <ul class="sub-nav">
-                    <li><a href="#">내 정보</a></li>
                     <li><a href="<c:url value="/delivery/income"/>">내 수입</a></li>
+                    <li><a href="<c:url value="/delivery/useredit"/>">내 정보 수정</a></li>
+                    <li><a href="<c:url value="/delivery/editPwd"/>">비밀번호 변경</a></li>
+                    <li><a href="<c:url value="/delivery/withdrawDelivery"/>">회원탈퇴</a></li>
                 </ul>
             </li>
             <li><a href="#"></a></li>

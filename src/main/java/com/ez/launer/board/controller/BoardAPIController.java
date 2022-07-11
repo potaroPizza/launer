@@ -71,17 +71,16 @@ public class BoardAPIController {
         return boardDetailDownVO;
     }
 
-    @DeleteMapping("/board/{no}/{userNo}")
+    @DeleteMapping("/board/{no}")
     @ResponseBody
-    public Map<String, Object> boardDelete(@PathVariable int no, @PathVariable int userNo,
+    public Map<String, Object> boardDelete(@PathVariable int no,
                                            HttpServletRequest request) {
-        logger.info("글 삭제 no={}, userNo={}", no, userNo);
+        logger.info("글 삭제 no={}", no);
 
         List<BoardFileVO> fileList = boardService.selectFileByNo(no);
 
         Map<String, Object> resMap = new HashMap<>();
         resMap.put("no", no);
-        resMap.put("userNo", userNo);
 
         int cnt = boardService.deleteBoard(resMap);
         logger.info("글 삭제 결과 cnt={}", cnt);

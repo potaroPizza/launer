@@ -62,11 +62,9 @@ public class BoardServiceImpl implements BoardService{
         int result = 0;
 
         try {
-            result = boardDAO.deleteBoardFile((Integer) map.get("no"));
+            boardDAO.deleteBoardFile((Integer) map.get("no"));
+            result = boardDAO.deleteBoard(map);
 
-            if(result > 0) {
-                result = boardDAO.deleteBoard(map);
-            }
         } catch(RuntimeException e) {
             e.printStackTrace();
             result = -1;

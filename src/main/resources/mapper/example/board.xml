@@ -131,7 +131,7 @@
     <!-- 글 삭제 -->
     <delete id="deleteBoard" parameterType="map">
         delete BOARD
-        where NO = #{no} and USERS_NO = #{userNo}
+        where NO = #{no}
     </delete>
     <!-- 글 삭제 -->
     <!-- 글 삭제 -->

@@ -175,7 +175,7 @@ public class DeliveryController {
 
 		// deliveryNo로 배달기사 정보 전체 조회
 		DeliveryDriverVO deliveryVO = deliveryDriverService.selectByNo(deliveryNo);
-//        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
+        logger.info("배달기사 정보조회 결과 deliveryVo={}", deliveryVO);
 
 //        OfficeVO officeVO = officeService.selectByNo(deliveryVO.getOfficeNo());
 //        logger.info("지점정보 조회 officeVO={}", officeVO);
@@ -194,7 +194,7 @@ public class DeliveryController {
 		 * orderListSearchVO.setListType("PICKUP_DRIVER");
 		 */
 
-//        logger.info("중간 테스트 orderListSearchVO={}", orderListSearchVO);
+        logger.info("중간 테스트 orderListSearchVO={}", orderListSearchVO);
 
 		/*
 		 * Map<String, Object> setMap = new HashMap<>(); setMap.put("no",
