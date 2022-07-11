@@ -7,8 +7,9 @@
     <div class="logo">
         Launer
     </div>
+    
     <div class="top-menu">
-    	<a href="/launer"><i class="fa-solid fa-house"></i></a>
+    	<a href="/launer">Main</a>
         <a href="/launer/admin/adminLogout">Logout</a>
     </div>
 

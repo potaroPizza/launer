@@ -8,31 +8,66 @@
         <ul class="nav">
             <a href="<c:url value='/admin/'/>">
                 <li class="nav-item">
-                    <i class="nav-item-icon fa-solid fa-chalkboard"></i>러너보드
+	                <span>
+	                    <i class="nav-item-icon fa-solid fa-chalkboard"></i>러너보드
+	                </span>
                 </li>
             </a>
             <a href="<c:url value='/admin/stores'/>"> 
                 <li class="nav-item"> 
+	                <span>
                     <i class="nav-item-icon fa-solid fa-store"></i>지점관리
+                    </span>
                 </li>
             </a>
             <a href="<c:url value='/admin/orders'/>">
                 <li class="nav-item">
-                        <i class="nav-item-icon fas fa-table"></i>주문관리
+	                <span>
+                    <i class="nav-item-icon fas fa-table"></i>주문관리
+                    </span>
                 </li>
             </a>
             <li class="nav-item">
                 <a href="<c:url value='/admin/users'/>">
+	                <span>
                     <i class="nav-item-icon fa-regular fa-user"></i>사용자관리
+                    </span>
                 </a>
             </li>
             <a href="<c:url value='/admin/charts'/>">
                 <li class="nav-item">
+	                <span>
                     <i class="nav-item-icon fa-solid fa-chart-line"></i>서비스통계
+                    </span>
                 </li>
             </a>
-            <li class="nav-item">
-                게시판 관리<i class="fas fa-angle-down"></i>
+            <li class="nav-item has-child">
+                <span>
+                게시판 관리
+                </span>
+                <ul class="nav">
+                	<a href="<c:url value='/user/board/notice'/>">
+		                <li class="nav-item">
+	                <span>
+		                    고객공지 게시판
+		                    </span>
+		                </li>
+		            </a>
+		            <a href="<c:url value='/delivery/board/notice'/>"> 
+		                <li class="nav-item"> 
+	                <span>
+		                    배송공지 게시판
+		                    </span>
+		                </li>
+		            </a>
+		            <a href="<c:url value='/user/board/review'/>">
+		                <li class="nav-item">
+	                <span>
+		                	이용후기 게시판
+		                	</span>
+		                </li>
+		            </a>
+                </ul>
             </li>
 
         </ul>
