@@ -2,6 +2,7 @@ package com.ez.launer.admin.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +48,7 @@ import com.ez.launer.notice.model.NoticeService;
 import com.ez.launer.notice.model.NoticeVO;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -65,6 +67,7 @@ public class AdminController {
 	private final AdminChartsService chartsService;
 	private final UserService userService;
 	private final OfficeService officeService;
+	private final SHA256Encryption sha256;
 	
 	
 	@RequestMapping("/")
@@ -424,9 +427,9 @@ public class AdminController {
 //			model.addAttribute("msg", "잘못된 url접근입니다.");
 //			model.addAttribute("url", "/admin/");
 //			
-//			logger.info("이건아니다");
+//			logger.info("이건아니다"); // "이건아니다" 넘 웃겨용
 //			
-//			return "/common/message";
+//			return "/common/message"; 
 //		}
 		
 		return "/admin/adminLogin";
@@ -435,9 +438,14 @@ public class AdminController {
 	@PostMapping("/adminLogin")
 	public String adminLogin_post(@ModelAttribute UserVO vo,
 			HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+			HttpServletResponse response, Model model) throws NoSuchAlgorithmException {
 		logger.info("관리자 로그인 처리, 파라미터 email={}, pwd={}",
 				vo.getEmail(), vo.getPwd());
+		
+		
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
+
 		
 		int result = userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("관리자 로그인 처리 결과 result={}", result);
