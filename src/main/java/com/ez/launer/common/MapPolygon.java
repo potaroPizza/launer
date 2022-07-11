@@ -121,6 +121,10 @@ public class MapPolygon {
 
         if(no == 1) {
             result = jongroPolygon();
+        }else if(no == 2) {
+            result = gangnamPolygon();
+        }else if(no == 4) {
+            result = gangseo();
         }
 
         return result;
