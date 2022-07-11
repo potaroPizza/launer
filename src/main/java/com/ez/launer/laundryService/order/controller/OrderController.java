@@ -161,12 +161,15 @@ public class OrderController {
 	
 	
 	@PostMapping("/orderComplete")
-	public String orderConfirmed_post(HttpSession session,  @RequestParam int totalPrice,@RequestParam String param,
+	public String orderConfirmed_post(HttpSession session,  @RequestParam int totalPrice,@RequestParam String param,@RequestParam int buyingPrice,
 			Model model, @RequestParam (defaultValue = "없음", required = false)String orderRequest,
 			@RequestParam (defaultValue="0")int usePoint,@RequestParam int savePoint, @RequestParam (defaultValue = "0", required = false)int paramPoint) {
-		logger.info("totalPrice={}",totalPrice);
-		logger.info("param={}",param);
-		logger.info("paramPoint={}",paramPoint);
+		System.out.println("totalPrice="+totalPrice);
+		System.out.println("param="+param);
+		System.out.println("paramPoint="+paramPoint);
+		System.out.println("buyingPrice="+buyingPrice);
+
+		
 		int no = (int) session.getAttribute("no");
 
 		//orders 테이블 insert
@@ -183,7 +186,7 @@ public class OrderController {
 		OrderVO vo = new OrderVO();
 		vo.setUsersNo(no);
 		vo.setUsersAddressNo(addressNo);
-		vo.setTotalPrice(totalPrice);
+		vo.setTotalPrice(buyingPrice);
 		vo.setOrderRequest(orderRequest);
 		
 		logger.info("vo={}",vo);

@@ -41,7 +41,7 @@
                             <ul class="sub-nav">
                                 <li><a href="#">사이트 소개</a></li>
                                 <li><a href="#">가격표</a></li>
-                                <li><a href="#">가이드</a></li>
+                                <li><a href="${pageContext.request.contextPath}/laundryService/order/guide">가이드</a></li>
                             </ul>
                         </li>
                         <li>
