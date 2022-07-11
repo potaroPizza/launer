@@ -87,7 +87,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_entermethod">
-                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']}">
+                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']== null? '없음' : map['ENTERMETHOD']}" placeholder="입력하지 않을시 '없음'으로 입력됩니다">
                     </span>
                     <span class="error_next_box"></span>
                     
@@ -168,7 +168,7 @@
                 <div>
                     <h3 class="useredit_title"><label for="enterMethod">공동현관 출입방법</label></h3>
                     <span class="box int_entermethod">
-                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']	}" placeholder="placeholder="입력하지 않을시 '없음'으로 입력됩니다"">
+                        <input type="text" id="entermethod" name="entermethod" class="int"  maxlength="30" value="${map['ENTERMETHOD']== null? '없음' : map['ENTERMETHOD']}" placeholder="입력하지 않을시 '없음'으로 입력됩니다">
                     </span>
                     <span class="error_next_box"></span>
                 </div>

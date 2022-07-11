@@ -51,6 +51,7 @@ function execZipcode() {
 					msg="서비스 지원 지역입니다.";
 					$('#serviceError').html(msg).css("color","#01DF01");
 				}else{ 						
+					alert('서비스 미지원 지역입니다.');
 					msg="서비스 미지원 지역입니다.";
 					$('#serviceError').html(msg).css("color","red");
 				}
@@ -103,11 +104,11 @@ function execZipcode() {
 				alert("상세주소를 입력하세요");
 				$("form[name=usereditfrmSocial] #addressDetail").focus();
 				return false;
-			}else if($("form[name=usereditfrmSocial] #entermethod").val().length<1) {
+			}/*else if($("form[name=usereditfrmSocial] #entermethod").val().length<1) {
 				alert("공동현관 출입방법을 입력하세요");
 				$("form[name=usereditfrmSocial] #entermethod").focus();
 				return false;
-			}
+			}*/
 			
 		});
 		//배송기사
