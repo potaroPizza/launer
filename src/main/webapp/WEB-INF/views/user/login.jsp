@@ -40,7 +40,7 @@
 												placeholder="이메일" type="text"
 												value="${cookie.chkUseremail.value }">
 											<input id="member_pwd" name="pwd" 
-												placeholder="비밀번호" type="text">
+												placeholder="비밀번호" type="password">
 										</div>
 										<div class="loginCheckBox">
 											<input type="checkbox" name="saveUseremail" id="saveEmail"
@@ -95,7 +95,7 @@
 											<input id="member_email" name="dmail" 
 												placeholder="이메일" type="text">
 											<input id="member_pwd" name="dPwd" 
-												placeholder="비밀번호" type="text">
+												placeholder="비밀번호" type="password">
 										</div>
 										<div class="loginCheckBox">
 											<input type="checkbox" name="saveDmail" id="saveEmail"
