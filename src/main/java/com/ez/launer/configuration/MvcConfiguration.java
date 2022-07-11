@@ -1,14 +1,14 @@
 package com.ez.launer.configuration;
 
-import com.ez.launer.controller.AdminLoginInterceptor;
-import com.ez.launer.controller.AdminLogoutInterceptor;
-import com.ez.launer.controller.DeliveryInterceptor;
-import com.ez.launer.controller.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.ez.launer.controller.AdminLoginInterceptor;
+import com.ez.launer.controller.DeliveryInterceptor;
+import com.ez.launer.controller.LoginInterceptor;
 
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer{
@@ -39,13 +39,6 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(new AdminLoginInterceptor())
 		.addPathPatterns("/admin/**")
 		.excludePathPatterns("/admin/adminLogin");
-		registry.addInterceptor(new AdminLogoutInterceptor())
-		.addPathPatterns("/")
-		.addPathPatterns("/user/**")
-		.addPathPatterns("/delivery/**")
-		.excludePathPatterns("/admin/**")
-		.excludePathPatterns("/user/board/**")
-		.excludePathPatterns("/delivery/board/**");
 
 		registry.addInterceptor(new DeliveryInterceptor())
 				.addPathPatterns("/delivery/**")
