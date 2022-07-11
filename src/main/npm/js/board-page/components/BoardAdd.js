@@ -11,8 +11,10 @@ import EditorComponent from "./Editor/EditorComponent";
 // 응 실패 => QuillEditor에서 관련된 이벤트를 제공함, 그걸 활용
 
 const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => {
+    const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [maxiumText, setMaxiumText] = useState("");
+    const inputRef = useRef([]);
     const maxTextByte = 4000;
 
     const onChange = useCallback((value) => {
@@ -25,50 +27,26 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => 
         return b;
     };
 
-    /*function sliceByByte(str, maxByte) {
-        let b;
-        let i;
-        let c;
-        for(b=i=0;c=str.charCodeAt(i);) {
-            b+=c>>7?2:1;
-            if (b > maxByte)
-                break;
-            i++;
-        }
-
-        return str.substring(0,i);
-
-    }
-
-    const cutStr = useCallback((str, limit) => {
-        let strLength = 0;
-        let strTitle = "";
-        let strPiece = "";
-        for (let i = 0; i < str.length; i++){
-            let code = str.charCodeAt(i);
-            const ch = str.substr(i, 1).toUpperCase();
-            //체크 하는 문자를 저장
-            strPiece = str.substr(i,1)
-            code = parseInt(code);
-
-            if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0))){
-                strLength = strLength + 3; //UTF-8 3byte 로 계산
-            }else{
-                strLength = strLength + 1;
-            }
-
-            if(strLength>limit){ //제한 길이 확인
-                break;
-            }else{
-                strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.
-            }
-        }
-        return strTitle;
-    });*/
-
     //ajax로 파일 업로드 처리하기!!
     const addBoard = useCallback((e) => {
         e.preventDefault();
+
+        //유효성 체크
+        if (title === "") {
+            alert("제목을 입력해주세요.");
+            inputRef.current["title"].focus();
+            return;
+        } else if (desc === "") {
+            alert("내용을 입력해주세요.");
+            inputRef.current["content"].focus();
+            return;
+        } else if (maxiumText >= maxTextByte) {
+            alert("4,000byte 이내로 내용을 작성해주세요.");
+            inputRef.current["content"].focus();
+            return;
+        }
+
+
         const formData = new FormData();    //ajax로 파일을 보내주기 위한 객체임, append로 값을 넣어줌, append는 키와 값
 
         const data = {  //일반 input값은 객체로 넣어줄 거임
@@ -82,7 +60,7 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => 
         const fileInput = $('input[type=file]');    //input type=file인 요소 선택
         console.log(fileInput[0].files);    //해당 요소의 파일을 꺼내줄 거임
 
-        for(let i = 0; i < fileInput[0].files.length; i++)  //해당 요소에 들어있는 파일 개수에 따라 반복문 처리임
+        for (let i = 0; i < fileInput[0].files.length; i++)  //해당 요소에 들어있는 파일 개수에 따라 반복문 처리임
             formData.append("file", fileInput[0].files[i]); //file이라는 이름으로 파일을 formdata객체에 넣어줌
 
         console.log(formData);
@@ -100,10 +78,10 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => 
             success: (res) => {
                 alert(res.msg);
 
-                if(res.SUCCESS) {
+                if (res.SUCCESS) {
                     contentList();
                     addBtnOnClickEvent();
-                }else {
+                } else {
                     window.location.reload();
                 }
             },
@@ -112,31 +90,22 @@ const BoardAdd = ({userInfo, animateClass, addBtnOnClickEvent, contentList}) => 
     });
 
     const maximumTextUpdate = useCallback(() => {
-        const currentByte = getByteLengthOfString(desc);
-        setMaxiumText(`${currentByte} / ${maxTextByte} Byte`);
+        setMaxiumText(getByteLengthOfString(desc));
     });
-
-    /*const maxiumumFind = useCallback(() => {
-        const currentByte = getByteLengthOfString(value);
-        if(currentByte > maxTextByte) {
-            const tempText = sliceByByte(value, maxTextByte);
-            setValue(tempText);
-        }
-    })*/
 
     useEffect(() => {
         maximumTextUpdate();
-        // maxiumumFind();
     }, [desc]);
 
 
     return (
         <div className={animateClass === true ? "board-add-component dropdown" : "board-add-component dropUp"}>
             <form method="get" name="board-form" encType="multipart/form-data" onSubmit={addBoard}>
-                <input name="title" placeholder="제목을 입력하세요."/>
+                <input value={title} ref={(el) => inputRef.current["title"] = el}
+                       onChange={e => setTitle(e.target.value)} name="title" placeholder="제목을 입력하세요."/>
                 <input className="upload-name" type="file" placeholder="첨부파일" multiple/>
-                <EditorComponent onChange={onChange}/>
-                <span>{maxiumText}</span>
+                <EditorComponent ref={(el) => inputRef.current["content"] = el} onChange={onChange}/>
+                <span>{maxiumText} / {maxTextByte} Byte</span>
                 <button type="submit"><i className="fa-solid fa-plus"></i></button>
             </form>
         </div>

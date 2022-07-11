@@ -601,4 +601,17 @@ public class DeliveryController {
 
 	}
 
+
+
+
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		logger.info("배송기사 로그아웃");
+
+		session.removeAttribute("dmail");
+		session.removeAttribute("name");
+		session.removeAttribute("deliveryNo");
+
+		return "/user/login";
+	}
 }

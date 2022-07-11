@@ -153,3 +153,23 @@ button{
     transform: translateX(-50%);
 }
 #logo img{height: 50px;}
+
+
+
+.logout-btn {
+    border-radius: 100%;
+    background: #fff;
+    box-shadow:  7px 7px 38px #e8e8e8,
+        -7px -7px 38px #ffffff;
+    position: relative;
+    width: 60px;
+    padding-top: 60px;
+    box-sizing: border-box;
+    p {
+        font-size: $bigFontSize;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

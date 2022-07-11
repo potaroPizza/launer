@@ -130,4 +130,9 @@ public class BoardServiceImpl implements BoardService{
 
         return result;
     }
+
+    @Override
+    public BoardCategoryVO selectBoardCategoryByNo(String categoryNo) {
+        return boardDAO.selectBoardCategoryByNo(categoryNo);
+    }
 }

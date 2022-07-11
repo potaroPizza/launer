@@ -145,24 +145,44 @@ ol, ul {
     padding: 50px 30px;
     background: #000;
     box-sizing: border-box;
-}
-#menu-part nav > ul > li{
-    font-size: 28px;
-    margin-top: 20px;
-    opacity: 0.6;
-}
-#menu-part nav > ul > li.on{opacity: 1;}
-#menu-part nav > ul > li > a{color: #fff;}
 
-#menu-part nav .sub-nav{
-    display: none;
-}
-#menu-part nav .sub-nav li {
-    opacity: 0.6;
-}#menu-part nav .sub-nav li.on{opacity: 1;}
-#menu-part nav .sub-nav a{
-    color: #fff;
-    font-size: 16px;
+    nav{
+        > ul > li{
+            font-size: 28px;
+            margin-top: 20px;
+            opacity: 0.6;
+
+            &.on{opacity: 1;}
+            > a{color: #fff;}
+
+            &:nth-child(1) {margin-top: 0}
+        }
+
+        .sub-nav{
+            display: none;
+
+            li {
+                opacity: 0.6;
+                &.on{opacity: 1;}
+            }
+
+            a{
+                color: #fff;
+                font-size: 16px;
+            }
+        }
+    }
+
+
+
+    .sub-link{
+        width: 100%;
+        background: #1F1F1F;
+        margin-top: 40px;
+        border-radius: 10px;
+        color: #fff;
+        padding: 10px 15px;
+    }
 }
 
 #side-btn{
@@ -173,24 +193,38 @@ ol, ul {
     font-size: 40px;
     position: relative;
     box-sizing: inherit;
-}
-#side-btn div{
-    width: 0;
-    height: 100%;
-    position:absolute;
-    left:0;
-    top:0;
-    background:#000;
-}
-#side-btn .fa-solid {
-    color:#000;
-    position: absolute;
-    z-index: 40;
-    display: block;
-    top: 50%;
-    width: 100%;
-    text-align: center;
-    transform: translateY(-50%);
+
+    div{
+        width: 0;
+        height: 100%;
+        position:absolute;
+        left:0;
+        top:0;
+        background:#000;
+        transition: 0.5s;
+    }
+
+    .fa-solid {
+        color:#000;
+        position: absolute;
+        z-index: 40;
+        display: block;
+        top: 50%;
+        width: 100%;
+        text-align: center;
+        transform: translateY(-50%);
+        transition: 0.5s;
+    }
+
+
+    &:hover{
+        div {
+            width: 100%;
+        }
+        .fa-solid {
+            color: #fff;
+        }
+    }
 }
 /* 왼쪽 aside */
 /* 왼쪽 aside */

@@ -1,5 +1,5 @@
 $(function() {
-    $("#side-btn").hover(function() {
+    /*$("#side-btn").hover(function() {
         $(this).find("div").stop().animate({
             width: "100%"
         }, 400);
@@ -13,7 +13,7 @@ $(function() {
         $(this).find(".fa-solid").stop().animate({
             color: "#000"
         }, 400);
-    });
+    });*/
 
     $("#side-btn").click(function(e){
         e.preventDefault();
@@ -106,7 +106,7 @@ $(function() {
     var $header = $('#header-wrap'); 
     
     $(window).scroll(function(){  //스크롤시
-        if($header.offset().top > 60){
+        if($header.offset().top > 0){
             if(!$header.find(".header-slide-down").hasClass('down')){
                 $header.find(".header-slide-down").addClass('down');
             }

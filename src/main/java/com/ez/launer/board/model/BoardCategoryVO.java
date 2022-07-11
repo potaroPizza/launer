@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BoardCategoryVO {
-    private int no;
-    private int userClassNo;
+    private String no;
+    private int usersClassNo;
     private String categoryName;
 }
