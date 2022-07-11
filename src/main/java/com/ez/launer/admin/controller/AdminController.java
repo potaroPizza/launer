@@ -455,6 +455,8 @@ public class AdminController {
 			} else {
 				//[1] session에 저장
 				HttpSession session = request.getSession();
+				session.invalidate();	// 세션 초기화
+				session = request.getSession();
 				session.setAttribute("adminEmail", uVo.getEmail());
 				session.setAttribute("adminName", uVo.getName());
 				session.setAttribute("adminCode", uVo.getUserCode());
@@ -481,10 +483,10 @@ public class AdminController {
 	public String logout(HttpSession session, Model model) {
 		logger.info("관리자 로그아웃 처리");
 		
-		//session.invalidate();	// 세션 소멸, 근데 이거하면 관리자 세션이 있을경우 같이 제거되므로 바꿔야함
-		session.removeAttribute("adminEmail");
-		session.removeAttribute("adminName");
-		session.removeAttribute("adminCode");
+//		session.removeAttribute("adminEmail");
+//		session.removeAttribute("adminName");
+//		session.removeAttribute("adminCode");
+		session.invalidate(); // 세션초기화
 		
 		model.addAttribute("msg", "성공적으로 로그아웃 되었습니다.");
 		model.addAttribute("url", "/admin/adminLogin");		
