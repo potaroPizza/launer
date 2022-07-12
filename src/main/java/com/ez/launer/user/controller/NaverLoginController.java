@@ -218,6 +218,7 @@ public class NaverLoginController {
         session.setAttribute("no", userVO.getNo());
         session.setAttribute("email", userVO.getEmail());
         session.setAttribute("access_Token",accessToken); //로그아웃때 필요한 accessToken
+        session.setAttribute("classNo", String.valueOf(userVO.getUserCode()));
 
 
         model.addAttribute("msg",msg);
