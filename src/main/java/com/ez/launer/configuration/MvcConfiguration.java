@@ -1,5 +1,6 @@
 package com.ez.launer.configuration;
 
+import com.ez.launer.controller.AdminLogoutInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -47,6 +48,14 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/delivery/checkDmail/**")
 				.excludePathPatterns("/delivery/checkDhp/**")
 				.excludePathPatterns("/delivery/board/notice");
+
+		registry.addInterceptor(new AdminLogoutInterceptor())
+				.addPathPatterns("/*")
+				.addPathPatterns("/user/**")
+				.addPathPatterns("/delivery/**")
+				.excludePathPatterns("/admin/**")
+				.excludePathPatterns("/user/board/**")
+				.excludePathPatterns("/delivery/board/**");
 
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")

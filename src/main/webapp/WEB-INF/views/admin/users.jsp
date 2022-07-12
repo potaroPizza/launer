@@ -9,17 +9,20 @@
 
 	function deleteUser(no){
 		if (!confirm("사용자를 삭제 하시겠습니까?")){
-			return
+			return;
 		}
-		var url ='/launer/admin/user/'+no
+
+		const url ='/launer/admin/user/'+no;
+
 		alert(url)
 		$.ajax({
 			url:url,
 			type:'delete',
 			date: {},
 			dataType    : "html",
-			success:function(data) {
-				alert("성공")
+			success: function(data) {
+				alert("성공");
+				console.log(data);
 				location.reload();
 			},
 			error: function(error){
