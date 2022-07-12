@@ -39,11 +39,6 @@ public class JoinController {
 	public void join_get(Model model) {
 		logger.info("일반회원가입 화면");
 		
-		int randomNum = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
-		String randomCode=Integer.toString(randomNum);
-		logger.info("인증번호 생성 체크, randomCode={}", randomCode);
-		
-		model.addAttribute("randomCode", randomCode);
 		model.addAttribute("classNo", 1);
 	}
 	
@@ -151,46 +146,29 @@ public class JoinController {
 	}
 	
 	@RequestMapping("/checkHp")
-	public String checkHp(@RequestParam(required=false)String hp, String randomCode, Model model) {
-		logger.info("휴대전화 번호 중복확인, 파라미터 hp={}, randomCode={}", hp, randomCode);
+	public String checkHp(@RequestParam(required=false)String hp, Model model) {
+		logger.info("휴대전화 번호 중복확인, 파라미터 hp={}, randomCode={}", hp);
 		
 		int result=0;
 		if(hp!=null && !hp.isEmpty()) {		
 			result=userService.chkHp(hp);
 			logger.info("휴대전화 번호 중복확인 결과, result={}", result);
 			
-			if(result==UserService.USABLE_HP) {
+			if(result==userService.USABLE_HP) {
+				int randomNum = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
+				String randomCode=Integer.toString(randomNum);
+				logger.info("인증번호 생성 체크, randomCode={}", randomCode);
+				
+				model.addAttribute("randomCode", randomCode);
 				//smsSender.certifySms(hp, randomCode);
 			}
 		}
 		
 		model.addAttribute("result", result);
-		model.addAttribute("USABLE_HP", UserService.USABLE_HP);
-		model.addAttribute("UNUSABLE_HP", UserService.UNUSABLE_HP);
+		model.addAttribute("USABLE_HP", userService.USABLE_HP);
+		model.addAttribute("UNUSABLE_HP", userService.UNUSABLE_HP);
 		
 		return "/user/checkHp";
 	}
 	
-	@RequestMapping("/checkSms")
-	public String checkSms(@RequestParam(required=false) String randomCode, 
-			String certifyCode, Model model) {
-		logger.info("인증번호 확인, 파라미터 randomCode={}, certifyCode={}", randomCode, certifyCode);
-		
-		int result=0;
-		if(certifyCode!=null && !certifyCode.isEmpty()) {		
-			if(certifyCode.equals(randomCode)) {
-				result=1;
-			}else {
-				result=2;
-			}
-		}else {
-			result=3;
-		}
-		logger.info("인증번호확인 결과, result={}", result);
-		
-		model.addAttribute("result", result);
-		
-		return "/user/checkSms";
-	}
 }
-

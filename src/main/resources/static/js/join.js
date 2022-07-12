@@ -39,10 +39,26 @@ $(function(){
 				$("#addressDetail").focus();
 				event.preventDefault();
 			}
+		}else if($("#hp").val().length<1){
+			alert("휴대전화번호를 입력하시고 중복확인/인증하셔야합니다");
+			$("#hp").focus();
+			event.preventDefault();
 		}else if(!validate_hp($('#hp').val())){
 			alert("전화번호양식에 맞게 입력하세요.");
 			$("#hp").focus();
 			event.preventDefault();
+		}else if(classNo === 1) {
+			if($('#chkHp').val()!='Y'){
+				alert("휴대전화 중복확인/인증이 필요합니다.");
+				$("#btnChkHp").focus();
+				event.preventDefault();
+			}
+		}else if(classNo === 2) {
+			if($('#chkDhp').val()!='Y'){
+				alert("휴대전화 중복확인/인증이 필요합니다.");
+				$("#btnChkDhp").focus();
+				event.preventDefault();
+			}
 		}else if(classNo === 2) {
 			if($("#accHolder").val().length<1) {
 				alert("계좌주 성명을 입력하세요.");
@@ -146,10 +162,9 @@ $(function(){
 	$('#btnChkHp').click(function(){
 		var ctxPath="/launer";
 		var hp=$('#hp').val();
-		var randomCode=$('#randomCode').val();
 
-		window.open(ctxPath+"/user/checkHp?hp="+hp+"&randomCode="+randomCode,"Hpcheck",
-			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+		window.open(ctxPath+"/user/checkHp?hp="+hp,"Hpcheck",
+			"width=500,height=350,location=yes,resizable=yes,top=100,left=50");
 	});
 	$('#btnChkDhp').click(function(){
 		var ctxPath="/launer";
@@ -240,4 +255,49 @@ function coorSet(addr) {
 	 }
     });
 };
+//배달기사 지점선택 모달
+$(function () {
+
+    $("#officeBtn").click(function () {
+        $('form[name=joinfrm] #modal-wrap').fadeIn(500);
+        $('form[name=joinfrm] #modal-wrap').css("display", "flex").animate({
+            opacity: 1
+        }, 300);
+    });
+
+    $(document).ready(function () {
+        $(".officelist li").click(function () {
+            $(".officelist li").removeClass("on");
+            $(this).addClass("on");
+
+
+        });
+    });
+
+
+    $("#confirmBtn").click(function () {
+        modalClose();
+    });
+
+    /*$(window).on('click', function() {
+        modalClose();
+    });*/
+
+    $(".officelist li a").click(function (e) {
+        e.preventDefault();
+        document.getElementById('officeNo').value = this.dataset.value;
+
+        modalClose();
+    })
+
+    function modalClose() {
+        $('form[name=joinfrm] #modal-wrap').fadeOut();
+        $('form[name=joinfrm] #modal-wrap').animate({
+            opacity: 0
+        }, 300, function () {
+            $('form[name=joinfrm] #modal-wrap').css("display", "none");
+        });
+    };
+
+});
 	

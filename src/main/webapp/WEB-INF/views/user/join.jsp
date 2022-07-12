@@ -85,12 +85,13 @@
 				<c:if test="${classNo == 2}">
 					<div>
 						<label for="officeNo">지점선택</label>
-						<select name="officeNo">
+						<input type="button" value="지점 선택" name="officeBtn" id="officeBtn">
+						<input type="text" id="officeNo" name="officeNo">
+						<!--  <select name="officeNo">
 							<c:forEach var="list" items="${list}">
 							<option value="${list.no}">${list.officeName}</option>
 							</c:forEach>
-						</select>
-						<input type="button" value="지점 선택 아직 미완성" name="officeBtn" id="officeBtn">
+						</select> -->
 					</div>
 					<div>
 						<label for="accHolder">계좌주</label>
@@ -120,12 +121,11 @@
 						placeholder="-를 제외하고 입력해주세요">&nbsp;
 					<c:if test="${classNo == 1}">
 						<input type="button" value="중복 확인" id="btnChkHp">
-						<input type="text" name="chkHp" id="chkHp" value="Y" disabled>
-						<input type="hidden" name="randomCode" id="randomCode" value="${randomCode}">
+						<input type="hidden" name="chkHp" id="chkHp" disabled>
 					</c:if>
 					<c:if test="${classNo == 2}">
 						<input type="button" value="중복 확인" id="btnChkDhp">
-						<input type="text" name="chkDhp" id="chkDhp" value="Y" disabled>
+						<input type="text" name="chkDhp" id="chkDhp" disabled>
 					</c:if>
 					<br><span class="error_message_box"></span>
 				</div>
@@ -302,6 +302,32 @@
 					<input type="submit" id="wr_submit" value="회원가입">
 					<input type="reset" id="wr_reset" 
 						onclick="history.go(-1);return false;" value="취소">
+				</div>
+				
+				<div id="modal-wrap">
+					<div class="office-modal">
+						<div class="modalhead">
+							<h2 class="head-title">Launer</h2>
+						</div>
+						<div class="modal-body">
+							<div class="body-content">
+								<div class="body-titlebox">
+									<span class="body-title">지점 선택</span>
+								</div>
+								<div class="officelist">
+									<ul>
+										<c:forEach var="list" items="${list}">
+											<li><a href="#" class="officeListNo"
+												data-value="${list.no}">${list.officeName}</a></li>
+										</c:forEach>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="modal-foot">
+							<span id="confirmBtn">확인</span>
+						</div>
+					</div>
 				</div>
 			</fieldset>
 		</form>
