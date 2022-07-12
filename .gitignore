@@ -38,3 +38,4 @@ build/
 node_modules/
 /out/artifacts/launer_jar/launer.jar
 /src/main/java/META-INF/MANIFEST.MF
+/out/
