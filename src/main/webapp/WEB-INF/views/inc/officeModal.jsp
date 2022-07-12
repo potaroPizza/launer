@@ -9,28 +9,20 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 $(function(){
-	const $modal = $("#modal-wrap");
 	$(document).ready(function() {
-		$.ajax({
-			url: "<c:url value='/inc/officeModal'/>",
-			type:"get",
-			data: list=${list},
-			success:function(res) => {
-				console.log(res);
-				$("#list").text(res);
-			},
-			error : (xhr, status, error) => alert("error : " + error)
+		$(".officelist li").click(function(){
+			$(".officelist li").removeClass("on");
+			$(this).addClass("on");
+			
+			
 		});
-		return false;
 	});
 	
-	function modalClose(){
-		$modal.animate({
-			opacity: 0
-		}, 300, function() {
-			$modal.css("display", "none");
-		});
-	}
+	$("#officeBtn").click(function(){
+		$modal.css("display", "flex").animate({
+			opacity: 1
+		}, 300);	
+	});
 	
 	$("#confirm").click(function(){
     	modalClose();
@@ -41,6 +33,16 @@ $(function(){
 	$(window).on('click', function() {
 		modalClose();
 	});
+	
+	function modalClose(){
+		$modal.animate({
+			opacity: 0
+		}, 300, function() {
+			$modal.css("display", "none");
+		});
+
+	};
+	
 });
 </script>
 </head>
@@ -55,16 +57,17 @@ $(function(){
 				<div class="body-titlebox">
 				<span class="body-title">지점 선택</span>
 				</div>
-				<div class="body-contentbox">
-					<c:forEach var="list" items="${list}">
-						<a id="list">${list.officeName}</a>
-					</c:forEach>
+				<div class="officelist">
+					<ul>
+						<c:forEach var="list" items="${list}">
+							<li><a data-value="${list.no}">${list.officeName}</a></li>
+						</c:forEach>
+					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="modal-foot">
-		<span class="modal-btn confirm" id="confirm">확인</span>
-		<span class="modal-btn close" id="close">창 닫기</span>
+			<span id="confirmBtn" id="confirm">확인</span>
 		</div>
 	</div>
 </div>
