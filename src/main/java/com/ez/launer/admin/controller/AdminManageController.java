@@ -217,20 +217,34 @@ public class AdminManageController {
 	}
 
 	@DeleteMapping("/user/{no}")
-	public String deleteAdmin(@PathVariable("no") int no) {
+	@ResponseBody
+	public Map<String, Object> deleteAdmin(@PathVariable("no") int no) {
 		System.out.println("no "+no);
 		int result = userService.deleteUser(no);
 		officeService.deleteOfficeAdmin(no);
 		System.out.println("result "+result);
-		return "redirect:/admin/users";
+
+		Map<String, Object> resMap = new HashMap<>();
+		resMap.put("SUCCESS", false);
+		if(result > 0) resMap.put("SUCCESS", true);
+
+//		return "redirect:/admin/users";
+		return resMap;
 	}
 	
 	@DeleteMapping("/delivery-user/{no}")
-	public String deleteDelivery(@PathVariable("no") int no) {
+	@ResponseBody
+	public Map<String, Object> deleteDelivery(@PathVariable("no") int no) {
 		System.out.println("no "+no);
 		int result = deliveryService.deleteDelivery(no);
 		System.out.println("result "+result);
-		return "redirect:/admin/users";
+
+		Map<String, Object> resMap = new HashMap<>();
+		resMap.put("SUCCESS", false);
+		if(result > 0) resMap.put("SUCCESS", true);
+
+//		return "redirect:/admin/users";
+		return resMap;
 	}
 	
 	
