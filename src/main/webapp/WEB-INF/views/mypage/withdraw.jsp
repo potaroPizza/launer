@@ -17,19 +17,14 @@
 			<h2>회원 탈퇴</h2>
 		</div>
 		<div class="withdraw-explain">
-			<c:if test="${vo.userCode=='1' && vo.socialLoginKey==null}">
+			<c:if test="${vo.userCode=='1'}">
 
 				<p>
 					<span style="font-size: 25px; color: black;">${vo.name}님</span>
 					탈퇴하시겠습니까?
 				</p>
 			</c:if>
-			<c:if test="${vo.socialLoginKey!=null}">
-				<p>
-					<span style="font-size: 25px; color: black;">${vo.name}님</span>
-					탈퇴하시겠습니까?
-				</p>
-			</c:if>
+			
 			<c:if test="${deliveryVO.usersClassNo=='2'}">
 				<p>
 					<span style="font-size: 25px; color: black;">${deliveryVO.name}님</span>
@@ -41,7 +36,7 @@
 				<span>탈퇴하기 전 아래 유의사항을 반드시 확인해주세요.</span>
 			</p>
 			<ul>
-				<c:if test="${vo.userCode=='1' && vo.socialLoginKey==null}">
+				<c:if test="${vo.userCode=='1'}">
 					<!-- 개인 회원 탈퇴 유의사항 -->
 					<li><p>
 							탈퇴하신 아이디는 <span>복구가 불가능</span>하며, 탈퇴후 동일한 아이디로 신규가입이 어려울 수 있습니다.
@@ -74,12 +69,10 @@
 				<p>본인확인을 위해 비밀번호를 입력해 주세요.</p>
 				<div class="inputBx">
 					<div class="group-input">
-						<!-- <label for="userid">아이디 *</label> -->
 						<input type="text" id="userid" class="inputText" name="no"
 							value="${vo.name}" size=30 readonly="readonly">
 					</div>
 					<div class="group-input">
-						<!-- <label for="pwd">비밀번호 *</label> -->
 						<input type="password" id="pwd" class="inputText" name="pwd"
 							size=30; placeholder="비밀번호 입력">
 					</div>
@@ -88,7 +81,6 @@
 					<input type="checkbox" id="chk">&nbsp;유의 사항을 모두 확인했으며, 이에
 					동의합니다.<br>
 				</div>
-				<!-- Button trigger modal -->
 				<div class="mypage_withdraw_btn">
 					<button id="withdraw-btn" type="button" class="btn btn-dark">탈퇴하기</button>
 				</div>
@@ -121,7 +113,6 @@
 					<input type="checkbox" id="chk">&nbsp;유의 사항을 모두 확인했으며, 이에
 					동의합니다.<br>
 				</div>
-				<!-- Button trigger modal -->
 				<div class="mypage_withdraw_btn">
 					<button id="withdraw-btn" type="button" class="btn btn-dark">탈퇴하기</button>
 				</div>
@@ -153,12 +144,10 @@
 				<p>본인확인을 위해 비밀번호를 입력해 주세요.</p>
 				<div class="inputBx">
 					<div class="group-input">
-						<!-- <label for="userid">아이디 *</label> -->
 						<input type="text" id="userid" class="inputText" name="no"
 							value="${deliveryVO.name}" size=30 readonly="readonly">
 					</div>
 					<div class="group-input">
-						<!-- <label for="pwd">비밀번호 *</label> -->
 						<input type="password" id="pwd" class="inputText" name="pwd"
 							size=30; placeholder="비밀번호 입력">
 					</div>
@@ -167,7 +156,6 @@
 					<input type="checkbox" id="chk">&nbsp;유의 사항을 모두 확인했으며, 이에
 					동의합니다.<br>
 				</div>
-				<!-- Button trigger modal -->
 				<div class="mypage_withdraw_btn">
 					<button id="withdraw-btn" type="button" class="btn btn-dark">탈퇴하기</button>
 				</div>

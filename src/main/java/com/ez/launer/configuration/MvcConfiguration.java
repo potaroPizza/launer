@@ -33,7 +33,9 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/checkSms/**")
 				.excludePathPatterns("/user/findPwd/**")
 				.excludePathPatterns("/user/pricelist/**")
-				.excludePathPatterns("/user/chkAddress/**");
+				.excludePathPatterns("/user/chkAddress/**")
+				.excludePathPatterns("/laundryService/order/guide");
+				
 		
 		//관리자 인터셉터
 		registry.addInterceptor(new AdminLoginInterceptor())
