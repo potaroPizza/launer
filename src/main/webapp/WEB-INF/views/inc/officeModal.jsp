@@ -13,8 +13,6 @@ $(function(){
 		$(".officelist li").click(function(){
 			$(".officelist li").removeClass("on");
 			$(this).addClass("on");
-			
-			
 		});
 	});
 	

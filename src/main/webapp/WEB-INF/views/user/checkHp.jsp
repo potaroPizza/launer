@@ -4,38 +4,65 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>휴대전화 번호 중복 확인</title>
+<title>휴대전화 번호 중복 확인/인증</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/user/join.css'/>"/>
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
-		$('#toSmsBtn').click(function(){
-			var ctxPath="/launer";
-			var hp=$('#hp').val();
-			var randomCode=$('#randomCode').val();
-
-			newPop=window.open(ctxPath+"/user/checkSms?hp="+hp+"&randomCode="+randomCode,"Hpcheck",
-				"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
-			newPop.opener=opener;
+		$(document).ready(function() {
+			$('#frmSms').css("display", "none");
 		});
-	})
+		$('#toSmsBtn').click(function(){
+			$('#usableHp').val('${param.hp}');
+			$('form[name=frmHp]').css("display", "none");
+			$('#frmSms').css("display", "block");
+			$('#btUse').css("display", "none");
+		});
+		$('#submitCode').click(function(){
+			$('#submitMsg').css("display", "none");
+			
+			if($('#certifyCode').val()!=""){
+				if($('#certifyCode').val()==$('#randomCode').val()){
+					$('#resultSms').text("인증이 완료되어 사용가능한 휴대전화 번호입니다. [사용하기]버튼을 클릭하세요.");
+					$('#btUse').css("display", "block");
+				}else if($('#certifyCode').val()!=$('#randomCode').val()){
+					$('#resultSms').text("인증번호를 잘못 입력하였습니다. 다시 확인 후 입력하시기 바랍니다.");
+				}
+			}else{
+				$('#resultSms').text("인증번호가 입력되지 않았습니다.");
+			}
+		});
+		$('#btUse').click(function(){
+			$(opener.document).find('#hp').val('${param.hp}');
+			$(opener.document).find('#chkHp').val('Y');
+			
+			self.close();
+		});
+	});
 </script>
 </head>
 <body>
-	<h2>휴대전화 번호 중복 검사</h2>
-	<form name="frmHp" method="post" 
-		action="<c:url value='/user/checkHp'/>">
+	<h2>휴대전화 번호 중복 검사/인증</h2>
+	<form name="frmHp" method="post" action="<c:url value='/user/checkHp'/>">
 		<input type="text" name="hp" id="hp" 
-			title="휴대전화 번호 입력" placeholder="-를 제외하고 입력해주세요" value="${param.hp}">
-		<input type="submit"  id="submit" value="확인">
-		<input type="hidden" name="randomCode" id="randomCode" value="${param.randomCode}">	
+			placeholder="-를 제외하고 입력해주세요" value="${param.hp}">
+			<input type="submit"  id="submit" value="중복 확인">
 		<c:if test="${result==UNUSABLE_HP }">
 			<p>이미 등록된 휴대전화 번호입니다. 다른 번호를 입력하세요</p>
 		</c:if>	
 		<c:if test="${result==USABLE_HP }">
 			<input type="button" value="인증하기" id="toSmsBtn">
-			<p>사용가능한 휴대전화 번호입니다. 문자 인증을 위해 [인증하기]버튼을 누르면 인증페이지로 넘어갑니다.</p>
+			<p>사용가능한 휴대전화 번호입니다. 인증번호가 전송되었으니 [인증하기]버튼을 누르시면 입력창이 나타납니다.</p>
 		</c:if>
 	</form>
+	<div id="frmSms">
+		<input type="hidden" name="usableHp" id="usableHp" readonly>
+		<input type="hidden" name="randomCode" id="randomCode" value="${randomCode}" readonly>
+		<input type="text" name="certifyCode" id="certifyCode">
+		<input type="submit"  id="submitCode" value="인증번호 확인">
+		<input type="button" value="사용하기" id="btUse">
+		<p id="submitMsg">휴대전화로 전송된 인증번호를 입력해주시기 바랍니다.</p>
+		<p id="resultSms"></p>
+	</div>
 </body>
 </html>

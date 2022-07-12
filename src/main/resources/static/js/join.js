@@ -146,10 +146,9 @@ $(function(){
 	$('#btnChkHp').click(function(){
 		var ctxPath="/launer";
 		var hp=$('#hp').val();
-		var randomCode=$('#randomCode').val();
 
-		window.open(ctxPath+"/user/checkHp?hp="+hp+"&randomCode="+randomCode,"Hpcheck",
-			"width=400,height=350,location=yes,resizable=yes,top=100,left=50");
+		window.open(ctxPath+"/user/checkHp?hp="+hp,"Hpcheck",
+			"width=500,height=350,location=yes,resizable=yes,top=100,left=50");
 	});
 	$('#btnChkDhp').click(function(){
 		var ctxPath="/launer";
