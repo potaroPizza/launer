@@ -147,7 +147,7 @@ public class JoinController {
 	
 	@RequestMapping("/checkHp")
 	public String checkHp(@RequestParam(required=false)String hp, Model model) {
-		logger.info("휴대전화 번호 중복확인, 파라미터 hp={}, randomCode={}", hp);
+		logger.info("휴대전화 번호 중복확인, 파라미터 hp={}", hp);
 		
 		int result=0;
 		if(hp!=null && !hp.isEmpty()) {		

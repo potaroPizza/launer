@@ -125,7 +125,7 @@
 					</c:if>
 					<c:if test="${classNo == 2}">
 						<input type="button" value="중복 확인" id="btnChkDhp">
-						<input type="text" name="chkDhp" id="chkDhp" disabled>
+						<input type="hidden" name="chkDhp" id="chkDhp" disabled>
 					</c:if>
 					<br><span class="error_message_box"></span>
 				</div>
