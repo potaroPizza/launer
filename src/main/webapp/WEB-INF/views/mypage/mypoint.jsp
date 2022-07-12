@@ -4,11 +4,13 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <t:wrapper>
-<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
-<script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript"></script>
-<script type="text/javascript" src="<c:url value='/js/mypoint.js'/>"></script>
-	
-	<form name="frmPage" method="post" action="<c:url value='/mypage/mypoint'/>">
+	<link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>" />
+	<script src="<c:url value="/js/bootstrap.min.js"/>"
+		type="text/javascript"></script>
+	<script type="text/javascript" src="<c:url value='/js/mypoint.js'/>"></script>
+
+	<form name="frmPage" method="post"
+		action="<c:url value='/mypage/mypoint'/>">
 		<input type="hidden" class="currentPage" name="currentPage">
 	</form>
 
@@ -20,8 +22,11 @@
 		<div class="mypoint_container1">
 			<ul class="mypoint_table1">
 				<li class="mypoint_table1-row">
-					<div class="mypoint_col1-1">${vo.name} 님의 포인트</div>
-					<div class="mypoint_col1-2"><fmt:formatNumber value="${vo.point}" pattern="#,###,###,###"></fmt:formatNumber> P</div>
+					<div class="mypoint_col1-1">${vo.name}님의 포인트</div>
+					<div class="mypoint_col1-2">
+						<fmt:formatNumber value="${vo.point}" pattern="#,###,###,###"></fmt:formatNumber>
+						P
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -37,11 +42,11 @@
 					<div class="mypoint_col-4">포인트</div>
 				</li>
 				<c:if test="${empty searchList }">
-				<li class="mypoint_table-row">
-					<div class="mypoint_col-1" data-label="날짜"></div>
-					<div class="mypoint_col-2" data-label="주문번호"> 이용 내역이 없습니다.</div>
-					<div class="mypoint_col-4" data-label="포인트"></div>
-				</li>	
+					<li class="mypoint_table-row">
+						<div class="mypoint_col-1" data-label="날짜"></div>
+						<div class="mypoint_col-2" data-label="주문번호">이용 내역이 없습니다.</div>
+						<div class="mypoint_col-4" data-label="포인트"></div>
+					</li>
 				</c:if>
 				<c:if test="${!empty searchList }">
 					<c:forEach var="map" items="${searchList }">

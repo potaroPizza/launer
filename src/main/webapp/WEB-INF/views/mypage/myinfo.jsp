@@ -44,7 +44,7 @@
 			</ul>
 		</div>
 
-	
+
 		<div class="myinfo_delivery">
 			<p>배송 정보</p>
 		</div>
