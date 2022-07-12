@@ -13,7 +13,7 @@
                         <ul class="sub-nav">
                             <li><a href="<c:url value="/"/>">사이트 소개</a></li>
                             <li><a href="<c:url value="/user/pricelist"/>">가격표</a></li>
-                            <li><a href="<c:url value="/"/>">가이드</a></li>
+                            <li><a href="<c:url value="/laundryService/order/guide"/>">가이드</a></li>
                         </ul>
                     </li>
                     <li>
