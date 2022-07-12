@@ -14,5 +14,6 @@ public class PaymentViewVO {
 	private int totalPrice;
 	private String categoryName;
 	private String status;
+	private Timestamp paymentDate;
 	
 }
