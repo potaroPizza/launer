@@ -147,3 +147,106 @@
 	  color: red;
 	  margin: 2px 0 2px 162px;
 	}
+	.join_form #modal-wrap{
+		width:100%;
+		margin: 0 auto;
+	  	background-color:rgba(0,0,0,.3);
+		justify-content:center;
+		align-items:center;
+		position:fixed;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+		display:none;
+		padding:15px;
+		opacity: 0;
+	}
+	.join_form #modal-wrap html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, img {
+	    margin: 0;
+	    padding: 0;
+	}
+	.join_form #modal-wrap html, body {
+	    font-weight: 400;
+	    -webkit-font-smoothing: auto;
+	    font-size: 12px;
+	    color: #666;
+	}
+	.join_form #modal-wrap input, select, textarea {
+	    font-size: 100%;
+	    color: #353535;
+	    vertical-align: middle;
+	}
+	.join_form #modal-wrap .office-modal{
+		width:100%;
+		max-width:600px;
+		border-radius:10px;
+		overflow:hidden;
+		background-color:#31363d;
+		box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3);
+	}
+	.join_form #modal-wrap .modal-head{
+		width:100%;
+		height:50px;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+	}
+	.join_form #modal-wrap .head-title {
+	    font-size: 38px;
+	    font-weight: 700;
+	    color: #fff;
+	    letter-spacing: -3px;
+	    text-align: center;
+	}
+	.join_form #modal-wrap .modal-body{
+		width:100%;
+		background-color:#fff;
+	}
+	.join_form #modal-wrap .body-content{
+		padding-bottom:30px;
+	}
+	.join_form #modal-wrap .modalhead {padding: 10px 0;}
+	.join_form #modal-wrap .body-titlebox{
+		text-align:center;
+		width:100%;
+		height:40px;
+		margin-bottom:10px;
+	}
+	.join_form #modal-wrap .body-title{
+		font-size: 25px;
+		font-weight: 600;
+		text-align: center;
+	}
+	.join_form #modal-wrap .modal-foot{
+		width:100%;
+		height:50px;
+		padding-bottom:0;
+	}
+	.join_form #modal-wrap #confirmBtn{
+		display:inline-flex;
+		width:100%;
+		height:100%;
+		justify-content:center;
+		align-items:center;
+		color:#fff;
+		cursor:pointer;
+	}
+	
+	.join_form #modal-wrap .officelist{
+		text-align:center;
+	}
+	.join_form #modal-wrap .officelist li {
+		width:110px;
+		display:inline-block;
+		padding: 10px 5px 10px 0;
+		cursor:pointer;
+		font-size:20px;
+		font-weight: 550;
+	}
+	.join_form #modal-wrap .officelist li:hover {
+		color:#466391;
+	}
+	.join_form #modal-wrap .officelist .on a{
+		color:#466391;
+	}
