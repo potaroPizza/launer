@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+	<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -46,7 +46,7 @@
 			<div class="paymentdetails_count">
 				<p>
 					<span>${paymentSearchVO.startDay }</span> ~ <span>${paymentSearchVO.endDay }</span>
-					까지의 결제내역 총 <span>${pagingInfo.totalRecord }</span>건 입니다.
+					까지의 결제내역 총 <span>${list.size() }</span>건 입니다.
 				</p>
 			</div>
 		</div>
