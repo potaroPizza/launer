@@ -50,7 +50,7 @@
 											>
 											<label for="saveUserEmail">이메일 저장</label>
 										</div>
-										<input type="submit" class="login_btn" 
+										<input type="submit" class="login_btn" id="userLogintBtn"
 											value="기존 회원 로그인" formaction="<c:url value='/user/login'/>">
 										<div class="login_findmenu" style="display:block">
 											<a href="/launer/user/findId">이메일 찾기</a>
@@ -93,7 +93,8 @@
 									<div id="memberLogin" class="login_contents">
 										<div class="inputIdPwd">
 											<input id="member_email" name="dmail" 
-												placeholder="이메일" type="text">
+												placeholder="이메일" type="text"
+												value="${cookie.chkDmail.value }">
 											<input id="member_pwd" name="dPwd" 
 												placeholder="비밀번호" type="password">
 										</div>
@@ -105,7 +106,7 @@
 											>
 											<label for="saveDmail">이메일 저장</label>
 										</div>
-										<input type="submit" class="login_btn" 
+										<input type="submit" class="login_btn" id="driverLoginBtn"
 											value="러너 크루 로그인" formaction="<c:url value='/driver/login'/>">
 										<div class="login_findmenu" style="display:block">
 											<a href="/launer/user/findId">이메일 찾기</a>
