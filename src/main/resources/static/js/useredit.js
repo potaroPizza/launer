@@ -235,6 +235,53 @@ function execZipcode() {
 			
 		});
 		
+$(function(){
+	
+	$("#officeBtn").click(function(){
+		$('form[name=deliveryeditfrm] #modal-wrap').fadeIn(500);
+		$('form[name=deliveryeditfrm] #modal-wrap').css("display", "flex").animate({
+			opacity: 1
+		}, 300);
+	});
+	
+	$(document).ready(function() {
+		$(".officelist li").click(function(){
+			$(".officelist li").removeClass("on");
+			$(this).addClass("on");
+			
+			
+		});
+	});
+	
+	
+	$("#confirmBtn").click(function(){
+    	modalClose();
+	});
+	$("#close").click(function(){``
+    	modalClose();
+	});
+	
+	/*$(window).on('click', function() {
+		modalClose();
+	});*/
+	
+	$(".officelist li a").click(function(e){
+		e.preventDefault();
+		document.getElementById('officeNo').value=this.dataset.value;
+		
+		modalClose();
+	})
+	function modalClose(){
+		$('form[name=deliveryeditfrm] #modal-wrap').fadeOut();
+		$('form[name=deliveryeditfrm] #modal-wrap').animate({
+			opacity: 0
+		}, 300, function() {
+			$('form[name=deliveryeditfrm] #modal-wrap').css("display", "none");
+		});
+	};
+	
+});
+		
 		
 	function coorSet(addr) {
 		// 주소-좌표 변환 객체를 생성합니다
