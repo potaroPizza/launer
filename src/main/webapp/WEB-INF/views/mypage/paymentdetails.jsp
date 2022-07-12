@@ -46,7 +46,7 @@
 			<div class="paymentdetails_count">
 				<p>
 					<span>${paymentSearchVO.startDay }</span> ~ <span>${paymentSearchVO.endDay }</span>
-					까지의 결제내역 총 <span>${list.size() }</span>건 입니다.
+					까지의 결제내역 총 <span>${pagingInfo.totalRecord }</span>건 입니다.
 				</p>
 			</div>
 		</div>
