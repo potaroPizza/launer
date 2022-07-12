@@ -4,14 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
-    private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -20,15 +19,16 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
 
-        String sClassNo= (String.valueOf(session.getAttribute("classNo")));
-        logger.info("classNo = {}", sClassNo);
+        String sClassNo= (String) session.getAttribute("classNo");
+        logger.info("sClassNo = {}", sClassNo);
 
         if (sClassNo != null && !sClassNo.isEmpty()) {
             response.setContentType("text/html; charset = UTF-8");
             PrintWriter out = response.getWriter();
+
             out.print("<script type='text/javascript'>");
             out.print("alert('로그인중입니다.');");
-            out.print("history.back()");
+            out.print("history.back();");
             out.print("</script>");
 
             return false;

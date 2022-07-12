@@ -31,15 +31,11 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/pricelist/**")
 				.excludePathPatterns("/user/chkAddress/**")
 				.excludePathPatterns("/laundryService/order/guide");
-
-		registry.addInterceptor(new LoginCheckInterceptor())
-				.addPathPatterns("/user/login/**")
-				.addPathPatterns("/user/join/**");
 		
 		//관리자 인터셉터
 		registry.addInterceptor(new AdminLoginInterceptor())
-		.addPathPatterns("/admin/**")
-		.excludePathPatterns("/admin/adminLogin");
+				.addPathPatterns("/admin/**")
+				.excludePathPatterns("/admin/adminLogin");
 
 		registry.addInterceptor(new DeliveryInterceptor())
 				.addPathPatterns("/delivery/**")
@@ -53,8 +49,15 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.addPathPatterns("/user/**")
 				.addPathPatterns("/delivery/**")
 				.excludePathPatterns("/admin/**")
+				.excludePathPatterns("/user/login/**")
+				.excludePathPatterns("/user/join/**")
 				.excludePathPatterns("/user/board/**")
 				.excludePathPatterns("/delivery/board/**");
+
+
+		registry.addInterceptor(new LoginCheckInterceptor())
+				.addPathPatterns("/user/login/**")
+				.addPathPatterns("/user/join/**");
 
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")
