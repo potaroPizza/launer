@@ -15,5 +15,11 @@ $(function(){
 	$("#loginGeneralMember").removeClass('on');
 	$("#loginDriver").addClass('on');
 	});
-  });
+	
+	//배송기사 로그인시 엔터(안됨ㅠㅠ)
+	$("#driverLoginBtn").submit(function(){
+		$("#userLogintBtn").submit;
+		event.preventDefault();
+	});
+});
   
