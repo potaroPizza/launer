@@ -20,5 +20,6 @@ public class PaymentHistoryViewVO {
 	private String entermethod;
 	private String orderRequest;
 	private String imgurl;
+	private Timestamp paymentDate;
 
 }
