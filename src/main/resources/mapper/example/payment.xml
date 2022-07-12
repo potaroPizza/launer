@@ -16,7 +16,7 @@
     <select id="selectPaymentDetail" parameterType="int" resultMap="paymentHistoryAll">
 	<!--<select id="selectPaymentDetail" parameterType="paymentSearchVo" resultMap="paymentHistoryAll">-->
 	    select * from payment_detail_view
-		where users_no=#{usersNo} order by regdate desc
+		where users_no=#{usersNo} and payment_date is not null
 		<!--select *
 			from
 			(
@@ -37,7 +37,7 @@
    <!--결제내역 리스트 1:N 조회-->
    <select id="selectOrderDetails" parameterType="int" resultType="hashMap">
        select * from ORDER_DETAIL_VIEW
-       where ORDER_NO = #{orderNo}
+       where ORDER_NO = #{orderNo} 
    </select>
 
    <resultMap type="PaymentDetailAllVO" id="paymentHistoryAll">
@@ -49,6 +49,8 @@
             <result column="total_price" jdbcType="BIGINT" property="totalPrice"/>
             <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
             <result column="status" jdbcType="VARCHAR" property="status"/>
+            <result column="payment_date" jdbcType="TIMESTAMP" property="paymentDate"/>
+            
         </association>
         <collection property="paymentDetails" column="order_no"
                     javaType="ArrayList" ofType="map" select="selectOrderDetails">
@@ -73,6 +75,7 @@
 		    from
 		    (
 				select * from payment_detail_view where users_no=#{usersNo} 
+				and payment_date is not null
 				<include refid="selectPaymentListWhere"></include>
 				order by regdate desc
 		    )A
@@ -81,18 +84,20 @@
 		<![CDATA[
 			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
+		
+		and payment_date is not null
     </select>
     
     <!-- 결제내역 검색 패이징 총 레코드 수 조회 -->
     <select id="paymentSelectTotalRecord" parameterType="paymentSearchVo" resultType="int">
-		select count(*) from payment_detail_view where users_no=#{usersNo} 
+		select count(*) from payment_detail_view where users_no=#{usersNo} and payment_date is not null 
 		<include refid="selectPaymentListWhere"></include>
 	</select>
 	
 	<!-- 상세 주문내역 리스트 조회하기 -->
 	<select id="selectPaymentHistoryList" parameterType="paymentHistoryViewVO" resultMap="paymentHistoryDetail">
 		select * from payment_histroy_view
-		where users_no=#{usersNo} and order_no=#{orderNo}
+		where users_no=#{usersNo} and order_no=#{orderNo} and payment_date is not null
     </select>
     
     <!--주문내역 1:N 조회-->

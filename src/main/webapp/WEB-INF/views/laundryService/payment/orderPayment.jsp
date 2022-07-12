@@ -61,7 +61,7 @@ $(function(){
 	                 pay_method:"card",
 	                 merchant_uid: orderNo,
 	                 amount: amount,
-	               //  name: '빨래',
+	                 name: '빨래',
 	                 buyer_email: email,
 	                 buyer_name: name,
 	                // buyer_tel: '010-1111-1111', 
