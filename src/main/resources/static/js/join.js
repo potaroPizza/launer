@@ -9,18 +9,6 @@ $(function(){
 			alert("이메일 형식에 맞게 입력해 주세요.");
 			$("#email").focus();
 			event.preventDefault();
-		}else if(classNo === 1) {
-			if($('#chkEmail').val()!='Y'){
-				alert("이메일 중복확인해야 합니다.");
-				$("#btnChkEmail").focus();
-				event.preventDefault();
-			}
-		}else if(classNo === 2) {
-			if($('#chkDmail').val()!='Y'){
-				alert("이메일 중복확인해야 합니다.");
-				$("#btnChkDmail").focus();
-				event.preventDefault();
-			}
 		}else if($("#pwd").val().length<1) {
 			alert("비밀번호를 입력하세요.");
 			$("#pwd").focus();
@@ -33,12 +21,6 @@ $(function(){
 			alert("비밀번호가 일치하지 않습니다.");
 			$("#pwd2").focus();
 			event.preventDefault();
-		}else if(classNo === 1) {
-			if($("#addressDetail").val().length<1) {
-				alert("상세주소를 입력하세요.");
-				$("#addressDetail").focus();
-				event.preventDefault();
-			}
 		}else if($("#hp").val().length<1){
 			alert("휴대전화번호를 입력하시고 중복확인/인증하셔야합니다");
 			$("#hp").focus();
@@ -47,32 +29,6 @@ $(function(){
 			alert("전화번호양식에 맞게 입력하세요.");
 			$("#hp").focus();
 			event.preventDefault();
-		}else if(classNo === 1) {
-			if($('#chkHp').val()!='Y'){
-				alert("휴대전화 중복확인/인증이 필요합니다.");
-				$("#btnChkHp").focus();
-				event.preventDefault();
-			}
-		}else if(classNo === 2) {
-			if($('#chkDhp').val()!='Y'){
-				alert("휴대전화 중복확인/인증이 필요합니다.");
-				$("#btnChkDhp").focus();
-				event.preventDefault();
-			}
-		}else if(classNo === 2) {
-			if($("#accHolder").val().length<1) {
-				alert("계좌주 성명을 입력하세요.");
-				$("#accHolder").focus();
-				event.preventDefault();
-			}else if($("#accNum").val().length<1) {
-				alert("계좌번호를 입력하세요.");
-				$("#accNum").focus();
-				event.preventDefault();
-			}else if(!validate_accNum($("#accNum").val())) {
-				alert("계좌번호는 숫자만 입력 가능합니다.");
-				$("#accNum").focus();
-				event.preventDefault();
-			}
 		}else if(!$('#agreechk').is(':checked')){
 			alert('약관에 동의해야 회원가입을 진행할 수 있습니다.');
 			$('#agreechk').focus();
@@ -85,6 +41,42 @@ $(function(){
 			alert('개인정보 제공에 동의해야 회원가입을 진행할 수 있습니다.');
 			$('#privacychk2').focus();
 			event.preventDefault();
+		}else if(classNo === 1) {
+			if($('#chkEmail').val()!='Y'){
+				alert("이메일 중복확인해야 합니다.");
+				$("#btnChkEmail").focus();
+				event.preventDefault();
+			}else if($('#chkHp').val()!='Y'){
+				alert("휴대전화 중복확인/인증이 필요합니다.");
+				$("#btnChkHp").focus();
+				event.preventDefault();
+			}else if($("#addressDetail").val().length<1) {
+				alert("상세주소를 입력하세요.");
+				$("#addressDetail").focus();
+				event.preventDefault();
+			}
+		}else if(classNo === 2) {
+			if($('#chkDmail').val()!='Y'){
+				alert("이메일 중복확인해야 합니다.");
+				$("#btnChkDmail").focus();
+				event.preventDefault();
+			}else if($('#chkDhp').val()!='Y'){
+				alert("휴대전화 중복확인/인증이 필요합니다.");
+				$("#btnChkDhp").focus();
+				event.preventDefault();
+			}else if($("#accHolder").val().length<1) {
+				alert("계좌주 성명을 입력하세요.");
+				$("#accHolder").focus();
+				event.preventDefault();
+			}else if($("#accNum").val().length<1) {
+				alert("계좌번호를 입력하세요.");
+				$("#accNum").focus();
+				event.preventDefault();
+			}else if(!validate_accNum($("#accNum").val())) {
+				alert("계좌번호는 숫자만 입력 가능합니다.");
+				$("#accNum").focus();
+				event.preventDefault();
+			}
 		}
 	});
 	//에러메시지

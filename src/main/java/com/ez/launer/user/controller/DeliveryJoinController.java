@@ -87,14 +87,21 @@ public class DeliveryJoinController {
 		return "/delivery/checkDmail";
 	}
 	@RequestMapping("/checkDhp")
-	public String checkHp(@RequestParam String hp, Model model) {
+	public String checkDhp(@RequestParam(required=false) String hp, Model model) {
 		logger.info("배송기사 휴대전화 번호 중복확인, 파라미터 hp={}", hp);
 		
 		int result=0;
 		if(hp!=null && !hp.isEmpty()) {		
 			result=userService.chkDhp(hp);
-			
 			logger.info("배송기사 휴대전화 번호 중복확인 결과, result={}", result);
+			if(result==userService.USABLE_HP) {
+				int randomNum = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
+				String randomCode=Integer.toString(randomNum);
+				logger.info("인증번호 생성 체크, randomCode={}", randomCode);
+				
+				model.addAttribute("randomCode", randomCode);
+				//smsSender.certifySms(hp, randomCode);
+			}
 		}
 		
 		model.addAttribute("result", result);
@@ -103,5 +110,5 @@ public class DeliveryJoinController {
 		
 		return "/delivery/checkDhp";
 	}
-
+	
 }
