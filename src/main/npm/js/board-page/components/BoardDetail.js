@@ -158,7 +158,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
 
     const controllerBtn = (
         <div className="board-controll-btn">
-            {userInfo.no === data.usersNo && (<button onClick={() => setEditMode(!editMode)}>{editMode ? "취소" : "수정"}</button>)}
+            {userInfo.no === data.usersNo || (<button onClick={() => setEditMode(!editMode)}>{editMode ? "취소" : "수정"}</button>)}
             {editMode ? (
                 <button className="update-btn" onClick={updateBoard}>수정</button>) :
                 (<button className="delete-btn" onClick={deleteBoard}>삭제</button>)}
