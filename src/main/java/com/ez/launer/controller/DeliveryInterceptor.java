@@ -20,7 +20,34 @@ public class DeliveryInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 
-		String dmail = (String)(session.getAttribute("dmail"));
+
+		String sClassNo = String.valueOf(session.getAttribute("classNo"));
+		logger.info("sClassNo = {}", sClassNo);
+
+		if (!(sClassNo.equals("null"))) {
+			int classNo = Integer.parseInt(sClassNo);
+			String returnText = classNo == 1 ? "사용자" : (classNo == 3 || classNo == 4) ? "관리자" : "";
+
+			int chk = 0;
+			if(classNo == 1) chk++;
+			else if(classNo == 3 || classNo == 4)
+				if(!("/delivery/board/notice".equals(request.getRequestURI()))) chk++;
+
+
+			if(chk > 0) {
+				response.setContentType("text/html; charset = UTF-8");
+				PrintWriter out = response.getWriter();
+
+				out.print("<script type='text/javascript'>");
+				out.print("alert('" + returnText + " 로그인중입니다.');");
+				out.print("history.back();");
+				out.print("</script>");
+
+				return false;
+			}
+		}
+
+		/*String dmail = (String)(session.getAttribute("dmail"));
 		logger.info("deliveryNo = {}", dmail);
 
 		if(dmail == null || dmail.isEmpty()) {
@@ -32,7 +59,7 @@ public class DeliveryInterceptor implements HandlerInterceptor {
 			out.print("</script>");
 
 			return false;
-		}
+		}*/
 
 
 
