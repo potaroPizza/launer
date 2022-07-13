@@ -391,9 +391,7 @@ public class MypageController {
 				   ck.setPath("/"); 
 				   ck.setMaxAge(0);
 				  response.addCookie(ck);
-				  session.removeAttribute("no");
-				  session.removeAttribute("name");
-				  session.removeAttribute("email");
+				  session.invalidate();
 				 
 			}else {
 				msg="회원탈퇴 실패";				
@@ -446,9 +444,7 @@ public class MypageController {
 					ck.setPath("/"); 
 					ck.setMaxAge(0);
 					response.addCookie(ck);
-					session.removeAttribute("no");
-					session.removeAttribute("name");
-					session.removeAttribute("email");
+					session.invalidate();
 					
 				}else {
 					msg="회원탈퇴 실패";				
