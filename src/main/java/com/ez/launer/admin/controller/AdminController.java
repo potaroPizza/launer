@@ -2,12 +2,12 @@ package com.ez.launer.admin.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,6 +48,7 @@ import com.ez.launer.notice.model.NoticeService;
 import com.ez.launer.notice.model.NoticeVO;
 import com.ez.launer.office.model.OfficeService;
 import com.ez.launer.office.model.OfficeVO;
+import com.ez.launer.user.model.SHA256Encryption;
 import com.ez.launer.user.model.UserService;
 import com.ez.launer.user.model.UserVO;
 
@@ -66,6 +67,7 @@ public class AdminController {
 	private final AdminChartsService chartsService;
 	private final UserService userService;
 	private final OfficeService officeService;
+	private final SHA256Encryption sha256;
 	
 	
 	@RequestMapping("/")
@@ -151,8 +153,9 @@ public class AdminController {
 		logger.info("주문상세 출력 결과, vo={}", vo);
 		
 		model.addAttribute("vo", vo);
-		
-		return "/admin/orderDetail";
+
+		return "/admin/orderDetail_bak";
+		//return "/admin/orderDetail";
 	}
 	
 	@RequestMapping("/ordersUpdateMulti")
@@ -334,40 +337,35 @@ public class AdminController {
 		List<Map<String, Object>> rcm = null;
 		List<Map<String, Object>> ccm = null;
 		
+		//사용자 통계 플래그
+		String flag = null;
+		
+		// 첫 화면 세팅
 		if(vo.getUserChart() == null &&
 				vo.getRevenueChart() == null &&
-				vo.getCategoryChart() == null) {	// 첫 화면 세팅
+				vo.getCategoryChart() == null) {	
 			vo.setUserChart("2022");
 			vo.setRevenueChart("0");
 			vo.setCategoryChart("1");
 		}
 		
 		if(vo.getUserChart() != null && !vo.getUserChart().isEmpty()) {
-//			if(vo.getUserChart().equals("1")) {	// 최근 2주
-//				vum = chartsService.selectVisitByDay();
-//				jum = chartsService.selectJoinByDay();
-//				uum = chartsService.selectUsersByDay();
-//			} else if(vo.getUserChart().equals("2022")) {	
-				// 2022년
+			if(vo.getUserChart().equals("2")) {
+				vum = chartsService.selectVisitByDay();
+				jum = chartsService.selectJoinByDay();
+				uum = chartsService.selectUsersByDay();
+				flag = "2";
+			} else if(vo.getUserChart().equals("2022")) {	
 				vum = chartsService.selectVisitByMonth();
 				jum = chartsService.selectjoinByMonth();
 				uum = chartsService.selectUsersByMonth();
+				flag = "2022";
 			}
-//		}
-		
-		int ofn = -1;
-		String ofName = null;
+		}
 		
 		if(vo.getRevenueChart() != null && !vo.getRevenueChart().isEmpty()) {
 			int officeNo = Integer.parseInt(vo.getRevenueChart());
 			rcm = chartsService.selectRevenueByMonth(officeNo);
-			
-			if(rcm.isEmpty()) {
-				model.addAttribute("msg", "선택한 카테고리의 자료가 존재하지 않습니다.");
-				model.addAttribute("url", "/admin/charts");
-				
-				return "/common/message";
-			}
 		}
 
 		if(vo.getCategoryChart() != null && !vo.getCategoryChart().isEmpty()) {
@@ -377,19 +375,37 @@ public class AdminController {
 		logger.info("통계 페이지 vum={}", vum);
 		logger.info("통계 페이지 jum={}", jum);
 		logger.info("통계 페이지 uum={}", uum);
+		logger.info("통계 페이지 rcm={}", rcm);
 		logger.info("통계 페이지 ccm={}", ccm);
 		
 		model.addAttribute("vum", vum);	// 방문자 수
 		model.addAttribute("jum", jum);	// 신규 가입자 수
 		model.addAttribute("uum", uum);	// 누적 가입자 수
 		model.addAttribute("rcm", rcm);	// 월별 매출
+		
+		boolean bool = false;
 		if(!vo.getRevenueChart().equals("0")) {
-			model.addAttribute("ofn", rcm.get(0).get("OFFICENO"));
-			model.addAttribute("ofName", rcm.get(0).get("OFFICENAME"));
+			for(int i=0; i<rcm.size(); i++) {
+				if(rcm.get(i).get("OFFICENO") != null && rcm.get(i).get("OFFICENO") != "") {
+					model.addAttribute("ofn", rcm.get(i).get("OFFICENO"));
+					model.addAttribute("ofName", rcm.get(i).get("OFFICENAME"));
+					bool = true;
+					
+					break;
+				}
+			}
+			
+			if(!bool) {
+				model.addAttribute("msg", "선택한 카테고리의 데이터가 존재하지 않습니다.");
+				model.addAttribute("url", "/admin/charts");
+				
+				return "/common/message";
+			}
 		} else {
 			model.addAttribute("ofn", 0);
 		}
 		model.addAttribute("ccm", ccm);	// 카테고리 별 주문 수
+		model.addAttribute("flag", flag); // 사용자 통계 플래그
 		
 		//지점 전체 정보 불러오기
 		List<OfficeVO> officeList = officeService.selectAll();
@@ -412,9 +428,9 @@ public class AdminController {
 //			model.addAttribute("msg", "잘못된 url접근입니다.");
 //			model.addAttribute("url", "/admin/");
 //			
-//			logger.info("이건아니다");
+//			logger.info("이건아니다"); // "이건아니다" 넘 웃겨용
 //			
-//			return "/common/message";
+//			return "/common/message"; 
 //		}
 		
 		return "/admin/adminLogin";
@@ -423,9 +439,14 @@ public class AdminController {
 	@PostMapping("/adminLogin")
 	public String adminLogin_post(@ModelAttribute UserVO vo,
 			HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+			HttpServletResponse response, Model model) throws NoSuchAlgorithmException {
 		logger.info("관리자 로그인 처리, 파라미터 email={}, pwd={}",
 				vo.getEmail(), vo.getPwd());
+		
+		
+		String pwd = sha256.encrypt(vo.getPwd());
+		vo.setPwd(pwd);
+
 		
 		int result = userService.loginChk(vo.getEmail(), vo.getPwd());
 		logger.info("관리자 로그인 처리 결과 result={}", result);
@@ -443,12 +464,15 @@ public class AdminController {
 			} else {
 				//[1] session에 저장
 				HttpSession session = request.getSession();
+				session.invalidate();	// 세션 초기화
+				session = request.getSession();
 				session.setAttribute("adminEmail", uVo.getEmail());
 				session.setAttribute("adminName", uVo.getName());
 				session.setAttribute("adminCode", uVo.getUserCode());
 				session.setAttribute("email", uVo.getEmail());
 				session.setAttribute("name", uVo.getName());
 				session.setAttribute("no", uVo.getNo());
+				session.setAttribute("classNo", String.valueOf(uVo.getUserCode()));
 				
 				msg = uVo.getName() +"님 로그인되었습니다.";
 				url="/admin/";
@@ -469,16 +493,16 @@ public class AdminController {
 	public String logout(HttpSession session, Model model) {
 		logger.info("관리자 로그아웃 처리");
 		
-		//session.invalidate();	// 세션 소멸, 근데 이거하면 관리자 세션이 있을경우 같이 제거되므로 바꿔야함
-		session.removeAttribute("adminEmail");
-		session.removeAttribute("adminName");
-		session.removeAttribute("adminCode");
+//		session.removeAttribute("adminEmail");
+//		session.removeAttribute("adminName");
+//		session.removeAttribute("adminCode");
+		session.invalidate(); // 세션초기화
 		
 		model.addAttribute("msg", "성공적으로 로그아웃 되었습니다.");
 		model.addAttribute("url", "/admin/adminLogin");		
 		
-		return "/common/message";
-		//return "redirect:/admin/adminLogin";
+		//return "/common/message";
+		return "redirect:/admin/adminLogin";
 	}
 	
 	
