@@ -13,4 +13,6 @@ public interface OfficeDAO {
     List<Map<String, Object>> selectAllManager();
     Map<String, Object> selectManagerByNo(int no);
     int deleteOfficeAdmin(int usersNo);
+    int deleteOffice(int no);
+    List<Map<String, Object>> selectOfficeInfo();
 }
