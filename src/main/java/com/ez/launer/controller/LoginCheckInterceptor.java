@@ -23,15 +23,17 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         logger.info("sClassNo = {}", sClassNo);
 
         if (sClassNo != null && !sClassNo.isEmpty()) {
-            response.setContentType("text/html; charset = UTF-8");
-            PrintWriter out = response.getWriter();
+            if(!(sClassNo.equals("3") || sClassNo.equals("4"))) {
+                response.setContentType("text/html; charset = UTF-8");
+                PrintWriter out = response.getWriter();
 
-            out.print("<script type='text/javascript'>");
-            out.print("alert('로그인중입니다.');");
-            out.print("history.back();");
-            out.print("</script>");
+                out.print("<script type='text/javascript'>");
+                out.print("alert('로그인중입니다.');");
+                out.print("history.back();");
+                out.print("</script>");
 
-            return false;
+                return false;
+            }
         }
 
         return true;	//다음 컨트롤러가 수행됨
