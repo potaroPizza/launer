@@ -1,14 +1,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <header id="header-wrap" class="main-width">
-    <div class="menu-btn">
-        <a href="#"><i class="fa-solid fa-circle-arrow-right"></i></a>
-    </div>
-    <div id="logo">
-        <a href="<c:url value="/delivery/"/>">
-            <img src="<c:url value="/images/logo_4.svg"/>"/>
-        </a>
-    </div>
+    <c:if test="${sessionScope.classNo == 3 || sessionScope.classNo == 4}">
+        <div id="logo">
+            <a href="<c:url value="/admin/"/>">
+                <img src="<c:url value="/images/logo_4.svg"/>"/>
+            </a>
+        </div>
+    </c:if>
+    <c:if test="${!(sessionScope.classNo == 3 || sessionScope.classNo == 4)}">
+        <div class="menu-btn">
+            <a href="#"><i class="fa-solid fa-circle-arrow-right"></i></a>
+        </div>
+        <div id="logo">
+            <a href="<c:url value="/delivery/"/>">
+                <img src="<c:url value="/images/logo_4.svg"/>"/>
+            </a>
+        </div>
+    </c:if>
 </header>
 <aside id="aside-wrap">
     <nav>

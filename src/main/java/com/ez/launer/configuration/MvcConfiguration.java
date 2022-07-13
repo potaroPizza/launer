@@ -17,6 +17,33 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.addPathPatterns("/laundryService/**")
 				.addPathPatterns("/mypage/**")
 				.addPathPatterns("/user/**")
+				.excludePathPatterns("/mypage/signout")
+				.excludePathPatterns("/user/join/**", "/user/login/**", "/user/logout")
+				.excludePathPatterns("/user/findId/**", "/user/findPwd/**")
+				.excludePathPatterns("/user/checkEmail/**", "/user/checkHp/**")
+				.excludePathPatterns("/user/kakaoLogin/**")
+				.excludePathPatterns("/user/checkEmail/**")
+				.excludePathPatterns("/user/checkHp/**")
+				.excludePathPatterns("/user/findPwd/**")
+				.excludePathPatterns("/user/pricelist/**")
+				.excludePathPatterns("/user/chkAddress/**")
+				.excludePathPatterns("/laundryService/order/guide");
+
+		registry.addInterceptor(new DeliveryInterceptor())
+				.addPathPatterns("/delivery/**")
+				.excludePathPatterns("/delivery/join/**")
+				.excludePathPatterns("/delivery/checkDmail/**")
+				.excludePathPatterns("/delivery/checkDhp/**");
+
+		registry.addInterceptor(new AdminInterceptor())
+				.addPathPatterns("/admin/**")
+				.excludePathPatterns("/admin/adminLogin");
+
+
+		/*registry.addInterceptor(new LoginInterceptor())
+				.addPathPatterns("/laundryService/**")
+				.addPathPatterns("/mypage/**")
+				.addPathPatterns("/user/**")
 				.excludePathPatterns("/user/login/**")
 				.excludePathPatterns("/user/join/**")
 				.excludePathPatterns("/user/findId/**")
@@ -45,21 +72,25 @@ public class MvcConfiguration implements WebMvcConfigurer{
 //				.excludePathPatterns("/delivery/board/notice");
 
 		registry.addInterceptor(new AdminLogoutInterceptor())
-				.addPathPatterns("/*")
+						.addPathPatterns("/*")
+								.excludePathPatterns("/admin/**");
+*//*
+		registry.addInterceptor(new AdminLogoutInterceptor())
+//				.addPathPatterns("/*")
 				.addPathPatterns("/user/**")
-				.addPathPatterns("/delivery/**")
+//				.addPathPatterns("/delivery/**")
 				.excludePathPatterns("/admin/**")
 //				.excludePathPatterns("/user/login/**")
 //				.excludePathPatterns("/user/join/**")
-				.excludePathPatterns("/user/board/**")
-				.excludePathPatterns("/delivery/board/**");
+				.excludePathPatterns("/user/board/**");
+//				.excludePathPatterns("/delivery/board/**");*//*
 
 
 		registry.addInterceptor(new LoginCheckInterceptor())
 				.addPathPatterns("/user/login/**")
 				.addPathPatterns("/user/join/**")
 				.addPathPatterns("/delivery/join/**");
-
+*/
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")
 		//=> 인터셉처 설정한 경로중에서, 제외할 경로 설정(예외처리)

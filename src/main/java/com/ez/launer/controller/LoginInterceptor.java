@@ -19,6 +19,68 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		HttpSession session = request.getSession();
+		logger.info("LoginInterceptor 발생");
+
+		String sClassNo = (String)session.getAttribute("classNo");
+
+		int cnt = 0;
+		String msg = "", url = "";
+		if(sClassNo == null || sClassNo.isEmpty()) {
+			cnt++;
+			/*msg = "접근 권한이 없습니다.";
+			url = "location.href = '" + request.getContextPath() + "/';";*/
+			msg = "로그인 후 이용해주세요.";
+			url = "location.href = '" + request.getContextPath() + "/user/login';";
+		}else {
+			int classNo = Integer.parseInt(sClassNo);
+
+			if(((request.getContextPath() + "/user/board/notice").equals(request.getRequestURI())) ||
+					((request.getContextPath() + "/user/board/review").equals(request.getRequestURI()))) {
+				if(classNo == 2) {
+					cnt++;
+					msg = "접근 권한이 없습니다. (배송기사 접속중)";
+					url = "location.href = '" + request.getContextPath() + "/delivery/';";
+				}
+			}else {
+				if(classNo == 2 || classNo == 3 || classNo == 4) {
+					cnt++;
+
+					String className = "관리자";
+					if(classNo == 2) className = "배송기사";
+
+					msg = "접근 권한이 없습니다. (" + className + " 접속중)";
+					url = "history.back();";
+				}
+			}
+
+
+			/*if(classNo == 2 || classNo == 3 || classNo == 4) {
+				String className = "관리자";
+				if(classNo == 2) className = "배송기사";
+
+				msg = "접근 권한이 없습니다. (" + className + " 접속중)";
+				url = "history.back();";
+			}*/
+		}
+
+		if(cnt > 0) {
+			response.setContentType("text/html; charset = UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print("<script type='text/javascript'>");
+			out.print("alert('" + msg + "');");
+			out.print(url);
+			out.print("</script>");
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/*@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
 		logger.info("preHandle() 실행");
 
 		HttpSession session = request.getSession();
@@ -62,5 +124,5 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 		session.setAttribute("CHK_LOGIN", true);	//이게 될까~
 		return true;	//다음 컨트롤러가 수행됨
-	}
+	}*/
 }

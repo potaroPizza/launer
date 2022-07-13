@@ -37,7 +37,6 @@ function execZipcode() {
         }
 
     }).open();
-
 }
 
 const chkAddress = (address) => {
