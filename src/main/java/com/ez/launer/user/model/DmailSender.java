@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class DmailSender {
-private final JavaMailSender mailSender;
+	private final JavaMailSender mailSender;
 	
 	public void sendDmail(DriverAllVO dvo) throws MessagingException {
 		
