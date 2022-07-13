@@ -56,7 +56,7 @@
 										<th id="detailedPaymentHistory_col2">상품</th>
 										<th id="detailedPaymentHistory_col3">주문금액</th>
 										<th id="detailedPaymentHistory_col4">적립 포인트</th>
-										<th id="detailedPaymentHistory_col5">주문상태</th>
+										<th id="detailedPaymentHistory_col5">상태</th>
 									</tr>
 								</thead>
 								<tbody>
