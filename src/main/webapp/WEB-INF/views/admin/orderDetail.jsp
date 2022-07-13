@@ -152,10 +152,13 @@ div.pickUp{
 
 				        </table>
 					<div class="pickUp">
-						<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp"
-							disabled="disabled">
+						<c:if test="${map.status != '세탁중'}">
+							<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp" disabled="disabled">
+						</c:if>
+						<c:if test="${map.status == '세탁중'}">
 						<input type="button" value="픽업대기 처리" id="pickUp" name="pickUp"
 							onclick="location.href='<c:url value="/admin/ordersUpdate?orderNo=${map.orderNo}"/>';">
+						</c:if>
 					</div>
 				</div>
 							

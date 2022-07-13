@@ -59,12 +59,9 @@
 
 				if(count > 0) {
 					var items = $('input[type=checkbox]:checked').parent().siblings('.tdStatus').text();
-					alert(items);
 					var str = items.split(" ");
-					alert(str);
 					var bool = true;
 					str.forEach(function(item, index){
-						alert(item);
 						if(index != $('input[type=checkbox]:checked').length){
 							if(item !== "세탁중"){
 								bool = false;
@@ -207,13 +204,13 @@
 <!-- 페이징 처리를 위한 form 시작-->
 <form name="frmPage" method="post"
 	action="<c:url value='/admin/orders'/>">
-	<input type="text" class="startDay" name="startDay" value="${orderSearchVO.startDay}">
-	<input type="text" class="endDay" name="endDay" value="${orderSearchVO.endDay}">
-	<input type="text" class="officeNo" name="officeNo" value="${orderSearchVO.officeNo}">
-	<input type="text" class="statusNo" name="statusNo" value="${orderSearchVO.statusNo}">
-	<input type="text" class="userEmail" name="userEmail" value="${orderSearchVO.userEmail}">
-	<input type="text" class="currentPage" name="currentPage">	
-	<input type="text" class="countPerPage" name="countPerPage" value="${orderSearchVO.countPerPage}">
+	<input type="hidden" class="startDay" name="startDay" value="${orderSearchVO.startDay}">
+	<input type="hidden" class="endDay" name="endDay" value="${orderSearchVO.endDay}">
+	<input type="hidden" class="officeNo" name="officeNo" value="${orderSearchVO.officeNo}">
+	<input type="hidden" class="statusNo" name="statusNo" value="${orderSearchVO.statusNo}">
+	<input type="hidden" class="userEmail" name="userEmail" value="${orderSearchVO.userEmail}">
+	<input type="hidden" class="currentPage" name="currentPage">	
+	<input type="hidden" class="countPerPage" name="countPerPage" value="${orderSearchVO.countPerPage}">
 </form>
 <!-- 페이징 처리 form 끝 -->
 
