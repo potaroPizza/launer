@@ -20,7 +20,7 @@
                     <p>세탁센터 주소 : 서울특별시 서대문구 신촌로 141, 러너 세탁 센터 </p>
                     <p>사업자등록번호 : 123-45-67890<span class="line">|</span>통신판매업신고번호 : 제 2023-서울서대문-0202호
                         <span class="line">|</span>개인정보관리책임자 : 송정인</p>
-                    <p>대표 메일, 제휴문의  laundryavengers@ezen.co.kr </p>
+                    <p>대표 메일, 제휴문의  laundryavengers@ezen.co.kr, wjddls100472@naver.com</p>
                     <p>Copyright © 런드리 어벤져스. All rights reserved.</p>
                 </div>
             </div>
