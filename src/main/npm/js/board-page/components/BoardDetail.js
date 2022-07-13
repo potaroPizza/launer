@@ -158,7 +158,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
 
     const controllerBtn = (
         <div className="board-controll-btn">
-            {userInfo.no === data.usersNo || (<button onClick={() => setEditMode(!editMode)}>{editMode ? "취소" : "수정"}</button>)}
+            {parseInt(userInfo.no) === data.usersNo && (<button onClick={() => setEditMode(!editMode)}>{editMode ? "취소" : "수정"}</button>)}
             {editMode ? (
                 <button className="update-btn" onClick={updateBoard}>수정</button>) :
                 (<button className="delete-btn" onClick={deleteBoard}>삭제</button>)}
@@ -199,7 +199,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                     (<div dangerouslySetInnerHTML={{__html: (data.content)}}></div>)
                 }
             </div>
-            <BoardComment dateReturn={dateReturn} detailNo={detailNo} userInfo={userInfo} apiBoard={apiBoard}/>
+            {categoryNo.includes("A") || <BoardComment dateReturn={dateReturn} detailNo={detailNo} userInfo={userInfo} apiBoard={apiBoard}/>}
         </div>
     );
 };
