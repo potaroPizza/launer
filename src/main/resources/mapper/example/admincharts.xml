@@ -5,22 +5,52 @@
 	<!-- 홈페이지 방문자 수 (로그인 횟수) -->
 	<!-- 최근 2주 -->
 	<select id="selectVisitByDay" resultType="map">
-		select count(*) as visitCount,
-		    ACCESS_DATE as regadte 
-		from today
-		where ACCESS_DATE >= SYSDATE-13
-		group by ACCESS_DATE
-		order by regadte
+		select nvl(a.visitCount, 0) as visitCount, TO_CHAR(b.dt, 'YYYY-MM-DD') as accessDate
+		from (
+		    select count(*) as visitCount,
+		        ACCESS_DATE as accessDate 
+		    from today
+		    where ACCESS_DATE >= TO_CHAR(SYSDATE-13, 'YYYY-MM-DD')
+		    group by ACCESS_DATE
+		)a right outer join
+		(
+		    SELECT (SYSDATE-13) + LEVEL - 1 AS dt
+		    FROM dual 
+		     <![CDATA[
+		    	CONNECT BY LEVEL <= (SYSDATE - (SYSDATE-13)+1)
+		    ]]>
+		)b
+		on TO_CHAR(b.dt, 'YYYY-MM-DD') = a.accessDate
+		ORDER BY TO_CHAR(b.dt, 'YYYY-MM-DD')
 	</select>
 	
 	<!-- 2022년 -->
 	<select id="selectVisitByMonth" resultType="map">
-		select count(*) as visitCount,
-		    SUBSTR(ACCESS_DATE, 1, 7) as regadte,
-		    SUBSTR(ACCESS_DATE, 6, 2) as month
-		from today
-		where SUBSTR(ACCESS_DATE, 1, 4) = '2022'
-		group by SUBSTR(ACCESS_DATE, 1, 7), SUBSTR(ACCESS_DATE, 6, 2)
+		select nvl(b.visitCount, 0) as visitCount, c.dt as accessDate,
+		    substr(c.dt, 6, 2) as month
+		from (
+		    select a.*
+				from
+				(
+				    select count(*) as visitCount,
+				        substr(ACCESS_DATE, 1, 7) as accessDate,
+				        substr(ACCESS_DATE, 6, 2) as month 
+				    from TODAY
+				    where substr(ACCESS_DATE, 1, 4) = '2022'
+				    group by substr(ACCESS_DATE, 1, 7), substr(ACCESS_DATE, 6, 2)
+				)a
+		)b right outer join
+		(
+		    SELECT TO_CHAR(ADD_MONTHS(TO_DATE('2022-01', 'YYYY-MM'), LEVEL - 1 ),
+		                                                            'YYYY-MM') AS dt
+		    FROM DUAL
+		    <![CDATA[
+			    CONNECT BY LEVEL <= MONTHS_BETWEEN(SYSDATE,
+			                                        TO_DATE('2022-01', 'YYYY-MM')) + 1
+			]]>
+		)c
+		on c.dt = b.accessDate
+		ORDER BY c.dt
 	</select>
 	
 	

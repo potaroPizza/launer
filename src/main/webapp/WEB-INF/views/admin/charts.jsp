@@ -161,18 +161,30 @@ juqery가 hicharts보다 위에 선언되어야함
 						</c:forEach>
 	            	]
 	            	</c:if>
-	        },/*  {
+	        },  {
 	            name: '사이트 방문자',
-	            data:   [42, 168, 580, 1024, 3303, 5237, null, null, null, null, null, null]  
-					[
+	            data:   /* [42, 168, 580, 1024, 3303, 5237, null, null, null, null, null, null] */  
+					<c:if test="${flag == '2022'}">
+	            	[
 						<c:forEach var="vuMap" items="${vum}">
 						{
-							name : "${vuMap['']}월",
-							y : ${vuMap['']},
+							name : "${vuMap['MONTH']}월",
+							y : ${vuMap['VISITCOUNT']},
 						}, 
 						</c:forEach>
 					]
-	        }, */ {
+	            	</c:if>
+	            	<c:if test="${flag == '2'}">
+	            	[
+	            		<c:forEach var="vuMap" items="${vum}">
+						{
+							name : "${vuMap['ACCESSDATE']}",
+							y : ${vuMap['VISITCOUNT']},
+						}, 
+						</c:forEach>
+	            	]
+		            	</c:if>
+	        },  {
 	            name: '누적 가입자',
 	            data: /* [3, 65, 250, 500, 1080, 2129, null, null, null, null, null, null] */
 	            	<c:if test="${flag == '2022'}">
