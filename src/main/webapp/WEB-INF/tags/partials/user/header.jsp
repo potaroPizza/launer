@@ -13,7 +13,7 @@
                         <ul class="sub-nav">
                             <li><a href="<c:url value="/"/>">사이트 소개</a></li>
                             <li><a href="<c:url value="/user/pricelist"/>">가격표</a></li>
-                            <li><a href="<c:url value="/"/>">가이드</a></li>
+                            <li><a href="<c:url value="/laundryService/order/guide"/>">가이드</a></li>
                         </ul>
                     </li>
                     <li>
@@ -73,11 +73,20 @@
                     </a>
                 </c:if>
                 <c:if test="${empty sessionScope.email}">
-                <a href="<c:url value='/user/login'/>">
-                    <div class="line"></div>
-                    <span>LOGIN</span>
-                    <div class="hover-text">로그인</div>
-                </a>
+                    <c:if test="${!empty sessionScope.dmail}">
+                        <a href="<c:url value="/delivery/"/>">
+                            <div class="line"></div>
+                            <span>RETURN</span>
+                            <div class="hover-text">돌아가기</div>
+                        </a>
+                    </c:if>
+                    <c:if test="${empty sessionScope.dmail}">
+                        <a href="<c:url value='/user/login'/>">
+                            <div class="line"></div>
+                            <span>LOGIN</span>
+                            <div class="hover-text">로그인</div>
+                        </a>
+                    </c:if>
                 </c:if>
             </div>
         </div>

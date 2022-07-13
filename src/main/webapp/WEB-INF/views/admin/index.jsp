@@ -106,25 +106,25 @@
 		</ol>
 		
 		<c:if test="${sessionScope.adminCode == 4}">
-		<div class="row" style="height: 230px;">
-
-			<div class="col-xl-2"></div>
-			<div class="col-xl-8" style="padding: 10px; border: 1px solid #333;">
-				<div class="input-group" style="height: 200px;">
-					<span class="input-group-text" style="width: 100%;">게시글 작성</span>
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder="제목" id="title" name="title"
-							aria-label="Username" aria-describedby="basic-addon1">	
-					</div>
-					<div class="input-group mb-3">
-						<textarea class="form-control" placeholder="내용" id="content" name="content"
-						aria-label="With textarea" rows="4"></textarea>
+		<div class="">
+			<div class="row" style="height: 230px;">
+				<div class="col-xl-8" style="margin:0 auto; padding: 10px; border: 1px solid #333;">
+					<div class="input-group" style="height: 200px;">
+						<span class="input-group-text" style="width: 100%;">게시글 작성</span>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="제목" id="title" name="title"
+								aria-label="Username" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group mb-3">
+							<textarea class="form-control" placeholder="내용" id="content" name="content"
+							aria-label="With textarea" rows="4"></textarea>
+						</div>
 					</div>
 				</div>
 			</div>
+			<button type="button" style="width:10%; margin-left: 74%; margin-top: 10px" class="btn btn-primary" id="insertBtn">등록</button>
 		</div>
-		
-		<div class="row"  style="padding: 10px;" id="btRow">
+		<%--<div class="row"  style="padding: 10px;" id="btRow">
 			<div class="col-xl-9"></div>
 			<div class="col-xl-1">
 				<button type="button" class="btn btn-primary" id="insertBtn"
@@ -132,7 +132,7 @@
 			</div>
 			<div class="col-xl-1">
 			</div>
-		</div>
+		</div>--%>
 		
 		</c:if>
 		

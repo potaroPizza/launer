@@ -473,6 +473,7 @@ public class AdminController {
 				session.setAttribute("email", uVo.getEmail());
 				session.setAttribute("name", uVo.getName());
 				session.setAttribute("no", uVo.getNo());
+				session.setAttribute("classNo", String.valueOf(uVo.getUserCode()));
 				
 				msg = uVo.getName() +"님 로그인되었습니다.";
 				url="/admin/";

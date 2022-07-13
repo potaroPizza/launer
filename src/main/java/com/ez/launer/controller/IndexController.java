@@ -28,6 +28,8 @@ public class IndexController {
     public String logOut(HttpSession session,Model model) {
         session.setAttribute("email", null);
         session.setAttribute("no", null);
+        session.setAttribute("classNo", null);
+        session.setAttribute("name", null);
         session.setAttribute("access_Token", null);
         
         String url = "/", msg ="로그아웃되었습니다";

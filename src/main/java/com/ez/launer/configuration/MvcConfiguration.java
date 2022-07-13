@@ -1,14 +1,11 @@
 package com.ez.launer.configuration;
 
+import com.ez.launer.controller.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.ez.launer.controller.AdminLoginInterceptor;
-import com.ez.launer.controller.DeliveryInterceptor;
-import com.ez.launer.controller.LoginInterceptor;
 
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer{
@@ -34,12 +31,11 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/pricelist/**")
 				.excludePathPatterns("/user/chkAddress/**")
 				.excludePathPatterns("/laundryService/order/guide");
-				
 		
 		//관리자 인터셉터
 		registry.addInterceptor(new AdminLoginInterceptor())
-		.addPathPatterns("/admin/**")
-		.excludePathPatterns("/admin/adminLogin");
+				.addPathPatterns("/admin/**")
+				.excludePathPatterns("/admin/adminLogin");
 
 		registry.addInterceptor(new DeliveryInterceptor())
 				.addPathPatterns("/delivery/**")
@@ -47,6 +43,21 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/delivery/checkDmail/**")
 				.excludePathPatterns("/delivery/checkDhp/**")
 				.excludePathPatterns("/delivery/board/notice");
+
+		registry.addInterceptor(new AdminLogoutInterceptor())
+				.addPathPatterns("/*")
+				.addPathPatterns("/user/**")
+				.addPathPatterns("/delivery/**")
+				.excludePathPatterns("/admin/**")
+				.excludePathPatterns("/user/login/**")
+				.excludePathPatterns("/user/join/**")
+				.excludePathPatterns("/user/board/**")
+				.excludePathPatterns("/delivery/board/**");
+
+
+		registry.addInterceptor(new LoginCheckInterceptor())
+				.addPathPatterns("/user/login/**")
+				.addPathPatterns("/user/join/**");
 
 		/*registry.addInterceptor(new AdminLoginInterceptor())
 		.excludePathPatterns("/admin/login/adminLogin")

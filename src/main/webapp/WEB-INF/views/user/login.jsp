@@ -11,7 +11,7 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script src="<c:url value="/js/login_kakao.js"/>" type="text/javascript" text="javascript"></script>
 <script src="<c:url value="/js/login-naver.js"/>" type="text/javascript" text="javascript"></script>
-<script src="<c:url value="/js/login.js"/>" type="text/javascript" text="javascript"></script>
+<%--<script src="<c:url value="/js/login.js"/>" type="text/javascript" text="javascript"></script>--%>
 <div id="login_wrap">
 	<div class="login_subwrap">
 		<div id="login_header">
@@ -22,7 +22,31 @@
 				<a href="/launer">LAUNER</a>
 			</h1>
 		</div>
-		<form name="frmLogin" method="post" action="<c:url value=''/>">
+		<script type="text/javascript">
+			$(function () {
+				//로그인 탭
+				$("#memberBtn").click((e) => {
+					e.preventDefault();
+					$("#memberBtn").addClass('on');
+					$('#driverBtn').removeClass('on');
+					$("#loginDriver").removeClass('on');
+					$("#loginGeneralMember").addClass('on');
+
+					$("form[name=frmLogin]").attr("action", "<c:url value='/user/login'/>");
+				});
+
+				$("#driverBtn").click((e) => {
+					e.preventDefault();
+					$("#driverBtn").addClass('on');
+					$("#memberBtn").removeClass('on');
+					$("#loginGeneralMember").removeClass('on');
+					$("#loginDriver").addClass('on');
+
+					$("form[name=frmLogin]").attr("action", "<c:url value='/driver/login'/>");
+				});
+			});
+		</script>
+		<form name="frmLogin" method="post" action="<c:url value='/user/login'/>">
 				<fieldset>
 					<div class="loginTab">
 						<ul class="loginTabnav">
@@ -50,13 +74,12 @@
 											>
 											<label for="saveUserEmail">이메일 저장</label>
 										</div>
-										<input type="submit" class="login_btn" 
-											value="기존 회원 로그인" formaction="<c:url value='/user/login'/>">
+										<input type="submit" class="login_btn" id="userLogintBtn"
+											value="기존 회원 로그인" <%--formaction="<c:url value='/user/login'/>"--%>>
 										<div class="login_findmenu" style="display:block">
 											<a href="/launer/user/findId">이메일 찾기</a>
 											<a href="/launer/user/findPwd">비밀번호 찾기</a>
-											<a href="/launer/user/join" class="right" 
-												style="display:">가입하기</a>
+											<a href="/launer/user/join" class="right">가입하기</a>
 										</div>
 									</div>
 									<div class="login_Or">또는</div>
@@ -93,7 +116,8 @@
 									<div id="memberLogin" class="login_contents">
 										<div class="inputIdPwd">
 											<input id="member_email" name="dmail" 
-												placeholder="이메일" type="text">
+												placeholder="이메일" type="text"
+												value="${cookie.chkDmail.value }">
 											<input id="member_pwd" name="dPwd" 
 												placeholder="비밀번호" type="password">
 										</div>
@@ -105,13 +129,12 @@
 											>
 											<label for="saveDmail">이메일 저장</label>
 										</div>
-										<input type="submit" class="login_btn" 
-											value="러너 크루 로그인" formaction="<c:url value='/driver/login'/>">
+										<input type="submit" class="login_btn" id="driverLoginBtn"
+											value="러너 크루 로그인" <%--formaction="<c:url value='/driver/login'/>"--%>>
 										<div class="login_findmenu" style="display:block">
 											<a href="/launer/user/findId">이메일 찾기</a>
 											<a href="/launer/user/findPwd">비밀번호 찾기</a>
-											<a href="/launer/delivery/join" class="right" 
-												style="display:">러너 크루 가입하기</a>
+											<a href="/launer/delivery/join" class="right" >러너 크루 가입하기</a>
 										</div>
 									</div>
 								</div>

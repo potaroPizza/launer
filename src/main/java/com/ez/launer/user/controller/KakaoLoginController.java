@@ -108,6 +108,7 @@ public class KakaoLoginController {
 		session.setAttribute("no", userVo.getNo());
 		session.setAttribute("email", userVo.getEmail());
 		session.setAttribute("access_Token",access_Token); //로그아웃때 필요한 accessToken
+		session.setAttribute("classNo", String.valueOf(userVo.getUserCode()));
 		
 
 		model.addAttribute("msg",msg);
