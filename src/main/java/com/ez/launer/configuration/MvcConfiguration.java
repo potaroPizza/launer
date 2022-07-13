@@ -47,10 +47,10 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(new AdminLogoutInterceptor())
 				.addPathPatterns("/*")
 				.addPathPatterns("/user/**")
-				.addPathPatterns("/delivery/**")
+//				.addPathPatterns("/delivery/**")
 				.excludePathPatterns("/admin/**")
-				.excludePathPatterns("/user/login/**")
-				.excludePathPatterns("/user/join/**")
+//				.excludePathPatterns("/user/login/**")
+//				.excludePathPatterns("/user/join/**")
 				.excludePathPatterns("/user/board/**")
 				.excludePathPatterns("/delivery/board/**");
 

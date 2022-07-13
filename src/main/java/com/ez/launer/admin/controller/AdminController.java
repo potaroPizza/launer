@@ -468,7 +468,7 @@ public class AdminController {
 				session.setAttribute("adminEmail", uVo.getEmail());
 				session.setAttribute("adminName", uVo.getName());
 				session.setAttribute("adminCode", uVo.getUserCode());
-				session.setAttribute("classNo", uVo.getUserCode());
+//				session.setAttribute("classNo", uVo.getUserCode());
 				
 				session.setAttribute("email", uVo.getEmail());
 				session.setAttribute("name", uVo.getName());
