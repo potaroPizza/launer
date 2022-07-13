@@ -1,28 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="top.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-
-<!--
-수거전
-수거완료
-세탁중
-픽업대기
-배송중
-배송완료 
--->
-
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
-<script type="text/javascript">
-	
-</script>
-
-<t:head>
 <style type="text/css">
 .sb-sidenav-footer {
 	position: absolute;
@@ -52,14 +33,26 @@ div.pickUp{
 	height: 45px;
 	width: 80%;
 }
-#detail {
-	line-height: 1.5;
-}
+
 </style>
 
-</t:head>
-<t:wrapper>
+<!--
+수거전
+수거완료
+세탁중
+픽업대기
+배송중
+배송완료 
+-->
 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+<script type="text/javascript">
+	
+</script>
+
+<div id="layoutSidenav_content">
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">주문상세</h1>
@@ -168,5 +161,4 @@ div.pickUp{
 		</div>
 	</main>
 
-	
-</t:wrapper>
+	<%@ include file="bottom.jsp"%>
