@@ -91,7 +91,7 @@
 							<span class="editPwd_box int_pass"> <input type="password"
 								id="editPwd_pwd" name="pwd" class="editPwd_int" maxlength="16">
 								<span id="editPwd_alertTxt">사용불가</span> <img
-								src="../../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
+								src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
 							</span> <span class="error_next_box"></span>
 						</div>
 						<div>
@@ -101,7 +101,7 @@
 							<span class="editPwd_box int_pass"> <input type="password"
 								id="editPwd_newPwd" name="newPwd" class="editPwd_int"
 								maxlength="16"> <span id="editPwd_alertTxt2"></span> <img
-								src="../../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
+								src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
 							</span> <span class="error_next_box"></span>
 						</div>
 						<div>
@@ -111,7 +111,7 @@
 							<span class="editPwd_box int_pass"> <input type="password"
 								id="editPwd_newPwd2" name="newPwd2" class="editPwd_int"
 								maxlength="20"> <span id="editPwd_alertTxt3"></span> <img
-								src="../../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
+								src="../images/m_icon_pass.png" id="pwd_img1" class="pswdImg">
 							</span> <span class="error_next_box"></span>
 						</div>
 
