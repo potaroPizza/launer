@@ -29,7 +29,7 @@
 				<tbody id ="usersTbody">
 					<c:if test="${empty list }">
 						<tr>
-							<td colspan="6" class="align_center">해당 글이 존재하지 않습니다.</td>
+							<td colspan="6" class="align_center">해당 사용자가 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
 					<c:if test="${!empty list }">
