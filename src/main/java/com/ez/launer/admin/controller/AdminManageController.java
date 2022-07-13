@@ -100,11 +100,16 @@ public class AdminManageController {
 			tabNo =3;
 		}
 		logger.info("tabNo={}",tabNo);
+		
+		//지점 select option 생성
+		List<OfficeVO> officeList = officeService.selectAll();
+		logger.info("전체 조회결과 officeList.size={}",officeList.size());
 
 		model.addAttribute("userSearchKeyword",userSearchKeyword);
 		model.addAttribute("userSearchCondition",userSearchCondition);
 		model.addAttribute("driverSearchCondition",driverSearchCondition);
 		model.addAttribute("driverSearchKeyword",driverSearchKeyword);
+		model.addAttribute("officeList",officeList);	
 		model.addAttribute("tabNo",tabNo);
 		return"/admin/users";
 	}

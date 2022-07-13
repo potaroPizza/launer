@@ -460,14 +460,6 @@ public class DeliveryController {
 		int office=vo.getOfficeNo();
 		
 		vo.setOfficeNo(office);
-		/*
-		 * String hp=vo.getHp(); int officeNo=vo.getOfficeNo(); String
-		 * bank=vo.getBank(); String accountHolder=vo.getAccountHolder(); int
-		 * accountNumber=vo.getAccountNumber();
-		 * 
-		 * vo.setHp(hp); vo.setOfficeNo(officeNo); vo.setBank(bank);
-		 * vo.setAccountHolder(accountHolder); vo.setAccountNumber(accountNumber);
-		 */
 
 		String msg = "비밀번호 확인 실패", url = "/delivery/useredit";
 		String pwd = sha256.encrypt(vo.getPwd());
@@ -536,9 +528,7 @@ public class DeliveryController {
 				ck.setPath("/");
 				ck.setMaxAge(0);
 				response.addCookie(ck);
-				session.removeAttribute("deliveryNo");
-				session.removeAttribute("name");
-				session.removeAttribute("email");
+				session.invalidate();
 
 			} else {
 				msg = "회원탈퇴 실패";

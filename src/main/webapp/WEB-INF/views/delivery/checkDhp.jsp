@@ -43,7 +43,7 @@
 </head>
 <body>
 	<h2>휴대전화 번호 중복 검사/인증</h2>
-	<form name="frmHp" method="post" action="<c:url value='/user/checkDhp'/>">
+	<form name="frmHp" method="post" action="<c:url value='/delivery/checkDhp'/>">
 		<input type="text" name="hp" id="hp" 
 			placeholder="-를 제외하고 입력해주세요" value="${param.hp}">
 			<input type="submit"  id="submit" value="중복 확인">

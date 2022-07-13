@@ -69,8 +69,7 @@ $(function () {
     });
 });
 $(function () {
-    $('form[name=editPwdfrm] #editPwd_newPwd' || 'form[name=editPwdfrm] #editPwd_newPwd2').keyup(function () {
-
+    $('form[name=editPwdfrm] #editPwd_newPwd, form[name=editPwdfrm] #editPwd_newPwd2').keyup(function () {
         if ($('#editPwd_newPwd') != "" || $('#editPwd_newPwd2') != "") {
             if ($('#editPwd_newPwd').val() == $('#editPwd_newPwd2').val()) {
                 $('.editPwd_box.int_pass').eq(1).css("border", "3px solid green")
@@ -109,7 +108,7 @@ $(function () {
     })
 
 
-    $('form[name=editPwdfrmDelivery] #editPwd_newPwd' || 'form[name=editPwdfrmDelivery] #editPwd_newPwd2').keyup(function () {
+    $('form[name=editPwdfrmDelivery] #editPwd_newPwd, form[name=editPwdfrmDelivery] #editPwd_newPwd2').keyup(function () {
 
         if ($('#editPwd_newPwd') != "" || $('#editPwd_newPwd2') != "") {
             if ($('#editPwd_newPwd').val() == $('#editPwd_newPwd2').val()) {
