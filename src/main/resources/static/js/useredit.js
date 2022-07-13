@@ -151,8 +151,10 @@ $(function () {
     $('form[name=usereditfrm] #pwd').keyup(function () {
         if (!isPassword($('form[name=usereditfrm] #pwd').val())) {
             $('form[name=usereditfrm] .error_next_box').eq(1).text("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.").css("color", "red");
+        	 $('.pswdImg').eq(0).attr("src", "../images/m_icon_not_use.png");
         } else {
-            $('form[name=usereditfrm] .error_next_box').eq(1).text("")
+            $('form[name=usereditfrm] .error_next_box').eq(1).text("");
+            $('.pswdImg').eq(0).attr("src", "../images/m_icon_safe.png");
         }
 
     })
@@ -199,8 +201,10 @@ $(function () {
     $('form[name=deliveryeditfrm] #pwd').keyup(function () {
         if (!isPassword($('form[name=deliveryeditfrm] #pwd').val())) {
             $('form[name=deliveryeditfrm] .error_next_box').eq(1).text("비밀번호 형식이 맞지 않습니다.").css("color", "red");
+        	$('.pswdImg').eq(0).attr("src", "../images/m_icon_not_use.png");
         } else {
             $('form[name=deliveryeditfrm] .error_next_box').eq(1).text("")
+            $('.pswdImg').eq(0).attr("src", "../images/m_icon_safe.png");
         }
 
     })
