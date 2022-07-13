@@ -299,7 +299,7 @@
 								<button id="officeBtn" type="button" class="btn btn-dark">지점
 									선택</button>
 							</div>
-							<input type="text" id="officeNo" name="officeNo" value="${map['OFFICE_NO']}"> <span
+							<input type="hidden" id="officeNo" name="officeNo" value="${map['OFFICE_NO']}"> <span
 								class="box int_office"
 								style="width: 75%; display: inline-block; background-color: #e9e9e9;">
 								<input type="text" id="office" name="office" class="int"
