@@ -23,10 +23,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 
+		String sClassNo= (String.valueOf(session.getAttribute("classNo")));
+		logger.info("classNo = {}", sClassNo);
+
 		String email = (String) request.getSession().getAttribute("email");
 		logger.info("email = {}", email);
 
-		if(email == null || email.isEmpty()) {
+		if (sClassNo == null || sClassNo.isEmpty()) {
 			logger.info("현재 위치 : " + request.getRequestURI());
 			String tempURL = request.getRequestURI();
 			tempURL = tempURL.substring(tempURL.indexOf("/", 2));
@@ -40,6 +43,18 @@ public class LoginInterceptor implements HandlerInterceptor {
 			out.print("<script type='text/javascript'>");
 			out.print("alert('먼저 로그인하세요.');");
 			out.print("location.href = '" + request.getContextPath() + "/user/login';");
+			out.print("</script>");
+
+			return false;
+		}
+
+		int classNo = Integer.parseInt(sClassNo);
+		if(classNo == 2) {
+			response.setContentType("text/html; charset = UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print("<script type='text/javascript'>");
+			out.print("alert('접근 권한이 없습니다.');");
+			out.print("location.href = '" + request.getContextPath() + "/delivery/';");
 			out.print("</script>");
 
 			return false;

@@ -611,6 +611,7 @@ public class DeliveryController {
 		session.removeAttribute("dmail");
 		session.removeAttribute("name");
 		session.removeAttribute("deliveryNo");
+		session.removeAttribute("classNo");
 
 		return "/user/login";
 	}
