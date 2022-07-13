@@ -23,7 +23,7 @@ public class AdminLogoutInterceptor implements HandlerInterceptor {
 		String adminEmail = (String) request.getSession().getAttribute("adminEmail");
 		logger.info("adminEmail = {}", adminEmail);
 
-		if(adminEmail != null) {
+		if(adminEmail != null && !adminEmail.isEmpty()) {
 			response.setContentType("text/html; charset = UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script type='text/javascript'>");
