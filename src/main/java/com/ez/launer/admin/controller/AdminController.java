@@ -330,6 +330,7 @@ public class AdminController {
 	public String charts(@ModelAttribute AdminChartsVO vo,
 			Model model) {
 		logger.info("통계 페이지 officeNo={}", vo.getRevenueChart());
+		logger.info("통계 페이지 flag={}", vo.getUserChart());
 		
 		List<Map<String, Object>> vum = null;
 		List<Map<String, Object>> jum = null;
