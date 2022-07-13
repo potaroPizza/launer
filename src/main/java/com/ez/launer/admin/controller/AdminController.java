@@ -154,8 +154,8 @@ public class AdminController {
 		
 		model.addAttribute("vo", vo);
 
-		return "/admin/orderDetail_bak";
-		//return "/admin/orderDetail";
+		//return "/admin/orderDetail_bak";
+		return "/admin/orderDetail";
 	}
 	
 	@RequestMapping("/ordersUpdateMulti")

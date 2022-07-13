@@ -15,27 +15,25 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        logger.info("preHandle() 실행");
+        logger.info("LoginCheckInterceptor preHandle() 실행");
 
         HttpSession session = request.getSession();
 
-        String sClassNo= (String) session.getAttribute("classNo");
+        String sClassNo = String.valueOf(session.getAttribute("classNo"));
         logger.info("sClassNo = {}", sClassNo);
 
-        if (sClassNo != null && !sClassNo.isEmpty()) {
-            if(!(sClassNo.equals("3") || sClassNo.equals("4"))) {
-                response.setContentType("text/html; charset = UTF-8");
-                PrintWriter out = response.getWriter();
+        if (!(sClassNo.equals("null"))) {
+            response.setContentType("text/html; charset = UTF-8");
+            PrintWriter out = response.getWriter();
 
-                out.print("<script type='text/javascript'>");
-                out.print("alert('로그인중입니다.');");
-                out.print("history.back();");
-                out.print("</script>");
+            out.print("<script type='text/javascript'>");
+            out.print("alert('로그인중입니다.');");
+            out.print("history.back();");
+            out.print("</script>");
 
-                return false;
-            }
+            return false;
         }
 
-        return true;	//다음 컨트롤러가 수행됨
+        return true;    //다음 컨트롤러가 수행됨
     }
 }
