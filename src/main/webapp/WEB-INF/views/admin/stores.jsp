@@ -2,6 +2,30 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script type="text/javascript">
+
+	function deleteOffice(no){
+		if (!confirm("지점을 삭제 하시겠습니까?")){
+			return
+		}
+		var url ='/launer/admin/stores/'+no
+		alert(url)
+		$.ajax({
+			url:url,
+			type:'delete',
+			date: {},
+			dataType    : "html",
+			success:function(data) {
+				alert("성공")
+				location.reload();
+			},
+			error: function(error){
+				alert("성공")
+				location.reload();
+			}
+		});
+	}
+</script>
   
 <t:head>
 </t:head>
@@ -43,15 +67,16 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="officeVo" items="${officeList }">
-							
+							<%-- <c:forEach var="officeVo" items="${officeList }"> --%>
+							<c:forEach var="map" items="${selectOfficeInfo }">
 								<tr>
-									<td>${officeVo.no}</td>
-									<td>${officeVo.officeName}</td>
-									<td>${officeVo.address}</td>
-									<td>-</td>
+									<!-- ${map['NO']} -->
+									<td>${map['NO']}</td>
+									<td>${map['OFFICE_NAME']}</td>
+									<td>${map['ADDRESS']}</td>
+									<td>${map['USER_NAME']}</td>
 									<td><a href="#">지점정보</a></td>
-									<td><input type="button" value="삭제" onclick=""></td>
+									<td><input type="button" value="삭제" onclick="deleteOffice(${map['NO']})"></td>
 								</tr>
 						
 							</c:forEach>
@@ -71,7 +96,8 @@
 										<div class="modal-body">
 											<form name="officeAdd" id="officeAdd">
 												<div class="officeName">
-													<label for="name">지점명</label> <input type="text"
+													<label for="name">지점명</label>
+													<input type="text"
 														name="name" id="name" style="ime-mode: active">
 												</div>
 												<div class="officeAddress">

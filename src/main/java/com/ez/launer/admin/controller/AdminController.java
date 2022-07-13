@@ -153,7 +153,8 @@ public class AdminController {
 		logger.info("주문상세 출력 결과, vo={}", vo);
 		
 		model.addAttribute("vo", vo);
-		
+
+		//return "/admin/orderDetail_bak";
 		return "/admin/orderDetail";
 	}
 	

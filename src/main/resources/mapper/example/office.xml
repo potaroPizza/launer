@@ -36,4 +36,14 @@
 		delete from office_admin where users_no = #{usersNo}
 	</delete>
 	
+	<!-- 지점 정보 조회 -->
+	<select id="selectOfficeInfo" resultType="map">
+		select * from users_office_info order by no
+	</select>
+	
+	<!-- 지점 삭제 -->
+	<delete id="deleteOffice" parameterType="int">
+		delete from office where no=#{no}
+	</delete>
+	
 </mapper>
