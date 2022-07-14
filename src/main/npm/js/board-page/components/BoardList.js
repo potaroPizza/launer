@@ -75,7 +75,7 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
                         e.preventDefault();
                         onDetailModal(item.NO);
                         setModalOn(true);
-                    }}>{item.TITLE}</button>
+                    }}>{item.TITLE.length > 18 ? (item.TITLE.substring(0, 17) + "...") : item.TITLE}</button>
                 </div>
                 <div className="list-col-3">{item.NAME}</div>
                 <div className="list-col-4">{item.VIEW_COUNT}</div>
@@ -126,6 +126,7 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
                         <select name="search-type">
                             <option value="title">제목</option>
                             <option value="content">내용</option>
+                            <option value="name">이름</option>
                         </select>
                         <input name="search-text"/>
                         <button><i className="fa-solid fa-magnifying-glass"></i></button>

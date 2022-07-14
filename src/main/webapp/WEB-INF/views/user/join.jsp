@@ -86,7 +86,9 @@
 					<div>
 						<label for="officeNo">지점선택</label>
 						<input type="button" value="지점 선택" name="officeBtn" id="officeBtn">
-						<input type="text" id="officeNo" name="officeNo">
+						<input type="text" id="officeName" name="officeName" style="margin-left:5px">
+						<input type="hidden" id="officeNo" name="officeNo">
+						<span class="error_message_box" style="margin-left : 0"></span>
 						<!--  <select name="officeNo">
 							<c:forEach var="list" items="${list}">
 							<option value="${list.no}">${list.officeName}</option>
@@ -317,7 +319,7 @@
 								<div class="officelist">
 									<ul>
 										<c:forEach var="list" items="${list}">
-											<li><a href="#" class="officeListNo"
+											<li><a href="#" class="officeListNo" onclick="test(this)"
 												data-value="${list.no}">${list.officeName}</a></li>
 										</c:forEach>
 									</ul>

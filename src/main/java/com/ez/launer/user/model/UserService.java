@@ -11,7 +11,9 @@ public interface UserService {
 	
 	//이메일 중복확인에서 사용하는 상수
 		public static final int USABLE_EMAIL=1;  //사용가능한 이메일
-		public static final int UNUSABLE_EMAIL=2; //중복이라 사용불가능한 이메일
+		public static final int UNUSABLE_EMAIL=2; //중복이라 사용불가능한 이메일	
+	//소셜계정 확인에서 사용하는 상수
+		public static final int SOCIAL_EMAIL=3;  //사용가능한 이메일
 	
 	//휴대전화 번호 중복확인에서 사용하는 상수
 		public static final int USABLE_HP=1;  //사용가능한 핸드폰
@@ -25,6 +27,7 @@ public interface UserService {
 	public int insertUser(UserAllVO vo);
 	public int insertAddress(UserAllVO vo);
 	public int chkEmail(String email);
+	public int chkSocial(String email);
 	public int chkHp(String hp);
 	public int insertDriver(DriverAllVO vo);
 	public int insertAccount(DriverAllVO vo);

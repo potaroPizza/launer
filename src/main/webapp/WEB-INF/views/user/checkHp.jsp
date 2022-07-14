@@ -27,9 +27,11 @@
 					$('#btUse').css("display", "inline-block");
 				}else if($('#certifyCode').val()!=$('#randomCode').val()){
 					$('#resultSms').text("인증번호를 잘못 입력하였습니다. 다시 확인 후 입력하시기 바랍니다.");
+					$('#btUse').css("display","none");
 				}
 			}else{
 				$('#resultSms').text("인증번호가 입력되지 않았습니다.");
+				$('#btUse').css("display","none");
 			}
 		});
 		$('#btUse').click(function(){
