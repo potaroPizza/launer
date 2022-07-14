@@ -7,7 +7,7 @@
 		from COMMENTS a join users b
 		on a.users_no = b.no
 		where BOARD_NO = #{boardNo}
-		order by a.GROUP_NO desc, a.SORT_NO
+		order by a.GROUP_NO , a.SORT_NO
 	</select>
 	
 	<insert id="insertComments" parameterType="commentsVo">
