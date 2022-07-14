@@ -38,7 +38,7 @@
         where OFFICE_NO = #{officeNo}
           and ORDER_STATUS_NO = #{orderStatusNo}
           and ${listType} is null
--- 		  and PAYMENT_DATE is not null
+ 		  and PAYMENT_DATE is not null
     </select>
 
 
