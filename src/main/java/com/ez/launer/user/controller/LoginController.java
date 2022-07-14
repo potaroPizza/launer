@@ -233,7 +233,7 @@ public class LoginController {
 							+ "임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
 					url="/user/login";	
 					
-					emailSender.sendEmail(vo,randomPwd);
+					//emailSender.sendEmail(vo,randomPwd);
 					
 				}else {
 					msg="해당 정보와 일치하는 계정이 존재하지 않습니다";
@@ -263,7 +263,7 @@ public class LoginController {
 						+ "임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
 				url="/user/login";	
 
-				dmailSender.sendDmail(dvo,randomPwd);
+				//dmailSender.sendDmail(dvo,randomPwd);
 
 			}else {
 				msg="해당 정보와 일치하는 계정이 존재하지 않습니다";
