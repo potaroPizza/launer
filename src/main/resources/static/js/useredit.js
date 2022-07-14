@@ -77,11 +77,11 @@ $(function () {
             alert("전화번호 형식이 맞지 않습니다.");
             $("#hp").focus();
             return false;
-        }/*else if(!isPassword($("#pwd").val())){
+        }else if(!isPassword($("#pwd").val())){
 				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
 				$('#pwd').focus();
 				return false;
-			}*/
+			}
     });
     //소셜회원
     $('form[name=usereditfrmSocial]').submit(function () {
@@ -102,11 +102,11 @@ $(function () {
             alert("상세주소를 입력하세요");
             $("form[name=usereditfrmSocial] #addressDetail").focus();
             return false;
-        }/*else if($("form[name=usereditfrmSocial] #entermethod").val().length<1) {
+        }else if($("form[name=usereditfrmSocial] #entermethod").val().length<1) {
 				alert("공동현관 출입방법을 입력하세요");
 				$("form[name=usereditfrmSocial] #entermethod").focus();
 				return false;
-			}*/
+			}
 
     });
     //배송기사
@@ -128,12 +128,11 @@ $(function () {
             alert("계좌번호를 입력하세요");
             $("#accountNumber").focus();
             return false;
-        }
-        /*else if(!isPassword($("#pwd").val())){
+        }else if(!isPassword($("#pwd").val())){
             alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
             $('#pwd').focus();
             return false;
-        }*/
+        }
     });
 
 

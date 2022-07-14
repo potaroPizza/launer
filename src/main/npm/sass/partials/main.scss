@@ -42,56 +42,99 @@ button{
 
 
 
+/* 오른쪽 aside???가 맞나 */
+/* 오른쪽 aside???가 맞나 */
+/* 오른쪽 aside???가 맞나 */
 
-/* 오른쪽 aside???가 맞나 */
-/* 오른쪽 aside???가 맞나 */
-/* 오른쪽 aside???가 맞나 */
 #main-list-bar{
     width: 30px;
-    height : 100%;
+    //height : 100%;
     top: 0;
     right:0;
     z-index: 61;
     position: fixed;
-    transition-duration:0.4s;
-    -webkit-transition-duration:0.4s;
-}#main-list-bar.down{top: 80px;}
-#main-list-bar .line{
-    width: 88%;
-    height: 1px;
-    background-color: rgb(190, 190, 190);
-    margin: 10px 0;
-    margin-left: 6%;
-}
-#main-list-bar .part{
-    width: 88%;
-    margin-left: 6%;
-    padding: 8px 0;
-    text-align: center;
-    border-radius: 7px 0 0 7px;
-    font-size: 12px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-#main-list-bar .part .sub{
-    margin-top: 20px;
-    line-height: 150%;
-    display: none;
-}
-#main-list-bar .part .main-list-bar-on{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: -100%;
-    left: 0;
-    background-color: #000;
-    z-index: -1;
-}
+    transition: all .5s ease;
+    padding-bottom: 3px;
+    border-radius: 0 0 0 7px;
+    /*transition-duration:0.4s;
+    -webkit-transition-duration:0.4s;*/
+    &.down{top: 80px;}
 
-#main-list-bar .part.part-one {color: #fff}
-#main-list-bar .part.part-one .sub{display: block;}
-#main-list-bar .part.part-one .main-list-bar-on{top:0;}
+    .line{
+        width: 88%;
+        height: 1px;
+        background-color: rgb(190, 190, 190);
+        margin: 10px 0 10px 6%;
+        transition: .5s;
+    }
+
+    .part{
+        width: 88%;
+        margin-left: 6%;
+        //padding-bottom: 8px;
+        text-align: center;
+        border-radius: 7px 0 0 7px;
+        font-size: 12px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        box-sizing: content-box;
+        .num {
+            position:relative;
+            padding: 8px 0 10px 0;
+            z-index: 11;
+            transition: .5s;
+        }
+
+        .sub{
+            line-height: 150%;
+            max-height: 0;
+            transition: max-height .5s ease;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .main-list-bar-on{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: -100%;
+            left: 0;
+            transition: top .5s ease;
+            background-color: #000;
+            z-index: -1;
+        }
+
+        &.firstClass {
+            color: #fff;
+            .num{background: #000;}
+            .sub{
+                margin-top: 10px;
+                margin-bottom: 8px;
+                max-height: 10em;
+            }
+            .main-list-bar-on{top:0;}
+        }
+        &.on{
+            color: #fff;
+            .num{background: #000;}
+            .sub{
+                margin-top: 10px;
+                margin-bottom: 8px;
+                max-height: 10em;
+            }
+            .main-list-bar-on{top:0;}
+        }
+        &.off {
+            .num{background: none;}
+            .sub{
+                animation: slideUp .5s ease;
+                animation-fill-mode: forwards;
+            }
+            .main-list-bar-on{top:-100%;}
+        }
+    }
+}
 
 
 /* 오른쪽 aside???가 맞나 */
@@ -187,7 +230,7 @@ section.part-two .brn-box {
     /* box-shadow:  11px 11px 26px #e8e8e8,
             -11px -11px 26px #ffffff; */
     overflow: hidden;
-    transition-duration: 0.4s;
+    //transition-duration: 0.4s;
     border-radius: 20px;
     position: relative;
 }
@@ -414,7 +457,8 @@ section.part-four .sub-part .part .text-box a p {
 section.part-five {
     width: 100%;
     overflow: hidden;
-    background-color: #737587;
+    //background-color: #737587;
+    background-color: #F1F4F7;
     padding-bottom:70px;
 }
 
@@ -442,9 +486,12 @@ section.part-five > h3{
     border-radius: 40px;
     text-align: center;
     font-size: 18px;
-    background: #737587;
-    box-shadow:  29px 29px 48px #5e606f,
-                -29px -29px 48px #888a9f;
+    //background: #737587;
+    background: #F1F4F7;
+    /*box-shadow:  29px 29px 48px #5e606f,
+                -29px -29px 48px #888a9f;*/
+    box-shadow:  21px 21px 57px #cdcfd2,
+    -21px -21px 57px #ffffff;
 
     /* Center slide text vertically */
     display: -webkit-box;
