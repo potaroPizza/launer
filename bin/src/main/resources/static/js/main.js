@@ -103,16 +103,16 @@ $(function() {
 
 
 function scrollList() {
-    //리스트 변화
+    /*//리스트 변화
     var windowScrollTop = $(window).scrollTop();
     var windowHeight = $(window).height() / 4;
     var headerHeight = $("#header-wrap").height();
     var sectionPartTwo = $("section.part-two").offset().top - headerHeight; //- windowHeight;
     var sectionPartThree = $("section.part-three").offset().top - headerHeight; //- headerHeight - 2;
     var sectionPartFour = $("section.part-four").offset().top;
-    /*console.log(sectionPartTwo);
+    /!*console.log(sectionPartTwo);
     console.log(sectionPartThree);
-    console.log("windowScrollTop : " + windowScrollTop);*/
+    console.log("windowScrollTop : " + windowScrollTop);*!/
 
     if(windowScrollTop >= sectionPartFour) {
         var fourList = $("#main-list-bar .part-four");
@@ -334,5 +334,5 @@ function listClick() {
             left: curX,
             top: curY
         },1);
-    });
+    });*/
 }

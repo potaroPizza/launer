@@ -9,38 +9,35 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/user" %>
 
 <t:wrapper>
-    <%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="<c:url value="/js/raindrops.js"/>" type="text/javascript" text="javascript"></script>
     <script src="<c:url value="/js/main.js"/>"></script>
-    <script type="text/javascript">
-        console.log();
-    </script>
     <div id="main-wrap">
         <aside id="main-list-bar">
             <div class="line"></div>
-            <div class="part-one part on">
+            <div class="part-one part firstClass" data-value="p-one">
                 <div class="main-list-bar-on"></div>
                 <p class="num">1</p>
-                <div class="sub">소<br />개</div>
+                <div class="sub">메<br />인</div>
             </div>
             <div class="line"></div>
-            <div class="part-two part">
+            <div class="part-two part" data-value="p-two">
                 <div class="main-list-bar-on"></div>
                 <p class="num">2</p>
-                <div class="sub">소<br />개</div>
+                <div class="sub">회<br />원<br />가<br />입</div>
             </div>
             <div class="line"></div>
-            <div class="part-three part">
+            <div class="part-three part" data-value="p-three">
                 <div class="main-list-bar-on"></div>
                 <p class="num">3</p>
                 <div class="sub">소<br />개</div>
             </div>
             <div class="line"></div>
-            <div class="part-four part">
+            <div class="part-four part" data-value="p-four">
                 <div class="main-list-bar-on"></div>
                 <p class="num">4</p>
-                <div class="sub">테<br/>스<br/>트</div>
+                <div class="sub">꿀<br/>팁</div>
             </div>
         </aside>
         <div class="con-wrap">

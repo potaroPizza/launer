@@ -61,11 +61,11 @@ $(function () {
             alert('새 비밀번호가 일치하지 않습니다.');
             $('#editPwd_newPwd2').focus();
             return false;
-        }/*else if(!isPassword($("#editPwd_newPwd").val())){
+        }else if(!isPassword($("#editPwd_newPwd").val())){
 				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
 				$('#editPwd_newPwd').focus();
 				return false;
-			}*/
+			}
     });
 });
 $(function () {
