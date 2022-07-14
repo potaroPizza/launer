@@ -730,7 +730,79 @@
       margin-top: 40px;
       overflow: hidden;
       line-height: 150%;
+      > div {
+        strong {
+          font-weight: 600
+        }
 
+        h1 {
+          font-size: 2em;
+          line-height: 150%;
+        }
+
+        h2 {
+          font-size: 1.5em;
+          line-height: 120%;
+        }
+
+        em {
+          font-style: italic;
+        }
+
+        blockquote {
+          border-left: 4px solid #ccc;
+          margin-bottom: 5px;
+          margin-top: 5px;
+          padding-left: 16px;
+        }
+
+         a {
+          color: #06c;
+           text-decoration: underline;
+        }
+
+        .ql-indent-1 {
+          padding-left: 3em;
+        }
+
+        .ql-indent-2 {
+          padding-left: 6em;
+        }
+
+        .ql-indent-3 {
+          padding-left: 9em;
+        }
+
+        .ql-indent-4 {
+          padding-left: 12em;
+        }
+
+        .ql-indent-5 {
+          padding-left: 15em;
+        }
+
+        .ql-indent-6 {
+          padding-left: 18em;
+        }
+
+        .ql-indent-7 {
+          padding-left: 21em;
+        }
+
+        .ql-indent-8 {
+          padding-left: 24em;
+        }
+
+        .ql-align-center {
+          text-align: center;
+        }
+        .ql-align-right {
+          text-align: right;
+        }
+        .ql-align-justify {
+          text-align: justify;
+        }
+      }
       img {
         max-width: 100%;
         margin: 10px 0;
