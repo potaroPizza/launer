@@ -65,6 +65,15 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 
 		if(cnt > 0) {
+			logger.info("현재 위치 : " + request.getRequestURI());
+			String tempURL = request.getRequestURI();
+			tempURL = tempURL.substring(tempURL.indexOf("/", 2));
+
+			Cookie cookie = new Cookie("tempURL", tempURL);
+			cookie.setPath("/");
+			cookie.setMaxAge(60*3);	//3분동안
+			response.addCookie(cookie);
+
 			response.setContentType("text/html; charset = UTF-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script type='text/javascript'>");

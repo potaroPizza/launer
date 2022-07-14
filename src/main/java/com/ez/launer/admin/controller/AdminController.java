@@ -419,6 +419,15 @@ public class AdminController {
 	@GetMapping("/adminLogin")
 	public String adminLogin_get(HttpSession session, Model model) {
 		logger.info("관리자 로그인 페이지");
+
+		String sClassNo = (String) session.getAttribute("classNo");
+
+		if(sClassNo != null && !sClassNo.isEmpty()) {
+			model.addAttribute("msg", "로그인 해제 후 접속바랍니다.");
+			model.addAttribute("url", "/");
+
+			return "/common/message";
+		}
 		
 //		String adminCode = session.getAttribute("adminCode")+"";
 //		

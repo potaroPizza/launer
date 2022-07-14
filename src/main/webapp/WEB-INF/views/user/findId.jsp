@@ -33,9 +33,9 @@ $(function(){
 	$("#confirm").click(function(){
     	modalClose();
 	});
-	$("#close").click(function(){
-    	modalClose();
-	});
+	//$("#close").click(function(){
+    	//modalClose();
+	//});
 	function modalClose(){
 		$modal.animate({
 			opacity: 0
@@ -63,7 +63,8 @@ $(function(){
 			</div>
 			<div class="modal-foot">
 			<span class="modal-btn confirm" id="confirm">확인</span>
-			<span class="modal-btn close" id="close">창 닫기</span>
+			<span class="modal-btn close" id="close" 
+				onClick="location.href='<c:url value='/user/findPwd'/>'">비밀번호 찾기</span>
 			</div>
 		</div>
 	</div>
