@@ -260,7 +260,6 @@ function coorSet(addr) {
 };
 //배달기사 지점선택 모달
 $(function () {
-
     $("#officeBtn").click(function () {
         $('form[name=joinfrm] #modal-wrap').fadeIn(500);
         $('form[name=joinfrm] #modal-wrap').css("display", "flex").animate({
@@ -281,10 +280,6 @@ $(function () {
     $("#confirmBtn").click(function () {
         modalClose();
     });
-
-    /*$(window).on('click', function() {
-        modalClose();/
-    });*/
 
     $(".officelist li a").click(function (e) {
         e.preventDefault();
