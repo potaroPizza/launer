@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
 	public int insertAddress(UserAllVO vo) {
 		return userDao.insertAddress(vo);
 	}
-	// 일반회원 이메일, hp 중복확인
+	// 일반회원 이메일 중복확인, 비밀번호 찾기시 소셜계정여부 확인, hp 중복확인
 	@Override
 	public int chkEmail(String email) {
 		int count=userDao.chkEmail(email);
@@ -42,6 +42,17 @@ public class UserServiceImpl implements UserService{
 		}else {
 			result=UserService.USABLE_EMAIL;			
 		}	
+		return result;
+	}
+	@Override
+	public int chkSocial(String email) {
+		int count=userDao.chkSocial(email);
+		
+		int result=0;
+		if(count>0) {
+			result=UserService.SOCIAL_EMAIL;
+		}	
+		
 		return result;
 	}
 	@Override
@@ -279,6 +290,7 @@ public class UserServiceImpl implements UserService{
 	public int insertToday(Map<String, Object> map) {
 		return userDao.insertToday(map);
 	}
+	
 	
 	
 
