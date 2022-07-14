@@ -101,8 +101,11 @@ $(function () {
     $('form[name=editPwdfrm] #editPwd_pwd').keyup(function () {
         if (!isPassword($("#editPwd_pwd").val())) {
             $('.error_next_box').eq(0).text("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.").css("color", "red");
+       		$('.pswdImg').eq(0).attr("src", "../images/m_icon_check_enable.png");
+            $('.pswdImg').eq(0).attr("src", "../images/m_icon_not_use.png");
         } else {
-            $('.error_next_box').eq(0).text("")
+            $('.error_next_box').eq(0).text("");
+       		$('.pswdImg').eq(0).attr("src", "../images/m_icon_safe.png");
         }
 
     })
