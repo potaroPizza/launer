@@ -22,7 +22,7 @@ $(function(){
 			$("#pwd2").focus();
 			event.preventDefault();
 		}else if($("#hp").val().length<1){
-			alert("휴대전화번호를 입력하시고 중복확인/인증하셔야합니다");
+			alert("휴대전화번호를 입력하시고 중복확인/인증하셔야합니다.");
 			$("#hp").focus();
 			event.preventDefault();
 		}else if(!validate_hp($('#hp').val())){
@@ -115,10 +115,12 @@ $(function(){
 		}
 	})
 	$('form[name=joinfrm] #officeName').keyup(function(){
-		if($('#officeName').val()==""){
-				$('.error_message_box').eq(3).text("지점이 선택되지 않았습니다 버튼 다시 클릭하시고 선호지점을 선택하세요").css("color","red");
-		}else{
-			$('.error_message_box').eq(3).text("")
+		if(classNo === 2) {
+			if($('#officeName').val()==""){
+					$('.error_message_box').eq(3).text("지점이 선택되지 않았습니다 버튼 다시 클릭하시고 선호지점을 선택하세요").css("color","red");
+			}else{
+				$('.error_message_box').eq(3).text("")
+			}
 		}
 	})
 	$('form[name=joinfrm] #accNum').keyup(function(){
@@ -131,18 +133,22 @@ $(function(){
 		}
 	})
 	$('form[name=joinfrm] #hp').keyup(function(){
-		if(classNo === 1) {
-			if(!validate_hp($("#hp").val())){
+		if(!validate_hp($("#hp").val())){
 				$('.error_message_box').eq(5).text("전화번호양식에 맞게 입력하세요").css("color","red");
+		}else if(classNo === 1) {
+			if($("#chkHp").val()==""){
+				$('.error_message_box').eq(5).text("휴대전화 중복확인/인증이 필요합니다").css("color","red");
 			}else{
 				$('.error_message_box').eq(5).text("")
 			}
 		}else if(classNo === 2) {
-			if(!validate_hp($("#hp").val())){
-				$('.error_message_box').eq(5).text("전화번호양식에 맞게 입력하세요").css("color","red");
+			if($("#chkDhp").val()==""){
+				$('.error_message_box').eq(5).text("휴대전화 중복확인/인증이 필요합니다").css("color","red");
 			}else{
 				$('.error_message_box').eq(5).text("")
 			}
+		}else{
+			$('.error_message_box').eq(5).text("")
 		}
 	})
 	
