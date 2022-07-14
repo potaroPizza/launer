@@ -292,7 +292,7 @@
 
 						<div>
 							<h3 class="useredit_title">
-								<label for="officeNo">지점</label> (${map['OFFICE_NAME'] })
+								<label for="officeNo">지점</label> <span>(${map['OFFICE_NAME'] })</span>
 							</h3>
 
 							<div class="officeBtnArea">
