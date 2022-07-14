@@ -179,7 +179,8 @@
 	</select> -->
 	
 	<select id="selectRevenueByMonth" parameterType="int" resultType="map">	
-		select nvl(c.sum, 0) as sum,
+		<!-- 원래 포인트 제외한 매출만 조회하는 쿼리 -->
+		<!-- select nvl(c.sum, 0) as sum,
 		    d.dt as paymentDate, substr(d.dt, 6, 2) as month
 		    <if test="officeNo != 0">
 				, c.officeNo as officeNo, c.officeName as officeName
@@ -192,6 +193,40 @@
 			</if>
 		from payment_detail a join adminOrderListView b
 		on a.order_no = b.orderNo
+		where TO_CHAR(payment_date, 'yyyy') = '2022'
+			<if test="officeNo != 0">
+				and officeNo = #{officeNo}
+			</if>
+		group by TO_CHAR(payment_date, 'yyyy-MM'), TO_CHAR(payment_date, 'MM')
+			<if test="officeNo != 0">
+				, officeNo, officeName
+			</if>
+		)c
+		right outer join
+		( SELECT TO_CHAR(ADD_MONTHS(TO_DATE('2022-01', 'YYYY-MM'), LEVEL - 1 ),
+		                                                            'YYYY-MM') AS dt
+		    FROM DUAL
+		    <![CDATA[
+			    CONNECT BY LEVEL <= MONTHS_BETWEEN(( SYSDATE ),
+			                        TO_DATE('2022-01-01', 'YYYY-MM-DD' ) ) + 1)d
+			]]>
+		on d.dt = c.paymentDate
+		order by d.dt -->
+		
+		<!-- 테스트를 위해 포인트 포함해서 조회하는 쿼리 -->
+		select nvl(c.sum, 0) as sum,
+		    d.dt as paymentDate, substr(d.dt, 6, 2) as month
+		    <if test="officeNo != 0">
+				, c.officeNo as officeNo, c.officeName as officeName
+			</if>
+		from(
+		select sum(total_price) as sum, TO_CHAR(payment_date, 'yyyy-MM') as paymentDate,
+		    TO_CHAR(a.payment_date, 'MM') as month
+		    <if test="officeNo != 0">
+				, b.officeNo as officeNo, b.officeName as officeName
+			</if>
+		from orders a join adminOrderListView b
+		on a.no = b.orderNo
 		where TO_CHAR(payment_date, 'yyyy') = '2022'
 			<if test="officeNo != 0">
 				and officeNo = #{officeNo}
