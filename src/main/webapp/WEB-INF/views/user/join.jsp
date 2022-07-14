@@ -120,11 +120,11 @@
 					<input type="text" name="hp" id="hp" maxlength="11" 
 						placeholder="-를 제외하고 입력해주세요">&nbsp;
 					<c:if test="${classNo == 1}">
-						<input type="button" value="중복 확인" id="btnChkHp">
+						<input type="button" value="중복 확인/인증" id="btnChkHp">
 						<input type="hidden" name="chkHp" id="chkHp" value="Y" disabled>
 					</c:if>
 					<c:if test="${classNo == 2}">
-						<input type="button" value="중복 확인" id="btnChkDhp">
+						<input type="button" value="중복 확인/인증" id="btnChkDhp">
 						<input type="hidden" name="chkDhp" id="chkDhp" value="Y" disabled>
 					</c:if>
 					<br><span class="error_message_box"></span>

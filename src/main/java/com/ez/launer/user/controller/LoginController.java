@@ -67,6 +67,7 @@ public class LoginController {
 		vo.setPwd(pwd);
 
 		int result=userService.loginChk(vo.getEmail(), vo.getPwd());
+		logger.info("들어온 값, vo.getEmail={},vo.getPwd={}",vo.getEmail(),vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);
 		
 		
@@ -185,9 +186,32 @@ public class LoginController {
 			@RequestParam int searchType, Model model) throws NoSuchAlgorithmException, MessagingException {
 		int result=0;
 		String randomPwd="";
-		for (int i = 0; i < 12; i++) {
-			randomPwd += (char) ((Math.random() * 26) + 97);
+		//임시비밀번호 만들기
+		StringBuffer sb = new StringBuffer();
+		StringBuffer sc = new StringBuffer("!@#$%^&*-=?~");// 특수문자 이상한거는 뺌
+		// 대문자
+		sb.append((char)((Math.random() * 26)+65)); // 첫글자 대문자
+
+		for( int i = 0; i<3; i++) {
+			sb.append((char)((Math.random() * 26)+65));
+		} 
+		// 소문자 4개
+		for( int i = 0; i<4; i++) {
+			sb.append((char)((Math.random() * 26)+97));
+		}  
+		// 숫자 2개
+		for( int i = 0; i<2; i++) {
+			sb.append((char)((Math.random() * 10)+48));
 		}
+		// 특수문자를 두개  발생시켜 랜덤하게 중간에 끼워 넣는다
+		
+		//대문자3개중 하나
+		sb.setCharAt(((int)(Math.random()*3)+1), sc.charAt((int)(Math.random()*sc.length()-1))); 
+		
+		//소문자4개중 하나
+		sb.setCharAt(((int)(Math.random()*4)+4), sc.charAt((int)(Math.random()*sc.length()-1))); 
+		randomPwd = sb.toString();
+
 
 		if(searchType==1) {
 			logger.info("일반회원 비밀번호 찾기, 파라미터 vo={}, searchType={}",vo, searchType);
@@ -195,7 +219,7 @@ public class LoginController {
 		
 			String encodingRandomPwd = sha256.encrypt(randomPwd);
 			vo.setRandomPwd(encodingRandomPwd);
-			logger.info("임시비밀번호 , 암호화된 임시비밀번호 randomPwd={}, vo.getRandomPwd={} ",randomPwd, vo.getRandomPwd());
+			logger.info("임시비밀번호 , 암호화된 임시비밀번호 randomPwd={}, vo.getRandomPwd={} ",randomPwd, encodingRandomPwd);
 			
 			result=userService.randomPwd(vo);
 			logger.info("일반회원 임시비밀번호 부여 결과 result={}", result);
@@ -206,9 +230,8 @@ public class LoginController {
 						+ "임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
 				url="/user/login";	
 				
-				//if(updatePwd>0) {
-				//emailSender.sendEmail(vo);
-				//}
+				emailSender.sendEmail(vo,randomPwd);
+				
 			}else {
 				msg="해당 정보와 일치하는 계정이 존재하지 않습니다";
 				url="/user/findPwd";
@@ -220,10 +243,11 @@ public class LoginController {
 		}else if(searchType==2) {
 			logger.info("일반회원 비밀번호 찾기, 파라미터 vo={}, searchType={}",dvo, searchType);
 			
-			dvo.setRandomPwd(randomPwd);
-			logger.info("임시비밀번호 , randomPwd={}",randomPwd);
+			String encodingRandomPwd = sha256.encrypt(randomPwd);
+			dvo.setRandomPwd(encodingRandomPwd);
+			logger.info("임시비밀번호 , 암호화된 임시비밀번호 randomPwd={}, vo.getRandomPwd={} ",randomPwd, encodingRandomPwd);
 			
-			result=userService.randomPwd(vo);
+			result=userService.randomDpwd(dvo);
 			logger.info("배송기사 임시비밀번호 부여 결과 result={}", result);
 			String msg="", url="";
 			
@@ -231,10 +255,9 @@ public class LoginController {
 				msg="입력하신 이메일 주소로 임시 비밀번호가 발송되었습니다.                "
 						+ "임시비밀번호로 로그인 후 비밀번호를 변경해주시기 바랍니다.";
 				url="/user/login";	
-				
-				//if(result>0) {
-				//dmailSender.sendDmail(dvo);
-				//}
+
+				dmailSender.sendDmail(dvo,randomPwd);
+
 			}else {
 				msg="해당 정보와 일치하는 계정이 존재하지 않습니다";
 				url="/user/findPwd";
