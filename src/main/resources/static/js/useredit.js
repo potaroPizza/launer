@@ -270,6 +270,7 @@ $(function () {
     $(".officelist li a").click(function (e) {
         e.preventDefault();
         document.getElementById('officeNo').value = this.dataset.value;
+        document.getElementById('officeName').value=$(this).text();
 
         modalClose();
     })
