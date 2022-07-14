@@ -283,7 +283,7 @@ $(function () {
     });
 
     /*$(window).on('click', function() {
-        modalClose();/
+        modalClose();
     });*/
 
     $(".officelist li a").click(function (e) {
