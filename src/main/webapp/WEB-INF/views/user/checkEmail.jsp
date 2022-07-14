@@ -32,10 +32,14 @@
 			<c:if test="${result==UNUSABLE_EMAIL }">
 				<p>이미 등록된 이메일 주소입니다. 다른 이메일 주소를 입력하세요</p>
 			</c:if>	
-			
+			<c:if test="${socialchk==SOCIAL_EMAIL }">
+				<p>소셜계정으로 가입된 이메일 입니다. 다른 이메일 주소를 입력하세요</p>
+			</c:if>
 			<c:if test="${result==USABLE_EMAIL }">
-				<input type="button" value="사용하기" id="btUse">
-				<p>사용가능한 이메일 주소입니다. [사용하기]버튼을 클릭하세요</p>
+				<c:if test="${socialchk!=SOCIAL_EMAIL }">
+					<input type="button" value="사용하기" id="btUse">
+					<p>사용가능한 이메일 주소입니다. [사용하기]버튼을 클릭하세요</p>
+				</c:if>
 			</c:if>
 		</form>
 	</div>
