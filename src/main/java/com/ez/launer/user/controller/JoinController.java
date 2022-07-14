@@ -131,16 +131,19 @@ public class JoinController {
 	public String checkEmail(@RequestParam String email, Model model) {
 		logger.info("이메일 중복확인, 파라미터 email={}", email);
 
-		int result=0;
+		int result=0, socialchk=0;
 		if(email!=null && !email.isEmpty()) {		
 			result=userService.chkEmail(email);
-	
+			socialchk=userService.chkSocial(email);
 			logger.info("이메일 중복확인 결과, result={}", result);
+			logger.info("소셜계정여부 확인 결과, socialchk={}", socialchk);
 		}
 
 		model.addAttribute("result", result);
 		model.addAttribute("USABLE_EMAIL", userService.USABLE_EMAIL);
 		model.addAttribute("UNUSABLE_EMAIL", userService.UNUSABLE_EMAIL);
+		model.addAttribute("socialchk", socialchk);
+		model.addAttribute("SOCIAL_EMAIL", userService.SOCIAL_EMAIL);
 
 		return "/user/checkEmail";
 	}

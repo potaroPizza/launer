@@ -35,9 +35,12 @@
       values(#{accInfoNo}, #{no}, #{bank}, #{accNum}, #{accHolder})
 
    </insert>
-   <!-- 이메일 중복 확인 -->
+   <!-- 이메일 중복 확인, 비밀번호찾기시 소셜계정 여부-->
    <select id="chkEmail" parameterType="String"  resultType="int">
-      select count(*) from users where Email=#{email} 
+      select count(*) from users where Email=#{email} and social_login_key is null
+   </select>
+   <select id="chkSocial" parameterType="String"  resultType="int">
+      select count(*) from users where Email=#{email} and social_login_key is not null
    </select>
    <!-- 휴대전화 번호 중복 확인 -->
    <select id="chkHp" parameterType="String"  resultType="int">

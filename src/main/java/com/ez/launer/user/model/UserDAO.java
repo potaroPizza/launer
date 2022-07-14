@@ -14,6 +14,7 @@ public interface UserDAO {
 	public int insertUser(UserAllVO vo);
 	public int insertAddress(UserAllVO vo);
 	public int chkEmail(String email);
+	public int chkSocial(String email);
 	public int chkHp(String hp);
 	public int insertDriver(DriverAllVO vo);
 	public int insertAccount(DriverAllVO vo);
