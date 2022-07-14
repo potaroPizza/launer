@@ -19,7 +19,7 @@ $(function () {
             alert('새 비밀번호를 입력하세요.');
             $('#editPwd_newPwd').focus();
             return false;
-        } else if ($('#editPwd_pwd').val() == $('#editPwd_newPwd').val()) {
+        } else if ($('#editPwd_pwd').val() === $('#editPwd_newPwd').val()) {
             alert('동일한 비밀번호로 변경할 수 없습니다.');
             $('#editPwd_newPwd2').focus();
             return false;
@@ -49,7 +49,7 @@ $(function () {
             alert('새 비밀번호를 입력하세요.');
             $('#editPwd_newPwd').focus();
             return false;
-        } else if ($('#editPwd_pwd').val() == $('#editPwd_newPwd').val()) {
+        } else if ($('#editPwd_pwd').val() === $('#editPwd_newPwd').val()) {
             alert('동일한 비밀번호로 변경할 수 없습니다.');
             $('#editPwd_newPwd2').focus();
             return false;
@@ -70,8 +70,8 @@ $(function () {
 });
 $(function () {
     $('form[name=editPwdfrm] #editPwd_newPwd, form[name=editPwdfrm] #editPwd_newPwd2').keyup(function () {
-        if ($('#editPwd_newPwd') != "" || $('#editPwd_newPwd2') != "") {
-            if ($('#editPwd_newPwd').val() == $('#editPwd_newPwd2').val()) {
+        if ($('#editPwd_newPwd').val() != "" || $('#editPwd_newPwd2').val() != "") {
+            if ($('#editPwd_newPwd').val() === $('#editPwd_newPwd2').val()) {
                 $('.editPwd_box.int_pass').eq(1).css("border", "3px solid green")
                 $('.editPwd_box.int_pass').eq(2).css("border", "3px solid green")
                 $('#editPwd_alertTxt3').text("일치").css("color", "green");
@@ -110,7 +110,7 @@ $(function () {
 
     $('form[name=editPwdfrmDelivery] #editPwd_newPwd, form[name=editPwdfrmDelivery] #editPwd_newPwd2').keyup(function () {
 
-        if ($('#editPwd_newPwd') != "" || $('#editPwd_newPwd2') != "") {
+        if ($('#editPwd_newPwd').val() != "" || $('#editPwd_newPwd2').val() != "") {
             if ($('#editPwd_newPwd').val() == $('#editPwd_newPwd2').val()) {
                 $('.editPwd_box.int_pass').eq(1).css("border", "3px solid green")
                 $('.editPwd_box.int_pass').eq(2).css("border", "3px solid green")
