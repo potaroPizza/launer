@@ -126,6 +126,7 @@ const BoardList = ({userInfo, contentData, contentList, searchProccess}) => {
                         <select name="search-type">
                             <option value="title">제목</option>
                             <option value="content">내용</option>
+                            <option value="name">이름</option>
                         </select>
                         <input name="search-text"/>
                         <button><i className="fa-solid fa-magnifying-glass"></i></button>
