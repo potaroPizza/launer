@@ -276,6 +276,7 @@ $(function () {
         modalClose();
     })
 
+
     function modalClose() {
         $('form[name=deliveryeditfrm] #modal-wrap').fadeOut();
         $('form[name=deliveryeditfrm] #modal-wrap').animate({
