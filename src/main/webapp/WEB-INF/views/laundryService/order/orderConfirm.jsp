@@ -5,6 +5,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
  
 <t:wrapper>
+
+<style>
+input[type=text] {
+    background-color: rgb(244, 244, 244);
+}
+
+
+</style>
+
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 
 <!-- import 라이브러리 -->
