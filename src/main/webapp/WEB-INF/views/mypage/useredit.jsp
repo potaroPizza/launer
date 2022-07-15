@@ -349,7 +349,7 @@
 							</button>
 						</div>
 
-						<div id="modal-wrap">
+						<div id="modal-wrap" class="modal">
 							<div class="office-modal">
 								<div class="modalhead">
 									<h2 class="head-title">Launer</h2>

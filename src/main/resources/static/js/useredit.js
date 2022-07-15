@@ -276,6 +276,7 @@ $(function () {
         modalClose();
     })
 
+
     function modalClose() {
         $('form[name=deliveryeditfrm] #modal-wrap').fadeOut();
         $('form[name=deliveryeditfrm] #modal-wrap').animate({
@@ -286,7 +287,12 @@ $(function () {
     };
 
 });
-
+/*modal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("modal")) {
+        modal.style.display = "none"
+    }
+});*/
 
 function coorSet(addr) {
     // 주소-좌표 변환 객체를 생성합니다
