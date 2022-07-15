@@ -5,18 +5,17 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-	<link rel="stylesheet" href="<c:url value="/css/user/login.css"/>"/>
 	
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script src="<c:url value="/js/login_kakao.js"/>" type="text/javascript" text="javascript"></script>
 <script src="<c:url value="/js/login-naver.js"/>" type="text/javascript" text="javascript"></script>
-<%--<script src="<c:url value="/js/login.js"/>" type="text/javascript" text="javascript"></script>--%>
 <div id="login_wrap">
 	<div class="login_subwrap">
 		<div id="login_header">
 			<div class="login_backBtn" 
-				onclick="history.go(-1);return false;">뒤로가기
+				style="background: url(../images/login_backbtn.png) no-repeat 10px; 
+				background-size: auto 12px" onclick="history.go(-1);return false;">뒤로가기
 			</div>
 			<h1 class="login_siteName">
 				<a href="/launer">LAUNER</a>
@@ -85,7 +84,9 @@
 									<div class="login_Or">또는</div>
 									<div id="snslogin">
 										<ul class="snsloginbox">
-											<li id="naver_id_login" class="btn_naver">
+											<li id="naver_id_login" class="btn_naver" 
+												style="background: url(../images/loginNaver.svg) no-repeat 10px; 
+												background-size: 30px">
 												<a href="https://nid.naver.com/oauth2.0/authorize?
 													response_type=code&
 													client_id=sA1wXjzUVJ_q15yX5Z3k&
@@ -99,7 +100,9 @@
 												client_secret=LzHF30VRtz&
 												access_token=AAAAOYRctodcmpdIdNo0mzZt8tW8KL3ZhDjiCZbDXT8GqkZ5MIoaiV6yWDfIo0idQd6z12ELOl8FxL5l24DJd2IDhsw">테스트</a>
 											</li>--%>
-											<li class="btn_kakao">
+											<li class="btn_kakao" 
+												style="background: url(../images/loginKakao.png) no-repeat 10px; 
+												background-size: 40px"> 
 												<a href="https://kauth.kakao.com/oauth/authorize?
 											client_id=17794c6c3763c9ee2f66e9d03e0b9c5b
 											&redirect_uri=http://localhost:9095/launer/user/kakaoLogin/requestToken

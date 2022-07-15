@@ -9,8 +9,8 @@
                 <div id="userFooterMenu">
                     <a href="/launer/user/agreement">이용약관</a>
                     <a href="/launer/user/privacy">개인정보취급방침</a>
-                    <a href="/launer/user/guide">이용안내</a>
-                    <a>고객센터</a>
+                    <a href="/launer/laundryService/order/guide">이용안내</a>
+                    <a href="/launer/user/board/notice">공지사항/FAQ</a>
                 </div>
                 <div id="userFooterCompany">
                     <p>(주)러너<span class="line">|</span>대표 : 정지효<span class="line">|</span>
