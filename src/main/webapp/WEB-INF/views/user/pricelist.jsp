@@ -43,6 +43,15 @@
 							</div>
 							<strong>8,000원</strong>
 						</li>
+						<li class="priceInfobox">
+							<div id="priceInfobox_left">
+								<div class="priceName">
+									<label>명품 셔츠 / 남방</label>
+									<span>구매 가격 20만원 이상 제품</span>
+								</div>
+							</div>
+							<strong>10,000원</strong>
+						</li>
 					</ul>
 				</div>
 			<!---------교복---------->
