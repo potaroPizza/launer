@@ -69,6 +69,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			String tempURL = request.getRequestURI();
 			tempURL = tempURL.substring(tempURL.indexOf("/", 2));
 
+			logger.info("tempURL : " + tempURL);
 			Cookie cookie = new Cookie("tempURL", tempURL);
 			cookie.setPath("/");
 			cookie.setMaxAge(60*3);	//3분동안

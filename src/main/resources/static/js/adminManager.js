@@ -1,5 +1,5 @@
 
- $(function() {
+$(function() {
 		 var tabNo = $('#tabNo').val();
 		 if(tabNo==1){	 
 			 $('#consumer').click();
@@ -111,7 +111,7 @@ function appenToTable(managerMap){
         "<td>" + managerMap.EMAIL + "</td>" +
         "<td>" + managerMap.HP + "</td>"+
         //여기
-        "<td><fmt:formatDate value='" + managerMap.OFFICE_NAME + "'pattern ='yyyy-MM-dd'/></td>"+
+        "<td><span>" + managerMap.OFFICE_NAME + "</span></td>"+
         "<td><input type='button' value='삭제' onclick=''></td>"+"<tr>"
     );
 	  $("#managerTbody").append($cellsOfRow);

@@ -42,6 +42,8 @@ public class KakaoLoginController {
 	@RequestMapping(value = "/requestToken")
 	public String kakaoLoginRequestToken(@RequestParam ("code")String code,Model model,
 			HttpServletRequest request) {
+		//session 저장
+		HttpSession session=request.getSession();
 		
 		logger.info("카카오로그인컨트롤러 code ={}",code );
 		model.addAttribute("code",code);
@@ -68,7 +70,6 @@ public class KakaoLoginController {
 		String url ="/user/login", msg ="로그인처리 실패";
 		int point = 1000000; //포인트 백마넌 ~ 
 		
-		
 		if(count > 0) { //존재하면 social_login_host 받아서 model 저장
 			
 			
@@ -88,26 +89,26 @@ public class KakaoLoginController {
 				userVo.setSocialLoginKey(socialLoginKey);
 				userVo.setPoint(point);
 				logger.info("미가입회원 userVo ={}",userVo);
+				
 			}
 			//users insert
 			int cnt = userService.insertKakaoUser(userVo);
 			
 			//users_address insert
-			UserVO vo= userService.selectByEmail(email);
+			userVo= userService.selectByEmail(email);
 			UserAddressVO addressvo = new UserAddressVO();
-			addressvo.setUsersNo(vo.getNo());
+			addressvo.setUsersNo(userVo.getNo());
 			
 			int addressCnt = userService.insertAddressOnlyPart(addressvo);
 			logger.info("userAddress result ={}",addressCnt);
-			
+
 			logger.info("카카오 회원가입결과={}",cnt);
 			url ="/";
 			msg =name+ "님, 회원가입을 축하드립니다";
 		} //if
 		
 		
-		//session 저장
-		HttpSession session=request.getSession();
+		logger.info("이런 = {}", userVo);
 		session.setAttribute("no", userVo.getNo());
 		session.setAttribute("email", userVo.getEmail());
 		session.setAttribute("access_Token",access_Token); //로그아웃때 필요한 accessToken
@@ -134,4 +135,7 @@ public class KakaoLoginController {
 	    
 	    return "common/message";
 	}
+	
+	
+	
 }

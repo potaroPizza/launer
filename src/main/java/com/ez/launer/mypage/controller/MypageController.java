@@ -407,6 +407,7 @@ public class MypageController {
 		
 		return "/common/message";
 	}
+	
 	@PostMapping("/withdrawSocial")
 	public String userdeleteSocial_post(
 			HttpSession session, HttpServletResponse response,
@@ -424,14 +425,17 @@ public class MypageController {
 			
 			cnt = userService.deleteUser(no);
 			kakaoApi.unlink(access_Token);
-			logger.info("카카오 회원탈퇴완료");
-			msg ="회원탈퇴 처리가 되었습니다.";
-			url ="/mypage/signout";
-			
+
 			session.removeAttribute("no");
 			session.removeAttribute("access_Token");
 			session.removeAttribute("email");
+			
+			logger.info("카카오 회원탈퇴완료");
+			msg ="회원탈퇴 처리가 완료 되었습니다.";
+			url ="/";
+			
 		}else {
+			
 			String email=(String)session.getAttribute("email");
 			logger.info("회원 탈퇴 처리, 파라미터 no={}",no);
 

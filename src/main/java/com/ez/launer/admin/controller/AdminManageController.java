@@ -104,7 +104,12 @@ public class AdminManageController {
 		//지점 select option 생성
 		List<OfficeVO> officeList = officeService.selectAll();
 		logger.info("전체 조회결과 officeList.size={}",officeList.size());
-
+		
+		//지점관리자 list vo
+		List<Map<String, Object>> managerList = officeService.selectAllManager();
+		logger.info("지점 관리자 조회결과 managerList.size={}",managerList.size());
+		
+		model.addAttribute("managerList",managerList);
 		model.addAttribute("userSearchKeyword",userSearchKeyword);
 		model.addAttribute("userSearchCondition",userSearchCondition);
 		model.addAttribute("driverSearchCondition",driverSearchCondition);
