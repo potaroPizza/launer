@@ -1,4 +1,25 @@
 $(function () {
+    const $secPartOne = $(".web-page section.part-one");
+    let $topHeaderHeight = $("#header-wrap").height();
+
+    let $secPartOneW = $secPartOne.width();
+    let $secPartOneH = $secPartOne.height();
+    $secPartOne.mousemove(e => {
+        let x = e.clientX - $secPartOne.offset().left;
+        let y = e.clientY - $secPartOne.offset().top;
+
+        let curX = x / 30;
+        let curY = y / 10;
+
+        $("#title .one").animate({
+            left: curX,
+            top: curY
+        },1);
+    });
+
+
+
+
     //main 회원가입 버튼 부분 애니메이션 효과
     //main 회원가입 버튼 부분 애니메이션 효과
     //main 회원가입 버튼 부분 애니메이션 효과
