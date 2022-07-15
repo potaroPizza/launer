@@ -16,6 +16,7 @@ public interface ConstUtil {
 
 	
 	//자료실 - 파일 저장 경로
+//	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\git_ws\\launer\\src\\main\\resources\\static\\upload\\";	//정인 집
 //	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\sung_ws\\launer\\src\\main\\resources\\static\\upload\\";
 //	String TEST_FILE_PATH = "/Library/IntelliJ Folder/project/src/main/resources/static/upload/";	//for Mac
 	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\git_ws\\launer\\src\\main\\resources\\static\\upload\\";	//for Window
