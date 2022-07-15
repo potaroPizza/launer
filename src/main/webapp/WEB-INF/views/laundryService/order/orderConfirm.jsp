@@ -250,18 +250,18 @@ $(function () {
 									<%--  <c:set var="sum" value="${map['quan']*map[''] }"></c:set> --%>
 									<tr>
 										<td><input type="text" name="categoryNo"
-											class="paramInput" value="${map['categoryNo'] }"></td>
+											class="paramInput" value="${map['categoryNo'] }" readonly></td>
 										<td><input type="text" name="name" class="tdInput"
-											value="${map['name'] }"></td>
+											value="${map['name'] }" readonly></td>
 										<td>
 										<input type="text" name="price" class="paramInput"
-											value="${map['price'] }"></td>
+											value="${map['price'] }" readonly></td>
 										<td><input type="text" name="quan" class="paramInput"
-											value="${map['quan'] }">
+											value="${map['quan'] }" readonly>
 										</td>
 										<td>
 										<input type="text"
-											name="sum" class="paramInput" value="${map['sum'] }">
+											name="sum" class="paramInput" value="${map['sum'] }" readonly>
 										</td>
 									</tr>
 								</c:forEach>
@@ -287,7 +287,7 @@ $(function () {
 							<span class ="insertPointSpan" style="font-weight:bold;">적립예정포인트:</span>
 							<span><fmt:formatNumber value="${readyPoint }" pattern="#,###" /></span><span style="font-weight:bold;font-size:1.1em"> p</span>
 							<input type="hidden" id="savePoint"
-								name="savePoint" value="${readyPoint }">
+								name="savePoint" value="${readyPoint }" readonly>
 							
 							
 							
