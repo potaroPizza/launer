@@ -319,17 +319,23 @@
         top: 50%;
         transform: translate(-50%, -50%);
         box-shadow: 20px 20px 60px rgba(40, 40, 40, 0.08),
-        -20px -20px 60px rgba(0, 0, 0, 0.05);
+          -20px -20px 60px rgba(0, 0, 0, 0.05);
         overflow: hidden;
 
         &.smallPage {
           animation: .3s smallpage ease;
           animation-fill-mode: forwards;
+          .modal-scroll {
+            height: calc(90vh - 36px);
+          }
         }
 
         &.fullPage {
           animation: .3s fullpage ease;
           animation-fill-mode: forwards;
+          .modal-scroll {
+            height: calc(100vh - 36px);
+          }
         }
 
 
