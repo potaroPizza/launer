@@ -66,7 +66,7 @@ public class KakaoLoginController {
 		String socialInfo = "";
 		
 		String url ="/user/login", msg ="로그인처리 실패";
-		int point = 1000000;
+		int point = 1000000; //포인트 백마넌 ~ 
 		
 		
 		if(count > 0) { //존재하면 social_login_host 받아서 model 저장
