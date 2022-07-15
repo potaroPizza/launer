@@ -8,8 +8,8 @@ public interface ConstUtil {
 	int BLOCKSIZE = 10;
 	
 	//파일 업로드 관련 상수
-	String FILE_UPLOAD_TYPE = "test";		// 테스트시
-	//String FILE_UPLOAD_TYPE = "deploy";	// 배포시
+	//String FILE_UPLOAD_TYPE = "test";		// 테스트시
+	String FILE_UPLOAD_TYPE = "deploy";	// 배포시
 	
 	//자료실 - 파일 저장 경로
 //	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\sung_ws\\launer\\src\\main\\resources\\static\\upload\\";
