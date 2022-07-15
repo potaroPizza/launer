@@ -108,6 +108,19 @@ a {color: #000; text-decoration: none;}
   #join_wrap {
     @import "./partials/user/join.scss";
   }
+  #login_wrap {
+    @import "./partials/user/login.scss";
+  }
+  #findIdPwd_wrap {
+    @import "./partials/user/findIdPwd.scss";
+  }
+  #agreement_wrap {
+    @import "./partials/user/agreement.scss";
+  }
+  #pricelist_wrap {
+    @import "./partials/user/pricelist.scss";
+  }
+
   #payment-wrap {
     padding: 30px 0;
     .orderPaymentWrapper {

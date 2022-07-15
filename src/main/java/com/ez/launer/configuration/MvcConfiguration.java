@@ -28,6 +28,8 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/findPwd/**")
 				.excludePathPatterns("/user/pricelist/**")
 				.excludePathPatterns("/user/chkAddress/**")
+				.excludePathPatterns("/user/agreement/**")
+				.excludePathPatterns("/user/privacy/**")
 				.excludePathPatterns("/laundryService/order/guide");
 
 		registry.addInterceptor(new DeliveryInterceptor())
