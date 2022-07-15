@@ -141,9 +141,16 @@
                         alert("이미 선택된 상품입니다");
                         return false;
                     }
-
+					
+                    var longName = vo.categoryName;
+                    
+                    if(longName.length > 4){    
+                    	longName =  longName.substr(0,4)+"...";
+                    }
+                
+                    
                     var tagAdd = "<div class ='testForm'><input type = 'hidden' name = 'no' class ='tagInputAdd' value=" + vo.no + ">"
-                        + "<input type ='text' name = 'itemName' class ='tagAddDiv' readonly value=" + vo.categoryName + ">"
+                        + "<input type ='text' name = 'itemName' title="+vo.categoryName+" class ='tagAddDiv' readonly value=" + longName + ">"
                         + "<input type = 'text' name = 'itemPrice' class ='tagAddDiv' readonly value=" + vo.price + ">"
                         + "<select class='mulit-select' name='order-num' id='order-num'>"
                         + "<c:forEach var ='cnt' begin ='1' end='10' step='1'>"

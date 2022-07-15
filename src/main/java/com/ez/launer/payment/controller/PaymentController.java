@@ -58,9 +58,6 @@ public class PaymentController {
 		
 		int rs = 0;
 		if(result>0) {
-			/*
-			
-			결제완료 SMS
 			
 			try {
 				UserVO userVo = userService.selectById(no);
@@ -70,7 +67,7 @@ public class PaymentController {
 				logger.info("sms 전송완료");
 			} catch (CoolsmsException e) {
 				e.printStackTrace();
-			}*/
+			}
 			
 			//orders 테이블 paymentDate null => sysdate
 			rs = orderService.updatePaymentDate(orderNo);

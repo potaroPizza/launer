@@ -19,7 +19,7 @@ $(function () {
             alert('새 비밀번호를 입력하세요.');
             $('#editPwd_newPwd').focus();
             return false;
-        } else if ($('#editPwd_pwd').val() == $('#editPwd_newPwd').val()) {
+        } else if ($('#editPwd_pwd').val() === $('#editPwd_newPwd').val()) {
             alert('동일한 비밀번호로 변경할 수 없습니다.');
             $('#editPwd_newPwd2').focus();
             return false;
@@ -49,7 +49,7 @@ $(function () {
             alert('새 비밀번호를 입력하세요.');
             $('#editPwd_newPwd').focus();
             return false;
-        } else if ($('#editPwd_pwd').val() == $('#editPwd_newPwd').val()) {
+        } else if ($('#editPwd_pwd').val() === $('#editPwd_newPwd').val()) {
             alert('동일한 비밀번호로 변경할 수 없습니다.');
             $('#editPwd_newPwd2').focus();
             return false;
@@ -70,8 +70,8 @@ $(function () {
 });
 $(function () {
     $('form[name=editPwdfrm] #editPwd_newPwd, form[name=editPwdfrm] #editPwd_newPwd2').keyup(function () {
-        if ($('#editPwd_newPwd') != "" || $('#editPwd_newPwd2') != "") {
-            if ($('#editPwd_newPwd').val() == $('#editPwd_newPwd2').val()) {
+        if ($('#editPwd_newPwd').val() != "" || $('#editPwd_newPwd2').val() != "") {
+            if ($('#editPwd_newPwd').val() === $('#editPwd_newPwd2').val()) {
                 $('.editPwd_box.int_pass').eq(1).css("border", "3px solid green")
                 $('.editPwd_box.int_pass').eq(2).css("border", "3px solid green")
                 $('#editPwd_alertTxt3').text("일치").css("color", "green");
@@ -101,8 +101,10 @@ $(function () {
     $('form[name=editPwdfrm] #editPwd_pwd').keyup(function () {
         if (!isPassword($("#editPwd_pwd").val())) {
             $('.error_next_box').eq(0).text("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.").css("color", "red");
+            $('.pswdImg').eq(0).attr("src", "../images/m_icon_not_use.png");
         } else {
-            $('.error_next_box').eq(0).text("")
+            $('.error_next_box').eq(0).text("");
+       		$('.pswdImg').eq(0).attr("src", "../images/m_icon_safe.png");
         }
 
     })
@@ -110,7 +112,7 @@ $(function () {
 
     $('form[name=editPwdfrmDelivery] #editPwd_newPwd, form[name=editPwdfrmDelivery] #editPwd_newPwd2').keyup(function () {
 
-        if ($('#editPwd_newPwd') != "" || $('#editPwd_newPwd2') != "") {
+        if ($('#editPwd_newPwd').val() != "" || $('#editPwd_newPwd2').val() != "") {
             if ($('#editPwd_newPwd').val() == $('#editPwd_newPwd2').val()) {
                 $('.editPwd_box.int_pass').eq(1).css("border", "3px solid green")
                 $('.editPwd_box.int_pass').eq(2).css("border", "3px solid green")
@@ -141,8 +143,10 @@ $(function () {
     $('form[name=editPwdfrmDelivery] #editPwd_pwd').keyup(function () {
         if (!isPassword($("#editPwd_pwd").val())) {
             $('.error_next_box').eq(0).text("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.").css("color", "red");
+       		$('.pswdImg').eq(0).attr("src", "../images/m_icon_not_use.png");
         } else {
-            $('.error_next_box').eq(0).text("")
+            $('.error_next_box').eq(0).text("");
+            $('.pswdImg').eq(0).attr("src", "../images/m_icon_safe.png");
         }
 
     })
