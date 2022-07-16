@@ -40,7 +40,7 @@ public class KakaoAPI {
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=17794c6c3763c9ee2f66e9d03e0b9c5b"); 
             // http://<<<<<p-mp4.iptime.org:9095>>>>>/launer/user/kakaoLogin/requestToken
-            sb.append("&redirect_uri=http://localhost:9095/launer/user/kakaoLogin/requestToken");
+            sb.append("&redirect_uri=http://p-mp4.iptime.org:9095/launer/user/kakaoLogin/requestToken");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
