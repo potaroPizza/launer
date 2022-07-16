@@ -49,6 +49,7 @@ public interface UserDAO {
 	int insertBranchManager(UserVO userVo);
 	public List<UserVO> withdrawUsers();
 	int insertToday (Map<String,Object> map);
+	int kakaoRejoin (UserVO userVo);
 
 
 	/* 박권순 */

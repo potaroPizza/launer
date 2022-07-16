@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ez.launer.office.model.OfficeVO;
 import com.ez.launer.user.model.DriverAllVO;
 import com.ez.launer.user.model.SHA256Encryption;
+import com.ez.launer.user.model.SmsSender;
 import com.ez.launer.user.model.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class DeliveryJoinController {
     
     private final UserService userService;
     private final SHA256Encryption sha256;
+    private final SmsSender smsSender;
     
     @GetMapping("/join")
     public String register(Model model) {
@@ -100,7 +102,7 @@ public class DeliveryJoinController {
 				logger.info("인증번호 생성 체크, randomCode={}", randomCode);
 				
 				model.addAttribute("randomCode", randomCode);
-				//smsSender.certifySms(hp, randomCode);
+				smsSender.certifySms(hp, randomCode);
 			}
 		}
 		
