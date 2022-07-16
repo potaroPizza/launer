@@ -16,7 +16,7 @@
 juqery가 hicharts보다 위에 선언되어야함
 -->
 
-<style type="text/css">
+<!-- <style type="text/css">
 .sb-sidenav-footer {
 	position: absolute;
 	bottom: 0;
@@ -75,7 +75,7 @@ juqery가 hicharts보다 위에 선언되어야함
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
-</style>
+</style> -->
 
 <script type="text/javascript">
 	$(function () {

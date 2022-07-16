@@ -188,7 +188,7 @@
 								placeholder="우편번호 수정하기" readonly="readonly">
 							</span> <span class="error_next_box"></span>
 						</div>
-
+	
 						<div>
 							<h3 class="useredit_title">
 								<label for="address">주소</label>
@@ -292,7 +292,7 @@
 
 						<div>
 							<h3 class="useredit_title">
-								<label for="officeNo">지점</label>
+								<label for="officeNo">지점</label> <span>(${map['OFFICE_NAME'] })</span>
 							</h3>
 
 							<div class="officeBtnArea">
@@ -302,7 +302,7 @@
 							<input type="hidden" id="officeNo" name="officeNo" value="${map['OFFICE_NO']}"> <span
 								class="box int_office"
 								style="width: 75%; display: inline-block; background-color: #e9e9e9;">
-								<input type="text" id="office" name="office" class="int"
+								<input type="text" id="officeName" name="officeName" class="int"
 								value="${map['OFFICE_NAME'] }" readonly="readonly" disabled
 								style="background-color: #e9e9e9;">
 							</span> <span class="error_next_box"></span>
@@ -349,7 +349,7 @@
 							</button>
 						</div>
 
-						<div id="modal-wrap">
+						<div id="modal-wrap" class="modal">
 							<div class="office-modal">
 								<div class="modalhead">
 									<h2 class="head-title">Launer</h2>

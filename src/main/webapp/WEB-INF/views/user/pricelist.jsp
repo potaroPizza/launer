@@ -5,7 +5,6 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-	<link rel="stylesheet" href="<c:url value="/css/user/pricelist.css"/>"/>
 
 <script src="<c:url value="/js/pricelist.js"/>" type="text/javascript" text="javascript"></script>
 <div id="pricelist_wrap">
@@ -43,6 +42,15 @@
 								</div>
 							</div>
 							<strong>8,000원</strong>
+						</li>
+						<li class="priceInfobox">
+							<div id="priceInfobox_left">
+								<div class="priceName">
+									<label>명품 셔츠 / 남방</label>
+									<span>구매 가격 20만원 이상 제품</span>
+								</div>
+							</div>
+							<strong>10,000원</strong>
 						</li>
 					</ul>
 				</div>

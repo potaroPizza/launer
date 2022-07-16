@@ -236,6 +236,7 @@ $(function () {
 
 });
 
+
 $(function () {
 
     $("#officeBtn").click(function () {
@@ -270,9 +271,11 @@ $(function () {
     $(".officelist li a").click(function (e) {
         e.preventDefault();
         document.getElementById('officeNo').value = this.dataset.value;
+        document.getElementById('officeName').value=$(this).text();
 
         modalClose();
     })
+
 
     function modalClose() {
         $('form[name=deliveryeditfrm] #modal-wrap').fadeOut();
@@ -284,7 +287,12 @@ $(function () {
     };
 
 });
-
+/*modal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("modal")) {
+        modal.style.display = "none"
+    }
+});*/
 
 function coorSet(addr) {
     // 주소-좌표 변환 객체를 생성합니다

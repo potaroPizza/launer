@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+& {
+	width: 100%;
+	background: rgb(244, 244, 244);
+	display: flex;
+}
+
+.pricelist_subwrap {
+	width: 1000px;
+	margin: 120px auto 80px auto;
+}
+	
+	#pricelist_subwrap2{
+		display: flex;
+		flex-wrap: wrap;
+	    flex: 1 1 auto;
+	    margin: -12px;
+	}
+	#pricelist_menu{
+		max-width: 32%;
+		flex:0 0 100%;
+		padding: 12px;
+	}
+	#pricelist_menu h2 {
+	    font-size: 35px;
+	    color: #222;
+	    font-weight: bold;
+	}
+	
+	#pricelist_menu .pricelist_tab{
+		margin-top: 30px;
+	}
+	
+	.pricelist_tab li{
+		font-size: 25px;
+		text-decoration:none;
+		cursor: pointer; 
+		margin-bottom: 25px;
+	}
+	.pricelist_tab .on a{
+		color:#466391; 
+	}
+	
+	.pricelist_tab li a:hover {
+		color:#466391; 
+	}
+	
+	#pricelist_subwrap2 .price_detail{
+		max-width: 63%;
+		flex:0 0 100%;
+		padding: 12px;
+	}
+	#pricelist_subwrap2 .price_detail h3{
+		font-size: 20px;
+		margin-bottom: 20px;
+	}
+	#priceInfo .priceInfobox{
+		display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    margin-bottom: 15px;
+	    background: #fff;
+	    padding: 15px;
+	    border-radius: 10px;
+	}
+	
+	#priceInfobox_left .priceName label{
+		display: block;
+    	font-size: 15px;
+    	margin-bottom: 10px;
+	}
+	
+	#priceInfobox_left .priceName span{
+		display: block;
+    	font-size: 12px;
+    	color: #898989;
+	}
+	
+	#priceInfo .priceInfobox strong{
+		font-size: 16px;
+    	font-weight: 500;
+	}
+	
+	

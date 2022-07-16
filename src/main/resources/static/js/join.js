@@ -22,7 +22,7 @@ $(function(){
 			$("#pwd2").focus();
 			event.preventDefault();
 		}else if($("#hp").val().length<1){
-			alert("휴대전화번호를 입력하시고 중복확인/인증하셔야합니다");
+			alert("휴대전화번호를 입력하시고 중복확인/인증하셔야합니다.");
 			$("#hp").focus();
 			event.preventDefault();
 		}else if(!validate_hp($('#hp').val())){
@@ -63,6 +63,10 @@ $(function(){
 			}else if($('#chkDhp').val()!='Y'){
 				alert("휴대전화 중복확인/인증이 필요합니다.");
 				$("#btnChkDhp").focus();
+				event.preventDefault();
+			}else if($("#officeNo").val().length<1) {
+				alert("지점이 선택되지 않았습니다 지점선택 버튼을 클릭하시고 선호지점을 선택하시기 바랍니다.");
+				$("#officeNo").focus();
 				event.preventDefault();
 			}else if($("#accHolder").val().length<1) {
 				alert("계좌주 성명을 입력하세요.");
@@ -110,28 +114,41 @@ $(function(){
 			}
 		}
 	})
-	$('form[name=joinfrm] #accNum').keyup(function(){
+	$('form[name=joinfrm] #officeName').keyup(function(){
 		if(classNo === 2) {
-			if(!validate_accNum($("#accNum").val())){
-				$('.error_message_box').eq(3).text("계좌번호는 숫자만 입력 가능합니다").css("color","red");
+			if($('#officeName').val()==""){
+					$('.error_message_box').eq(3).text("지점이 선택되지 않았습니다 버튼 다시 클릭하시고 선호지점을 선택하세요").css("color","red");
 			}else{
 				$('.error_message_box').eq(3).text("")
 			}
 		}
 	})
+	$('form[name=joinfrm] #accNum').keyup(function(){
+		if(classNo === 2) {
+			if(!validate_accNum($("#accNum").val())){
+				$('.error_message_box').eq(4).text("계좌번호는 숫자만 입력 가능합니다").css("color","red");
+			}else{
+				$('.error_message_box').eq(4).text("")
+			}
+		}
+	})
 	$('form[name=joinfrm] #hp').keyup(function(){
-		if(classNo === 1) {
-			if(!validate_hp($("#hp").val())){
+		if(!validate_hp($("#hp").val())){
 				$('.error_message_box').eq(5).text("전화번호양식에 맞게 입력하세요").css("color","red");
+		}else if(classNo === 1) {
+			if($("#chkHp").val()==""){
+				$('.error_message_box').eq(5).text("휴대전화 중복확인/인증이 필요합니다").css("color","red");
 			}else{
 				$('.error_message_box').eq(5).text("")
 			}
 		}else if(classNo === 2) {
-			if(!validate_hp($("#hp").val())){
-				$('.error_message_box').eq(4).text("전화번호양식에 맞게 입력하세요").css("color","red");
+			if($("#chkDhp").val()==""){
+				$('.error_message_box').eq(5).text("휴대전화 중복확인/인증이 필요합니다").css("color","red");
 			}else{
-				$('.error_message_box').eq(4).text("")
+				$('.error_message_box').eq(5).text("")
 			}
+		}else{
+			$('.error_message_box').eq(5).text("")
 		}
 	})
 	
@@ -249,7 +266,6 @@ function coorSet(addr) {
 };
 //배달기사 지점선택 모달
 $(function () {
-
     $("#officeBtn").click(function () {
         $('form[name=joinfrm] #modal-wrap').fadeIn(500);
         $('form[name=joinfrm] #modal-wrap').css("display", "flex").animate({
@@ -271,14 +287,10 @@ $(function () {
         modalClose();
     });
 
-    /*$(window).on('click', function() {
-        modalClose();
-    });*/
-
     $(".officelist li a").click(function (e) {
         e.preventDefault();
         document.getElementById('officeNo').value = this.dataset.value;
-
+		document.getElementById('officeName').value=$(this).text();
         modalClose();
     })
 
@@ -289,6 +301,11 @@ $(function () {
         }, 300, function () {
             $('form[name=joinfrm] #modal-wrap').css("display", "none");
         });
+        if($('#officeName').val()==""){
+				$('.error_message_box').eq(3).text("지점이 선택되지 않았습니다 버튼 다시 클릭하시고 선호지점을 선택하세요").css("color","red");
+		}else{
+			$('.error_message_box').eq(3).text("")
+		}
     };
 
 });
