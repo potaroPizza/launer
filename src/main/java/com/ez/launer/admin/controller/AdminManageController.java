@@ -49,6 +49,7 @@ public class AdminManageController {
 	private final DeliveryDriverService deliveryService;
 	private final OfficeService officeService;
 	private final SHA256Encryption sha256;
+	
 
 	@RequestMapping("/stores")
 	public String stores(Model model) {
@@ -276,5 +277,36 @@ public class AdminManageController {
 
 		return resMap;
 	}
+	
+    
+    @RequestMapping("/storesDetail")
+    public String storesDetail() {
+        logger.info("storesDetail 페이지");
+        
+        return "/admin/storesDetail";
+    }
+    
+    
+	@PostMapping("/insertOffice")
+	public String insertOffice(@ModelAttribute OfficeVO officeVo, Model model) {
+    	logger.info("지점 등록 officeVo={}", officeVo);
+    	
+    	int cnt = officeService.insertOffice(officeVo);
+    	
+    	String msg = "지점 등록 실패", url="/admin/stores";
+    	
+    	if(cnt>0) {
+    		msg ="지점 등록 성공";
+    	}
+    	
+    	logger.info("cnt={}",cnt);
+    	
+    	model.addAttribute("url",url);
+    	model.addAttribute("msg",msg);
+ 
+	 return "/common/message";
+	 
+	} 
 
+    
 }

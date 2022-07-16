@@ -2,7 +2,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/layouts/admin" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2105ed82df9c00048785f53fbd42044d&libraries=services"></script>
 <script type="text/javascript">
+
 
 	function deleteOffice(no){
 		if (!confirm("지점을 삭제 하시겠습니까?")){
@@ -25,6 +29,89 @@
 			}
 		});
 	}
+	
+	
+	function execZipcode() {
+	    new daum.Postcode({
+	        oncomplete: function (data) {
+	            var addr = '';
+				
+	            console.log(data)
+	            if (data.userSelectedType === 'R') { // 도로명 주소
+	                addr = data.roadAddress;
+	            } else { // 지번주소
+	                addr = data.jibunAddress;
+	            }
+
+	            document.getElementById("address").value = addr;
+	            document.getElementById("address").focus();
+
+	            coorSet(addr);
+	        }
+
+	    }).open();
+	}
+	
+	function coorSet(addr) {
+	    // 주소-좌표 변환 객체를 생성합니다
+	    var geocoder = new kakao.maps.services.Geocoder();
+	    // 주소로 좌표를 검색합니다
+	    geocoder.addressSearch(addr, function (result, status) {
+	        // 정상적으로 검색이 완료됐으면
+	        if (status === kakao.maps.services.Status.OK) {
+	            //document.querySelector("input[name=lonX]").value = result[0].y;
+	            //document.querySelector("input[name=latY]").value = result[0].x;
+	            document.querySelector("input[name=latY]").value = result[0].y;
+	            document.querySelector("input[name=lonX]").value = result[0].x;
+	            
+	            markerSet(result[0].y,result[0].x);
+	        }
+	    });
+	}
+	
+    function markerSet(x, y) {
+        
+        let mapContainer = document.getElementById("map"), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(x, y), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        let map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 마커가 표시될 위치입니다
+        let markerPosition = new kakao.maps.LatLng(x, y);
+
+        // 마커를 생성합니다
+        let marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+    }
+    
+    function showPopUp() {
+    	
+    	//창 크기 지정
+    	var width = 500;
+    	var height = 500;
+    	
+    	//pc화면기준 가운데 정렬
+    	var left = (window.screen.width / 2) - (width/2);
+    	var top = (window.screen.height / 4);
+    	
+        	//윈도우 속성 지정
+    	var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+    	
+        //연결하고싶은url
+        const url = "/admin/storesDetail/storesNo=${map['NO']}";
+
+    	//등록된 url 및 window 속성 기준으로 팝업창을 연다.
+    	window.open(url, "hello popup", windowStatus);
+    }
+   // 출처: https://seeminglyjs.tistory.com/359 [Seemingly Online:티스토리]
+    
 </script>
   
 <t:head>
@@ -52,7 +139,7 @@
 							<col style="width: 15%">
 							<col style="width: 36%">
 							<col style="width: 19%">
-							<col style="width: 12%">
+							<%-- <col style="width: 12%"> --%>
 							<col style="width: 12%">
 							
 						</colgroup>
@@ -62,7 +149,7 @@
 								<th>지점명</th>
 								<th>지점주소</th>
 								<th>지점관리자</th>
-								<th>상세정보</th>
+								<%-- <th>상세정보</th> --%>
 								<th>비고</th>
 							</tr>
 						</thead>
@@ -75,7 +162,9 @@
 									<td>${map['OFFICE_NAME']}</td>
 									<td>${map['ADDRESS']}</td>
 									<td>${map['USER_NAME']}</td>
-									<td><a href="#">지점정보</a></td>
+									<%-- <td><a href="<c:url value="/admin/storesDetail?storesNo=${map['NO']}"/>"
+											 onclick="">지점정보</a>
+									</td> --%>
 									<td><input type="button" value="삭제" onclick="deleteOffice(${map['NO']})"></td>
 								</tr>
 						
@@ -94,28 +183,24 @@
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
-											<form name="officeAdd" id="officeAdd">
+											<form name="officeAdd" id="officeAdd" action="<c:url value='/admin/insertOffice'/>" method="POST">
 												<div class="officeName">
-													<label for="name">지점명</label>
-													<input type="text"
-														name="name" id="name" style="ime-mode: active">
+													<label for="officeName">지점명</label>
+													<input type="text" name="officeName" id="officeName" style="ime-mode: active">
 												</div>
 												<div class="officeAddress">
-													<label for="address">지점주소</label> <input type="text"
-														name="address" id="address" style="ime-mode: active">
+													<label for="address">지점주소</label>
+													<input type="text" name="address" id="address" style="width:80%"
+															value="${address}" onclick="execZipcode()" readonly="readonly">
+													<input type="hidden" name="latY" value="${latY}">
+		    										<input type="hidden" name="lonX" value="${lonX}">
+		    										<div id="map" style="width:400px;height:300px;"></div>
+		    										
 												</div>
-												<div class="latitude"><!-- LAT_Y -->
-													<label for="latitude">위도</label> <input type="text"
-														name="latitude" id="latitude" style="ime-mode: active">
-												</div>
-												<div class="longitude"><!-- LON_X -->
-													<label for="longitude">경도</label> <input type="text"
-														name="longitude" id="longitude" style="ime-mode: active">
-												</div>
-																							
+												
 												<div align="center">
 													<input type="button" data-bs-dismiss="modal" value="닫기">
-													<input type="button" id="wr_submit" value="추가">
+													<input type="submit" id="office_submit" value="추가">
 												</div>
 											</form>
 										</div>
@@ -124,7 +209,8 @@
 							</div>
 							<!-- Modal 끝 -->
 									
-							<input type="button" data-bs-toggle="modal"	data-bs-target="#officeAdd" id="officeAdd" value="지점등록">
+							<input type="button" onclick=" setTimeout(() => {markerSet(33.450701, 126.570667);}, 300);" 
+								data-bs-toggle="modal"	data-bs-target="#officeAdd" id="officeAdd" value="지점등록">
 							<!-- 끝 -->
 					</div>
 				</div>

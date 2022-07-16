@@ -46,4 +46,18 @@
 		delete from office where no=#{no}
 	</delete>
 	
+	<!-- 지점 등록 -->
+	<insert id="insertOffice" parameterType="officeVo">
+		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+			select office_seq.nextval from dual
+		</selectKey>
+		insert into office(no,office_name,address,lon_x,lat_y)
+		values(#{no},#{officeName},#{address},#{lonX},#{latY})
+	</insert>
+	
+	<!-- 지점명 중복 확인 -->
+	<select id="chkEmail" parameterType="String"  resultType="int">
+		select count(*) from office where office_name=#{officeName}
+	</select>
+	
 </mapper>
