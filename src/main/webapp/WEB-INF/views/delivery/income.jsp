@@ -291,7 +291,7 @@
             <div class="tab-box big-font-size">
                 <div class="tab on" onclick="tabClick(this)">수거<div class="action-box"></div></div>
                 <div class="tab" onclick="tabClick(this)">배송<div class="action-box"></div></div>
-                <div class="tab" onclick="tabClick(this)">전체<div class="action-box"></div></div>
+<%--                <div class="tab" onclick="tabClick(this)">전체<div class="action-box"></div></div>--%>
             </div>
             <div class="list-scroll-wrap">
                 <div class="list-part" id="list-part">
