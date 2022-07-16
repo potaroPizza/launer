@@ -296,6 +296,10 @@ public class UserServiceImpl implements UserService{
 	public int insertToday(Map<String, Object> map) {
 		return userDao.insertToday(map);
 	}
+	@Override
+	public int kakaoRejoin(UserVO userVo) {
+		return userDao.kakaoRejoin(userVo);
+	}
 
 
 
