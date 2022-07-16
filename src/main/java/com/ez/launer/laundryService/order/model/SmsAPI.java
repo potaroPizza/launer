@@ -19,8 +19,8 @@ public class SmsAPI {
 	        Message coolsms = new Message(api_key, api_secret);
 	        HashMap<String, String> params = new HashMap<String, String>();
 
-	        params.put("to", "01049012186");
-	        params.put("from", hp);
+	        params.put("to", hp);
+	        params.put("from", "01049012186");
 	        params.put("type", "SMS");
 	        params.put("text", "[러너] "+" 주문번호: "+orderNo+", "+name+"님, "+totalPrice+"원 결제완료되었습니다."+" 적립포인트: "+point+" p");
 	        params.put("app_version", "test app 1.2");
