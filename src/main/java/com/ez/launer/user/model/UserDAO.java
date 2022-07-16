@@ -53,6 +53,7 @@ public interface UserDAO {
 
 	/* 박권순 */
 	int insertSnsUser(UserVO userVO);
+	int socialReJoin(int no);
 	
 
 }

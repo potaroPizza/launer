@@ -264,6 +264,12 @@ public class UserServiceImpl implements UserService{
 	public int insertSnsUser(UserVO userVO) {
 		return userDao.insertSnsUser(userVO);
 	}
+
+	@Override
+	public int socialReJoin(int no) {
+		return userDao.socialReJoin(no);
+	}
+
 	@Override
 	public List<UserVO> selectUser(UserSearchVO userSearchVo) {
 		return userDao.selectUser(userSearchVo);
@@ -290,11 +296,11 @@ public class UserServiceImpl implements UserService{
 	public int insertToday(Map<String, Object> map) {
 		return userDao.insertToday(map);
 	}
-	
-	
-	
 
-	
+
+
+
+
 
 }
 
