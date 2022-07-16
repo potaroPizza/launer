@@ -220,7 +220,11 @@
 		insert into today(no,users_no,access_date)
 		values(today_seq.nextval,#{usersNo},#{date})
 	</insert>
-	
+	<update id="kakaoRejoin" parameterType ="userVo">
+	  update users 
+      set out_date= null
+      where no=#{no}
+	</update>
 
 
 
