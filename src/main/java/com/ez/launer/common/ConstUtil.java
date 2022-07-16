@@ -12,6 +12,8 @@ public interface ConstUtil {
 
 //	String FILE_UPLOAD_TYPE = "deploy";	// 배포시
 
+//	String FILE_UPLOAD_TYPE = "deploy";	// 배포시
+
 	
 	//자료실 - 파일 저장 경로
 //	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\git_ws\\launer\\src\\main\\resources\\static\\upload\\";	//정인 집
