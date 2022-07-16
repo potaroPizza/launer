@@ -26,7 +26,7 @@
 	 	 }
 
 
-	 	 //주문하기 클릭했을 때
+	 	 //수거신청 클릭했을 때
         $('#orderBtn').click(function () {
             if ($("input[name=itemName]").length < 1) {
                 alert("상품을 선택해주세요");
