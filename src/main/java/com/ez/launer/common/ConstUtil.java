@@ -20,7 +20,7 @@ public interface ConstUtil {
 //	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\sung_ws\\launer\\src\\main\\resources\\static\\upload\\";
 //	String TEST_FILE_PATH = "/Library/IntelliJ Folder/project/src/main/resources/static/upload/";	//for Mac
 //  String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\proj_ws\\launer\\src\\main\\resources\\static\\upload\\";	//한서현
-	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\sung_ws\\launer\\src\\main\\resources\\static\\upload\\";
+	String TEST_FILE_PATH = "C:\\lecture\\workspace_list\\git_ws\\launer\\src\\main\\resources\\static\\upload\\";
 	String FILE_UPLOAD_PATH = "pd_upload";
 //	String FILE_UPLOAD_PATH_TEST = "C:\\lecture\\workspace_list\\spboot_ws\\springherb\\src\\main\\resources\\static\\pds_upload";
 //	String FILE_UPLOAD_PATH_TEST = TEST_FILE_PATH + FILE_UPLOAD_PATH;	//Mac
