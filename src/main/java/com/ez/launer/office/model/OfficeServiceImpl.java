@@ -57,5 +57,11 @@ public class OfficeServiceImpl implements OfficeService{
 	public List<Map<String, Object>> selectOfficeInfo() {
 		return officeDAO.selectOfficeInfo();
 	}
+	
+	//지점 등록
+	@Override
+	public int insertOffice(OfficeVO vo) {
+		return officeDAO.insertOffice(vo);
+	}
 		
 }
