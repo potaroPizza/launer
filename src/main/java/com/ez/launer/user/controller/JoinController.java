@@ -163,7 +163,7 @@ public class JoinController {
 				logger.info("인증번호 생성 체크, randomCode={}", randomCode);
 				
 				model.addAttribute("randomCode", randomCode);
-				//smsSender.certifySms(hp, randomCode);
+				smsSender.certifySms(hp, randomCode);
 			}
 		}
 		
