@@ -8,9 +8,7 @@ public interface ConstUtil {
 	int BLOCKSIZE = 10;
 	
 	//파일 업로드 관련 상수
-	//String FILE_UPLOAD_TYPE = "test";		// 테스트시
-
-	String FILE_UPLOAD_TYPE = "deploy";	// 배포시
+	String FILE_UPLOAD_TYPE = "test";		// 테스트시
 
 //	String FILE_UPLOAD_TYPE = "deploy";	// 배포시
 
