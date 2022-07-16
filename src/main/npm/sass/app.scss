@@ -156,10 +156,16 @@ a {color: #000; text-decoration: none;}
     @import "./partials/admin/side-bar.scss";
     @import "./partials/admin/footer.scss";
     @import "./partials/admin/styles.scss";
+    @import "./partials/admin/orders.scss";
+    @import "./partials/admin/orderDetail.scss";
 
     .admin-index{
 		@import "./partials/admin/index.scss";
 	}
+	
+//	.admin-login{
+//		@import "./partials/admin/adminLogin.scss";
+//	}
 
 
   form[name=frmList] {
