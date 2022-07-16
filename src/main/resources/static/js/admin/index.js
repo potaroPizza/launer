@@ -40,7 +40,7 @@ $('#insertBtn').click(function(){
 		*/
 			htmls += '<div class="row" class="contentRow" style="padding: 10px;">';
 			htmls += '	<div class="col-xl-2"></div>';
-			htmls += '	<div class="col-xl-8" style="height: 200px; padding: 10px; border: 1px solid #333;">';
+			htmls += '	<div class="col-xl-8" style="height: 200px; padding: 10px; /*border: 1px solid #333;*/">';
 			htmls += '		<input type="hidden" class="noticeNo" name="noticeNo" value="' + no +'"/>';
 			htmls += '		<label for="exampleFormControlTextarea1" class="form-label">';
 			htmls += regdate + ' &nbsp<i class="fa-solid fa-bell"></i></label>';
