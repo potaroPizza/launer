@@ -150,16 +150,16 @@
                 
                     
                     var tagAdd = "<div class ='testForm'><input type = 'hidden' name = 'no' class ='tagInputAdd' value=" + vo.no + ">"
-                        + "<input type ='text' name = 'itemName' title="+vo.categoryName+" class ='tagAddDiv' readonly value=" + longName + ">"
-                        + "<input type = 'text' name = 'itemPrice' class ='tagAddDiv' readonly value=" + vo.price + ">"
-                        + "<select class='mulit-select' name='order-num' id='order-num'>"
-                        + "<c:forEach var ='cnt' begin ='1' end='10' step='1'>"
-                        + "<option >${cnt}</option>"
-                        + "</c:forEach>"
-                        + "</select>"
-                        + "<input type ='text' name='priceByQty' class = 'priceByQty' readonly style='border:none' value=" + vo.price + " >"
-                        + "<div id ='xWrap' style='display:inline-block'><a href=# onclick='event.preventDefault()' id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a></div>"
-                        + "</div>";
+                    + "<input type ='text' name = 'itemName' title="+vo.categoryName+" class ='tagAddDiv' readonly value='" + longName + "'>"
+                    + "<input type = 'text' name = 'itemPrice' class ='tagAddDiv' readonly value=" + vo.price + ">"
+                    + "<select class='mulit-select' name='order-num' id='order-num'>"
+                    + "<c:forEach var ='cnt' begin ='1' end='10' step='1'>"
+                    + "<option >${cnt}</option>"
+                    + "</c:forEach>"
+                    + "</select>"
+                    + "<input type ='text' name='priceByQty' class = 'priceByQty' readonly style='border:none' value=" + vo.price + " >"
+                    + "<div id ='xWrap' style='display:inline-block'><a href=# onclick='event.preventDefault()' id='delBtn'><i class='fa-solid fa-xmark' id ='XDel'></i></a></div>"
+                    + "</div>";
                     $(tagAdd).appendTo(".order-item-Div");
 
                     const totalPriceMake = new Array();
