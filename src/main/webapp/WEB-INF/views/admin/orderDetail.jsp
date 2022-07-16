@@ -18,46 +18,10 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
-<script type="text/javascript">
-	
-</script>
 
 <t:head>
-<style type="text/css">
-.sb-sidenav-footer {
-	position: absolute;
-	bottom: 0;
-	width: 225px;
-}
-
-#orders th, #orders td {
-	text-align: center;
-}
-
-        #detail {}
-        /* #detail h2 span.name {font-weight: bold; color: #000;} */
-        #detail table {margin: 10px 0 30px 0;}
-        #detail table tr td {height: 20px; padding: 5px; border-bottom: 1px solid #e6e6e6; font-size: 15px;}
-        /* #detail .h2_2 {font-size: 14px; font-weight: bold; color:#85b8cf; text-indent: 10px;} */
-        #detail table.view_2 {border-top: 3px solid #85b8cf; border-bottom: 3px solid #e6e6e6; width: 80%; margin: auto;}
-        #detail table.view_2 td.title {background: #f3fcff; text-align: center; font-weight: bold; font-size: 20px;}
-        #detail span.close {display: block; background: #eaeaea; text-align: center; font-weight: bold; cursor: pointer; padding: 5px;}
-
-#pickUp {
-	margin-top: 10px;
-	float: right;
-}
-div.pickUp{
-	margin: auto;
-	height: 45px;
-	width: 80%;
-}
-#detail {
-	line-height: 1.5;
-}
-</style>
-
 </t:head>
+
 <t:wrapper>
 
 	<main>
