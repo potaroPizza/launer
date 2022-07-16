@@ -71,7 +71,7 @@ const BoardPage = () => {
            data: data,
            success: (res) => {
                if(res.SUCCESS) {
-                   console.log(res.jsonData);
+                   console.log(res);
                    setContentData(res.jsonData);
                    setPagingInfo(res.pagingInfo);
                    pagingSet(res.pagingInfo);
@@ -83,7 +83,9 @@ const BoardPage = () => {
 
     const currentPageEvent = useCallback((e) => {
         console.log(`받아온 e=${e}`);
-        if(pagingInfo.firstPage-1 < e && e < pagingInfo.totalPage+1) setCurrentPage(e);
+        console.log(`pagingInfo.firstPage=${pagingInfo.firstPage-1}`);
+        console.log(`pagingInfo.totalPage=${pagingInfo.totalPage+1}`);
+        if(0 < e && e < pagingInfo.totalPage+1) setCurrentPage(e);
     });
 
     const pagingSet = useCallback((jSonpagingInfo) => {

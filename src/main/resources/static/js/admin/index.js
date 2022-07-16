@@ -1,6 +1,6 @@
 $(function(){
-	//const contextPath = "http://localhost:9095/launer";
-	const contextPath = "http://p-mp4.iptime.org:9095/launer";
+	const contextPath = "http://localhost:9095/launer";
+	//const contextPath = "http://p-mp4.iptime.org:9095/launer";
 	
 	$('#insertBtn').click(function(){
 		//alert(contextPath);

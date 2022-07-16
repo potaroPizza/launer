@@ -28,6 +28,8 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/user/findPwd/**")
 				.excludePathPatterns("/user/pricelist/**")
 				.excludePathPatterns("/user/chkAddress/**")
+				.excludePathPatterns("/user/agreement/**")
+				.excludePathPatterns("/user/privacy/**")
 				.excludePathPatterns("/laundryService/order/guide");
 
 		registry.addInterceptor(new DeliveryInterceptor())
@@ -44,11 +46,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.addPathPatterns("/mypage/signout")
 				.addPathPatterns("/user/join/**", "/user/login/**")
 				.addPathPatterns("/user/findId/**", "/user/findPwd/**")
-				.addPathPatterns("/user/checkEmail/**", "/user/checkHp/**")
 				.addPathPatterns("/user/kakaoLogin/**")
-				.addPathPatterns("/user/checkEmail/**")
-				.addPathPatterns("/user/checkHp/**")
-				.addPathPatterns("/user/checkDhp/**")
 				.addPathPatterns("/user/findPwd/**")
 				.addPathPatterns("/user/chkAddress/**")
 				.addPathPatterns("/delivery/join/**")
