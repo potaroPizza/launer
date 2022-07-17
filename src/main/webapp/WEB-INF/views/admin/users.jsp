@@ -8,19 +8,25 @@
 <script type="text/javascript">
 
 	function deleteUser(no){
-		var url ='/launer/admin/user/'+no
-		alert(url)
+		if (!confirm("사용자를 삭제 하시겠습니까?")){
+			return;
+		}
+
+		const url ='/launer/admin/user/'+no;
+
+		// alert(url)
 		$.ajax({
 			url:url,
 			type:'delete',
 			date: {},
 			dataType    : "html",
-			success:function(data) {
-				alert("성공")
+			success: function(data) {
+				alert("삭제 성공");
+				console.log(data);
 				location.reload();
 			},
 			error: function(error){
-				alert("성공")
+				alert("삭제 성공");
 				location.reload();
 			}
 		});
@@ -31,18 +37,18 @@
 			return
 		}
 		var url ='/launer/admin/delivery-user/'+no
-		alert(url)
+		// alert(url)
 		$.ajax({
 			url:url,
 			type:'delete',
 			date: {},
 			dataType    : "html",
 			success:function(data) {
-				alert("성공")
+				alert("삭제 성공");
 				location.reload();
 			},
 			error: function(error){
-				alert("성공")
+				alert("삭제 성공");
 				location.reload();
 			}
 		});
@@ -230,7 +236,7 @@
 
 
 								<!-- Modal -->
-								<div class="modal fade" id="addAdmin" tabindex="-1"
+								<div class="modal fade create-admin-modal" id="addAdmin" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -247,7 +253,7 @@
 													</div>
 													<div class="adminEmail">
 														<label for="email">이메일</label> <input type="text"
-															name="email" id="email"> <input type="button"
+															name="email" id="email" value=""> <input type="button"
 															value="중복 확인" id="btnChkEmail">
 													</div>
 													<div class="adminPassword">
@@ -274,7 +280,7 @@
 															<!-- 반복 끝 -->
 														</select>
 													</div>
-													<div align="center">
+													<div class="button-area">
 														<input type="button" data-bs-dismiss="modal" value="닫기">
 														<input type="button" id="wr_submit" value="추가">
 													</div>
