@@ -26,7 +26,7 @@ public class DmailSender {
 						+"--------------------------------------------------------------------\n"
 						+"항상 열심히 노력해 주셔서 감사합니다! 오늘도 화이팅!\n"
 						+ "(주)런드리어벤져스";
-		String sender = "wjddls100472@naver.com"; 
+		String sender = "testlauner@naver.com"; 
 		
 		try {
 			MimeMessage msg = mailSender.createMimeMessage();
