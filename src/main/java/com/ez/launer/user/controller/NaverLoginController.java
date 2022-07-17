@@ -43,12 +43,12 @@ public class NaverLoginController {
 
 
     /*
-    * oAuth2.0 에 접근? 하기 위한 절차는
-    * [1] 인가코드 발급 (프론트단에서 받아옴)
-    * [2] 인가코드를 토대로 액세스토큰을 발급(이건 백엔드)
-    * [3] 액세스 토큰을 활용해 사용자 정보를 json형태로 받는다
-    * 몰루
-    * */
+     * oAuth2.0 에 접근? 하기 위한 절차는
+     * [1] 인가코드 발급 (프론트단에서 받아옴)
+     * [2] 인가코드를 토대로 액세스토큰을 발급(이건 백엔드)
+     * [3] 액세스 토큰을 활용해 사용자 정보를 json형태로 받는다
+     * 몰루
+     * */
 
     //[2]인가코드를 바탕으로 액세스 토큰을 발급받는다.
     private String getAccessToken(String code, String state) throws JsonProcessingException {
@@ -117,7 +117,6 @@ public class NaverLoginController {
     }
 
 
-
     @RequestMapping("/auth")
     public String authNaver(@RequestParam String code, @RequestParam String state,
                             HttpSession session, Model model, HttpServletRequest request,
@@ -134,19 +133,18 @@ public class NaverLoginController {
         String id = json.get("id").asText();
         String name = json.get("name").asText();
         String email = json.get("email").asText();
-        String mobile = json.get("mobile").asText();
+        String mobile = json.get("mobile").asText().replace("-", "");
         logger.info("id={}, name={}, email={}, mobile={}", id, name, email, mobile);
-
 
 
         //db존재여부 check
         int count = userService.accIsExist(email);
-        logger.info("count(*) = {}",count);
+        logger.info("count(*) = {}", count);
 
         UserVO userVO = new UserVO();
         String socialInfo = "";
 
-        String url ="/user/login", msg ="로그인처리 실패";
+        String url = "/user/login", msg = "로그인처리 실패";
 
 
         //현재 버그
@@ -156,19 +154,25 @@ public class NaverLoginController {
         //kakao 계정이 회원가입된 상태 aa@aa.com
         //naver로 회원가입 및 로그인을 하려고함
         //naver sns관련 로직처리가 아닌 기존 db에 있는 계정(kakao)로 로그인을 처리함
-        if(count > 0) { //존재하면 social_login_host 받아서 model 저장
+        if (count > 0) { //존재하면 social_login_host 받아서 model 저장
             userVO = userService.selectByEmail(email);
-//            logger.info("socialInfo={}",socialInfo);
-            msg =userVO.getSocialLoginHost() + "로 로그인되었습니다";
 
+            if (userVO.getOutDate() != null) {
+                logger.info("탈퇴 소셜회원");
+                logger.info("소셜회원 재가입 결과, cnt = {}", userService.socialReJoin(userVO.getNo()));
+
+                msg = userVO.getName() + "님 재가입되었습니다.";
+            } else {
+                msg = userVO.getSocialLoginHost() + "로 로그인되었습니다";
+            }
 
             //리턴 페이지 관련 로직//
             //리턴 페이지 관련 로직//
             Cookie[] cookies = request.getCookies();
             int returnURLChk = 0;
             String returnURL = "";
-            for(Cookie cookie : cookies) {
-                if(cookie.getName().equals("tempURL")) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("tempURL")) {
                     returnURLChk++;
                     returnURL = cookie.getValue();
                     break;
@@ -181,14 +185,14 @@ public class NaverLoginController {
             response.addCookie(myCookie);
 
 
-            if(returnURLChk > 0) {
+            if (returnURLChk > 0) {
                 url = returnURL;
-            }else {
-                url="/";
+            } else {
+                url = "/";
             }
             //리턴 페이지 관련 로직//
             //리턴 페이지 관련 로직//
-        }else {
+        } else {
             // 존재 X => 회원정보 insert
             userVO.setName(name);
             userVO.setEmail(email);
@@ -201,14 +205,14 @@ public class NaverLoginController {
             int cnt = userService.insertSnsUser(userVO);
 
             //users_address insert
-            UserVO vo= userService.selectByEmail(email);
+            userVO = userService.selectByEmail(email);
             UserAddressVO addressvo = new UserAddressVO();
-            addressvo.setUsersNo(vo.getNo());
+            addressvo.setUsersNo(userVO.getNo());
 
             int addressCnt = userService.insertAddressOnlyPart(addressvo);
-            logger.info("userAddress result ={}",addressCnt);
+            logger.info("userAddress result ={}", addressCnt);
 
-            logger.info("네이버 회원가입결과={}",cnt);
+            logger.info("네이버 회원가입결과={}", cnt);
             url = "/";
             msg = name + "님, 회원가입을 축하드립니다";
         } //if
@@ -217,12 +221,14 @@ public class NaverLoginController {
         //session 저장
         session.setAttribute("no", userVO.getNo());
         session.setAttribute("email", userVO.getEmail());
-        session.setAttribute("access_Token",accessToken); //로그아웃때 필요한 accessToken
+        session.setAttribute("access_Token", accessToken); //로그아웃때 필요한 accessToken
         session.setAttribute("classNo", String.valueOf(userVO.getUserCode()));
 
+        logger.info("access_Token={}", accessToken);
 
-        model.addAttribute("msg",msg);
-        model.addAttribute("url",url);
+
+        model.addAttribute("msg", msg);
+        model.addAttribute("url", url);
 
         return "/common/message";
     }

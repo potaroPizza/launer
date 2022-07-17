@@ -69,4 +69,5 @@ public interface UserService {
 
 	/* 박권순 */
 	int insertSnsUser(UserVO userVO);
+	int socialReJoin(int no);
 }

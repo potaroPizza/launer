@@ -1,5 +1,10 @@
 package com.ez.launer.mypage.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -408,48 +413,58 @@ public class MypageController {
 		return "/common/message";
 	}
 	@PostMapping("/withdrawSocial")
-	public String userdeleteSocial_post(
+	public String userdeleteSocial_post(@RequestParam String socialLoginHost,
 			HttpSession session, HttpServletResponse response,
 			Model model) {
 		int no=(int)session.getAttribute("no");
-		
-		String msg="",url="";
-		int cnt =0;
-		
-		//카카오 회원탈퇴
+		logger.info("소셜계정 회원탈퇴, socialLoginHost={}", socialLoginHost);
+
 		String access_Token = (String)session.getAttribute("access_Token");
 		logger.info("access_Token={}",access_Token);
-		
-		if(access_Token!=null) {
-			
-			cnt = userService.deleteUser(no);
-			kakaoApi.unlink(access_Token);
-			logger.info("카카오 회원탈퇴완료");
-			msg ="회원탈퇴 처리가 되었습니다.";
-			url ="/mypage/signout";
-			
-			session.removeAttribute("no");
-			session.removeAttribute("access_Token");
-			session.removeAttribute("email");
-		}else {
-			String email=(String)session.getAttribute("email");
-			logger.info("회원 탈퇴 처리, 파라미터 no={}",no);
+
+		String msg="",url="";
+		int cnt =0;
+
+		if(socialLoginHost.equals("KAKAO")) {		//카카오일 경우
+			if(access_Token!=null) {
+				cnt = userService.deleteUser(no);
+				kakaoApi.unlink(access_Token);
+				logger.info("카카오 회원탈퇴완료");
+				msg ="회원탈퇴 처리가 되었습니다.";
+				url ="/mypage/signout";
+
+				session.invalidate();
+			}else {
+				String email=(String)session.getAttribute("email");
+				logger.info("회원 탈퇴 처리, 파라미터 no={}",no);
 
 				cnt=userService.deleteUser(no);
 				if(cnt>0) {
 					msg="회원탈퇴 처리가 되었습니다.";
 					url="/mypage/signout";
-					
+
 					Cookie ck = new Cookie("chkUseremail", email);
-					ck.setPath("/"); 
+					ck.setPath("/");
 					ck.setMaxAge(0);
 					response.addCookie(ck);
 					session.invalidate();
-					
+
 				}else {
-					msg="회원탈퇴 실패";				
+					msg="회원탈퇴 실패";
 				}
+			}
+		}else if(socialLoginHost.equals("NAVER")) {
+			naverOut(access_Token);
+
+			cnt = userService.deleteUser(no);
+			naverOut(access_Token);
+			logger.info("네이버 회원탈퇴완료");
+			msg ="회원탈퇴 처리가 되었습니다.";
+			url ="/mypage/signout";
+
+			session.invalidate();
 		}
+
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
@@ -573,5 +588,40 @@ public class MypageController {
 		map.put("SUCCESS", res);
 		
 		return map;
+	}
+
+
+
+
+
+
+
+
+	//인생은 운빨~
+	//인생은 운빨~
+	//인생은 운빨~
+	public void naverOut(String access_Token) {
+		String reqURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=sA1wXjzUVJ_q15yX5Z3k" +
+				"&client_secret=LzHF30VRtz&access_token=" + access_Token + "&service_provider=NAVER";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String result = "";
+			String line = "";
+
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+			System.out.println(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

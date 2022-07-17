@@ -264,6 +264,12 @@ public class UserServiceImpl implements UserService{
 	public int insertSnsUser(UserVO userVO) {
 		return userDao.insertSnsUser(userVO);
 	}
+
+	@Override
+	public int socialReJoin(int no) {
+		return userDao.socialReJoin(no);
+	}
+
 	@Override
 	public List<UserVO> selectUser(UserSearchVO userSearchVo) {
 		return userDao.selectUser(userSearchVo);
@@ -294,11 +300,11 @@ public class UserServiceImpl implements UserService{
 	public int kakaoRejoin(UserVO userVo) {
 		return userDao.kakaoRejoin(userVo);
 	}
-	
-	
-	
 
-	
+
+
+
+
 
 }
 
