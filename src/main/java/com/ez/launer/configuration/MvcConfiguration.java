@@ -51,8 +51,8 @@ public class MvcConfiguration implements WebMvcConfigurer{
 				.addPathPatterns("/user/chkAddress/**")
 				.addPathPatterns("/delivery/join/**")
 				.addPathPatterns("/delivery/checkDmail/**")
-				.addPathPatterns("/delivery/checkDhp/**")
-				.addPathPatterns("/admin/adminLogin");
+				.addPathPatterns("/admin/adminLogin")
+				.excludePathPatterns("/delivery/checkDhp/**");
 
 
 		/*registry.addInterceptor(new LoginInterceptor())
