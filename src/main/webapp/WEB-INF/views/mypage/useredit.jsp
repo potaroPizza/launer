@@ -61,11 +61,15 @@
 						<!-- hp -->
 						<div>
 							<h3 class="useredit_title">
-								<label for="phoneNo">휴대전화</label>
+								<label for="phoneNo">휴대전화 <input type="button"
+									 id="btnChkHp" value="수정하기"
+									name="btnChkHp"></label>
 							</h3>
-							<span class="box int_hp" style="background-color: #e9e9e9;"> <input type="tel" id="hp" style="background-color: #e9e9e9;"
-								name="hp" class="int" value="${map['HP']}" maxlength="11" readonly="readonly" 
+							<span class="box int_hp"> 
+							<input type="tel" id="hp"
+								name="hp" class="int" value="${map['HP']}" maxlength="11" readonly="readonly"
 								placeholder=" ' - ' 없이 전화번호를 입력해주세요">
+								<input type="hidden" name="chkHp" id="chkHp" disabled>
 							</span> <span class="error_next_box"></span>
 						</div>
 
@@ -170,9 +174,10 @@
 							<h3 class="useredit_title">
 								<label for="phoneNo">휴대전화</label>
 							</h3>
-							<span class="box int_hp" style="background-color: #e9e9e9;"> <input type="tel" id="hp"
-								name="hp" class="int" value="${map['HP']}" maxlength="11" readonly="readonly"
-								placeholder=" ' - ' 없이 전화번호를 입력해주세요" style="background-color: #e9e9e9;">
+
+							<span class="box int_hp"> <input type="tel" id="hp"
+								name="hp" class="int" value="${map['HP']}" maxlength="11"
+								placeholder=" ' - ' 없이 전화번호를 입력해주세요">
 							</span> <span class="error_next_box"></span>
 						</div>
 
@@ -282,11 +287,14 @@
 						<!-- hp -->
 						<div>
 							<h3 class="useredit_title">
-								<label for="phoneNo">휴대전화</label>
+								<label for="phoneNo">휴대전화 
+									<input type="button" id="btnChkDhp" value="수정하기"
+									name="btnChkDhp"></label>
 							</h3>
-							<span class="box int_hp" style="background-color: #e9e9e9;"> <input type="tel" id="hp"
+							<span class="box int_hp" > <input type="tel" id="hp"
 								name="hp" class="int" value="${map['HP']}" maxlength="11" readonly="readonly"
-								placeholder=" ' - ' 없이 전화번호를 입력해주세요" style="background-color: #e9e9e9;">
+								placeholder=" ' - ' 없이 전화번호를 입력해주세요" >
+								<input type="hidden" name="chkDhp" id="chkDhp" disabled>
 							</span> <span class="error_next_box"></span>
 						</div>
 
