@@ -28,9 +28,9 @@ public class LogScheduler {
 	private final UserService userService;
 
 
-	 @Scheduled(cron = "0 0 15 * * *")
+	 @Scheduled(cron = "0 0 0/1 * * *") //1시간마다
 	    public void readLogFile () throws IOException {
-		 	String basePath = "C:\\logs\\accesslog\\accesslog-";
+		 	String basePath = "C:\\logs\\accesslog\\accesslog-"; // 여기 수정해야될것같은데...! 
 	    	Date d = new Date(); //오늘날짜
 	        d = new Date(d.getTime()+(1000*60*60*24*-1)); //어제날짜
 	        SimpleDateFormat yesterday = new SimpleDateFormat("yyyy-MM-dd");
@@ -70,6 +70,7 @@ public class LogScheduler {
 
 	 //(cron = "0/10 * * * * *") 10초마다실행
 		//(cron = "0 0 0 * * *") //매일 자정
+	 //0 0 0/1 * * * 한시간마다
 
     
 }

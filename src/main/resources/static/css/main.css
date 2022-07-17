@@ -179,10 +179,10 @@ section.part-two .brn-box {
     width: 49%;
     margin-left: 2%;
     background-color: #fff;
-    /* box-shadow:  11px 11px 26px #e8e8e8,
-            -11px -11px 26px #ffffff; */
+    box-shadow:  0 0 0 #e8e8e8,
+            0 0 0 #ffffff;
     overflow: hidden;
-    transition-duration: 0.4s;
+    transition: 1s;
     border-radius: 20px;
     position: relative;
 }

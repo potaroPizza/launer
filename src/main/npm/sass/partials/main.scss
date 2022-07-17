@@ -230,7 +230,7 @@ section.part-two .brn-box {
     /* box-shadow:  11px 11px 26px #e8e8e8,
             -11px -11px 26px #ffffff; */
     overflow: hidden;
-    //transition-duration: 0.4s;
+    transition: box-shadow 0.4s;
     border-radius: 20px;
     position: relative;
 }

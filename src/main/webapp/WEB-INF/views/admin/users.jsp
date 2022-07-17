@@ -14,19 +14,19 @@
 
 		const url ='/launer/admin/user/'+no;
 
-		alert(url)
+		// alert(url)
 		$.ajax({
 			url:url,
 			type:'delete',
 			date: {},
 			dataType    : "html",
 			success: function(data) {
-				alert("성공");
+				alert("삭제 성공");
 				console.log(data);
 				location.reload();
 			},
 			error: function(error){
-				alert("성공")
+				alert("삭제 성공");
 				location.reload();
 			}
 		});
@@ -37,18 +37,18 @@
 			return
 		}
 		var url ='/launer/admin/delivery-user/'+no
-		alert(url)
+		// alert(url)
 		$.ajax({
 			url:url,
 			type:'delete',
 			date: {},
 			dataType    : "html",
 			success:function(data) {
-				alert("성공")
+				alert("삭제 성공");
 				location.reload();
 			},
 			error: function(error){
-				alert("성공")
+				alert("삭제 성공");
 				location.reload();
 			}
 		});
@@ -253,7 +253,7 @@
 													</div>
 													<div class="adminEmail">
 														<label for="email">이메일</label> <input type="text"
-															name="email" id="email"> <input type="button"
+															name="email" id="email" value=""> <input type="button"
 															value="중복 확인" id="btnChkEmail">
 													</div>
 													<div class="adminPassword">

@@ -13,18 +13,18 @@
 			return
 		}
 		var url ='/launer/admin/stores/'+no
-		alert(url)
+		// alert(url)
 		$.ajax({
 			url:url,
 			type:'delete',
 			date: {},
 			dataType    : "html",
 			success:function(data) {
-				alert("성공")
+				alert("삭제 성공");
 				location.reload();
 			},
 			error: function(error){
-				alert("성공")
+				alert("삭제 실패");
 				location.reload();
 			}
 		});
