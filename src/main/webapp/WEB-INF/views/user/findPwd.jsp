@@ -29,10 +29,10 @@
 						</p>
 						<p id="mobile_view"><strong>휴대폰 번호</strong> 
 							<input type="text" name="hp" id="hp" maxlength="11" 
-								placeholder="-를 제외하고 입력해주세요">
+								placeholder="-를 제외하고 입력해주세요" autocomplete="off">
 						</p>
 						<p id="email_view" style=""><strong id="email_lable">이메일 주소</strong>
-							<input id="email" name="email" type="text">
+							<input id="email" name="email" type="text" autocomplete="off">
 						</p>
 						<div class="findIdPwdBtnWrap">
                 			<button class="findIdPwdBtn" id="findPwdBtn">확인</button>
