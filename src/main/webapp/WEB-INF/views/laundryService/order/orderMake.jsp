@@ -150,7 +150,7 @@
                 
                     
                     var tagAdd = "<div class ='testForm'><input type = 'hidden' name = 'no' class ='tagInputAdd' value=" + vo.no + ">"
-                    + "<input type ='text' name = 'itemName' title="+vo.categoryName+" class ='tagAddDiv' readonly value='" + longName + "'>"
+                    + "<input type ='text' name = 'itemName' title='"+vo.categoryName+"' class ='tagAddDiv' readonly value='" + longName + "'>"
                     + "<input type = 'text' name = 'itemPrice' class ='tagAddDiv' readonly value=" + vo.price + ">"
                     + "<select class='mulit-select' name='order-num' id='order-num'>"
                     + "<c:forEach var ='cnt' begin ='1' end='10' step='1'>"
