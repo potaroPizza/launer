@@ -9,6 +9,11 @@
 
 input:focus {outline: none;}
 
+input[type=text]{
+    background-color: rgb(244, 244, 244);
+}
+
+
 .orderConfirm-input {
     border: none;
     border-right: 0px;
@@ -257,3 +262,6 @@ button#insertPointBtn {
     margin-bottom: 6;
     padding-bottom: 30px;
 }
+
+
+

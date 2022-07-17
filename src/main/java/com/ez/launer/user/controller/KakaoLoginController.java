@@ -74,12 +74,11 @@ public class KakaoLoginController {
 			//탈퇴여부확인
 			userVo = userService.selectByEmail(email);
 			
-			if(userVo.getOutDate()==null) {  //social_login_host 받아서 model 저장
+			if(userVo.getOutDate()==null || (userVo.getOutDate()).equals("")) {  //social_login_host 받아서 model 저장
 				logger.info("socialInfo={}",socialInfo);
 				msg =userVo.getSocialLoginHost() + " 로 로그인되었습니다";
 				url = "/";
 			}else {
-				logger.info("앗 재가입회원");
 				
 				int update = userService.kakaoRejoin(userVo); // outdate = null 변경
 				logger.info("재가입 result={}",update);
