@@ -253,7 +253,7 @@
 													</div>
 													<div class="adminEmail">
 														<label for="email">이메일</label> <input type="text"
-															name="email" id="email"> <input type="button"
+															name="email" id="email" value=""> <input type="button"
 															value="중복 확인" id="btnChkEmail">
 													</div>
 													<div class="adminPassword">
