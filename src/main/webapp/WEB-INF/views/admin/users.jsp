@@ -236,7 +236,7 @@
 
 
 								<!-- Modal -->
-								<div class="modal fade" id="addAdmin" tabindex="-1"
+								<div class="modal fade create-admin-modal" id="addAdmin" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -280,7 +280,7 @@
 															<!-- 반복 끝 -->
 														</select>
 													</div>
-													<div align="center">
+													<div class="button-area">
 														<input type="button" data-bs-dismiss="modal" value="닫기">
 														<input type="button" id="wr_submit" value="추가">
 													</div>

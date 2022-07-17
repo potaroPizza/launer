@@ -1,0 +1,92 @@
+.create-admin-modal{
+
+    .adminName{
+        position: relative;
+        padding-left: 100px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+
+        label{
+            position: absolute;
+            left: 0;
+            line-height: initial;
+        }
+    }
+
+    .adminEmail{
+        position: relative;
+        padding-left: 100px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+
+        label{
+            position: absolute;
+            left: 0;
+            line-height: initial;
+        }
+
+        #btnChkEmail{
+            margin-left: 10px;
+            line-height: initial;
+        }
+
+    }
+
+    .adminPassword{
+        position: relative;
+        padding-left: 100px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+
+        label{
+            position: absolute;
+            left: 0;
+            line-height: initial;
+        }
+    }
+
+    .adminPassword2{
+        position: relative;
+        padding-left: 100px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+
+        label{
+            position: absolute;
+            left: 0;
+            line-height: initial;
+        }
+    }
+
+    .adminHp{
+        position: relative;
+        padding-left: 100px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+
+        label{
+            position: absolute;
+            left: 0;
+            line-height: initial;
+        }
+    }
+
+    .office{
+        position: relative;
+        padding-left: 100px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+
+        label{
+            position: absolute;
+            left: 0;
+            line-height: initial;
+        }
+    }
+
+    .button-area{
+        text-align: center;
+        margin-top: 10px;
+    }
+
+}

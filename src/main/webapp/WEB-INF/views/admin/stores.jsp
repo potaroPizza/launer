@@ -90,28 +90,7 @@
         // 마커가 지도 위에 표시되도록 설정합니다
         marker.setMap(map);
     }
-    
-    function showPopUp() {
-    	
-    	//창 크기 지정
-    	var width = 500;
-    	var height = 500;
-    	
-    	//pc화면기준 가운데 정렬
-    	var left = (window.screen.width / 2) - (width/2);
-    	var top = (window.screen.height / 4);
-    	
-        	//윈도우 속성 지정
-    	var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-    	
-        //연결하고싶은url
-        const url = "/admin/storesDetail/storesNo=${map['NO']}";
-
-    	//등록된 url 및 window 속성 기준으로 팝업창을 연다.
-    	window.open(url, "hello popup", windowStatus);
-    }
-   // 출처: https://seeminglyjs.tistory.com/359 [Seemingly Online:티스토리]
-    
+      
 </script>
   
 <t:head>
@@ -123,13 +102,16 @@
 			<ol class="breadcrumb mb-4">
 				<li class="breadcrumb-item active">지점 등록 현황 및 지점 등록 삭제</li>
 			</ol>
-			<div class="card mb-4">
+			<%-- <div class="card mb-4">
 				<div class="card-body ">
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<input type="button" value="지점조회">
+						<form name="frmSearch" method="GET" action='<c:url value="/admin/stores"/>'>
+							<input type="text" name="officeSearchKeyword" title="검색어 입력" value="${officeSearchKeyword}">
+							<input type="button" value="지점조회">
+						</form>
 					</div>
 				</div>
-			</div>
+			</div> --%>
 			<div class="card mb-4">
 				<div class="card-header">지점 현황</div>
 				<div class="card-body">
@@ -154,10 +136,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<%-- <c:forEach var="officeVo" items="${officeList }"> --%>
 							<c:forEach var="map" items="${selectOfficeInfo }">
 								<tr>
-									<!-- ${map['NO']} -->
 									<td>${map['NO']}</td>
 									<td>${map['OFFICE_NAME']}</td>
 									<td>${map['ADDRESS']}</td>
@@ -175,7 +155,7 @@
 					<div>
 						<!-- 관리자 추가 모달 -->
 							<!-- Modal -->
-							<div class="modal fade" id="officeAdd" tabindex="-1" aria-labelledby="officeAddModalLabel" aria-hidden="true">
+							<div class="modal fade create-office-modal" id="officeAdd" tabindex="-1" aria-labelledby="officeAddModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -194,11 +174,12 @@
 															value="${address}" onclick="execZipcode()" readonly="readonly">
 													<input type="hidden" name="latY" value="${latY}">
 		    										<input type="hidden" name="lonX" value="${lonX}">
-		    										<div id="map" style="width:400px;height:300px;"></div>
-		    										
+												</div>
+												<div class="map">
+													<div id="map"></div>
 												</div>
 												
-												<div align="center">
+												<div class="button-area">
 													<input type="button" data-bs-dismiss="modal" value="닫기">
 													<input type="submit" id="office_submit" value="추가">
 												</div>
