@@ -219,7 +219,7 @@ $(function () {
     //배송기사
     $('form[name=deliveryeditfrm] #pwd').keyup(function () {
         if (!isPassword($('form[name=deliveryeditfrm] #pwd').val())) {
-            $('form[name=deliveryeditfrm] .error_next_box').eq(1).text("비밀번호 형식이 맞지 않습니다.").css("color", "red");
+            $('form[name=deliveryeditfrm] .error_next_box').eq(1).text("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.").css("color", "red");
         	$('.pswdImg').eq(0).attr("src", "../images/m_icon_not_use.png");
         } else {
             $('form[name=deliveryeditfrm] .error_next_box').eq(1).text("")
@@ -291,9 +291,6 @@ $(function () {
         modalClose();
     });
 
-    /*$(window).on('click', function() {
-        modalClose();
-    });*/
 
     $(".officelist li a").click(function (e) {
         e.preventDefault();
@@ -314,12 +311,6 @@ $(function () {
     };
 
 });
-/*modal.addEventListener("click", e => {
-    const evTarget = e.target
-    if(evTarget.classList.contains("modal")) {
-        modal.style.display = "none"
-    }
-});*/
 
 function coorSet(addr) {
     // 주소-좌표 변환 객체를 생성합니다
