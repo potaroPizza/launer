@@ -112,7 +112,7 @@ function appenToTable(managerMap){
         "<td>" + managerMap.HP + "</td>"+
         //여기
         "<td><span>" + managerMap.OFFICE_NAME + "</span></td>"+
-        "<td><input type='button' value='삭제' onclick=''></td>"+"<tr>"
+        "<td><input type='button' value='삭제' onclick='deleteUser(" + managerMap.NO + ")'></td><tr>"
     );
 	  $("#managerTbody").append($cellsOfRow);
 	  $('#addAdmin').modal("hide");
