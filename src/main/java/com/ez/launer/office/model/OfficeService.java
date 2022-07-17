@@ -12,4 +12,5 @@ public interface OfficeService {
     int deleteOfficeAdmin(int usersNo);
     int deleteOffice(int no);
     List<Map<String, Object>> selectOfficeInfo();
+    public int insertOffice(OfficeVO vo);
 }

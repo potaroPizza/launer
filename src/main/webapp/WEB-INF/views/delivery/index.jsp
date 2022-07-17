@@ -47,7 +47,7 @@
                     <c:forEach var="i" items="${polygon}">
                     <c:set var = "c" value="${c + 1}"/>
                     new kakao.maps.LatLng(${i[0]}, ${i[1]})
-                    <c:if test="${fn:length(polygon) != c}">,</c:if>
+                    <c:if test="${fn:length(polygon) != c}">, </c:if>
                     </c:forEach>
                 ];
 
@@ -82,12 +82,12 @@
             function panTo(dP) {
                 map.panTo(dP);
             }
-            //지도 관련
-            //지도 관련
-            //지도 관련
-            //지도 관련
-            //지도 관련
 
+            //지도 관련
+            //지도 관련
+            //지도 관련
+            //지도 관련
+            //지도 관련
 
 
             //지도 마커 관련
@@ -117,7 +117,7 @@
                 });
 
                 // 마커에 click 이벤트를 등록합니다
-                kakao.maps.event.addListener(marker, 'click', function() {
+                kakao.maps.event.addListener(marker, 'click', function () {
                     if (!selectedMarker || selectedMarker !== marker) {
                         // 클릭된 마커 객체가 null이 아니면
                         // 클릭된 마커의 이미지를 기본 이미지로 변경하고
@@ -137,7 +137,7 @@
                         const $listPart = $("#list-part");
                         const $mapPart = $("#map");
 
-                        if(!$listPart.hasClass("active")) {
+                        if (!$listPart.hasClass("active")) {
                             $listPart.removeClass("non-active");
                             $listPart.addClass("active");
                             resizeMap("active");
@@ -150,10 +150,12 @@
                             let i = 0;
                             inputFind.toggleClass("marker-focus");
                             const markerListEvent = setInterval(() => {
-                                if(i < 3) {
+                                if (i < 3) {
                                     inputFind.toggleClass("marker-focus");
                                     i++;
-                                }else {clearInterval(markerListEvent);}
+                                } else {
+                                    clearInterval(markerListEvent);
+                                }
                             }, 280);
                         });
                         // $findList.css("background", "red");
@@ -179,6 +181,7 @@
 
                 return markerImage;
             }
+
             let positions = []; // 마커의 위치
             let positionDataNo = [];    //마커에 대한 orderNO (객체로 넣으면 고쳐야할 부분이 많아져 변수로 따로 지정)
             let selectedMarker = null; // 클릭한 마커를 담을 변수
@@ -187,6 +190,7 @@
             function setBounds() {
                 map.setBounds(bounds);
             }
+
             //지도 마커 관련
             //지도 마커 관련
             //지도 마커 관련
@@ -220,14 +224,15 @@
                 $("#paging-form input[name=currentPage]").val(currentPage);
                 console.log("현재페이지 증감 : currentPage++ = " + currentPage);
                 viewList(groupNo);
+                // scCnt = 0;
             }
 
             function viewList(group) {
                 const formSet = $("#paging-form");
-                if(group === 1) {
+                if (group === 1) {
                     formSet.find("input[name=orderStatusNo]").val(1);
                     formSet.find("input[name=listType]").val("PICKUP_DRIVER");
-                }else if(group === 2) {
+                } else if (group === 2) {
                     formSet.find("input[name=orderStatusNo]").val(4);
                     formSet.find("input[name=listType]").val("DELIVERY_DRIVER");
                 }
@@ -252,36 +257,36 @@
 
                         $(".total-recode strong").text(totalRecord);
 
-                        if(Array.isArray(res.listMap) && res.listMap.length === 0) {
+                        if (Array.isArray(res.listMap) && res.listMap.length === 0) {
                             panTo(defaultPoint);
                             listElement += "<h1 style='text-align: center; padding: 20px 0;'>리스트가 없습니다.</h1>";
-                        }else {
+                        } else {
                             $.each(res.listMap, (idx, item) => {
                                 console.log(item);
                                 let titleStr = "";
-                                for(let i = 0; i < item.orderDetails.length; i++) {
+                                for (let i = 0; i < item.orderDetails.length; i++) {
                                     titleStr += item.orderDetails[i].CATEGORY_NAME;
-                                    if(i !== item.orderDetails.length - 1) titleStr += ", ";
+                                    if (i !== item.orderDetails.length - 1) titleStr += ", ";
                                 }
                                 let pay = (item.orderOfficeView.TOTAL_PRICE / 100) * 10;
 
                                 listElement +=
-                                    "<div class='order-box' onclick='markerPositon(" + item.orderOfficeView.LON_X + ", " +  item.orderOfficeView.LAT_Y + ")'>" +
+                                    "<div class='order-box' onclick='markerPositon(" + item.orderOfficeView.LON_X + ", " + item.orderOfficeView.LAT_Y + ")'>" +
                                     "<div class='timer-box'></div>" +
-                                    "<h3>" + (titleStr.length > 25 ? titleStr.substring(0, 27) + "..." : titleStr) +"</h3>" +
+                                    "<h3>" + (titleStr.length > 25 ? titleStr.substring(0, 27) + "..." : titleStr) + "</h3>" +
                                     "<div class='order-text-box clearfix'>" +
                                     "<div class='left'>" +
                                     "<div class='order-text-list'>" +
                                     "<p>신청자 <strong>" +
-                                        (item.orderOfficeView.NAME.length > 7 ?
-                                            (item.orderOfficeView.NAME).substring(0, 7) + "..." :
-                                            item.orderOfficeView.NAME) +
-                                        "</strong></p>" +
+                                    (item.orderOfficeView.NAME.length > 7 ?
+                                        (item.orderOfficeView.NAME).substring(0, 7) + "..." :
+                                        item.orderOfficeView.NAME) +
+                                    "</strong></p>" +
                                     "<p>수량 <strong>" + item.orderOfficeView.SUM + "</strong></p>" +
                                     "<p>수당 <strong>" + pay.toLocaleString('ko-KR') + " 원</strong></p>" +
                                     "</div>" +
                                     "<div class='order-text-list'>" +
-                                    "<p>위치 <strong>" + item.orderOfficeView.ADDRESS +"</strong></p>" +
+                                    "<p>위치 <strong>" + item.orderOfficeView.ADDRESS + "</strong></p>" +
                                     "</div>" +
                                     "</div>" +
                                     "<div class='right'>" +
@@ -297,7 +302,7 @@
                                 ];*/
                                 // console.log(testEle);
                                 positions.push(new kakao.maps.LatLng(item.orderOfficeView.LON_X, item.orderOfficeView.LAT_Y));
-                                positionDataNo.push({orderNo : item.orderOfficeView.NO});
+                                positionDataNo.push({orderNo: item.orderOfficeView.NO});
                             });
                             console.log(positions);
                             markerFor(positions);
@@ -307,6 +312,7 @@
                         }
 
                         $("#order-scroll-box").append(listElement);
+                        scCnt = 0;
                     },
                     error: (xhr, status, error) => {
                         alert("error : " + error);
@@ -314,6 +320,7 @@
                 });
             }
 
+            let scCnt = 0;
 
             //탭, 리스트 관련 함수
             function listEvent() {
@@ -321,7 +328,23 @@
                 //스크롤 끝일 때 이벤트 호출
                 //스크롤 끝일 때 이벤트 호출
                 //스크롤 끝일 때 이벤트 호출
-                $("#orders-list").scroll(() => {
+                document.getElementById("orders-list").addEventListener("wheel", () => {
+                    let scrollBody = $("#orders-list");
+                    //console.log(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) +", " + scrollBody.outerHeight());
+
+                    if (Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) <= scrollBody.outerHeight()) {
+                        if (scCnt === 0) {
+                            console.log(++scCnt);
+                            /*console.log(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()));
+                            console.log(scrollBody.outerHeight());*/
+                            if (currentPage <= totalPage && totalPage !== 0) {
+                                console.log("리스트 업데이트, totalPage= " + totalPage + ", currentPage=" + currentPage);
+                                curUpdate();
+                            }
+                        }
+                    }
+                })
+                /*$("#orders-list").scroll(() => {
                     let scrollBody = $("#orders-list");
                     //console.log(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) +", " + scrollBody.outerHeight());
                     if(Math.floor(scrollBody[0].scrollHeight - scrollBody.scrollTop()) <= scrollBody.outerHeight()) {
@@ -330,7 +353,7 @@
                             curUpdate();
                         }
                     }
-                });
+                });*/
 
                 //탭 클릭 시 리스트 전환
                 //탭 클릭 시 리스트 전환
@@ -342,11 +365,11 @@
                     console.log($groupText);
                     //수거 : 1, 배송 : 2
 
-                    if($tabElement.hasClass("on")) {
+                    if ($tabElement.hasClass("on")) {
                         $("#orders-list").animate({
                             scrollTop: 0
                         }, 200, "swing");
-                    }else {
+                    } else {
                         $("#order-tab-box div").removeClass("on");
                         $tabElement.addClass("on");
                         groupNo = $groupText === '수거' ? 1 : '배송' ? 2 : 0;
@@ -362,11 +385,11 @@
                 const $mapPart = $("#map");
 
                 $("#list-box").click(() => {
-                    if($listPart.hasClass("active")) {
+                    if ($listPart.hasClass("active")) {
                         $listPart.removeClass("active");
                         $listPart.addClass("non-active");
                         resizeMap("non-active");
-                    }else{
+                    } else {
                         $listPart.removeClass("non-active");
                         $listPart.addClass("active");
                         resizeMap("active");
@@ -377,9 +400,9 @@
             function resizeMap(chk) {
                 var mapContainer = document.getElementById('map');
 
-                if(chk === "active") {
+                if (chk === "active") {
                     mapContainer.style.height = '60%';
-                }else {
+                } else {
                     mapContainer.style.height = '90%';
                 }
                 setTimeout(() => {
@@ -415,11 +438,14 @@
                         thisParentElement.toggleClass("timer");
                         countAdd++;
                         setTimeAddList(orderNo, thisParentElement);
-                    }else{alert("진행중인 항목이 있습니다.");}
+                    } else {
+                        alert("진행중인 항목이 있습니다.");
+                    }
                 }
             }
 
             let addSetTime;
+
             function setTimeAddList(orderNo, element) {
                 let thisGroupNo = groupNo;
                 addSetTime = setTimeout(() => {
@@ -427,12 +453,12 @@
                     $.ajax({
                         url: "<c:url value="/delivery/addList"/>",
                         data: {
-                            groupNo : thisGroupNo,
-                            orderNo : orderNo
+                            groupNo: thisGroupNo,
+                            orderNo: orderNo
                         },
                         type: "POST",
                         success: (res) => {
-                            if(res === "추가 성공") {
+                            if (res === "추가 성공") {
                                 element.animate({
                                     left: "200%"
                                 }, 100, () => {
@@ -440,7 +466,9 @@
                                         $(element).remove();
                                     }, 400);
                                 });
-                            }else {alert(res);}
+                            } else {
+                                alert(res);
+                            }
                             countAdd = 0;
                         },
                         error: (xhr, status, error) => {
@@ -463,8 +491,8 @@
         <div id="list-part" class="main-width">
             <form id="paging-form">
                 <input type="hidden" name="currentPage" value=""/>
-                <input type="hidden" name="orderStatusNo" value=""/>    <%--배송상태 : 수거전 1, 배송대기 4--%>
-                <input type="hidden" name="listType" value=""/>     <%--리스트 유형 : 픽업 PICKUP_DRIVER, 배송 DELIVERY_DRIVER--%>
+                <input type="hidden" name="orderStatusNo" value=""/> <%--배송상태 : 수거전 1, 배송대기 4--%>
+                <input type="hidden" name="listType" value=""/> <%--리스트 유형 : 픽업 PICKUP_DRIVER, 배송 DELIVERY_DRIVER--%>
             </form>
             <div id="list-box">
                 <div class="line"></div>
@@ -475,23 +503,23 @@
             </div>
             <div id="orders-list">
                 <div id="order-scroll-box">
-                <%--<div class="order-box">
-                    <h3>상품명</h3>
-                    <div class="order-text-box">
-                        <div class="left">
-                            <div class="order-text-list">
-                                <p>신청자 <strong>홍길동</strong></p>
-                                <p>위치 <strong>지역주소</strong></p>
+                        <%--<div class="order-box">
+                            <h3>상품명</h3>
+                            <div class="order-text-box">
+                                <div class="left">
+                                    <div class="order-text-list">
+                                        <p>신청자 <strong>홍길동</strong></p>
+                                        <p>위치 <strong>지역주소</strong></p>
+                                    </div>
+                                    <div class="order-text-list">
+                                        <p>위치 <strong>서울시 금천구 시흥대로213길 123</strong></p>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <button>수거하기</button>
+                                </div>
                             </div>
-                            <div class="order-text-list">
-                                <p>위치 <strong>서울시 금천구 시흥대로213길 123</strong></p>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <button>수거하기</button>
-                        </div>
-                    </div>
-                </div>--%>
+                        </div>--%>
                 </div>
             </div>
         </div>

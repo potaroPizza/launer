@@ -101,9 +101,9 @@ public class KakaoLoginController {
 			int cnt = userService.insertKakaoUser(userVo);
 			
 			//users_address insert
-			UserVO vo= userService.selectByEmail(email);
+			userVo = userService.selectByEmail(email);
 			UserAddressVO addressvo = new UserAddressVO();
-			addressvo.setUsersNo(vo.getNo());
+			addressvo.setUsersNo(userVo.getNo());
 			
 			int addressCnt = userService.insertAddressOnlyPart(addressvo);
 			logger.info("userAddress result ={}",addressCnt);

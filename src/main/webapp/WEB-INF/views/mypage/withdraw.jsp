@@ -109,6 +109,7 @@
 		<c:if test="${vo.socialLoginKey!=null}">
 			<form name="withdrawSocialFrm" method="post"
 				action="<c:url value='/mypage/withdrawSocial'/>">
+				<input type="hidden" name="socialLoginHost" value="${vo.socialLoginHost}"/>
 				<div class="btnWrap">
 					<input type="checkbox" id="chk">&nbsp;유의 사항을 모두 확인했으며, 이에
 					동의합니다.<br>

@@ -171,7 +171,7 @@
 		where email = #{email}
 	</select>
 	<select id ="isAddressExist" parameterType="int" resultType ="int">	
-		select count(*) from users_address where users_no = #{no}
+		select count(*) from users_address where users_no = #{no} and OFFICE_NO is not null
 	</select>
 	<insert id="insertAddressOnlyPart" parameterType="userAddressVo">
 		<selectKey order="BEFORE" keyProperty="no" resultType ="int">
@@ -239,6 +239,12 @@
    <!--박권순 시작-->
    <!--박권순 시작-->
    <!--박권순 시작-->
+    <update id="socialReJoin" parameterType="int">
+        update USERS
+        set OUT_DATE = null
+        where NO = #{no}
+    </update>
+
    <insert id="insertSnsUser">
       <selectKey keyProperty="no" resultType="int" order="BEFORE">
          select USERS_SEQ.nextval from dual
