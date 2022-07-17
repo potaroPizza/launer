@@ -58,6 +58,13 @@
         data: formData,officeNo,
         success: function (managerMap) {
 			appenToTable(managerMap);
+			$('#name').val("");
+			$('#email').val("");
+			$('#pwd').val("");
+			$('#pwd2').val("");
+			$('#hp').val("");
+			
+			
         },
         error: function() {
             alert("관리자 등록실패");
