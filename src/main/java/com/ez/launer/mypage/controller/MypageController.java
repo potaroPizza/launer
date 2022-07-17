@@ -90,7 +90,7 @@ public class MypageController {
 		logger.info("페이징, searchVo={}", searchVo);
 		
 		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
+		pagingInfo.setBlockSize(5);
 		pagingInfo.setRecordCountPerPage(searchVo.getCountPerPage());
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		searchVo.setRecordCountPerPage(searchVo.getCountPerPage());
@@ -494,7 +494,7 @@ public class MypageController {
 		}
 		
 		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
+		pagingInfo.setBlockSize(5);
 		pagingInfo.setRecordCountPerPage(searchVo.getCountPerPage());
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		searchVo.setRecordCountPerPage(searchVo.getCountPerPage());
