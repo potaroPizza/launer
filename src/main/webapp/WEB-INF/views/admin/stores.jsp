@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v1/maps/sdk.js?appkey=2105ed82df9c00048785f53fbd42044d&libraries=services"></script>
-  
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2105ed82df9c00048785f53fbd42044d&libraries=services"></script>
+
 <t:head>
 </t:head>
 <t:wrapper>
@@ -86,6 +86,29 @@ $(function () {
 	        }
 	    });
 	}
+	
+    function showPopUp() {
+    	
+    	//창 크기 지정
+    	var width = 500;
+    	var height = 500;
+    	
+    	//pc화면기준 가운데 정렬
+    	var left = (window.screen.width / 2) - (width/2);
+    	var top = (window.screen.height / 4);
+    	
+        	//윈도우 속성 지정
+    	var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+    	
+        //연결하고싶은url
+        const url = "/admin/storesDetail/storesNo=${map['NO']}";
+
+    	//등록된 url 및 window 속성 기준으로 팝업창을 연다.
+    	window.open(url, "hello popup", windowStatus);
+    }
+
+	
+	
 	
     function markerSet(x, y) {
         
@@ -221,7 +244,7 @@ label {
 													name="lonX" value="${lonX}">
 											</div>
 											<div class="map">
-												<div id="map"></div>
+												<div id="map" style="height:400px"></div>
 											</div>
 
 											<div class="button-area">
@@ -237,7 +260,7 @@ label {
 						<!-- Modal 끝 -->
 
 						<input type="button"
-							onclick=" setTimeout(() => {markerSet(33.450701, 126.570667);}, 300);"
+							onclick=" setTimeout(() => {markerSet(39.032, 125.75);}, 300);"
 							data-bs-toggle="modal" data-bs-target="#officeAdd" id="officeAdd"
 							value="지점등록" class="btn btn-dark">
 						<!-- 끝 -->
