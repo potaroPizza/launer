@@ -359,7 +359,7 @@
 						</div>
 					</div>
 					<input type="button" data-bs-toggle="modal"
-						data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가">
+						data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가" class="btn btn-dark">
 					<!-- 끝 -->
 				</div>
 			</div>
