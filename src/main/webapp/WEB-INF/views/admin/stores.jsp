@@ -155,7 +155,7 @@
 					<div>
 						<!-- 관리자 추가 모달 -->
 							<!-- Modal -->
-							<div class="modal fade create-office-modal" id="officeAdd" tabindex="-1" aria-labelledby="officeAddModalLabel" aria-hidden="true">
+							<div class="modal fade create-office-modal" id="officeAddModal" tabindex="-1" aria-labelledby="officeAddModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -190,8 +190,7 @@
 							</div>
 							<!-- Modal 끝 -->
 									
-							<input type="button" onclick=" setTimeout(() => {markerSet(33.450701, 126.570667);}, 300);" 
-								data-bs-toggle="modal"	data-bs-target="#officeAdd" id="officeAdd" value="지점등록">
+							<input type="button" data-bs-toggle="modal"	data-bs-target="#officeAddModal" id="modalCall" value="지점등록">
 							<!-- 끝 -->
 					</div>
 				</div>
