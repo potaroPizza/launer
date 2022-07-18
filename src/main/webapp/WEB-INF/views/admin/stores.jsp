@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2105ed82df9c00048785f53fbd42044d&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v1/maps/sdk.js?appkey=2105ed82df9c00048785f53fbd42044d&libraries=services"></script>
   
 <t:head>
 </t:head>
