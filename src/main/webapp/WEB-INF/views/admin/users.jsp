@@ -58,10 +58,75 @@
 
 	});
 </script>
-
 <t:head>
 </t:head>
 <t:wrapper>
+	<style>
+		#adminAdd input[type=button]{
+			height: 100%;
+			display: block;
+			border: none;
+		}
+		/* input 기본 스타일 초기화 */
+		#adminAdd input {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+		}
+		#wr_submit {
+			margin-left: 10px;
+		}
+
+		/* IE10 이상에서 input box 에 추가된 지우기 버튼 제거 */
+		#adminAdd input::-ms-clear { display: none; }
+
+		/* input type number 에서 화살표 제거 */
+		#adminAdd input[type='number']::-webkit-inner-spin-button,
+		#adminAdd input[type='number']::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+		}
+		#adminAdd div {
+			display: flex;
+			align-items: center;
+			margin-top: 5px;
+		}
+		#adminAdd div:nth-child(1){
+			margin-top: 0;
+		}
+		#adminAdd div label {
+			width: 30%;
+		}
+		#adminAdd div input:not(input[type=button]) {
+			border: none;
+			background: #f2f2f2;
+		}
+		#adminAdd div input:active {
+			outline: none;
+		}
+		#btnChkEmail {
+			margin-left: 10px;
+		}
+
+
+		.button-area {
+			padding-top: 20px;
+			justify-content: center;
+		}
+		.button-area input[type=button]{
+			border-radius: 4px;
+			padding: 8px 12px;
+		}
+		.button-area input[type=button]:nth-child(1){
+			background: #000;
+			color: #fff;
+		}
+		.button-area input[type=button]:nth-child(2){
+			background: #6c757d;
+			color: #fff;
+		}
+	</style>
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">유저관리</h1>
@@ -294,7 +359,7 @@
 						</div>
 					</div>
 					<input type="button" data-bs-toggle="modal"
-						data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가">
+						data-bs-target="#addAdmin" id="btMultiUpdate" value="관리자 추가" class="btn btn-dark">
 					<!-- 끝 -->
 				</div>
 			</div>

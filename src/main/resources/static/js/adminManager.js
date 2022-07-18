@@ -1,4 +1,4 @@
-
+console.log("");
  $(function() {
 		 var tabNo = $('#tabNo').val();
 		 if(tabNo==1){	 
