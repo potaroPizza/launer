@@ -437,6 +437,8 @@ public class DeliveryController {
 	public String editDelivery_get(HttpSession session, Model model) {
 
 		int deliveryNo = (int) session.getAttribute("deliveryNo");
+		
+		
 		logger.info("배송기사 정보 수정 화면, 파라미터 deliveryNo={}", deliveryNo);
 
 		HashMap<String, Object> map = deliveryDriverService.selectByEdit(deliveryNo);

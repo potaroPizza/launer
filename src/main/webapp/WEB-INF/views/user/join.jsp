@@ -38,7 +38,7 @@
 				</div>
 				<div>
 					<label for="email">이메일</label>
-					<input type="text" name="email" id="email">
+					<input type="text" name="email" id="email" autocomplete="off">
 					<c:if test="${classNo == 1}">
 						<input type="button" value="중복 확인" id="btnChkEmail">
 						<input type="hidden" name="chkEmail" id="chkEmail" disabled>
@@ -64,14 +64,14 @@
 				<c:if test="${classNo == 1}">
 					<div>
 						<label for="zipcode">우편번호</label>
-						<input type="text" name="zipcode" id="zipcode">
+						<input type="text" name="zipcode" id="zipcode" autocomplete="off">
 						<input type="Button" value="우편번호 찾기" id="btnZipcode" onclick="execZipcode()">
 						<input type="hidden" name="point" id="point" value=999999 readonly><br>
 						<label for="adress">주소</label>
-						<input type="text" name="address" id="address">
+						<input type="text" name="address" id="address" autocomplete="off">
 						<span class="error_message_box" id="serviceError" style="margin-left : 0"></span><br>
 						<label for="addressDetail">상세주소</label>
-						<input type="text" name="addressDetail" id="addressDetail">
+						<input type="text" name="addressDetail" id="addressDetail" autocomplete="off">
 						<span class="error_message_box" style="margin-left : 0"></span><br>
 						<input type="hidden" name="lonX" value="${map['LON_X']}">
 		    			<input type="hidden" name="latY" value="${map['LAT_Y']}">
@@ -97,7 +97,7 @@
 					</div>
 					<div>
 						<label for="accHolder">계좌주</label>
-						<input type="text" name="accHolder" id="accHolder" maxlength="20"><br />
+						<input type="text" name="accHolder" id="accHolder" maxlength="20" autocomplete="off"><br />
 						<label for="bank">은행-계좌번호</label>
 						<select name="bank" id="bank">
 							<option value="국민은행">국민은행</option>
@@ -113,21 +113,21 @@
 							<option value="SC제일은행">SC제일은행</option>
 						</select>
 						<input type="text" name="accNum" id="accNum" 
-							placeholder="-를 제외하고 입력해주세요" class="width_350">
+							placeholder="-를 제외하고 입력해주세요" class="width_350" autocomplete="off">
 						<br><span class="error_message_box"></span>
 					</div>
 				</c:if>
 				<div class="hpbox">
 					<label for="hp">휴대전화</label>
 					<input type="text" name="hp" id="hp" maxlength="11" 
-						placeholder="-를 제외하고 입력해주세요">&nbsp;
+						placeholder="-를 제외하고 입력해주세요" autocomplete="off">&nbsp;
 					<c:if test="${classNo == 1}">
 						<input type="button" value="중복 확인/인증" id="btnChkHp">
-						<input type="hidden" name="chkHp" id="chkHp" value="Y" disabled>
+						<input type="hidden" name="chkHp" id="chkHp" disabled>
 					</c:if>
 					<c:if test="${classNo == 2}">
 						<input type="button" value="중복 확인/인증" id="btnChkDhp">
-						<input type="hidden" name="chkDhp" id="chkDhp" value="Y" disabled>
+						<input type="hidden" name="chkDhp" id="chkDhp" disabled>
 					</c:if>
 					<br><span class="error_message_box"></span>
 				</div>

@@ -63,8 +63,11 @@ public interface UserService {
 	public List<UserVO> withdrawUsers();
 	int insertToday (String userNo, String date);
 	int insertToday (Map<String,Object> map);
+	int kakaoRejoin (UserVO userVo);
+	
 
 
 	/* 박권순 */
 	int insertSnsUser(UserVO userVO);
+	int socialReJoin(int no);
 }

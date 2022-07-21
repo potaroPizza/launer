@@ -63,6 +63,7 @@ const chkAddress = (address) => {
 };
 
 
+
 $(function () {
     $('form[name=usereditfrm]').submit(function () {
         if ($("#pwd").val().length < 1) {
@@ -76,12 +77,12 @@ $(function () {
         } else if (!validate_hp($('#hp').val())) {
             alert("전화번호 형식이 맞지 않습니다.");
             $("#hp").focus();
-            return false;
+            return false;  
         }else if(!isPassword($("#pwd").val())){
 				alert("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.")
 				$('#pwd').focus();
 				return false;
-			}
+		}
     });
     //소셜회원
     $('form[name=usereditfrmSocial]').submit(function () {
@@ -107,8 +108,27 @@ $(function () {
 				$("form[name=usereditfrmSocial] #entermethod").focus();
 				return false;
 			}
+			
 
     });
+    	/*일반회원 전화번호 중복확인*/
+		$('#btnChkHp').click(function(){
+		var ctxPath="/launer";
+		var hp=$('#hp').val();
+
+		window.open(ctxPath+"/user/checkHp?hp="+hp,"Hpcheck",
+			"width=400,height=250,location=yes,resizable=yes,top=100,left=50");
+		});
+		
+		/*배송기사 전화번호 중복확인*/
+		$('#btnChkDhp').click(function(){
+		var ctxPath="/launer";
+		var hp=$('#hp').val();
+
+		window.open(ctxPath+"/delivery/checkDhp?hp="+hp,"Dhpcheck",
+			"width=400,height=250,location=yes,resizable=yes,top=100,left=50");
+	});
+	
     //배송기사
     $('form[name=deliveryeditfrm]').submit(function () {
 
@@ -199,7 +219,7 @@ $(function () {
     //배송기사
     $('form[name=deliveryeditfrm] #pwd').keyup(function () {
         if (!isPassword($('form[name=deliveryeditfrm] #pwd').val())) {
-            $('form[name=deliveryeditfrm] .error_next_box').eq(1).text("비밀번호 형식이 맞지 않습니다.").css("color", "red");
+            $('form[name=deliveryeditfrm] .error_next_box').eq(1).text("비밀번호는 8~16자 영문,숫자,특수문자를 최소 한가지씩 입력해주세요.").css("color", "red");
         	$('.pswdImg').eq(0).attr("src", "../images/m_icon_not_use.png");
         } else {
             $('form[name=deliveryeditfrm] .error_next_box').eq(1).text("")
@@ -232,6 +252,13 @@ $(function () {
         }
 
     })
+    	$('#btnChkDhp').click(function(){
+		var ctxPath="/launer";
+		var hp=$('#hp').val();
+
+		window.open(ctxPath+"/delivery/checkDhp?hp="+hp,"Dhpcheck",
+			"width=400,height=250,location=yes,resizable=yes,top=100,left=50");
+	});
 
 
 });
@@ -264,9 +291,6 @@ $(function () {
         modalClose();
     });
 
-    /*$(window).on('click', function() {
-        modalClose();
-    });*/
 
     $(".officelist li a").click(function (e) {
         e.preventDefault();
@@ -287,12 +311,6 @@ $(function () {
     };
 
 });
-/*modal.addEventListener("click", e => {
-    const evTarget = e.target
-    if(evTarget.classList.contains("modal")) {
-        modal.style.display = "none"
-    }
-});*/
 
 function coorSet(addr) {
     // 주소-좌표 변환 객체를 생성합니다

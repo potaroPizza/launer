@@ -90,7 +90,7 @@ $(function(){
 						</p>
 						<p id="mobile_view"><strong>휴대폰 번호</strong> 
 							<input type="text" name="hp" id="hp" maxlength="11" 
-								placeholder="-를 제외하고 입력해주세요">
+								placeholder="-를 제외하고 입력해주세요" autocomplete="off">
 						</p>
 						<div class="findIdPwdBtnWrap">
                 			<button class="findIdPwdBtn" id="findIdBtn">확인</button>

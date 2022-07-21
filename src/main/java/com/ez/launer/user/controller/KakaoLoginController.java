@@ -69,15 +69,23 @@ public class KakaoLoginController {
 		int point = 1000000;
 		
 		
-		if(count > 0) { //존재하면 social_login_host 받아서 model 저장
+		if(count > 0) { //db 에 이메일 존재하면
 			
-			
+			//탈퇴여부확인
 			userVo = userService.selectByEmail(email);
-			logger.info("socialInfo={}",socialInfo);
-			msg =userVo.getSocialLoginHost() + " 로 로그인되었습니다";
-			url = "/";
-
 			
+			if(userVo.getOutDate()==null || (userVo.getOutDate()).equals("")) {  //social_login_host 받아서 model 저장
+				logger.info("socialInfo={}",socialInfo);
+				msg =userVo.getSocialLoginHost() + " 로 로그인되었습니다";
+				url = "/";
+			}else {
+				
+				int update = userService.kakaoRejoin(userVo); // outdate = null 변경
+				logger.info("재가입 result={}",update);
+				
+				msg = userVo.getName() + "님 재가입을 환영합니다";
+				url ="/";
+			}
 		}else {
 			// 존재 X => 회원정보 insert
 			if (userInfo.get("email") != null) {
@@ -93,9 +101,9 @@ public class KakaoLoginController {
 			int cnt = userService.insertKakaoUser(userVo);
 			
 			//users_address insert
-			UserVO vo= userService.selectByEmail(email);
+			userVo = userService.selectByEmail(email);
 			UserAddressVO addressvo = new UserAddressVO();
-			addressvo.setUsersNo(vo.getNo());
+			addressvo.setUsersNo(userVo.getNo());
 			
 			int addressCnt = userService.insertAddressOnlyPart(addressvo);
 			logger.info("userAddress result ={}",addressCnt);

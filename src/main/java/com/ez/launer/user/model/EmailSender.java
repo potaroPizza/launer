@@ -26,7 +26,7 @@ public class EmailSender {
 						+"--------------------------------------------------------------------\n"
 						+"감사합니다!\n"
 						+ "(주)런드리어벤져스";
-		String sender = "wjddls100472@naver.com"; 
+		String sender = "testlauner@naver.com"; 
 
 		try {
 			MimeMessage msg = mailSender.createMimeMessage();

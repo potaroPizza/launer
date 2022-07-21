@@ -6,14 +6,6 @@
  
 <t:wrapper>
 
-<style>
-input[type=text] {
-    background-color: rgb(244, 244, 244);
-}
-
-
-</style>
-
 <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript" text="javascript"></script>
 
 <!-- import 라이브러리 -->
@@ -285,13 +277,9 @@ $(function () {
 								var="readyPoint" value="${paramPrice/100 }" integerOnly="true"/>
 		
 							<span class ="insertPointSpan" style="font-weight:bold;">적립예정포인트:</span>
-							<span><fmt:formatNumber value="${readyPoint }" pattern="#,###" /></span><span style="font-weight:bold;font-size:1.1em"> p</span>
+							<span>${readyPoint }</span><span style="font-weight:bold;font-size:1.1em"> p</span>
 							<input type="hidden" id="savePoint"
 								name="savePoint" value="${readyPoint }" readonly>
-							
-							
-							
-							
 						</div>
 						<div class="orderConfirm-finalInfo-div">
 							<label for="">포인트사용 : </label> 
