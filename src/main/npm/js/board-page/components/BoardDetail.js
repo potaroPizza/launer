@@ -49,7 +49,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                 '_blank'
             );
         }}>*/
-        <div key={item.no} className={editMode ? "file-down mode" : "file-down"} onClick={editMode ? "" :
+        <div key={item.no} className={editMode ? "file-down" : "file-down mode"} onClick={editMode ? "" :
             () => {
                 window.open(
                     `http://localhost:9095/launer/board/file/download?fileName=${item.fileName}&no=${item.no}`
@@ -202,12 +202,14 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                 {editMode ? (<input onChange={fileChange} ref={e => refKey.current["file"] = e} className="upload-name"  type="file" placeholder="첨부파일" multiple/>) : ""}
             </div>
             {/*<input type="text" value={content} onChange={(e) => setContent(e.target.value)}/>*/}
-            <div className="content-wrap">
+            <div className="content-wrap" style={!editMode ? {} : {
+                marginBottom : "60px"
+            }}>
                 {editMode ? (<EditorComponent value={value} onChange={onChange}/>) :
                     (<div dangerouslySetInnerHTML={{__html: (data.content)}}></div>)
                 }
             </div>
-            {categoryNo.includes("A") || <BoardComment dateReturn={dateReturn} detailNo={detailNo} userInfo={userInfo} apiBoard={apiBoard}/>}
+            {categoryNo.includes("A") || !editMode ? <BoardComment dateReturn={dateReturn} detailNo={detailNo} userInfo={userInfo} apiBoard={apiBoard}/> : ""}
         </div>
     );
 };

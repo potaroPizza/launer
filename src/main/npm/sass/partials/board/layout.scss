@@ -627,9 +627,14 @@
       .file-down {
         padding: 3px 8px;
         background: rgb(243, 243, 243);
+        transition: background-color .2s;
         margin-left: 5px;
         display: block;
-        &.mode:hover{background: rgb(195, 195, 195);}
+        cursor: default;
+        &.mode{
+          cursor: pointer;
+          &:hover{background: rgb(195, 195, 195);}
+        }
 
         &:nth-child(1) {
           margin-left: 0
