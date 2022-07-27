@@ -622,6 +622,7 @@
       border: 1px solid rgb(232, 234, 237);
       margin-top: 15px;
       display: flex;
+      overflow-x: auto;
 
       .file-down {
         padding: 3px 8px;
