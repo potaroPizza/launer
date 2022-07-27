@@ -49,14 +49,22 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                 '_blank'
             );
         }}>*/
-        <div key={item.no} className="file-down" onClick={() => {
-            window.open(
-                `http://localhost:9095/launer/board/file/download?fileName=${item.fileName}&no=${item.no}`
-            );
-        }}>
+        <div key={item.no} className={editMode ? "file-down mode" : "file-down"} onClick={editMode ? "" :
+            () => {
+                window.open(
+                    `http://localhost:9095/launer/board/file/download?fileName=${item.fileName}&no=${item.no}`
+                );
+            }
+        }>
             <h3>{item.originalFileName}</h3>
             <p>{Math.round((item.fileSize / 1024.0) * 10) / 10}kb &nbsp;<span><i
-                className="fa-solid fa-download"></i> {item.downCount}</span></p>
+                className="fa-solid fa-download"></i> {item.downCount}</span>
+            </p>
+            {editMode ?
+                <div className="file-del-btn">
+                    <i className="fa-solid fa-minus"></i>
+                </div>
+                : ""}
         </div>
 
 
