@@ -49,7 +49,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                 '_blank'
             );
         }}>*/
-        <div key={item.no} className={editMode ? "file-down" : "file-down mode"} onClick={editMode ? "" :
+        <div key={item.no} className={editMode ? "file-down" : "file-down mode"} onClick={editMode ? () => {} :
             () => {
                 window.open(
                     `http://localhost:9095/launer/board/file/download?fileName=${item.fileName}&no=${item.no}`
@@ -61,7 +61,7 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
                 className="fa-solid fa-download"></i> {item.downCount}</span>
             </p>
             {editMode ?
-                <div className="file-del-btn">
+                <div className="file-del-btn" onClick={() => {deleteFile(item.no)}}>
                     <i className="fa-solid fa-minus"></i>
                 </div>
                 : ""}
@@ -154,6 +154,15 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
         xhr.open("POST", "/launer/board/file/download");
         xhr.send(formData);
     })*/
+
+    const deleteFile = useCallback((fileNo) => {
+        console.log(fileNo);
+
+        BoardService.boardFileDelete(fileNo)
+            .then((response) => {
+                console.log(response.data.SUCCESS);
+            })
+    });
 
 
     const dateReturn = useCallback((date) => {

@@ -172,8 +172,16 @@ public class BoardAPIController {
 
 
 
+    @DeleteMapping("/fileDelete/{fileNo}")
+    @ResponseBody
+    public Map<String, Object> fileDelete(@PathVariable int fileNo) {
+        logger.info("파일 삭제, fileNo={}", fileNo);
 
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("SUCCESS", true);
 
+        return resultMap;
+    }
 
 
 

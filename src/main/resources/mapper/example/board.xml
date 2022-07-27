@@ -117,6 +117,7 @@
     <select id="selectFileByNo" parameterType="int" resultType="boardFileVo">
         select * from UPLOAD_FILE
         where BOARD_NO = #{no}
+        order by NO desc
     </select>
     <!-- 상세보기/파일 관련처리, 1:1 1:N -->
     <!-- 상세보기/파일 관련처리, 1:1 1:N -->
