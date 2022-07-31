@@ -177,8 +177,11 @@ public class BoardAPIController {
     public Map<String, Object> fileDelete(@PathVariable int fileNo) {
         logger.info("파일 삭제, fileNo={}", fileNo);
 
+        int result = boardService.deleteFile(fileNo);
+
+        boolean resBool = result > 0;
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("SUCCESS", true);
+        resultMap.put("SUCCESS", resBool);
 
         return resultMap;
     }

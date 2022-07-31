@@ -30,4 +30,6 @@ public interface BoardDAO {
     int updateBoard(BoardVO boardVO);
 
     BoardCategoryVO selectBoardCategoryByNo(String categoryNo);
+
+
 }

@@ -124,6 +124,9 @@ public class BoardServiceImpl implements BoardService{
                 logger.info("[3] 파일 dataInsert result={}", cnt);
             }*/
 
+            //새롭게 짠 로직
+            //새롭게 짠 로직
+            //새롭게 짠 로직
             int cnt = 0;
             for (UploadFileVO uploadFileVO : uploadFileVOList) {
                 logger.info("파일 정보 : {}", uploadFileVO);
@@ -141,5 +144,10 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardCategoryVO selectBoardCategoryByNo(String categoryNo) {
         return boardDAO.selectBoardCategoryByNo(categoryNo);
+    }
+
+    @Override
+    public int deleteFile(int no) {
+        return boardDAO.deleteBoardFile(no);
     }
 }

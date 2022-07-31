@@ -21,4 +21,6 @@ public interface BoardService {
     int updateBoard(Map<String, Object> map);
 
     BoardCategoryVO selectBoardCategoryByNo(String categoryNo);
+
+    int deleteFile(int no);
 }
