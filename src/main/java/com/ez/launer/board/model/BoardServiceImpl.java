@@ -148,6 +148,11 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public int deleteFile(int no) {
-        return boardDAO.deleteBoardFile(no);
+        return boardDAO.deleteBoardFileByNo(no);
+    }
+
+    @Override
+    public BoardFileVO selectBoardFileByNo(int no) {
+        return boardDAO.selectBoardFileByNo(no);
     }
 }

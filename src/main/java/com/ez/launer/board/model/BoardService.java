@@ -23,4 +23,6 @@ public interface BoardService {
     BoardCategoryVO selectBoardCategoryByNo(String categoryNo);
 
     int deleteFile(int no);
+
+    BoardFileVO selectBoardFileByNo(int no);
 }

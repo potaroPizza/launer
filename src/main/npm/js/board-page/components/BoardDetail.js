@@ -161,6 +161,9 @@ const BoardDetail = ({detailNo, userInfo, contentList, deleteModalOut}) => {
         BoardService.boardFileDelete(fileNo)
             .then((response) => {
                 console.log(response.data.SUCCESS);
+                if(response.data.SUCCESS) {
+                    apiBoard();
+                }
             })
     });
 
